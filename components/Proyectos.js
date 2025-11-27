@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -14,87 +14,149 @@ const PROJECTS = [
     location: "Barranco, Lima",
     summary:
       "Rooftop con barra, comedor exterior y techo sol y sombra pensado para reuniones nocturnas frecuentes.",
-    mood: "Reuniones nocturnas · Vista urbana · Iluminación cálida",
+    tags: ["After office en casa", "Vista urbana", "Techo sol y sombra"],
   },
   {
     id: "terraza-miraflores",
     name: "Terraza de departamento en Miraflores",
     type: "residencial",
-    service: "Techo sol y sombra",
+    service: "Techo sol y sombra + ambientación",
     surface: "22 m²",
     location: "Miraflores, Lima",
     summary:
-      "Terraza compacta con control de luz, iluminación cálida y mobiliario integrado para uso diario.",
-    mood: "Uso diario · Espacio compacto · Rutina cómoda",
+      "Terraza compacta donde el control de luz, la iluminación cálida y el mobiliario a medida permiten usarla todo el día.",
+    tags: ["Espacio compacto", "Control de luz", "Uso diario"],
   },
   {
-    id: "terraza-corporativa-san-isidro",
-    name: "Terraza corporativa en San Isidro",
+    id: "rooftop-san-isidro",
+    name: "Rooftop corporativo en San Isidro",
     type: "corporativo",
-    service: "Otro tipo de proyecto al aire libre",
+    service: "Terraza corporativa para equipo comercial",
     surface: "95 m²",
     location: "San Isidro, Lima",
     summary:
-      "Espacio al aire libre para after office, eventos internos y reuniones informales del equipo.",
-    mood: "After office · Eventos internos · Equipo",
+      "Rooftop para equipo comercial con áreas de reunión informal, barra, vegetación y puntos de trabajo exterior.",
+    tags: ["Equipo comercial", "Reuniones informales", "Identidad de marca"],
   },
   {
-    id: "estacion-parrilla-la-molina",
-    name: "Estación de parrilla en La Molina",
+    id: "patio-la-molina",
+    name: "Patio familiar en La Molina",
     type: "residencial",
-    service: "Proyecto estación de parrilla",
-    surface: "18 m²",
+    service: "Proyecto integral: terraza + patio",
+    surface: "60 m²",
     location: "La Molina, Lima",
     summary:
-      "Parrilla empotrada, barra y apoyo de cocina exterior para fines de semana en familia.",
-    mood: "Fines de semana · Familia · Cocina exterior",
+      "Patio con zona de parrilla, sala exterior y área de juego suave para niños, resuelto como extensión de la sala.",
+    tags: ["Familias", "Zona de juego", "Parrilla central"],
   },
   {
-    id: "rooftop-mixto",
-    name: "Rooftop mixto residencial + eventos",
-    type: "mixto",
-    service: "Diseño y ejecución de proyecto de terraza",
-    surface: "120 m²",
-    location: "Surco, Lima",
+    id: "terraza-surco",
+    name: "Terraza longitudinal en Surco",
+    type: "residencial",
+    service: "Rediseño de terraza existente",
+    surface: "28 m²",
+    location: "Santiago de Surco, Lima",
     summary:
-      "Rooftop pensado para uso familiar y eventos, con zonificación clara de estar, comedor y parrilla.",
-    mood: "Uso mixto · Eventos · Zonas definidas",
+      "Terraza en forma de pasillo convertida en recorrido habitable con nichos de estar, iluminación y vegetación.",
+    tags: ["Espacio difícil", "Recorrido habitable", "Vegetación"],
   },
 ];
 
 const FILTERS = [
-  { id: "todos", label: "Todos" },
+  { id: "todos", label: "Todos los proyectos" },
   { id: "residencial", label: "Residenciales" },
   { id: "corporativo", label: "Corporativos" },
-  { id: "mixto", label: "Mixtos" },
 ];
 
 export default function Proyectos() {
-  const [activeFilter, setActiveFilter] = useState("todos");
+  const sectionRef = useRef(null);
+  const cardRef = useRef(null);
+
+  const [filter, setFilter] = useState("todos");
   const [activeId, setActiveId] = useState(PROJECTS[0].id);
 
-  const sectionRef = useRef(null);
-  const stickyRef = useRef(null);
-
-  const filteredProjects = useMemo(() => {
-    if (activeFilter === "todos") return PROJECTS;
-    const filtered = PROJECTS.filter((p) => p.type === activeFilter);
-    // si el proyecto activo no está en el filtro, reseteamos al primero
-    if (!filtered.some((p) => p.id === activeId) && filtered.length > 0) {
-      setActiveId(filtered[0].id);
-    }
-    return filtered;
-  }, [activeFilter, activeId]);
+  const filtered = PROJECTS.filter(
+    (p) => filter === "todos" || p.type === filter
+  );
 
   const activeProject =
-    PROJECTS.find((p) => p.id === activeId) ?? PROJECTS[0];
+    filtered.find((p) => p.id === activeId) ?? filtered[0] ?? PROJECTS[0];
 
+  // Si cambias el filtro y el activo ya no está en la lista, reasigna
+  useEffect(() => {
+    if (!filtered.some((p) => p.id === activeId) && filtered[0]) {
+      setActiveId(filtered[0].id);
+    }
+  }, [filter, activeId, filtered]);
+
+  // Animaciones de entrada + scroll
   useEffect(() => {
     if (typeof window === "undefined") return;
     gsap.registerPlugin(ScrollTrigger);
 
     const ctx = gsap.context(() => {
-      // Parallax de fondo
+      // Header
+      const headerAnim = gsap.from(".projects-header", {
+        y: 26,
+        opacity: 0,
+        duration: 0.9,
+        ease: "power3.out",
+      });
+
+      ScrollTrigger.create({
+        trigger: sectionRef.current,
+        start: "top 80%",
+        animation: headerAnim,
+        once: true,
+      });
+
+      // Stats / filtros
+      gsap.from(".projects-meta", {
+        y: 20,
+        opacity: 0,
+        duration: 0.7,
+        delay: 0.1,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: ".projects-meta",
+          start: "top 85%",
+          once: true,
+        },
+      });
+
+      // Card inicial
+      gsap.from(".projects-preview-card", {
+        y: 30,
+        opacity: 0,
+        duration: 0.9,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: ".projects-preview-card",
+          start: "top 85%",
+          once: true,
+        },
+      });
+
+      // Lista de proyectos
+      gsap.set(".project-card", {
+        y: 40,
+        opacity: 0,
+      });
+
+      ScrollTrigger.batch(".project-card", {
+        start: "top 85%",
+        onEnter: (batch) => {
+          gsap.to(batch, {
+            y: 0,
+            opacity: 1,
+            duration: 0.8,
+            ease: "power3.out",
+            stagger: 0.08,
+          });
+        },
+      });
+
+      // Parallax suave del fondo
       ScrollTrigger.create({
         trigger: sectionRef.current,
         start: "top bottom",
@@ -102,67 +164,11 @@ export default function Proyectos() {
         scrub: true,
         onUpdate: (self) => {
           gsap.to(".projects-bg", {
-            y: self.progress * -40,
+            y: self.progress * -30,
             ease: "none",
           });
         },
       });
-
-      // Header
-      gsap.from(".projects-header", {
-        y: 28,
-        opacity: 0,
-        duration: 0.8,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top 80%",
-          once: true,
-        },
-      });
-
-      // Filtros
-      gsap.from(".projects-filters button", {
-        y: 18,
-        opacity: 0,
-        duration: 0.6,
-        ease: "power2.out",
-        stagger: 0.06,
-        scrollTrigger: {
-          trigger: ".projects-filters",
-          start: "top 85%",
-          once: true,
-        },
-      });
-
-      // Lista de proyectos
-      gsap.from(".project-list-item", {
-        y: 20,
-        opacity: 0,
-        duration: 0.6,
-        ease: "power2.out",
-        stagger: 0.06,
-        scrollTrigger: {
-          trigger: ".projects-body",
-          start: "top 80%",
-          once: true,
-        },
-      });
-
-      // Card sticky inicial
-      if (stickyRef.current) {
-        gsap.from(stickyRef.current, {
-          y: 32,
-          opacity: 0,
-          duration: 0.8,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: ".projects-body",
-            start: "top 78%",
-            once: true,
-          },
-        });
-      }
     }, sectionRef);
 
     return () => {
@@ -171,184 +177,320 @@ export default function Proyectos() {
     };
   }, []);
 
-  const handleClickProject = (id) => {
-    setActiveId(id);
-    if (stickyRef.current && window.innerWidth < 1024) {
-      // en mobile, scroll suave hacia el panel
-      stickyRef.current.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      });
-    }
-  };
+  // Tilt 3D del panel en desktop
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    if (!cardRef.current) return;
 
-  const scrollToCotiza = () => {
-    const section = document.getElementById("cotiza");
-    if (section) {
-      section.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
-  };
+    const el = cardRef.current;
+
+    const handleMove = (e) => {
+      const rect = el.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width - 0.5;
+      const y = (e.clientY - rect.top) / rect.height - 0.5;
+
+      gsap.to(el, {
+        rotateY: x * 10,
+        rotateX: -y * 8,
+        duration: 0.4,
+        ease: "power3.out",
+      });
+    };
+
+    const handleLeave = () => {
+      gsap.to(el, {
+        rotateX: 0,
+        rotateY: 0,
+        duration: 0.6,
+        ease: "power3.out",
+      });
+    };
+
+    const enable = () => window.innerWidth >= 1024;
+
+    const setup = () => {
+      if (enable()) {
+        el.addEventListener("mousemove", handleMove);
+        el.addEventListener("mouseleave", handleLeave);
+      } else {
+        el.removeEventListener("mousemove", handleMove);
+        el.removeEventListener("mouseleave", handleLeave);
+        gsap.set(el, { rotateX: 0, rotateY: 0 });
+      }
+    };
+
+    setup();
+    window.addEventListener("resize", setup);
+
+    return () => {
+      el.removeEventListener("mousemove", handleMove);
+      el.removeEventListener("mouseleave", handleLeave);
+      window.removeEventListener("resize", setup);
+    };
+  }, []);
+
+  // Transición de contenido al cambiar de proyecto
+  useEffect(() => {
+    if (!cardRef.current) return;
+    const inner = cardRef.current.querySelector(".projects-card-inner");
+    if (!inner) return;
+
+    gsap.fromTo(
+      inner,
+      { opacity: 0, y: 18 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.4,
+        ease: "power3.out",
+      }
+    );
+  }, [activeProject.id]);
 
   return (
     <section
       id="proyectos"
       ref={sectionRef}
-      className="relative py-20 bg-[#f7f3ee] overflow-hidden"
+      className="relative bg-crema border-t border-madera/10 py-20 lg:py-24 overflow-hidden"
     >
-      {/* Fondo con parallax suave */}
-      <div className="projects-bg pointer-events-none absolute inset-y-[-80px] -left-32 -right-32 bg-gradient-to-br from-terracota/12 via-transparent to-madera/16 opacity-70" />
+      {/* Fondo con textura / parallax */}
+      <div className="projects-bg pointer-events-none absolute inset-y-[-80px] -left-32 -right-32 bg-[radial-gradient(circle_at_top,_rgba(176,115,87,0.2),_transparent_60%),_radial-gradient(circle_at_bottom,_rgba(30,23,19,0.16),_transparent_60%)] opacity-80" />
 
       <div className="relative z-10 max-w-6xl mx-auto px-4 space-y-10">
         {/* Encabezado */}
-        <div className="projects-header space-y-3 max-w-3xl">
-          <p className="text-xs tracking-[0.32em] uppercase text-madera/50">
-            Proyectos
-          </p>
-          <h2 className="font-serif text-3xl md:text-4xl">
-            Un portafolio vivo para explicar qué podemos construir contigo.
-          </h2>
-          <p className="text-sm md:text-base text-madera/70">
-            En lugar de renders genéricos, mostramos casos reales: tipo de
-            espacio, metros, ubicación y para qué se diseñó cada terraza.
-          </p>
-        </div>
-
-        {/* Filtros */}
-        <div className="projects-filters flex flex-wrap gap-3 text-[0.75rem]">
-          {FILTERS.map((filter) => (
-            <button
-              key={filter.id}
-              type="button"
-              onClick={() => setActiveFilter(filter.id)}
-              className={`inline-flex items-center gap-2 rounded-full border px-4 py-1.5 uppercase tracking-[0.18em] transition-colors ${
-                activeFilter === filter.id
-                  ? "bg-madera text-crema border-madera shadow-md shadow-madera/30"
-                  : "bg-white text-madera/75 border-madera/20 hover:border-madera/50"
-              }`}
-            >
-              <span>{filter.label}</span>
-              {activeFilter === filter.id && (
-                <span className="text-[0.65rem]">●</span>
-              )}
-            </button>
-          ))}
-        </div>
-
-        {/* Cuerpo: lista + panel sticky */}
-        <div className="projects-body grid gap-8 lg:grid-cols-[1.1fr_1.2fr] items-start">
-          {/* Lista de proyectos */}
-          <div className="space-y-3">
-            {filteredProjects.map((project) => {
-              const isActive = project.id === activeId;
-              return (
-                <button
-                  key={project.id}
-                  type="button"
-                  onClick={() => handleClickProject(project.id)}
-                  className={`project-list-item w-full text-left rounded-2xl border px-4 py-3 md:px-5 md:py-4 transition-all duration-250 ${
-                    isActive
-                      ? "bg-white shadow-[0_18px_48px_rgba(0,0,0,0.12)] border-madera/35"
-                      : "bg-white/80 border-madera/15 hover:border-madera/35 hover:bg-white"
-                  }`}
-                >
-                  <div className="flex items-center justify-between gap-3 mb-1">
-                    <p className="text-[0.72rem] uppercase tracking-[0.2em] text-madera/60">
-                      {project.type === "residencial" && "Proyecto residencial"}
-                      {project.type === "corporativo" &&
-                        "Proyecto corporativo"}
-                      {project.type === "mixto" && "Proyecto mixto"}
-                    </p>
-                    <span className="text-[0.7rem] text-madera/60">
-                      {project.surface}
-                    </span>
-                  </div>
-                  <h3 className="text-sm md:text-base font-semibold text-madera">
-                    {project.name}
-                  </h3>
-                  <p className="text-[0.82rem] text-madera/70">
-                    {project.location}
-                  </p>
-                  <p className="mt-1 text-xs md:text-[0.8rem] text-madera/75">
-                    {project.summary}
-                  </p>
-                </button>
-              );
-            })}
+        <header className="projects-header flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+          <div className="space-y-4 max-w-2xl">
+            <p className="text-xs tracking-[0.32em] uppercase text-madera/55">
+              Proyectos
+            </p>
+            <h2 className="font-serif text-3xl md:text-4xl">
+              Proyectos reales en Lima que aterrizan qué podemos lograr contigo.
+            </h2>
+            <p className="text-sm md:text-base text-madera/75">
+              Más que un catálogo de fotos sueltas, este bloque resume contexto,
+              metros, tipo de uso y decisiones clave de cada terraza. Sirve como
+              guion visual para conversaciones con el cliente.
+            </p>
           </div>
 
-          {/* Panel sticky / preview del proyecto activo */}
-          <div ref={stickyRef} className="lg:sticky lg:top-24">
-            <div className="relative overflow-hidden rounded-[32px] bg-madera text-crema shadow-[0_26px_80px_rgba(0,0,0,0.65)] border border-black/40">
-              {/* Borde interior y pestaña */}
-              <div className="absolute inset-0 pointer-events-none border border-white/5 rounded-[30px]" />
-              <div className="absolute left-1/2 -translate-x-1/2 -top-3 h-6 w-28 rounded-full bg-black/80 border border-white/10" />
-
-              {/* “Imagen” / moodboard abstracto (placeholder para fotos reales) */}
-              <div className="relative h-48 md:h-56 overflow-hidden rounded-t-[30px] bg-gradient-to-br from-terracota/50 via-black/40 to-madera/90">
-                <div className="absolute inset-0 opacity-[0.12] bg-[url('/noise.png')] mix-blend-soft-light" />
-                <div className="absolute inset-0 flex items-end justify-between px-6 pb-5">
-                  <div>
-                    <p className="text-[0.7rem] uppercase tracking-[0.26em] text-crema/70">
-                      {activeProject.location}
-                    </p>
-                    <p className="text-lg md:text-xl font-serif leading-snug">
-                      {activeProject.name}
-                    </p>
-                  </div>
-                  <div className="flex flex-col items-end gap-1 text-[0.7rem]">
-                    <span className="inline-flex px-3 py-1 rounded-full bg-black/60 border border-white/10 uppercase tracking-[0.18em]">
-                      {activeProject.surface}
-                    </span>
-                    <span className="inline-flex px-3 py-1 rounded-full bg-black/50 border border-white/10 text-[0.68rem]">
-                      {activeProject.service}
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Contenido descriptivo */}
-              <div className="relative px-6 py-6 space-y-4">
-                <p className="text-[0.75rem] text-crema/80 leading-relaxed">
-                  {activeProject.summary}
-                </p>
-
-                <div className="rounded-2xl bg-black/40 border border-white/10 px-4 py-3 space-y-2 text-[0.75rem]">
-                  <p className="text-[0.68rem] uppercase tracking-[0.24em] text-crema/65">
-                    Clima del proyecto
-                  </p>
-                  <p className="text-crema/85">{activeProject.mood}</p>
-                </div>
-
-                <div className="flex flex-wrap gap-3 text-[0.72rem] pt-1">
+          <div className="projects-meta space-y-3 text-sm md:text-right">
+            <p className="text-[0.72rem] uppercase tracking-[0.22em] text-madera/60">
+              Explora por tipo de proyecto
+            </p>
+            <div className="flex flex-wrap gap-2 md:justify-end">
+              {FILTERS.map((f) => {
+                const isActive = f.id === filter;
+                return (
                   <button
+                    key={f.id}
                     type="button"
-                    onClick={scrollToCotiza}
-                    className="inline-flex items-center gap-2 rounded-full bg-crema text-madera px-5 py-1.5 uppercase tracking-[0.18em] hover:bg-white transition-colors"
+                    onClick={() => setFilter(f.id)}
+                    className={`rounded-full px-3.5 py-1.5 text-[0.78rem] uppercase tracking-[0.18em] transition-colors border ${
+                      isActive
+                        ? "bg-madera text-crema border-madera"
+                        : "bg-white/70 text-madera/75 border-madera/20 hover:border-madera/50"
+                    }`}
                   >
-                    Cotizar algo similar
-                    <span className="text-xs translate-y-[1px]">↗</span>
+                    {f.label}
                   </button>
-                  <span className="inline-flex items-center rounded-full border border-crema/30 px-4 py-1.5 text-crema/80">
-                    Referencia de caso · Comfort Studio
-                  </span>
-                </div>
+                );
+              })}
+            </div>
+            <p className="text-[0.7rem] text-madera/60">
+              Mostrando{" "}
+              <span className="font-semibold text-madera">
+                {filtered.length} caso{filtered.length !== 1 && "s"}
+              </span>{" "}
+              {filter === "todos"
+                ? "entre terrazas residenciales y corporativas."
+                : filter === "residencial"
+                ? "de terrazas residenciales."
+                : "de terrazas corporativas."}
+            </p>
+          </div>
+        </header>
 
-                <p className="text-[0.68rem] text-crema/65 pt-2">
-                  Durante la presentación, puedes usar este panel como si fuera
-                  una “maqueta digital” de cada proyecto: qué era el espacio,
-                  cómo se usa ahora y qué nivel de detalle se trabajó.
-                </p>
+        {/* Layout principal: panel + lista */}
+        <div className="mt-6 grid gap-10 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,1.1fr)] items-start">
+          {/* Panel / showroom */}
+          <div className="relative lg:h-[78vh]">
+            <div className="lg:sticky lg:top-24">
+              <div
+                ref={cardRef}
+                className="projects-preview-card relative rounded-[32px] border border-madera/20 bg-gradient-to-br from-[#1f130e] via-[#24150f] to-[#3a2418] text-crema shadow-[0_28px_90px_rgba(0,0,0,0.75)] px-6 py-7 md:px-8 md:py-9 [transform-style:preserve-3d]"
+              >
+                {/* Borde interno */}
+                <div className="pointer-events-none absolute inset-0 rounded-[30px] border border-white/10 opacity-80" />
+                {/* Luces */}
+                <div className="pointer-events-none absolute -top-10 right-6 h-28 w-28 rounded-full bg-terracota/40 blur-3xl" />
+                <div className="pointer-events-none absolute -bottom-16 left-0 h-32 w-32 rounded-full bg-black/40 blur-3xl" />
+
+                <div className="projects-card-inner relative z-10 flex flex-col gap-6 md:gap-7 h-full">
+                  <div className="flex flex-wrap items-start justify-between gap-3">
+                    <div className="space-y-2 max-w-xl">
+                      <p className="text-[0.7rem] uppercase tracking-[0.26em] text-crema/70">
+                        {activeProject.type === "corporativo"
+                          ? "Proyecto corporativo"
+                          : "Proyecto residencial"}
+                      </p>
+                      <h3 className="font-serif text-2xl md:text-3xl leading-snug">
+                        {activeProject.name}
+                      </h3>
+                      <p className="text-sm md:text-base text-crema/92">
+                        {activeProject.summary}
+                      </p>
+                    </div>
+
+                    <div className="flex flex-col items-end gap-2 text-[0.7rem] text-crema/80">
+                      <span className="inline-flex items-center gap-2 rounded-full bg-black/45 px-3 py-1 uppercase tracking-[0.18em]">
+                        Proyecto{" "}
+                        {PROJECTS.findIndex((p) => p.id === activeProject.id) +
+                          1}{" "}
+                        / {PROJECTS.length}
+                      </span>
+                      <span className="inline-flex h-8 w-8 items-center justify-center rounded-2xl bg-black/70 shadow-lg shadow-black/60 text-[0.65rem] font-semibold">
+                        3D
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Métricas rápidas */}
+                  <div className="grid grid-cols-3 gap-3 text-[0.78rem] text-crema/85">
+                    <div className="space-y-1">
+                      <p className="uppercase tracking-[0.18em] text-crema/65 text-[0.68rem]">
+                        Metros trabajados
+                      </p>
+                      <p className="text-sm font-semibold">
+                        {activeProject.surface}
+                      </p>
+                    </div>
+                    <div className="space-y-1">
+                      <p className="uppercase tracking-[0.18em] text-crema/65 text-[0.68rem]">
+                        Zona
+                      </p>
+                      <p className="text-sm font-semibold">
+                        {activeProject.location}
+                      </p>
+                    </div>
+                    <div className="space-y-1">
+                      <p className="uppercase tracking-[0.18em] text-crema/65 text-[0.68rem]">
+                        Servicio principal
+                      </p>
+                      <p className="text-sm font-semibold">
+                        {activeProject.service}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Tags / sensaciones */}
+                  <div className="flex flex-wrap gap-2 text-[0.78rem] text-crema/90">
+                    {activeProject.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="inline-flex items-center rounded-full bg-white/8 px-3 py-1 border border-white/15"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+
+                  {/* CTA suave */}
+                  <div className="mt-auto flex flex-wrap gap-3 text-[0.75rem]">
+                    <a
+                      href="#cotiza"
+                      className="inline-flex items-center gap-2 rounded-full bg-crema text-madera px-5 py-2 uppercase tracking-[0.2em] font-semibold hover:bg-white transition-colors"
+                    >
+                      Cotizar un proyecto similar
+                      <span className="text-xs translate-y-[1px]">↗</span>
+                    </a>
+                    <a
+                      href="#contacto"
+                      className="inline-flex items-center gap-2 rounded-full border border-crema/55 px-5 py-2 uppercase tracking-[0.18em] text-crema hover:bg-crema hover:text-madera transition-colors"
+                    >
+                      Agendar revisión de espacio
+                      <span className="text-xs translate-y-[1px]">↗</span>
+                    </a>
+                  </div>
+
+                  <p className="text-[0.7rem] text-crema/75 max-w-md pt-1">
+                    Durante una reunión, este panel funciona como mapa visual:
+                    metros, contexto y qué tipo de decisión toma el estudio en
+                    cada caso.
+                  </p>
+                </div>
               </div>
             </div>
+          </div>
+
+          {/* Lista / timeline de proyectos */}
+          <div className="space-y-5">
+            {filtered.map((project) => {
+              const isActive = project.id === activeProject.id;
+              return (
+                <article
+                  key={project.id}
+                  className={`project-card cursor-pointer rounded-3xl border backdrop-blur-sm px-4 py-4 md:px-5 md:py-5 transition-all ${
+                    isActive
+                      ? "bg-white/95 border-madera/40 shadow-[0_18px_60px_rgba(0,0,0,0.12)] scale-[1.01]"
+                      : "bg-white/75 border-madera/12 hover:border-madera/40 hover:bg-white/95"
+                  }`}
+                  onMouseEnter={() => setActiveId(project.id)}
+                  onFocus={() => setActiveId(project.id)}
+                >
+                  <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
+                    <div className="space-y-1">
+                      <p className="text-[0.72rem] uppercase tracking-[0.2em] text-madera/60">
+                        {project.type === "corporativo"
+                          ? "Proyecto corporativo"
+                          : "Proyecto residencial"}
+                      </p>
+                      <h3 className="font-serif text-lg md:text-xl text-madera">
+                        {project.name}
+                      </h3>
+                      <p className="text-sm text-madera/80 max-w-xl">
+                        {project.summary}
+                      </p>
+                    </div>
+
+                    <div className="flex flex-col items-start md:items-end gap-2 text-[0.78rem] text-madera/75 min-w-[140px]">
+                      <div className="flex gap-3 md:flex-col md:items-end md:gap-1">
+                        <span className="inline-flex items-center gap-1.5 rounded-full bg-madera/5 px-3 py-1">
+                          <span className="h-[5px] w-[5px] rounded-full bg-terracota/80" />
+                          {project.surface}
+                        </span>
+                        <span className="inline-flex items-center gap-1.5 rounded-full bg-madera/5 px-3 py-1">
+                          <span className="h-[5px] w-[5px] rounded-full bg-madera/80" />
+                          {project.location}
+                        </span>
+                      </div>
+                      <span className="text-[0.7rem] uppercase tracking-[0.18em] text-madera/60">
+                        {project.service}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="mt-3 flex flex-wrap gap-2 text-[0.78rem] text-madera/75">
+                    {project.tags.slice(0, 3).map((tag) => (
+                      <span
+                        key={tag}
+                        className="inline-flex items-center rounded-full bg-madera/3 px-3 py-1 border border-madera/10"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </article>
+              );
+            })}
           </div>
         </div>
 
         {/* Nota final */}
         <p className="text-[0.7rem] text-madera/60 max-w-3xl">
-          Más adelante, cada proyecto puede ampliarse con fotos reales,
-          planos y rangos de inversión. Para esta demo, el objetivo es que el
-          cliente entienda rápidamente qué tipo de terrazas trabaja Comfort
-          Studio y pueda decir: “quiero algo parecido a este caso”.
+          Cada proyecto puede ampliarse más adelante con fotos, planos, detalles
+          técnicos y rangos de inversión aproximados. Para la fase actual, esta
+          sección ya funciona como un showroom narrativo que ayuda al cliente a
+          imaginar el tipo de resultados que puede esperar del estudio.
         </p>
       </div>
     </section>
