@@ -7,7 +7,6 @@ import Footer from "../components/Footer";
 import PageTransition from "../components/PageTransition";
 import dynamic from "next/dynamic";
 import { Suspense } from "react";
-import SmoothScroller from "../components/SmoothScroller";
 import FloatingCTA from "../components/FloatingCTA";
 import Preloader from "../components/Preloader";
 
@@ -56,8 +55,8 @@ export default function RootLayout({ children }) {
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
       </head>
       <body className="antialiased bg-crema text-madera selection:bg-terracota selection:text-white">
-        <ReactLenis root options={{ lerp: 0.1, wheelMultiplier: 1, smoothWheel: true }}>
-          <SmoothScroller />
+        {/* Tuned for "Luxury" feel: heavier than native, but controllable */}
+        <ReactLenis root options={{ lerp: 0.07, duration: 1.2, smoothWheel: true }}>
           <Preloader />
           <Navbar />
           <FloatingCTA />
