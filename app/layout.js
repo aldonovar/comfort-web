@@ -50,20 +50,34 @@ export default function RootLayout({ children }) {
                 }
               }
             `,
-            < Scene />
+          }}
+        />
+        {/* Fonts */}
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+      </head>
+      <body className="antialiased bg-crema text-madera selection:bg-terracota selection:text-white">
+        <ReactLenis root options={{ lerp: 0.1, wheelMultiplier: 1, smoothWheel: true }}>
+          <SmoothScroller />
+          <Preloader />
+          <Navbar />
+          <FloatingCTA />
+
+          {/* Global 3D Scene */}
+          <Suspense fallback={null}>
+            <Scene />
           </Suspense>
 
-      <PageTransition>
-        <main className="relative z-10 min-h-screen">
-          {children}
-        </main>
-      </PageTransition>
-      <Footer />
+          <PageTransition>
+            <main className="relative z-10 min-h-screen">
+              {children}
+            </main>
+          </PageTransition>
+          <Footer />
 
-      {/* Global Noise Overlay */}
-      <div className="fixed inset-0 z-50 pointer-events-none opacity-[0.03] mix-blend-overlay bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div>
-    </ReactLenis>
-      </body >
-    </html >
+          {/* Global Noise Overlay */}
+          <div className="fixed inset-0 z-50 pointer-events-none opacity-[0.03] mix-blend-overlay bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div>
+        </ReactLenis>
+      </body>
+    </html>
   );
 }
