@@ -63,7 +63,14 @@ export default function HeroBackground({ videoUrl, className, ...props }) {
 
 function HeroScene({ videoUrl }) {
     const materialRef = useRef();
-    const texture = useVideoTexture(videoUrl);
+    // Pass config object to ensure video plays automatically
+    const texture = useVideoTexture(videoUrl, {
+        unsuspend: "canplay",
+        muted: true,
+        loop: true,
+        start: true,
+        playsInline: true,
+    });
     const [mouse, setMouse] = useState([0.5, 0.5]);
 
     // Ensure texture wraps correctly if needed, though usually ClampToEdge is fine for video

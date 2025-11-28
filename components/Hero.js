@@ -136,7 +136,7 @@ export default function Hero() {
               </p>
             </div>
 
-            <div className="flex flex-wrap gap-4">
+            <div className="flex flex-wrap gap-4 relative z-20">
               <a
                 href="#cotiza"
                 className="hero-cta group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-crema px-8 py-4 text-sm font-bold uppercase tracking-widest text-madera transition-all duration-300 hover:scale-105 hover:bg-white"
