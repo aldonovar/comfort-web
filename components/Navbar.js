@@ -69,7 +69,7 @@ export default function Navbar() {
   const pathname = usePathname();
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
+    const onScroll = () => setScrolled(window.scrollY > 40);
     window.addEventListener("scroll", onScroll);
 
     // Initial entrance animation
@@ -103,26 +103,37 @@ export default function Navbar() {
     setActiveMenu(null);
   };
 
+  // --- Dynamic Styles based on Scroll ---
+  const logoSrc = scrolled ? "/comfort-logo-dark.png" : "/comfort-logo-light.png";
+  const textColor = scrolled ? "text-madera" : "text-crema";
+  const headerBg = scrolled
+    ? "bg-crema/90 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.05)] py-3"
+    : "bg-gradient-to-b from-black/60 to-transparent py-6";
+
+  // Mega Menu Background Logic
+  const megaMenuBg = scrolled
+    ? "bg-crema/95 backdrop-blur-xl text-madera border-t border-madera/5"
+    : "bg-[#0a0a0a]/95 backdrop-blur-xl text-crema border-t border-white/10";
+
   return (
     <>
       <header
         ref={headerRef}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 will-change-transform ${scrolled || activeMenu
-            ? "bg-[#0a0a0a]/80 backdrop-blur-xl border-b border-white/5 py-4"
-            : "bg-transparent py-6"
-          }`}
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 will-change-transform ${headerBg}`}
         onMouseLeave={handleMouseLeaveHeader}
       >
         <div className="max-w-[1600px] mx-auto px-6 md:px-12 flex items-center justify-between">
 
-          {/* Logo */}
+          {/* Logo (Image Based) */}
           <Link href="/" className="relative z-50 group flex items-center gap-3">
-            <div className="relative w-10 h-10 overflow-hidden rounded-full bg-terracota flex items-center justify-center">
-              <span className="font-serif text-white text-lg font-bold italic">C</span>
-            </div>
-            <div className="flex flex-col">
-              <span className="font-serif text-lg text-crema leading-none tracking-wide">Comfort Studio</span>
-              <span className="text-[0.6rem] uppercase tracking-[0.3em] text-crema/50">Outdoor Living</span>
+            <img
+              src={logoSrc}
+              alt="Comfort Studio"
+              className="h-10 w-auto object-contain transition-all duration-500"
+            />
+            <div className={`flex flex-col leading-none transition-colors duration-500 ${textColor}`}>
+              <span className="font-serif text-lg font-bold tracking-wide">Comfort Studio</span>
+              <span className="text-[0.6rem] uppercase tracking-[0.3em] opacity-70">Outdoor Living</span>
             </div>
           </Link>
 
@@ -136,7 +147,9 @@ export default function Navbar() {
               >
                 <Link
                   href={item.href}
-                  className={`text-[0.7rem] font-bold uppercase tracking-[0.2em] transition-colors duration-300 ${activeMenu === item.key ? "text-terracota" : "text-crema/80 hover:text-white"
+                  className={`text-[0.7rem] font-bold uppercase tracking-[0.2em] transition-colors duration-300 ${activeMenu === item.key
+                      ? "text-terracota"
+                      : scrolled ? "text-madera/70 hover:text-madera" : "text-crema/80 hover:text-white"
                     }`}
                 >
                   {item.label}
@@ -152,11 +165,14 @@ export default function Navbar() {
           <div className="flex items-center gap-4">
             <Link
               href="/cotiza"
-              className="hidden md:flex items-center gap-2 px-6 py-2.5 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 transition-all duration-300 group"
+              className={`hidden md:flex items-center gap-2 px-6 py-2.5 rounded-full transition-all duration-300 group shadow-sm ${scrolled
+                  ? "bg-madera text-crema hover:bg-terracota hover:shadow-lg hover:-translate-y-0.5"
+                  : "bg-white/10 border border-white/10 text-crema hover:bg-white/20"
+                }`}
             >
-              <span className="text-[0.7rem] font-bold uppercase tracking-[0.2em] text-crema">Cotizar</span>
+              <span className="text-[0.7rem] font-bold uppercase tracking-[0.2em]">Cotizar</span>
               <svg
-                className="w-3 h-3 text-terracota transition-transform duration-300 group-hover:rotate-45"
+                className={`w-3 h-3 transition-transform duration-300 group-hover:rotate-45 ${scrolled ? "text-crema" : "text-terracota"}`}
                 fill="none" stroke="currentColor" viewBox="0 0 24 24"
               >
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 17L17 7M17 7H7M17 7V17" />
@@ -168,9 +184,9 @@ export default function Navbar() {
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="md:hidden relative z-50 w-10 h-10 flex flex-col items-center justify-center gap-1.5"
             >
-              <span className={`w-6 h-[1px] bg-crema transition-all duration-300 ${mobileMenuOpen ? "rotate-45 translate-y-2" : ""}`} />
-              <span className={`w-6 h-[1px] bg-crema transition-all duration-300 ${mobileMenuOpen ? "opacity-0" : ""}`} />
-              <span className={`w-6 h-[1px] bg-crema transition-all duration-300 ${mobileMenuOpen ? "-rotate-45 -translate-y-2" : ""}`} />
+              <span className={`w-6 h-[1px] transition-all duration-300 ${scrolled ? "bg-madera" : "bg-crema"} ${mobileMenuOpen ? "rotate-45 translate-y-2 !bg-crema" : ""}`} />
+              <span className={`w-6 h-[1px] transition-all duration-300 ${scrolled ? "bg-madera" : "bg-crema"} ${mobileMenuOpen ? "opacity-0" : ""}`} />
+              <span className={`w-6 h-[1px] transition-all duration-300 ${scrolled ? "bg-madera" : "bg-crema"} ${mobileMenuOpen ? "-rotate-45 -translate-y-2 !bg-crema" : ""}`} />
             </button>
           </div>
         </div>
@@ -181,14 +197,14 @@ export default function Navbar() {
             }`}
         >
           {activeMenu && megaConfig[activeMenu] && (
-            <div className="bg-[#0a0a0a]/95 backdrop-blur-xl border-t border-white/5 shadow-2xl">
+            <div className={`${megaMenuBg} shadow-2xl`}>
               <div className="max-w-[1600px] mx-auto px-12 py-12 grid grid-cols-[1fr_1.5fr_1fr] gap-16">
                 {/* Column 1: Intro */}
                 <div className="space-y-4">
                   <p className="text-[0.65rem] uppercase tracking-[0.25em] text-terracota font-bold">
                     {megaConfig[activeMenu].eyebrow}
                   </p>
-                  <h3 className="font-serif text-2xl text-crema leading-tight">
+                  <h3 className={`font-serif text-2xl leading-tight ${scrolled ? "text-madera" : "text-crema"}`}>
                     {megaConfig[activeMenu].title}
                   </h3>
                 </div>
@@ -199,10 +215,13 @@ export default function Navbar() {
                     <Link
                       key={link.label}
                       href={link.href}
-                      className="group flex items-center gap-3 p-3 rounded-xl hover:bg-white/5 transition-all duration-300"
+                      className={`group flex items-center gap-3 p-3 rounded-xl transition-all duration-300 ${scrolled ? "hover:bg-madera/5" : "hover:bg-white/5"
+                        }`}
                     >
-                      <span className="w-1.5 h-1.5 rounded-full bg-white/20 group-hover:bg-terracota transition-colors" />
-                      <span className="text-sm text-crema/80 group-hover:text-white transition-colors">
+                      <span className={`w-1.5 h-1.5 rounded-full transition-colors ${scrolled ? "bg-madera/20 group-hover:bg-terracota" : "bg-white/20 group-hover:bg-terracota"
+                        }`} />
+                      <span className={`text-sm transition-colors ${scrolled ? "text-madera/70 group-hover:text-madera" : "text-crema/80 group-hover:text-white"
+                        }`}>
                         {link.label}
                       </span>
                     </Link>
@@ -210,11 +229,14 @@ export default function Navbar() {
                 </div>
 
                 {/* Column 3: Context */}
-                <div className="bg-white/5 rounded-2xl p-6 border border-white/5">
-                  <p className="text-[0.65rem] uppercase tracking-[0.2em] text-crema/40 mb-3">
+                <div className={`rounded-2xl p-6 border ${scrolled ? "bg-madera/5 border-madera/5" : "bg-white/5 border-white/5"
+                  }`}>
+                  <p className={`text-[0.65rem] uppercase tracking-[0.2em] mb-3 ${scrolled ? "text-madera/40" : "text-crema/40"
+                    }`}>
                     Info
                   </p>
-                  <p className="text-sm text-crema/70 leading-relaxed">
+                  <p className={`text-sm leading-relaxed ${scrolled ? "text-madera/70" : "text-crema/70"
+                    }`}>
                     {megaConfig[activeMenu].text}
                   </p>
                 </div>
