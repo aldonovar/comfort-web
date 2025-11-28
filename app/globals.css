@@ -9,22 +9,25 @@
   --color-terracota: #c16e4d;
   --color-olive: #4a4a38;
   --color-charcoal: #1a1a1a;
-  
+
   /* Typography */
   --font-serif: "Playfair Display", serif;
   --font-sans: "Inter", sans-serif;
 }
 
 @layer base {
-  html {
-    scroll-behavior: smooth;
-  }
-  
+  /* Lenis handles smooth scroll, so we remove native CSS smooth scroll */
+
   body {
     @apply bg-crema text-madera font-sans;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     @apply font-serif;
   }
 }
@@ -33,7 +36,7 @@
   .text-balance {
     text-wrap: balance;
   }
-  
+
   /* Signature Gradients & Effects */
   .bg-noise {
     background-image: url("https://grainy-gradients.vercel.app/noise.svg");
