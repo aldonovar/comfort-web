@@ -13,18 +13,19 @@ export default function PageTransition({ children }) {
     const ctx = gsap.context(() => {
       const tl = gsap.timeline();
 
-      // Reset states
+      // Reset states for overlay
       gsap.set(overlayRef.current, { scaleY: 1, transformOrigin: "bottom" });
-      gsap.set(contentRef.current, { opacity: 0, y: 20 });
 
       // Sequence: Overlay wipes away -> Content fades in
+      // We use fromTo to ensure we control the start state explicitly
       tl.to(overlayRef.current, {
         scaleY: 0,
         duration: 0.8,
         ease: "power4.inOut",
         transformOrigin: "top",
-      }).to(
+      }).fromTo(
         contentRef.current,
+        { opacity: 0, y: 20 },
         {
           opacity: 1,
           y: 0,
@@ -49,7 +50,7 @@ export default function PageTransition({ children }) {
       />
 
       {/* Content Wrapper */}
-      <div ref={contentRef} className="opacity-0">
+      <div ref={contentRef}>
         {children}
       </div>
     </div>
