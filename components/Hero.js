@@ -43,6 +43,16 @@ export default function Hero() {
           "-=0.45"
         )
         .from(
+          ".hero-cta",
+          {
+            y: 18,
+            opacity: 0,
+            duration: 0.65,
+            stagger: 0.08,
+          },
+          "-=0.4"
+        )
+        .from(
           ".hero-card",
           {
             y: 40,
@@ -52,11 +62,10 @@ export default function Hero() {
           "-=0.6"
         )
         .from(
-          ".hero-meta",
+          ".hero-footer-text",
           {
-            y: 18,
             opacity: 0,
-            duration: 0.6,
+            duration: 1,
           },
           "-=0.4"
         );
@@ -92,30 +101,28 @@ export default function Hero() {
           muted
           loop
           playsInline
-          className="absolute inset-0 h-full w-full object-cover opacity-60"
+          className="absolute inset-0 h-full w-full object-cover opacity-40"
           src="https://cdn.coverr.co/videos/coverr-walking-by-a-wooden-wall-4608/1080p.mp4"
         />
         {/* Overlay oscuro para legibilidad */}
-        <div className="absolute inset-0 bg-black/40 pointer-events-none" />
+        <div className="absolute inset-0 bg-black/50 pointer-events-none" />
       </div>
 
       {/* Contenido */}
-      <div className="relative z-10 flex min-h-screen flex-col justify-center px-4 pt-20 md:px-8 lg:pt-0">
-        <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-2 lg:items-center">
+      <div className="relative z-10 flex min-h-screen flex-col justify-center px-4 pt-24 pb-12 md:px-8 lg:pt-0">
+        <div className="mx-auto grid max-w-[1400px] gap-16 lg:grid-cols-2 lg:items-center">
           {/* Bloque Izquierdo: Texto */}
-          <div className="space-y-8">
-            <div className="space-y-4">
-              <p className="hero-eyebrow text-xs font-medium uppercase tracking-[0.25em] text-crema/70">
-                Arquitectura Exterior
+          <div className="space-y-10">
+            <div className="space-y-6">
+              <p className="hero-eyebrow text-xs font-medium uppercase tracking-[0.25em] text-crema/60">
+                Arquitectura Exterior · Lima, Perú
               </p>
               <h1 className="hero-heading font-serif text-5xl leading-[1.1] md:text-6xl lg:text-7xl">
-                Diseñamos el <br />
-                <span className="italic text-terracota">confort</span> que tu
-                terraza merece.
+                Terrazas que se sienten <br />
+                <span className="italic text-terracota">hogar</span> desde la primera noche.
               </h1>
-              <p className="hero-copy max-w-md text-lg leading-relaxed text-crema/80">
-                Especialistas en transformar azoteas y patios en espacios de
-                vida premium. Diseño, ejecución y paisajismo en un solo lugar.
+              <p className="hero-copy max-w-xl text-lg leading-relaxed text-crema/80">
+                Comfort Studio diseña y ejecuta terrazas, azoteas y patios habitables para familias y empresas que valoran la luz cálida, los materiales honestos y los detalles bien resueltos.
               </p>
             </div>
 
@@ -128,7 +135,7 @@ export default function Hero() {
                 <div className="absolute inset-0 -translate-x-full bg-terracota transition-transform duration-300 group-hover:translate-x-0" />
               </a>
               <a
-                href="https://calendly.com/" // Placeholder, user can update
+                href="https://calendly.com/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hero-cta group inline-flex items-center gap-2 rounded-full border border-crema/30 px-8 py-4 text-sm font-bold uppercase tracking-widest text-crema backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:bg-crema/10"
@@ -153,51 +160,65 @@ export default function Hero() {
               </a>
             </div>
 
-            <div className="hero-meta flex items-center gap-8 pt-4 text-xs uppercase tracking-[0.2em] text-crema/50">
-              <span>Lima, Perú</span>
-              <span className="h-1 w-1 rounded-full bg-crema/50" />
-              <span>Est. 2024</span>
+            <div className="hero-footer-text pt-8 max-w-md">
+              <p className="text-[0.7rem] leading-relaxed text-crema/50">
+                Durante la presentación, esta portada funciona como una sala de recepción digital: mensaje claro, navegación precisa y un llamado a cotizar o agendar sin fricción.
+              </p>
             </div>
           </div>
 
           {/* Bloque Derecho: Card Flotante / Visual */}
           <div className="relative hidden lg:block">
-            <div className="hero-card relative ml-auto max-w-md overflow-hidden rounded-3xl bg-white/5 p-8 backdrop-blur-md border border-white/10 shadow-2xl">
+            <div className="hero-card relative ml-auto max-w-lg overflow-hidden rounded-[2rem] bg-[#1a1a1a]/80 p-10 backdrop-blur-md border border-white/10 shadow-2xl">
               <div className="space-y-8">
-                <div className="flex items-center justify-between border-b border-white/10 pb-6">
-                  <div>
-                    <p className="text-xs uppercase tracking-widest text-crema/60">
-                      Experiencia
-                    </p>
-                    <h3 className="mt-2 font-serif text-3xl text-crema">
-                      Comfort Studio
-                    </h3>
-                  </div>
-                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-terracota text-white text-xl">
-                    ★
-                  </div>
-                </div>
 
-                <div className="grid grid-cols-2 gap-6">
-                  <div className="space-y-1">
-                    <p className="text-3xl font-light text-crema">4.9/5</p>
-                    <p className="text-xs uppercase tracking-wider text-crema/60">Puntuación</p>
-                  </div>
-                  <div className="space-y-1">
-                    <p className="text-3xl font-light text-crema">+45</p>
-                    <p className="text-xs uppercase tracking-wider text-crema/60">Proyectos</p>
-                  </div>
-                  <div className="space-y-1 col-span-2">
-                    <p className="text-3xl font-light text-crema">+1,200m²</p>
-                    <p className="text-xs uppercase tracking-wider text-crema/60">Metraje Total Cubierto</p>
-                  </div>
-                </div>
-
-                <div className="pt-2">
-                  <p className="text-sm leading-relaxed text-crema/70 italic">
-                    "Transformamos espacios fríos en experiencias de vida cálidas y funcionales."
+                <div className="space-y-4">
+                  <p className="text-[0.65rem] uppercase tracking-[0.2em] text-crema/50">
+                    Portafolio Vivo
+                  </p>
+                  <h3 className="font-serif text-2xl leading-snug text-crema">
+                    De la idea al espacio real: terrazas que venden confianza.
+                  </h3>
+                  <p className="text-xs leading-relaxed text-crema/70">
+                    Cada proyecto que aparece en esta web existe para mostrarle al cliente, en vivo, cómo se ve el nivel de Comfort Studio: luz, estructura y detalles listos para ser vividos.
                   </p>
                 </div>
+
+                <div className="grid grid-cols-3 gap-6 border-t border-white/10 pt-6">
+                  <div className="space-y-1">
+                    <p className="text-[0.65rem] uppercase tracking-[0.15em] text-crema/50">Confianza</p>
+                    <p className="text-2xl font-medium text-crema">+38%</p>
+                    <p className="text-[0.6rem] leading-tight text-crema/40">Probabilidad estimada de contacto cuando el portafolio se ve estructurado.</p>
+                  </div>
+                  <div className="space-y-1">
+                    <p className="text-[0.65rem] uppercase tracking-[0.15em] text-crema/50">Proyectos</p>
+                    <p className="text-2xl font-medium text-crema">80+</p>
+                    <p className="text-[0.6rem] leading-tight text-crema/40">Entre residenciales, rooftops y terrazas corporativas.</p>
+                  </div>
+                  <div className="space-y-1">
+                    <p className="text-[0.65rem] uppercase tracking-[0.15em] text-crema/50">Satisfacción</p>
+                    <p className="text-2xl font-medium text-crema">4.9 ★</p>
+                    <p className="text-[0.6rem] leading-tight text-crema/40">Valoración promedio en encuestas internas posteriores a obra.</p>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-6 border-t border-white/10 pt-6">
+                  <div className="space-y-1">
+                    <p className="text-[0.65rem] uppercase tracking-[0.15em] text-crema/50">Modalidad</p>
+                    <p className="text-xs font-medium text-crema">Diseño, obra o diseño + obra</p>
+                  </div>
+                  <div className="space-y-1">
+                    <p className="text-[0.65rem] uppercase tracking-[0.15em] text-crema/50">Tipo de Cliente</p>
+                    <p className="text-xs font-medium text-crema">Vivienda y proyectos corporativos</p>
+                  </div>
+                </div>
+
+                <div className="pt-4 text-center">
+                  <p className="text-[0.6rem] uppercase tracking-[0.2em] text-crema/40">
+                    Desplázate para ver cómo trabajamos ↓
+                  </p>
+                </div>
+
               </div>
             </div>
           </div>
