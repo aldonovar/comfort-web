@@ -1,7 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Link from "next/link";
+import gsap from "gsap";
+import { usePathname } from "next/navigation";
 
 const mainSections = [
   { id: "inicio", key: "inicio", label: "Inicio", href: "/" },
@@ -11,7 +13,6 @@ const mainSections = [
   { id: "contacto", key: "contacto", label: "Contacto", href: "/contacto" },
 ];
 
-// Configuración del mega-menú (INTACTA)
 const megaConfig = {
   servicios: {
     eyebrow: "Portafolio de servicios",
@@ -62,157 +63,201 @@ const megaConfig = {
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [activeMenu, setActiveMenu] = useState(null);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const headerRef = useRef(null);
+  const mobileMenuRef = useRef(null);
+  const pathname = usePathname();
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
+    const onScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", onScroll);
+
+    // Initial entrance animation
+    gsap.fromTo(headerRef.current,
+      { y: -100, opacity: 0 },
+      { y: 0, opacity: 1, duration: 1, ease: "power3.out", delay: 0.5 }
+    );
+
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const logoSrc = scrolled
-    ? "/comfort-logo-dark.png"
-    : "/comfort-logo-light.png";
+  // Close mobile menu on route change
+  useEffect(() => {
+    setMobileMenuOpen(false);
+  }, [pathname]);
 
-  // CLASES MEJORADAS: Backdrop blur real y transiciones suaves
-  const headerBase = "fixed top-0 left-0 right-0 z-50 transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]";
-  
-  const glassEffect = scrolled
-    ? "bg-crema/85 backdrop-blur-md border-b border-madera/5 shadow-[0_8px_32px_rgba(0,0,0,0.04)] py-3"
-    : "bg-gradient-to-b from-black/70 via-black/30 to-transparent py-6";
-
-  const linkBase = "relative text-[0.7rem] font-medium uppercase tracking-[0.2em] transition-all duration-300 cursor-pointer group";
+  // Mobile Menu Animation
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      gsap.to(mobileMenuRef.current, { x: "0%", duration: 0.6, ease: "power3.out" });
+      gsap.fromTo(".mobile-link",
+        { y: 30, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.5, stagger: 0.1, delay: 0.2 }
+      );
+    } else {
+      gsap.to(mobileMenuRef.current, { x: "100%", duration: 0.6, ease: "power3.in" });
+    }
+  }, [mobileMenuOpen]);
 
   const handleMouseLeaveHeader = () => {
     setActiveMenu(null);
   };
 
   return (
-    <header
-      className={`${headerBase} ${glassEffect}`}
-      onMouseLeave={handleMouseLeaveHeader}
-    >
-      <div className="max-w-6xl mx-auto px-4 flex items-center justify-between gap-6">
-        
-        {/* Logo / Marca */}
-        <div className={`flex items-center gap-3 transition-colors duration-500 ${scrolled ? "text-madera" : "text-crema"}`}>
-          <img
-            src={logoSrc}
-            alt="Comfort Studio"
-            className="h-9 w-auto object-contain transition-transform duration-500 hover:scale-105"
-          />
-          <div className="flex flex-col leading-none">
-            <span className="text-sm font-bold tracking-wide font-serif">
-              Comfort Studio
-            </span>
-            <span className="text-[0.6rem] uppercase tracking-[0.25em] opacity-80 mt-0.5">
-              Terrazas
-            </span>
+    <>
+      <header
+        ref={headerRef}
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 will-change-transform ${scrolled || activeMenu
+            ? "bg-[#0a0a0a]/80 backdrop-blur-xl border-b border-white/5 py-4"
+            : "bg-transparent py-6"
+          }`}
+        onMouseLeave={handleMouseLeaveHeader}
+      >
+        <div className="max-w-[1600px] mx-auto px-6 md:px-12 flex items-center justify-between">
+
+          {/* Logo */}
+          <Link href="/" className="relative z-50 group flex items-center gap-3">
+            <div className="relative w-10 h-10 overflow-hidden rounded-full bg-terracota flex items-center justify-center">
+              <span className="font-serif text-white text-lg font-bold italic">C</span>
+            </div>
+            <div className="flex flex-col">
+              <span className="font-serif text-lg text-crema leading-none tracking-wide">Comfort Studio</span>
+              <span className="text-[0.6rem] uppercase tracking-[0.3em] text-crema/50">Outdoor Living</span>
+            </div>
+          </Link>
+
+          {/* Desktop Nav */}
+          <nav className="hidden md:flex items-center gap-10">
+            {mainSections.map((item) => (
+              <div
+                key={item.id}
+                className="relative py-4"
+                onMouseEnter={() => setActiveMenu(item.key === "inicio" ? null : item.key)}
+              >
+                <Link
+                  href={item.href}
+                  className={`text-[0.7rem] font-bold uppercase tracking-[0.2em] transition-colors duration-300 ${activeMenu === item.key ? "text-terracota" : "text-crema/80 hover:text-white"
+                    }`}
+                >
+                  {item.label}
+                </Link>
+                {activeMenu === item.key && (
+                  <span className="absolute bottom-2 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-terracota" />
+                )}
+              </div>
+            ))}
+          </nav>
+
+          {/* Desktop CTA & Mobile Toggle */}
+          <div className="flex items-center gap-4">
+            <Link
+              href="/cotiza"
+              className="hidden md:flex items-center gap-2 px-6 py-2.5 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 transition-all duration-300 group"
+            >
+              <span className="text-[0.7rem] font-bold uppercase tracking-[0.2em] text-crema">Cotizar</span>
+              <svg
+                className="w-3 h-3 text-terracota transition-transform duration-300 group-hover:rotate-45"
+                fill="none" stroke="currentColor" viewBox="0 0 24 24"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 17L17 7M17 7H7M17 7V17" />
+              </svg>
+            </Link>
+
+            {/* Mobile Toggle */}
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="md:hidden relative z-50 w-10 h-10 flex flex-col items-center justify-center gap-1.5"
+            >
+              <span className={`w-6 h-[1px] bg-crema transition-all duration-300 ${mobileMenuOpen ? "rotate-45 translate-y-2" : ""}`} />
+              <span className={`w-6 h-[1px] bg-crema transition-all duration-300 ${mobileMenuOpen ? "opacity-0" : ""}`} />
+              <span className={`w-6 h-[1px] bg-crema transition-all duration-300 ${mobileMenuOpen ? "-rotate-45 -translate-y-2" : ""}`} />
+            </button>
           </div>
         </div>
 
-        {/* Links desktop */}
-        <nav className="hidden md:flex items-center gap-8">
-          {mainSections.map((item) => (
-            <div
-              key={item.id}
-              className="relative py-2"
-              onMouseEnter={() => setActiveMenu(item.key === "inicio" ? null : item.key)}
-            >
-              <Link
-                href={item.href}
-                className={`
-                  ${linkBase}
-                  ${scrolled ? "text-madera/70 hover:text-madera" : "text-crema/90 hover:text-white"}
-                `}
-              >
-                {item.label}
-                {/* Underline animado */}
-                <span className={`absolute -bottom-1 left-0 h-[1px] w-0 bg-current transition-all duration-300 group-hover:w-full opacity-50`} />
-              </Link>
-            </div>
-          ))}
-        </nav>
-
-        {/* CTA Cotizar (Mejorado visualmente) */}
-        <Link
-          href="/cotiza"
-          className={
-            "hidden md:inline-flex items-center px-6 py-2.5 rounded-full text-[0.68rem] font-bold uppercase tracking-[0.22em] transition-all duration-300 shadow-sm " +
-            (scrolled
-              ? "bg-madera text-crema hover:bg-terracota hover:shadow-lg hover:-translate-y-0.5"
-              : "border border-crema/40 bg-white/10 backdrop-blur-sm text-crema hover:bg-crema hover:text-madera hover:border-crema")
-          }
-        >
-          Cotizar proyecto
-        </Link>
-      </div>
-
-      {/* MEGA MENU (Logica intacta, estilos refinados) */}
-      <div className="hidden md:block">
+        {/* Mega Menu Dropdown */}
         <div
-          className={`transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
-            activeMenu
-              ? "opacity-100 translate-y-0 pointer-events-auto"
-              : "opacity-0 -translate-y-2 pointer-events-none"
-          }`}
+          className={`absolute top-full left-0 w-full overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] ${activeMenu ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0"
+            }`}
         >
           {activeMenu && megaConfig[activeMenu] && (
-            <div className="border-t border-black/5">
-              <div
-                className={`shadow-2xl ${
-                  scrolled
-                    ? "bg-crema/95 backdrop-blur-xl text-madera"
-                    : "bg-[#1e1713]/95 backdrop-blur-xl text-crema border-t border-white/10"
-                }`}
-              >
-                <div className="max-w-6xl mx-auto px-4 py-8 grid grid-cols-[1.5fr_1fr] gap-12">
-                  
-                  {/* Columna principal */}
-                  <div className="space-y-4">
-                    <p className="text-[0.65rem] uppercase tracking-[0.3em] opacity-60">
-                      {megaConfig[activeMenu].eyebrow}
-                    </p>
-                    <h3 className="font-serif text-3xl leading-snug">
-                      {megaConfig[activeMenu].title}
-                    </h3>
-                    <p className="text-sm opacity-80 max-w-xl font-light leading-relaxed">
-                      {megaConfig[activeMenu].text}
-                    </p>
+            <div className="bg-[#0a0a0a]/95 backdrop-blur-xl border-t border-white/5 shadow-2xl">
+              <div className="max-w-[1600px] mx-auto px-12 py-12 grid grid-cols-[1fr_1.5fr_1fr] gap-16">
+                {/* Column 1: Intro */}
+                <div className="space-y-4">
+                  <p className="text-[0.65rem] uppercase tracking-[0.25em] text-terracota font-bold">
+                    {megaConfig[activeMenu].eyebrow}
+                  </p>
+                  <h3 className="font-serif text-2xl text-crema leading-tight">
+                    {megaConfig[activeMenu].title}
+                  </h3>
+                </div>
 
-                    <div className="flex flex-wrap gap-2 pt-3">
-                      {megaConfig[activeMenu].links.map((link) => (
-                        <Link
-                          key={link.label}
-                          href={link.href}
-                          className={`inline-flex items-center text-[0.7rem] px-4 py-2 rounded-full border transition-colors ${
-                            scrolled 
-                              ? "border-madera/10 hover:border-madera/40 hover:bg-madera/5" 
-                              : "border-white/10 hover:border-white/40 hover:bg-white/5"
-                          }`}
-                        >
-                          {link.label}
-                        </Link>
-                      ))}
-                    </div>
-                  </div>
+                {/* Column 2: Links */}
+                <div className="grid grid-cols-2 gap-x-8 gap-y-4">
+                  {megaConfig[activeMenu].links.map((link) => (
+                    <Link
+                      key={link.label}
+                      href={link.href}
+                      className="group flex items-center gap-3 p-3 rounded-xl hover:bg-white/5 transition-all duration-300"
+                    >
+                      <span className="w-1.5 h-1.5 rounded-full bg-white/20 group-hover:bg-terracota transition-colors" />
+                      <span className="text-sm text-crema/80 group-hover:text-white transition-colors">
+                        {link.label}
+                      </span>
+                    </Link>
+                  ))}
+                </div>
 
-                  {/* Columna detalle / tag */}
-                  <div className="flex flex-col justify-between gap-4">
-                    <div className={`rounded-2xl p-6 text-[0.75rem] shadow-inner ${scrolled ? "bg-madera/5" : "bg-white/5"}`}>
-                      <p className="uppercase tracking-[0.2em] opacity-65 mb-2 text-[0.65rem]">
-                        Cómo se usa esta sección
-                      </p>
-                      <p className="leading-relaxed opacity-90">
-                        {megaConfig[activeMenu].tag}
-                      </p>
-                    </div>
-                  </div>
+                {/* Column 3: Context */}
+                <div className="bg-white/5 rounded-2xl p-6 border border-white/5">
+                  <p className="text-[0.65rem] uppercase tracking-[0.2em] text-crema/40 mb-3">
+                    Info
+                  </p>
+                  <p className="text-sm text-crema/70 leading-relaxed">
+                    {megaConfig[activeMenu].text}
+                  </p>
                 </div>
               </div>
             </div>
           )}
         </div>
+      </header>
+
+      {/* Mobile Menu Overlay */}
+      <div
+        ref={mobileMenuRef}
+        className="fixed inset-0 z-40 bg-[#0a0a0a] translate-x-full md:hidden flex flex-col justify-center px-8"
+      >
+        <div className="space-y-8">
+          {mainSections.map((item) => (
+            <div key={item.id} className="overflow-hidden">
+              <Link
+                href={item.href}
+                onClick={() => setMobileMenuOpen(false)}
+                className="mobile-link block font-serif text-4xl text-crema hover:text-terracota transition-colors"
+              >
+                {item.label}
+              </Link>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-12 pt-12 border-t border-white/10 space-y-6">
+          <Link
+            href="/cotiza"
+            onClick={() => setMobileMenuOpen(false)}
+            className="mobile-link w-full flex items-center justify-center gap-2 px-6 py-4 rounded-full bg-terracota text-white font-bold uppercase tracking-[0.2em]"
+          >
+            Cotizar Proyecto
+          </Link>
+          <div className="flex justify-center gap-6 text-crema/50">
+            <a href="#" className="hover:text-white transition-colors">Instagram</a>
+            <a href="#" className="hover:text-white transition-colors">WhatsApp</a>
+            <a href="#" className="hover:text-white transition-colors">Email</a>
+          </div>
+        </div>
       </div>
-    </header>
+    </>
   );
 }
