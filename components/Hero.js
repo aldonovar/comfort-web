@@ -2,12 +2,15 @@
 
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 export default function Hero() {
   const containerRef = useRef(null);
+  const videoRef = useRef(null);
 
   useEffect(() => {
     if (!containerRef.current) return;
+    gsap.registerPlugin(ScrollTrigger);
 
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({
@@ -16,56 +19,72 @@ export default function Hero() {
         },
       });
 
+      // Parallax Video
+      gsap.to(videoRef.current, {
+        yPercent: 30,
+        ease: "none",
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top top",
+          end: "bottom top",
+          scrub: true,
+        },
+      });
+
+      // Cinematic Entrance
       tl.from(".hero-eyebrow", {
-        y: 20,
+        y: 30,
         opacity: 0,
-        duration: 0.6,
+        duration: 1.2,
+        ease: "power4.out",
       })
         .from(
           ".hero-heading",
           {
-            y: 40,
+            y: 50,
             opacity: 0,
-            duration: 0.9,
+            duration: 1.4,
+            ease: "power4.out",
           },
-          "-=0.25"
+          "-=1.0"
         )
         .from(
           ".hero-copy",
           {
-            y: 20,
+            y: 30,
             opacity: 0,
-            duration: 0.7,
+            duration: 1.2,
           },
-          "-=0.45"
+          "-=1.1"
         )
         .from(
           ".hero-cta",
           {
-            y: 18,
+            y: 20,
             opacity: 0,
-            duration: 0.65,
-            stagger: 0.08,
+            duration: 1,
+            stagger: 0.1,
           },
-          "-=0.4"
+          "-=0.9"
         )
         .from(
           ".hero-card",
           {
-            y: 40,
+            y: 60,
             opacity: 0,
-            duration: 0.9,
+            duration: 1.4,
+            ease: "power4.out",
           },
-          "-=0.6"
+          "-=1.0"
         )
         .from(
           ".hero-meta",
           {
-            y: 18,
+            y: 20,
             opacity: 0,
-            duration: 0.6,
+            duration: 1,
           },
-          "-=0.4"
+          "-=1.0"
         );
     }, containerRef);
 
@@ -78,22 +97,25 @@ export default function Hero() {
       ref={containerRef}
       className="relative min-h-screen flex items-center justify-center bg-madera text-crema overflow-hidden"
     >
-      {/* Video de fondo */}
-      <video
-        className="absolute inset-0 w-full h-full object-cover opacity-60"
-        autoPlay
-        muted
-        loop
-        playsInline
-      >
-        <source
-          src="https://videos.pexels.com/video-files/3195284/3195284-hd_1920_1080_25fps.mp4"
-          type="video/mp4"
-        />
-      </video>
+      {/* Video de fondo con Parallax */}
+      <div className="absolute inset-0 overflow-hidden">
+        <video
+          ref={videoRef}
+          className="hero-video absolute inset-0 w-full h-[120%] object-cover opacity-60 -top-[10%]"
+          autoPlay
+          muted
+          loop
+          playsInline
+        >
+          <source
+            src="https://videos.pexels.com/video-files/3195284/3195284-hd_1920_1080_25fps.mp4"
+            type="video/mp4"
+          />
+        </video>
+      </div>
 
       {/* Capa de gradiente para lectura */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-black/85" />
+      <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-black/85 pointer-events-none" />
 
       {/* Contenido principal */}
       <div className="relative z-10 max-w-6xl mx-auto px-4 py-24 grid grid-cols-1 lg:grid-cols-[1.3fr_1fr] gap-12 items-center">
@@ -120,7 +142,7 @@ export default function Hero() {
             {/* CTA 1: Cotizar */}
             <a
               href="#cotiza"
-              className="hero-cta hero-cta-primary inline-flex items-center justify-center px-7 py-3 rounded-full bg-crema text-madera text-xs font-semibold tracking-[0.22em] uppercase shadow-[0_16px_40px_rgba(0,0,0,0.45)] hover:bg-white transition-colors"
+              className="hero-cta hero-cta-primary inline-flex items-center justify-center px-7 py-3 rounded-full bg-crema text-madera text-xs font-semibold tracking-[0.22em] uppercase shadow-[0_16px_40px_rgba(0,0,0,0.45)] hover:bg-white hover:scale-105 transition-all duration-300"
             >
               Cotizar mi proyecto
             </a>
@@ -128,7 +150,7 @@ export default function Hero() {
             {/* CTA 2: Agendar reunión (con ícono + microanimación) */}
             <a
               href="#contacto"
-              className="hero-cta group inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full border border-crema/35 bg-black/30 text-crema text-[0.72rem] font-semibold tracking-[0.22em] uppercase backdrop-blur-sm hover:bg-black/60 hover:border-crema/70 transition-colors"
+              className="hero-cta group inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full border border-crema/35 bg-black/30 text-crema text-[0.72rem] font-semibold tracking-[0.22em] uppercase backdrop-blur-sm hover:bg-black/60 hover:border-crema/70 hover:scale-105 transition-all duration-300"
             >
               <span className="relative flex h-6 w-6 items-center justify-center rounded-full bg-crema/12 border border-crema/35 overflow-hidden">
                 {/* Icono calendar/meeting */}
@@ -162,7 +184,7 @@ export default function Hero() {
         </div>
 
         {/* Columna derecha: “card” con stats del estudio */}
-        <div className="hero-card bg-black/40 border border-crema/15 rounded-3xl p-6 space-y-4 shadow-2xl">
+        <div className="hero-card bg-black/40 border border-crema/15 rounded-3xl p-6 space-y-4 shadow-2xl backdrop-blur-md">
           <p className="text-[0.7rem] uppercase tracking-[0.28em] text-crema/60">
             Portafolio vivo
           </p>
