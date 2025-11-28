@@ -163,32 +163,40 @@ export default function Hero() {
           {/* Bloque Derecho: Card Flotante / Visual */}
           <div className="relative hidden lg:block">
             <div className="hero-card relative ml-auto max-w-md overflow-hidden rounded-3xl bg-white/5 p-8 backdrop-blur-md border border-white/10 shadow-2xl">
-              <div className="space-y-6">
-                <div className="flex items-start justify-between">
+              <div className="space-y-8">
+                <div className="flex items-center justify-between border-b border-white/10 pb-6">
                   <div>
                     <p className="text-xs uppercase tracking-widest text-crema/60">
-                      Proyecto Destacado
+                      Experiencia
                     </p>
-                    <h3 className="mt-2 font-serif text-2xl text-crema">
-                      Rooftop Miraflores
+                    <h3 className="mt-2 font-serif text-3xl text-crema">
+                      Comfort Studio
                     </h3>
                   </div>
-                  <div className="flex h-12 w-12 items-center justify-center rounded-full border border-crema/20 bg-crema/5 text-xl">
-                    ↗
+                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-terracota text-white text-xl">
+                    ★
                   </div>
                 </div>
-                <p className="text-sm leading-relaxed text-crema/70">
-                  Una propuesta integral que combina zona de parrilla, estar
-                  semitechado y vegetación nativa para un penthouse con vista al
-                  mar.
-                </p>
-                <div className="flex gap-2">
-                  <span className="rounded-full bg-crema/10 px-3 py-1 text-[10px] uppercase tracking-wider">
-                    Residencial
-                  </span>
-                  <span className="rounded-full bg-crema/10 px-3 py-1 text-[10px] uppercase tracking-wider">
-                    120m²
-                  </span>
+
+                <div className="grid grid-cols-2 gap-6">
+                  <div className="space-y-1">
+                    <p className="text-3xl font-light text-crema">4.9/5</p>
+                    <p className="text-xs uppercase tracking-wider text-crema/60">Puntuación</p>
+                  </div>
+                  <div className="space-y-1">
+                    <p className="text-3xl font-light text-crema">+45</p>
+                    <p className="text-xs uppercase tracking-wider text-crema/60">Proyectos</p>
+                  </div>
+                  <div className="space-y-1 col-span-2">
+                    <p className="text-3xl font-light text-crema">+1,200m²</p>
+                    <p className="text-xs uppercase tracking-wider text-crema/60">Metraje Total Cubierto</p>
+                  </div>
+                </div>
+
+                <div className="pt-2">
+                  <p className="text-sm leading-relaxed text-crema/70 italic">
+                    "Transformamos espacios fríos en experiencias de vida cálidas y funcionales."
+                  </p>
                 </div>
               </div>
             </div>
