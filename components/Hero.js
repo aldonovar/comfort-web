@@ -42,8 +42,87 @@ export default function Hero() {
         )
         .from(
           ".hero-copy",
-          {/* Bloque Izquierdo: Texto */ }
-          < div className = "space-y-8" >
+          {
+            y: 20,
+            opacity: 0,
+            duration: 0.7,
+          },
+          "-=0.45"
+        );
+      /*
+      .from(
+        ".hero-cta",
+        {
+          y: 18,
+          opacity: 0,
+          duration: 0.65,
+          stagger: 0.08,
+        },
+        "-=0.4"
+      )
+      */
+      tl.from(
+        ".hero-card",
+        {
+          y: 40,
+          opacity: 0,
+          duration: 0.9,
+        },
+        "-=0.6"
+      )
+        .from(
+          ".hero-meta",
+          {
+            y: 18,
+            opacity: 0,
+            duration: 0.6,
+          },
+          "-=0.4"
+        );
+
+      // Parallax del video container (ahora contiene el Canvas View)
+      gsap.to(videoContainerRef.current, {
+        yPercent: 20,
+        ease: "none",
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top top",
+          end: "bottom top",
+          scrub: true,
+        },
+      });
+    }, containerRef);
+
+    return () => ctx.revert();
+  }, []);
+
+  return (
+    <section
+      ref={containerRef}
+      className="relative min-h-screen w-full overflow-hidden bg-madera text-crema"
+    >
+      {/* Background Video (WebGL) */}
+      <div
+        ref={videoContainerRef}
+        className="absolute inset-0 z-0 h-[120%] w-full" // 120% height for parallax
+      >
+        <div className="relative h-full w-full">
+          <Suspense fallback={<div className="absolute inset-0 bg-madera" />}>
+            <HeroBackground
+              videoUrl="https://cdn.coverr.co/videos/coverr-walking-by-a-wooden-wall-4608/1080p.mp4"
+              className="absolute inset-0 h-full w-full"
+            />
+          </Suspense>
+          {/* Overlay oscuro para legibilidad */}
+          <div className="absolute inset-0 bg-black/30 pointer-events-none" />
+        </div>
+      </div>
+
+      {/* Contenido */}
+      <div className="relative z-10 flex min-h-screen flex-col justify-center px-4 pt-20 md:px-8 lg:pt-0">
+        <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-2 lg:items-center">
+          {/* Bloque Izquierdo: Texto */}
+          <div className="space-y-8">
             <div className="space-y-4">
               <p className="hero-eyebrow text-xs font-medium uppercase tracking-[0.25em] text-crema/70">
                 Arquitectura Exterior
@@ -80,43 +159,43 @@ export default function Hero() {
               <span className="h-1 w-1 rounded-full bg-crema/50" />
               <span>Est. 2024</span>
             </div>
-          </div >
+          </div>
 
-      {/* Bloque Derecho: Card Flotante / Visual */ }
-      < div className = "relative hidden lg:block" >
-        <div className="hero-card relative ml-auto max-w-md overflow-hidden rounded-3xl bg-white/5 p-8 backdrop-blur-md border border-white/10 shadow-2xl">
-          <div className="space-y-6">
-            <div className="flex items-start justify-between">
-              <div>
-                <p className="text-xs uppercase tracking-widest text-crema/60">
-                  Proyecto Destacado
+          {/* Bloque Derecho: Card Flotante / Visual */}
+          <div className="relative hidden lg:block">
+            <div className="hero-card relative ml-auto max-w-md overflow-hidden rounded-3xl bg-white/5 p-8 backdrop-blur-md border border-white/10 shadow-2xl">
+              <div className="space-y-6">
+                <div className="flex items-start justify-between">
+                  <div>
+                    <p className="text-xs uppercase tracking-widest text-crema/60">
+                      Proyecto Destacado
+                    </p>
+                    <h3 className="mt-2 font-serif text-2xl text-crema">
+                      Rooftop Miraflores
+                    </h3>
+                  </div>
+                  <div className="flex h-12 w-12 items-center justify-center rounded-full border border-crema/20 bg-crema/5 text-xl">
+                    ↗
+                  </div>
+                </div>
+                <p className="text-sm leading-relaxed text-crema/70">
+                  Una propuesta integral que combina zona de parrilla, estar
+                  semitechado y vegetación nativa para un penthouse con vista al
+                  mar.
                 </p>
-                <h3 className="mt-2 font-serif text-2xl text-crema">
-                  Rooftop Miraflores
-                </h3>
+                <div className="flex gap-2">
+                  <span className="rounded-full bg-crema/10 px-3 py-1 text-[10px] uppercase tracking-wider">
+                    Residencial
+                  </span>
+                  <span className="rounded-full bg-crema/10 px-3 py-1 text-[10px] uppercase tracking-wider">
+                    120m²
+                  </span>
+                </div>
               </div>
-              <div className="flex h-12 w-12 items-center justify-center rounded-full border border-crema/20 bg-crema/5 text-xl">
-                ↗
-              </div>
-            </div>
-            <p className="text-sm leading-relaxed text-crema/70">
-              Una propuesta integral que combina zona de parrilla, estar
-              semitechado y vegetación nativa para un penthouse con vista al
-              mar.
-            </p>
-            <div className="flex gap-2">
-              <span className="rounded-full bg-crema/10 px-3 py-1 text-[10px] uppercase tracking-wider">
-                Residencial
-              </span>
-              <span className="rounded-full bg-crema/10 px-3 py-1 text-[10px] uppercase tracking-wider">
-                120m²
-              </span>
             </div>
           </div>
         </div>
-          </div >
-        </div >
-      </div >
-    </section >
+      </div>
+    </section>
   );
 }
