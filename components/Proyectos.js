@@ -3,6 +3,13 @@
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import dynamic from "next/dynamic";
+
+// Dynamically import ProjectImage to avoid SSR issues with R3F
+const ProjectImage = dynamic(
+  () => import("../components/canvas/ProjectImage"),
+  { ssr: false }
+);
 
 const PROJECTS = [
   {
@@ -15,6 +22,7 @@ const PROJECTS = [
     summary:
       "Rooftop con barra, comedor exterior y techo sol y sombra pensado para reuniones nocturnas frecuentes.",
     tags: ["After office en casa", "Vista urbana", "Techo sol y sombra"],
+    image: "https://images.pexels.com/photos/2599537/pexels-photo-2599537.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
   },
   {
     id: "terraza-miraflores",
@@ -26,6 +34,7 @@ const PROJECTS = [
     summary:
       "Terraza compacta donde el control de luz, la iluminación cálida y el mobiliario a medida permiten usarla todo el día.",
     tags: ["Espacio compacto", "Control de luz", "Uso diario"],
+    image: "https://images.pexels.com/photos/2091166/pexels-photo-2091166.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
   },
   {
     id: "rooftop-san-isidro",
@@ -37,6 +46,7 @@ const PROJECTS = [
     summary:
       "Rooftop para equipo comercial con áreas de reunión informal, barra, vegetación y puntos de trabajo exterior.",
     tags: ["Equipo comercial", "Reuniones informales", "Identidad de marca"],
+    image: "https://images.pexels.com/photos/323780/pexels-photo-323780.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
   },
   {
     id: "patio-la-molina",
@@ -48,6 +58,7 @@ const PROJECTS = [
     summary:
       "Patio con zona de parrilla, sala exterior y área de juego suave para niños, resuelto como extensión de la sala.",
     tags: ["Familias", "Zona de juego", "Parrilla central"],
+    image: "https://images.pexels.com/photos/2102587/pexels-photo-2102587.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
   },
   {
     id: "terraza-surco",
@@ -59,6 +70,7 @@ const PROJECTS = [
     summary:
       "Terraza en forma de pasillo convertida en recorrido habitable con nichos de estar, iluminación y vegetación.",
     tags: ["Espacio difícil", "Recorrido habitable", "Vegetación"],
+    image: "https://images.pexels.com/photos/2883049/pexels-photo-2883049.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
   },
 ];
 
@@ -285,11 +297,10 @@ export default function Proyectos() {
                     key={f.id}
                     type="button"
                     onClick={() => setFilter(f.id)}
-                    className={`rounded-full px-3.5 py-1.5 text-[0.78rem] uppercase tracking-[0.18em] transition-colors border ${
-                      isActive
+                    className={`rounded-full px-3.5 py-1.5 text-[0.78rem] uppercase tracking-[0.18em] transition-colors border ${isActive
                         ? "bg-madera text-crema border-madera"
                         : "bg-white/70 text-madera/75 border-madera/20 hover:border-madera/50"
-                    }`}
+                      }`}
                   >
                     {f.label}
                   </button>
@@ -304,8 +315,8 @@ export default function Proyectos() {
               {filter === "todos"
                 ? "entre terrazas residenciales y corporativas."
                 : filter === "residencial"
-                ? "de terrazas residenciales."
-                : "de terrazas corporativas."}
+                  ? "de terrazas residenciales."
+                  : "de terrazas corporativas."}
             </p>
           </div>
         </header>
@@ -317,15 +328,23 @@ export default function Proyectos() {
             <div className="lg:sticky lg:top-24">
               <div
                 ref={cardRef}
-                className="projects-preview-card relative rounded-[32px] border border-madera/20 bg-gradient-to-br from-[#1f130e] via-[#24150f] to-[#3a2418] text-crema shadow-[0_28px_90px_rgba(0,0,0,0.75)] px-6 py-7 md:px-8 md:py-9 [transform-style:preserve-3d]"
+                className="projects-preview-card relative rounded-[32px] border border-madera/20 bg-gradient-to-br from-[#1f130e] via-[#24150f] to-[#3a2418] text-crema shadow-[0_28px_90px_rgba(0,0,0,0.75)] px-6 py-7 md:px-8 md:py-9 [transform-style:preserve-3d] overflow-hidden"
               >
-                {/* Borde interno */}
-                <div className="pointer-events-none absolute inset-0 rounded-[30px] border border-white/10 opacity-80" />
-                {/* Luces */}
-                <div className="pointer-events-none absolute -top-10 right-6 h-28 w-28 rounded-full bg-terracota/40 blur-3xl" />
-                <div className="pointer-events-none absolute -bottom-16 left-0 h-32 w-32 rounded-full bg-black/40 blur-3xl" />
+                {/* WebGL Image Background */}
+                <div className="absolute inset-0 z-0 opacity-40 mix-blend-overlay">
+                  <ProjectImage
+                    imgUrl={activeProject.image}
+                    className="w-full h-full"
+                  />
+                </div>
 
-                <div className="projects-card-inner relative z-10 flex flex-col gap-6 md:gap-7 h-full">
+                {/* Borde interno */}
+                <div className="pointer-events-none absolute inset-0 rounded-[30px] border border-white/10 opacity-80 z-20" />
+                {/* Luces */}
+                <div className="pointer-events-none absolute -top-10 right-6 h-28 w-28 rounded-full bg-terracota/40 blur-3xl z-10" />
+                <div className="pointer-events-none absolute -bottom-16 left-0 h-32 w-32 rounded-full bg-black/40 blur-3xl z-10" />
+
+                <div className="projects-card-inner relative z-30 flex flex-col gap-6 md:gap-7 h-full">
                   <div className="flex flex-wrap items-start justify-between gap-3">
                     <div className="space-y-2 max-w-xl">
                       <p className="text-[0.7rem] uppercase tracking-[0.26em] text-crema/70">
@@ -429,11 +448,10 @@ export default function Proyectos() {
               return (
                 <article
                   key={project.id}
-                  className={`project-card cursor-pointer rounded-3xl border backdrop-blur-sm px-4 py-4 md:px-5 md:py-5 transition-all ${
-                    isActive
+                  className={`project-card cursor-pointer rounded-3xl border backdrop-blur-sm px-4 py-4 md:px-5 md:py-5 transition-all ${isActive
                       ? "bg-white/95 border-madera/40 shadow-[0_18px_60px_rgba(0,0,0,0.12)] scale-[1.01]"
                       : "bg-white/75 border-madera/12 hover:border-madera/40 hover:bg-white/95"
-                  }`}
+                    }`}
                   onMouseEnter={() => setActiveId(project.id)}
                   onFocus={() => setActiveId(project.id)}
                 >

@@ -5,6 +5,7 @@ import SmoothScroller from "../components/SmoothScroller";
 import FloatingCTA from "../components/FloatingCTA";
 import PageTransition from "../components/PageTransition";
 import Footer from "../components/Footer";
+import Scene from "../components/canvas/Scene";
 
 export const metadata = {
   title: "Comfort Studio — Arquitectura Exterior",
@@ -44,6 +45,10 @@ export default function RootLayout({ children }) {
         <Preloader />
         <Navbar />
         <FloatingCTA />
+
+        {/* Global 3D Scene */}
+        <Scene />
+
         <PageTransition>
           <main className="relative z-10 min-h-screen">{children}</main>
         </PageTransition>
