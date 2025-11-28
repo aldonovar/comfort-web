@@ -6,223 +6,115 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 export default function Hero() {
   const containerRef = useRef(null);
-  const videoContainerRef = useRef(null);
 
   useEffect(() => {
-    if (!containerRef.current) return;
-    gsap.registerPlugin(ScrollTrigger);
-
     const ctx = gsap.context(() => {
-      const tl = gsap.timeline({
-        defaults: {
-          ease: "power3.out",
-        },
+      const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+
+      // Initial state
+      gsap.set(".hero-element", { y: 40, opacity: 0 });
+
+      tl.to(".hero-element", {
+        y: 0,
+        opacity: 1,
+        duration: 1.4,
+        stagger: 0.12,
+        delay: 0.2
       });
 
-      tl.from(".hero-eyebrow", {
-        y: 20,
-        opacity: 0,
-        duration: 0.6,
-      })
-        .from(
-          ".hero-heading",
-          {
-            y: 40,
-            opacity: 0,
-            duration: 0.9,
-          },
-          "-=0.25"
-        )
-        .from(
-          ".hero-copy",
-          {
-            y: 20,
-            opacity: 0,
-            duration: 0.7,
-          },
-          "-=0.45"
-        )
-        .from(
-          ".hero-cta",
-          {
-            y: 18,
-            opacity: 0,
-            duration: 0.65,
-            stagger: 0.08,
-          },
-          "-=0.4"
-        )
-        .from(
-          ".hero-card",
-          {
-            y: 40,
-            opacity: 0,
-            duration: 0.9,
-          },
-          "-=0.6"
-        )
-        .from(
-          ".hero-footer-text",
-          {
-            opacity: 0,
-            duration: 1,
-          },
-          "-=0.4"
-        );
-
-      // Parallax del video container
-      gsap.to(videoContainerRef.current, {
-        yPercent: 20,
-        ease: "none",
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: "top top",
-          end: "bottom top",
-          scrub: true,
-        },
-      });
     }, containerRef);
 
     return () => ctx.revert();
   }, []);
 
   return (
-    <section
-      ref={containerRef}
-      className="relative min-h-screen w-full overflow-hidden bg-madera text-crema"
-    >
-      {/* Background Video (HTML5 Standard) */}
-      <div
-        ref={videoContainerRef}
-        className="absolute inset-0 z-0 h-[120%] w-full"
-      >
+    <section ref={containerRef} className="relative w-full h-screen min-h-[700px] overflow-hidden bg-madera text-crema flex items-center">
+      {/* Background Video */}
+      <div className="absolute inset-0 z-0">
         <video
           autoPlay
           muted
           loop
           playsInline
-          className="absolute inset-0 h-full w-full object-cover opacity-40"
+          className="w-full h-full object-cover opacity-60"
           src="https://cdn.coverr.co/videos/coverr-walking-by-a-wooden-wall-4608/1080p.mp4"
         />
-        {/* Overlay oscuro para legibilidad */}
-        <div className="absolute inset-0 bg-black/50 pointer-events-none" />
+        {/* Gradient Overlays for Depth & Readability */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/50 to-transparent mix-blend-multiply" />
+        <div className="absolute inset-0 bg-gradient-to-t from-madera/90 via-transparent to-transparent" />
       </div>
 
-      {/* Contenido */}
-      <div className="relative z-10 flex min-h-screen flex-col justify-center px-4 pt-24 pb-12 md:px-8 lg:pt-0">
-        <div className="mx-auto grid max-w-[1400px] gap-16 lg:grid-cols-2 lg:items-center">
-          {/* Bloque Izquierdo: Texto */}
-          <div className="space-y-10">
-            <div className="space-y-6">
-              <p className="hero-eyebrow text-xs font-medium uppercase tracking-[0.25em] text-crema/60">
-                Arquitectura Exterior · Lima, Perú
-              </p>
-              <h1 className="hero-heading font-serif text-5xl leading-[1.1] md:text-6xl lg:text-7xl">
-                Terrazas que se sienten <br />
-                <span className="italic text-terracota">hogar</span> desde la primera noche.
-              </h1>
-              <p className="hero-copy max-w-xl text-lg leading-relaxed text-crema/80">
-                Comfort Studio diseña y ejecuta terrazas, azoteas y patios habitables para familias y empresas que valoran la luz cálida, los materiales honestos y los detalles bien resueltos.
-              </p>
-            </div>
+      {/* Content */}
+      <div className="relative z-10 w-full max-w-[1400px] mx-auto px-6 md:px-12 flex flex-col justify-center h-full">
 
-            <div className="flex flex-wrap gap-4 relative z-20">
-              <a
-                href="#cotiza"
-                className="hero-cta group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-crema px-8 py-4 text-sm font-bold uppercase tracking-widest text-madera transition-all duration-300 hover:scale-105 hover:bg-white"
-              >
-                <span className="relative z-10">Cotizar Proyecto</span>
-                <div className="absolute inset-0 -translate-x-full bg-terracota transition-transform duration-300 group-hover:translate-x-0" />
-              </a>
-              <a
-                href="https://calendly.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hero-cta group inline-flex items-center gap-2 rounded-full border border-crema/30 px-8 py-4 text-sm font-bold uppercase tracking-widest text-crema backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:bg-crema/10"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="18"
-                  height="18"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                  <line x1="16" y1="2" x2="16" y2="6"></line>
-                  <line x1="8" y1="2" x2="8" y2="6"></line>
-                  <line x1="3" y1="10" x2="21" y2="10"></line>
-                </svg>
-                <span>Agendar Reunión Virtual</span>
-              </a>
-            </div>
-
-            <div className="hero-footer-text pt-8 max-w-md">
-              <p className="text-[0.7rem] leading-relaxed text-crema/50">
-                Durante la presentación, esta portada funciona como una sala de recepción digital: mensaje claro, navegación precisa y un llamado a cotizar o agendar sin fricción.
-              </p>
-            </div>
-          </div>
-
-          {/* Bloque Derecho: Card Flotante / Visual */}
-          <div className="relative hidden lg:block">
-            <div className="hero-card relative ml-auto max-w-lg overflow-hidden rounded-[2rem] bg-[#1a1a1a]/80 p-10 backdrop-blur-md border border-white/10 shadow-2xl">
-              <div className="space-y-8">
-
-                <div className="space-y-4">
-                  <p className="text-[0.65rem] uppercase tracking-[0.2em] text-crema/50">
-                    Portafolio Vivo
-                  </p>
-                  <h3 className="font-serif text-2xl leading-snug text-crema">
-                    De la idea al espacio real: terrazas que venden confianza.
-                  </h3>
-                  <p className="text-xs leading-relaxed text-crema/70">
-                    Cada proyecto que aparece en esta web existe para mostrarle al cliente, en vivo, cómo se ve el nivel de Comfort Studio: luz, estructura y detalles listos para ser vividos.
-                  </p>
-                </div>
-
-                <div className="grid grid-cols-3 gap-6 border-t border-white/10 pt-6">
-                  <div className="space-y-1">
-                    <p className="text-[0.65rem] uppercase tracking-[0.15em] text-crema/50">Confianza</p>
-                    <p className="text-2xl font-medium text-crema">+38%</p>
-                    <p className="text-[0.6rem] leading-tight text-crema/40">Probabilidad estimada de contacto cuando el portafolio se ve estructurado.</p>
-                  </div>
-                  <div className="space-y-1">
-                    <p className="text-[0.65rem] uppercase tracking-[0.15em] text-crema/50">Proyectos</p>
-                    <p className="text-2xl font-medium text-crema">80+</p>
-                    <p className="text-[0.6rem] leading-tight text-crema/40">Entre residenciales, rooftops y terrazas corporativas.</p>
-                  </div>
-                  <div className="space-y-1">
-                    <p className="text-[0.65rem] uppercase tracking-[0.15em] text-crema/50">Satisfacción</p>
-                    <p className="text-2xl font-medium text-crema">4.9 ★</p>
-                    <p className="text-[0.6rem] leading-tight text-crema/40">Valoración promedio en encuestas internas posteriores a obra.</p>
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-2 gap-6 border-t border-white/10 pt-6">
-                  <div className="space-y-1">
-                    <p className="text-[0.65rem] uppercase tracking-[0.15em] text-crema/50">Modalidad</p>
-                    <p className="text-xs font-medium text-crema">Diseño, obra o diseño + obra</p>
-                  </div>
-                  <div className="space-y-1">
-                    <p className="text-[0.65rem] uppercase tracking-[0.15em] text-crema/50">Tipo de Cliente</p>
-                    <p className="text-xs font-medium text-crema">Vivienda y proyectos corporativos</p>
-                  </div>
-                </div>
-
-                <div className="pt-4 text-center">
-                  <p className="text-[0.6rem] uppercase tracking-[0.2em] text-crema/40">
-                    Desplázate para ver cómo trabajamos ↓
-                  </p>
-                </div>
-
-              </div>
-            </div>
+        {/* Branding Tag */}
+        <div className="hero-element mb-10">
+          <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full border border-crema/10 bg-white/5 backdrop-blur-md">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-terracota opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-terracota"></span>
+            </span>
+            <span className="text-[0.7rem] uppercase tracking-[0.3em] text-crema/90 font-medium">
+              Comfort Studio · Outdoor Living
+            </span>
           </div>
         </div>
+
+        {/* Title */}
+        <h1 className="hero-element font-serif text-5xl md:text-7xl lg:text-8xl leading-[1.05] max-w-5xl mb-8 tracking-tight">
+          Diseñamos terrazas <br />
+          que <span className="italic text-terracota font-light">elevan</span> tu vida.
+        </h1>
+
+        {/* Subtitle */}
+        <p className="hero-element text-lg md:text-xl text-crema/70 max-w-xl leading-relaxed mb-12 font-light border-l border-terracota/50 pl-6">
+          Transformamos azoteas y patios en espacios habitables con estética arquitectónica.
+          Donde el diseño se encuentra con el confort.
+        </p>
+
+        {/* CTAs */}
+        <div className="hero-element flex flex-wrap gap-6 items-center">
+          {/* Primary CTA: Cotizar */}
+          <a
+            href="#cotiza"
+            className="group relative px-9 py-4 bg-terracota overflow-hidden rounded-full transition-all hover:shadow-[0_0_40px_rgba(176,115,87,0.3)]"
+          >
+            <div className="absolute inset-0 bg-white/10 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.23,1,0.32,1)]" />
+            <span className="relative z-10 text-sm font-bold uppercase tracking-[0.2em] text-white group-hover:tracking-[0.25em] transition-all duration-500">
+              Cotizar Proyecto
+            </span>
+          </a>
+
+          {/* Secondary CTA: Agendar */}
+          <a
+            href="https://calendly.com/"
+            target="_blank"
+            className="group flex items-center gap-4 px-6 py-4 rounded-full border border-crema/20 hover:border-crema/40 hover:bg-white/5 transition-all duration-300"
+          >
+            <span className="text-sm font-medium uppercase tracking-[0.2em] text-crema/90">Agendar Reunión</span>
+            <div className="relative w-8 h-8 rounded-full bg-white/10 flex items-center justify-center overflow-hidden">
+              <svg
+                className="w-4 h-4 text-crema transition-all duration-300 group-hover:translate-x-full group-hover:opacity-0"
+                fill="none" stroke="currentColor" viewBox="0 0 24 24"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+              </svg>
+              <svg
+                className="absolute w-4 h-4 text-crema -translate-x-full opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100"
+                fill="none" stroke="currentColor" viewBox="0 0 24 24"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+              </svg>
+            </div>
+          </a>
+        </div>
+
+      </div>
+
+      {/* Scroll Indicator */}
+      <div className="absolute bottom-12 right-12 hero-element hidden md:flex items-center gap-4">
+        <span className="text-[0.65rem] uppercase tracking-[0.2em] text-crema/40">Scroll</span>
+        <div className="w-16 h-[1px] bg-crema/20" />
       </div>
     </section>
   );
