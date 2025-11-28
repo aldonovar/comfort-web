@@ -7,7 +7,7 @@ export default function Footer() {
   const socialLinks = [
     {
       name: "Instagram",
-      href: "https://instagram.com",
+      href: "https://www.instagram.com/comfortstudiop/",
       icon: (
         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
           <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
@@ -18,7 +18,7 @@ export default function Footer() {
     },
     {
       name: "Facebook",
-      href: "https://facebook.com",
+      href: "https://www.facebook.com/comfortstudioperu",
       icon: (
         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
           <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
@@ -27,7 +27,7 @@ export default function Footer() {
     },
     {
       name: "TikTok",
-      href: "https://tiktok.com",
+      href: "https://www.tiktok.com/@comfortstudio7",
       icon: (
         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
           <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"></path>
@@ -54,18 +54,22 @@ export default function Footer() {
       <div className="absolute inset-0 opacity-[0.02] bg-[url('https://grainy-gradients.vercel.app/noise.svg')] pointer-events-none mix-blend-overlay" />
 
       <ScrollReveal animation="fade-up" duration={0.8} threshold="90%">
-        <div className="max-w-[1600px] mx-auto px-6 md:px-12 pt-20 pb-12 relative z-10">
+        {/* Added pb-24 to prevent overlap with floating CTA button */}
+        <div className="max-w-[1600px] mx-auto px-6 md:px-12 pt-20 pb-24 relative z-10">
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 mb-20">
 
             {/* 1. Brand Column */}
             <div className="space-y-8">
-              <Link href="/" className="block">
+              <Link href="/" className="flex items-center gap-3 group">
                 <img
                   src="/comfort-logo-light.png"
                   alt="Comfort Studio Logo"
-                  className="h-12 w-auto object-contain opacity-90 hover:opacity-100 transition-opacity"
+                  className="h-10 w-auto object-contain opacity-90 group-hover:opacity-100 transition-opacity"
                 />
+                <span className="font-serif text-xl tracking-wide text-crema opacity-90 group-hover:opacity-100 transition-opacity">
+                  COMFORT STUDIO
+                </span>
               </Link>
               <div className="space-y-4">
                 <p className="text-sm text-crema/70 leading-relaxed font-light max-w-xs">
@@ -182,8 +186,8 @@ export default function Footer() {
               </div>
             </div>
 
-            <p className="text-xs text-crema/40 flex items-center gap-1">
-              Design by <a href="https://github.com/aldonovar" target="_blank" rel="noreferrer" className="text-crema/60 hover:text-white transition-colors font-medium">ALLYX</a>
+            <p className="text-[0.65rem] uppercase tracking-widest text-crema/40 flex items-center gap-1">
+              Experiencia digital desarrollada por <a href="https://allyxorb.com" target="_blank" rel="noreferrer" className="text-crema/60 hover:text-white transition-colors font-bold ml-1">ALLYX</a>
             </p>
           </div>
         </div>
