@@ -384,7 +384,7 @@ ${notes || "Sin notas adicionales"}
                       value={budget}
                       onChange={(val) => {
                         setBudget(val);
-                        const code = BUDGET_RANGES.find(b => b.value === val)?.code || BUDGET_RANGES.find(b => b.label === val)?.code || "XX";
+                        const code = BUDGET_RANGES.find(b => b.label === val)?.code || "XX";
                         setBudgetCode(code);
                       }}
                       options={BUDGET_RANGES.map(b => ({ label: b.label, value: b.label }))}
