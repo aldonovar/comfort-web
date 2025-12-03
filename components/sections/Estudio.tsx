@@ -4,208 +4,161 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-const highlights = [
-  {
-    label: "Enfoque",
-    title: "Terrazas pensadas como extensión del interior.",
-    text: "No diseñamos espacios aislados, sino continuidades: cómo se ve la terraza desde la sala, cómo suena, cómo se siente cuando entras de noche.",
-  },
-  {
-    label: "Detalle",
-    title: "Decisiones pequeñas que cambian la experiencia.",
-    text: "La altura de una barra, la temperatura de la luz, la textura del piso descalzo. El estudio existe para tomar en serio esos detalles.",
-  },
-  {
-    label: "Rol",
-    title: "Un estudio que coordina, no solo dibuja.",
-    text: "Coordinamos con edificio, proveedores, permisos y plazos. Buscamos que tú no tengas que hacerlo pieza por pieza.",
-  },
-];
+gsap.registerPlugin(ScrollTrigger);
 
-const facts = [
+const principles = [
   {
-    label: "Proyectos acompañados",
-    value: "+30",
-    note: "Entre viviendas, edificios y espacios corporativos.",
+    id: "enfoque",
+    label: "Enfoque",
+    title: "Extensión, no anexo.",
+    text: "La terraza no es un satélite. Es la continuación lógica de tu sala, tu comedor y tu vida.",
+    colSpan: "md:col-span-2",
+    bg: "bg-white/5"
   },
   {
-    label: "Rango de metros trabajados",
-    value: "12 m² – 150 m²",
-    note: "Desde terrazas compactas hasta rooftops completos.",
+    id: "detalle",
+    label: "Obsesión",
+    title: "El detalle invisible.",
+    text: "La temperatura de la luz, la textura del piso descalzo. Lo que no se ve, pero se siente.",
+    colSpan: "md:col-span-1",
+    bg: "bg-[#151515]"
   },
   {
-    label: "Modos de trabajo",
-    value: "Diseño · Obra · Mixto",
-    note: "Podemos solo diseñar, ejecutar o hacer ambas cosas.",
+    id: "rol",
+    label: "Rol",
+    title: "Orquestadores.",
+    text: "Coordinamos permisos, proveedores y tiempos. Tú disfrutas, nosotros resolvemos.",
+    colSpan: "md:col-span-1",
+    bg: "bg-[#151515]"
   },
+  {
+    id: "stats",
+    label: "Trayectoria",
+    type: "stats",
+    stats: [
+      { value: "+30", label: "Proyectos" },
+      { value: "4 Años", label: "Experiencia" },
+      { value: "100%", label: "Personalizado" }
+    ],
+    colSpan: "md:col-span-2",
+    bg: "bg-white/5"
+  }
 ];
 
 export default function Estudio() {
-  const sectionRef = useRef(null);
+  const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    if (typeof window === "undefined") return;
-    gsap.registerPlugin(ScrollTrigger);
-
     const ctx = gsap.context(() => {
-      // Header
-      const headerAnim = gsap.from(".studio-header", {
-        y: 26,
+      // Header Reveal
+      gsap.from(".studio-header-reveal", {
+        y: 50,
+        opacity: 0,
+        duration: 1,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 80%",
+        }
+      });
+
+      // Grid Reveal
+      gsap.from(".studio-card-reveal", {
+        y: 50,
         opacity: 0,
         duration: 0.8,
-        ease: "power3.out",
-      });
-
-      ScrollTrigger.create({
-        trigger: sectionRef.current,
-        start: "top 80%",
-        animation: headerAnim,
-        once: true,
-      });
-
-      // Facts / métricas
-      gsap.from(".studio-facts-card", {
-        y: 22,
-        opacity: 0,
-        duration: 0.7,
-        ease: "power3.out",
-        stagger: 0.08,
+        stagger: 0.1,
+        ease: "power2.out",
         scrollTrigger: {
-          trigger: ".studio-facts",
+          trigger: ".studio-grid",
           start: "top 85%",
-          once: true,
-        },
+        }
       });
 
-      // Highlights
-      gsap.from(".studio-highlight-card", {
-        y: 24,
-        opacity: 0,
-        duration: 0.7,
-        ease: "power3.out",
-        stagger: 0.08,
-        scrollTrigger: {
-          trigger: ".studio-highlights",
-          start: "top 80%",
-          once: true,
-        },
-      });
-
-      // Parallax de fondo
-      ScrollTrigger.create({
-        trigger: sectionRef.current,
-        start: "top bottom",
-        end: "bottom top",
-        scrub: true,
-        onUpdate: (self) => {
-          gsap.to(".studio-bg", {
-            y: self.progress * -30,
-            ease: "none",
-          });
-        },
-      });
-
-      ScrollTrigger.refresh();
     }, sectionRef);
 
-    return () => {
-      ctx.revert();
-      ScrollTrigger.getAll().forEach((t) => t.kill());
-    };
+    return () => ctx.revert();
   }, []);
 
   return (
     <section
-      id="estudio"
       ref={sectionRef}
-      className="relative py-20 bg-[#111010] text-crema overflow-hidden"
+      id="estudio"
+      className="relative bg-[#0a0a0a] text-white py-24 md:py-32 border-t border-white/5"
     >
-      {/* Fondo sutil con parallax */}
-      <div className="studio-bg pointer-events-none absolute inset-y-[-60px] -left-24 -right-24 bg-[radial-gradient(circle_at_top,_rgba(244,199,171,0.14),_transparent_60%),_radial-gradient(circle_at_bottom,_rgba(255,255,255,0.06),_transparent_55%)] opacity-80" />
+      <div className="max-w-[1800px] mx-auto px-6 md:px-12">
 
-      <div className="relative z-10 max-w-6xl mx-auto px-4 space-y-12">
-        {/* Header */}
-        <div className="studio-header grid gap-8 md:grid-cols-[1.3fr_1fr] items-start">
-          <div className="space-y-4">
-            <p className="text-xs tracking-[0.32em] uppercase text-crema/50">
-              Estudio
-            </p>
-            <h2 className="font-serif text-3xl md:text-4xl">
-              Un estudio dedicado a terrazas que se sienten parte de la casa,
-              no un anexo olvidado.
+        <div className="grid lg:grid-cols-[1fr_1.5fr] gap-16 lg:gap-24 items-start">
+
+          {/* Header (Left) */}
+          <div className="studio-header-reveal lg:sticky lg:top-32">
+            <span className="block text-terracota text-xs tracking-[0.3em] uppercase font-bold mb-4">
+              El Estudio
+            </span>
+            <h2 className="font-serif text-4xl md:text-5xl leading-[1.1] mb-8">
+              No hacemos terrazas. <br />
+              <span className="text-white/40 italic">Creamos escenarios de vida.</span>
             </h2>
-            <p className="text-sm md:text-base text-crema/80 max-w-xl">
-              Comfort Studio nace de una pregunta sencilla:{" "}
-              <span className="italic">
-                ¿qué pasa si tratamos la terraza con el mismo cuidado que el
-                interior?
-              </span>{" "}
-              A partir de ahí, el enfoque se volvió casi obsesivo: luz, uso,
-              materiales, mantenimiento y sensación de recibimiento.
+            <p className="text-white/60 text-lg leading-relaxed max-w-md mb-8">
+              Comfort Studio nace de una obsesión: tratar el exterior con el mismo rigor, lujo y calidez que el interior más exclusivo.
             </p>
+
+            <button className="group inline-flex items-center gap-3 px-6 py-3 rounded-full border border-white/20 hover:bg-white hover:text-black transition-all duration-300">
+              <span className="uppercase tracking-widest text-xs font-bold">Conocer al equipo</span>
+              <span className="transform group-hover:translate-x-1 transition-transform">→</span>
+            </button>
           </div>
 
-          <div className="studio-facts grid gap-3">
-            {facts.map((fact) => (
-              <article
-                key={fact.label}
-                className="studio-facts-card rounded-2xl border border-crema/10 bg-white/5 px-4 py-3 shadow-[0_14px_40px_rgba(0,0,0,0.6)]"
+          {/* Bento Grid (Right) */}
+          <div className="studio-grid grid grid-cols-1 md:grid-cols-3 gap-4">
+            {principles.map((item) => (
+              <div
+                key={item.id}
+                className={`
+                  studio-card-reveal relative rounded-3xl p-8 border border-white/5 overflow-hidden group hover:border-white/20 transition-colors duration-500
+                  ${item.colSpan}
+                  ${item.bg}
+                `}
               >
-                <p className="text-[0.7rem] uppercase tracking-[0.22em] text-crema/70 mb-1">
-                  {fact.label}
-                </p>
-                <p className="text-xl font-semibold">{fact.value}</p>
-                <p className="text-[0.75rem] text-crema/70 mt-1">
-                  {fact.note}
-                </p>
-              </article>
+                {/* Hover Gradient */}
+                <div className="absolute inset-0 bg-gradient-to-br from-terracota/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                <div className="relative z-10 h-full flex flex-col justify-between gap-8">
+                  <div className="flex justify-between items-start">
+                    <span className="px-3 py-1 rounded-full border border-white/10 bg-black/20 text-[10px] uppercase tracking-widest text-white/60">
+                      {item.label}
+                    </span>
+                    {item.type === 'stats' && (
+                      <div className="flex gap-1">
+                        <span className="w-2 h-2 rounded-full bg-terracota animate-pulse" />
+                      </div>
+                    )}
+                  </div>
+
+                  {item.type === 'stats' ? (
+                    <div className="grid grid-cols-3 gap-4">
+                      {item.stats?.map((stat, i) => (
+                        <div key={i}>
+                          <span className="block text-2xl md:text-3xl font-serif text-white mb-1">{stat.value}</span>
+                          <span className="block text-[10px] uppercase tracking-wider text-white/40">{stat.label}</span>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <div>
+                      <h3 className="text-2xl font-serif mb-3 group-hover:text-terracota transition-colors duration-300">
+                        {item.title}
+                      </h3>
+                      <p className="text-white/60 text-sm leading-relaxed">
+                        {item.text}
+                      </p>
+                    </div>
+                  )}
+                </div>
+              </div>
             ))}
           </div>
-        </div>
 
-        {/* Bloque de highlights (cómo piensa el estudio) */}
-        <div className="studio-highlights grid gap-6 md:grid-cols-3 pt-4">
-          {highlights.map((item) => (
-            <article
-              key={item.label}
-              className="studio-highlight-card relative rounded-3xl border border-crema/10 bg-white/5 px-4 py-5 shadow-[0_18px_60px_rgba(0,0,0,0.65)] overflow-hidden"
-            >
-              <div className="absolute inset-0 opacity-0 bg-gradient-to-br from-terracota/20 via-transparent to-crema/15 pointer-events-none transition-opacity duration-300 hover:opacity-100" />
-              <div className="relative z-10 space-y-2">
-                <p className="text-[0.7rem] uppercase tracking-[0.22em] text-crema/60">
-                  {item.label}
-                </p>
-                <h3 className="text-sm md:text-base font-semibold">
-                  {item.title}
-                </h3>
-                <p className="text-[0.8rem] text-crema/75">{item.text}</p>
-              </div>
-            </article>
-          ))}
-        </div>
-
-        {/* Cierre / llamada a la acción suave */}
-        <div className="border-t border-crema/10 pt-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-          <p className="text-[0.8rem] text-crema/75 max-w-xl">
-            Puedes usar esta sección como punto de partida en la conversación:
-            dónde opera el estudio, qué tipo de decisiones toma y por qué es
-            distinto a un contratista aislado.
-          </p>
-          <div className="flex flex-wrap gap-3 text-[0.72rem]">
-            <a
-              href="#proyectos"
-              className="inline-flex items-center gap-2 rounded-full border border-crema/40 px-4 py-1.5 uppercase tracking-[0.18em] hover:bg-crema/10 transition-colors"
-            >
-              Ver proyectos de referencia
-              <span className="text-xs translate-y-[1px]">↗</span>
-            </a>
-            <a
-              href="#cotiza"
-              className="inline-flex items-center gap-2 rounded-full bg-crema text-madera px-4 py-1.5 uppercase tracking-[0.18em] hover:bg-white transition-colors"
-            >
-              Hablar con el estudio
-            </a>
-          </div>
         </div>
       </div>
     </section>
