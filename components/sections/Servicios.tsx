@@ -85,7 +85,7 @@ export default function Servicios() {
     <section
       ref={sectionRef}
       id="servicios"
-      className="relative py-24 md:py-32 bg-[#0a0a0a] text-white overflow-hidden"
+      className="relative py-20 md:py-24 bg-[#0a0a0a] text-white overflow-hidden"
     >
       {/* Background Noise Texture */}
       <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div>
@@ -93,7 +93,7 @@ export default function Servicios() {
       <div className="max-w-[1800px] mx-auto px-6 md:px-12 relative z-10">
 
         {/* Header */}
-        <div className="services-header-reveal mb-16 md:mb-24 max-w-2xl">
+        <div className="services-header-reveal mb-10 md:mb-14 max-w-2xl">
           <span className="block text-terracota text-xs tracking-[0.3em] uppercase font-bold mb-4">
             Nuestros Servicios
           </span>
@@ -107,7 +107,7 @@ export default function Servicios() {
         </div>
 
         {/* Desktop Accordion / Mobile Carousel */}
-        <div className="services-container flex flex-col md:flex-row gap-6 md:gap-2 h-auto md:h-[600px]">
+        <div className="services-container flex flex-col md:flex-row gap-6 md:gap-2 h-auto md:h-[70vh] min-h-[500px] max-h-[800px]">
           {services.map((service, index) => (
             <Link
               key={service.id}
