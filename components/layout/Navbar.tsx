@@ -223,15 +223,18 @@ export default function Navbar() {
         <div className="max-w-[1800px] mx-auto px-6 md:px-12 flex items-center justify-between relative z-50">
 
           {/* Logo */}
-          <Link href="/" className="group relative z-50">
+          <Link href="/" className="group relative z-50 flex items-center gap-3">
             <Image
               src="/comfort-logo-light.png"
               alt="Comfort Studio"
-              width={180}
+              width={50}
               height={50}
               className="h-12 w-auto object-contain transition-transform duration-500 group-hover:scale-105"
               priority
             />
+            <span className={`font-serif text-xl tracking-tight transition-colors duration-500 ${activeMega ? "text-white" : "text-white"}`}>
+              COMFORT STUDIO
+            </span>
           </Link>
 
           {/* Desktop Nav - Centered & Reactive */}

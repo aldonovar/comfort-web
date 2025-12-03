@@ -106,15 +106,18 @@ export default function Hero() {
           </p>
 
           <div className="flex flex-wrap gap-6 pt-4">
-            <Link href="/cotiza" className="group relative px-8 py-4 bg-terracota rounded-full overflow-hidden shadow-lg shadow-terracota/20 hover:shadow-terracota/40 transition-all duration-300">
+            <Link href="/cotiza" className="group relative px-8 py-4 bg-terracota rounded-full overflow-hidden shadow-lg shadow-terracota/20 hover:shadow-terracota/40 transition-all duration-500 hover:-translate-y-1">
+              <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out" />
               <span className="relative z-10 font-bold uppercase tracking-widest text-sm flex items-center gap-2">
-                Cotizar Proyecto <span className="group-hover:translate-x-1 transition-transform">↗</span>
+                Cotizar Proyecto <span className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300">↗</span>
               </span>
             </Link>
 
-            <Link href="/contacto" className="group px-8 py-4 border border-white/20 rounded-full hover:bg-white/10 transition-all duration-300">
-              <span className="font-bold uppercase tracking-widest text-sm flex items-center gap-2">
-                Agendar Reunión <span className="opacity-0 group-hover:opacity-100 transition-opacity">→</span>
+            <Link href="/contacto" className="group relative px-8 py-4 overflow-hidden rounded-full transition-all duration-500 hover:-translate-y-1">
+              <div className="absolute inset-0 border border-white/30 group-hover:border-white/60 transition-colors duration-500 rounded-full" />
+              <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <span className="relative z-10 font-bold uppercase tracking-widest text-sm flex items-center gap-2">
+                Agendar Reunión <span className="opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all duration-300">→</span>
               </span>
             </Link>
           </div>
