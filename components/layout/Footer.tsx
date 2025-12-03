@@ -140,11 +140,14 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-white/30 footer-reveal">
+        <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-center md:justify-between items-center gap-4 text-xs text-white/30 footer-reveal pb-20 md:pb-0">
           <p>© {new Date().getFullYear()} Comfort Studio. Todos los derechos reservados.</p>
-          <a href="https://allyxorb.com" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
-            Experiencia digital desarrollada por ALLYX
-          </a>
+          <div className="flex items-center gap-1 md:pr-40">
+            <span>Diseñado por</span>
+            <a href="https://allyxorb.com" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors font-bold">
+              ALLYX
+            </a>
+          </div>
         </div>
 
       </div>
