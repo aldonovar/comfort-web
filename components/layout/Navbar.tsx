@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useRef } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import gsap from "gsap";
 import { usePathname } from "next/navigation";
 
@@ -148,7 +149,7 @@ export default function Navbar() {
     setMobileOpen(false);
   }, [pathname]);
 
-  // Mega Menu Animation (Optimized)
+  // Mega Menu Animation (Optimized & Smoother)
   useEffect(() => {
     if (!megaRef.current) return;
 
@@ -157,48 +158,45 @@ export default function Navbar() {
       tl.to(megaRef.current, {
         height: "auto",
         opacity: 1,
-        duration: 0.4,
+        duration: 0.5, // Slower, smoother
         overwrite: true
       })
         .fromTo(megaRef.current.querySelectorAll(".mega-link"),
           { y: 10, opacity: 0 },
-          { y: 0, opacity: 1, duration: 0.3, stagger: 0.03 },
-          "-=0.2"
+          { y: 0, opacity: 1, duration: 0.4, stagger: 0.05 },
+          "-=0.3"
         );
     } else {
       gsap.to(megaRef.current, {
         height: 0,
         opacity: 0,
-        duration: 0.3,
-        ease: "power3.in",
+        duration: 0.5, // Slower fade out
+        ease: "power3.inOut", // Smoother ease
         overwrite: true
       });
       setActiveSubItem(null);
     }
   }, [activeMega]);
 
-  // Video Transition (Optimized)
+  // Video Transition (Optimized & Smoother)
   useEffect(() => {
     if (videoRef.current && activeMega) {
       const newSrc = activeSubItem?.video || MEGA_CONTENT[activeMega]?.defaultVideo;
       if (newSrc && videoRef.current.src !== newSrc) {
-        // Simple fade out/in for better performance
-        gsap.to(videoRef.current, {
-          opacity: 0,
-          duration: 0.2,
-          overwrite: true,
-          onComplete: () => {
+        // Crossfade effect
+        const tl = gsap.timeline();
+        tl.to(videoRef.current, { opacity: 0, duration: 0.3 })
+          .add(() => {
             if (videoRef.current) {
               videoRef.current.src = newSrc;
               videoRef.current.load();
               const playPromise = videoRef.current.play();
               if (playPromise !== undefined) {
-                playPromise.catch(() => { }); // Prevent play interruption errors
+                playPromise.catch(() => { });
               }
-              gsap.to(videoRef.current, { opacity: 0.6, duration: 0.3 });
             }
-          }
-        });
+          })
+          .to(videoRef.current, { opacity: 0.6, duration: 0.5 });
       }
     }
   }, [activeSubItem, activeMega]);
@@ -217,7 +215,7 @@ export default function Navbar() {
       <header
         ref={headerRef}
         onMouseLeave={handleMouseLeave}
-        className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-500 will-change-transform ${scrolled || activeMega || mobileOpen
+        className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-700 will-change-transform ${scrolled || activeMega || mobileOpen
           ? "bg-[#0a0a0a]/90 backdrop-blur-md py-4 border-b border-white/5"
           : "bg-transparent py-8"
           }`}
@@ -225,13 +223,15 @@ export default function Navbar() {
         <div className="max-w-[1800px] mx-auto px-6 md:px-12 flex items-center justify-between relative z-50">
 
           {/* Logo */}
-          <Link href="/" className="group flex items-center gap-3">
-            <div className={`w-10 h-10 bg-terracota rounded-sm flex items-center justify-center transition-transform duration-500 group-hover:rotate-90`}>
-              <span className="text-white font-serif font-bold text-xl">C</span>
-            </div>
-            <span className={`font-serif text-xl tracking-tight transition-colors duration-300 text-white`}>
-              COMFORT STUDIO
-            </span>
+          <Link href="/" className="group relative z-50">
+            <Image
+              src="/comfort-logo-light.png"
+              alt="Comfort Studio"
+              width={180}
+              height={50}
+              className="h-12 w-auto object-contain transition-transform duration-500 group-hover:scale-105"
+              priority
+            />
           </Link>
 
           {/* Desktop Nav - Centered & Reactive */}
@@ -240,10 +240,10 @@ export default function Navbar() {
               <div key={item.id} className="relative group" onMouseEnter={() => handleMouseEnter(item.id)}>
                 <Link
                   href={item.href}
-                  className="relative text-[0.7rem] font-bold uppercase tracking-[0.25em] py-4 text-white/70 hover:text-white transition-colors duration-300 block"
+                  className="relative text-[0.7rem] font-bold uppercase tracking-[0.25em] py-4 text-white/70 hover:text-white transition-colors duration-500 block"
                 >
                   {item.label}
-                  <span className="absolute bottom-2 left-0 w-full h-[1px] bg-terracota scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
+                  <span className="absolute bottom-2 left-0 w-full h-[1px] bg-terracota scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left ease-out" />
                 </Link>
               </div>
             ))}
@@ -267,12 +267,13 @@ export default function Navbar() {
             </div>
 
             <Link href="/cotiza" className={`
-              px-6 py-2.5 rounded-full text-xs font-bold uppercase tracking-[0.2em] transition-all duration-300 border
-              ${scrolled || activeMega
-                ? "border-white/20 text-white hover:bg-white hover:text-black"
-                : "border-white/20 text-white hover:bg-white hover:text-black"}
+              relative px-8 py-3 rounded-full overflow-hidden transition-all duration-500 group
+              ${scrolled || activeMega ? "bg-white text-black" : "bg-white/10 text-white backdrop-blur-sm border border-white/20"}
             `}>
-              Cotizar
+              <span className="absolute inset-0 w-full h-full bg-terracota scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left ease-out" />
+              <span className="relative z-10 text-[0.7rem] font-bold uppercase tracking-[0.2em] flex items-center gap-2 group-hover:text-white transition-colors duration-300">
+                Cotizar <span className="group-hover:translate-x-1 transition-transform duration-300">→</span>
+              </span>
             </Link>
           </div>
 
@@ -305,10 +306,10 @@ export default function Navbar() {
                     onMouseEnter={() => setActiveSubItem(sub)}
                     className="mega-link group flex items-center justify-between py-4 border-b border-white/5 hover:border-white/20 transition-colors"
                   >
-                    <span className="font-serif text-2xl text-white/50 group-hover:text-white transition-colors duration-300">
+                    <span className="font-serif text-2xl text-white/50 group-hover:text-white transition-colors duration-500">
                       {sub.label}
                     </span>
-                    <span className="opacity-0 group-hover:opacity-100 -translate-x-4 group-hover:translate-x-0 transition-all duration-300 text-terracota">
+                    <span className="opacity-0 group-hover:opacity-100 -translate-x-4 group-hover:translate-x-0 transition-all duration-500 text-terracota">
                       →
                     </span>
                   </Link>
@@ -320,16 +321,16 @@ export default function Navbar() {
                 <video
                   ref={videoRef}
                   autoPlay muted loop playsInline
-                  className="absolute inset-0 w-full h-full object-cover opacity-40 transition-opacity duration-500"
+                  className="absolute inset-0 w-full h-full object-cover opacity-40 transition-opacity duration-700"
                   src={MEGA_CONTENT[activeMega].defaultVideo}
                 />
 
                 {/* Overlay Content */}
                 <div className="absolute bottom-0 left-0 w-full p-16 bg-gradient-to-t from-black via-black/50 to-transparent">
-                  <h3 className="text-white font-serif text-5xl mb-4">
+                  <h3 className="text-white font-serif text-5xl mb-4 transition-all duration-500 key={activeSubItem?.label}">
                     {activeSubItem?.label || "Experiencia Comfort"}
                   </h3>
-                  <p className="text-white/70 text-lg max-w-lg font-light leading-relaxed">
+                  <p className="text-white/70 text-lg max-w-lg font-light leading-relaxed transition-all duration-500 key={activeSubItem?.desc}">
                     {activeSubItem?.desc || "Diseñamos espacios que conectan con tus sentidos."}
                   </p>
                 </div>
