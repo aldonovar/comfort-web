@@ -32,6 +32,13 @@ const SERVICE_IMAGES: Record<string, string[]> = {
   ]
 };
 
+const BUDGET_RANGES = [
+  "S/ 20k - 40k  ($5k - 10k)",
+  "S/ 40k - 80k  ($10k - 20k)",
+  "+ S/ 80k  (+$20k)",
+  "Prefiero no decir"
+];
+
 // --- CUSTOM COMPONENTS ---
 
 const CustomSelect = ({
@@ -50,7 +57,6 @@ const CustomSelect = ({
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // Close on click outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
@@ -63,28 +69,27 @@ const CustomSelect = ({
 
   return (
     <div className="group relative" ref={containerRef}>
-      <label className="block text-[10px] uppercase tracking-widest text-white/40 mb-2 group-focus-within:text-terracota transition-colors">
+      <label className="block text-[9px] uppercase tracking-widest text-white/40 mb-1 group-focus-within:text-terracota transition-colors">
         {label}
       </label>
 
       <div
         onClick={() => setIsOpen(!isOpen)}
         className={`
-          w-full bg-transparent border-b py-3 text-lg cursor-pointer flex justify-between items-center transition-colors
+          w-full bg-transparent border-b py-2 text-base cursor-pointer flex justify-between items-center transition-colors
           ${isOpen ? 'border-terracota' : 'border-white/20 hover:border-white/40'}
         `}
       >
         <span className={value ? "text-white" : "text-white/30"}>
           {value || placeholder}
         </span>
-        <span className={`text-xs text-white/40 transform transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}>
+        <span className={`text-[10px] text-white/40 transform transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}>
           ▼
         </span>
       </div>
 
-      {/* Dropdown Menu */}
       <div className={`
-        absolute left-0 right-0 top-full mt-2 bg-[#1a1a1a] border border-white/10 rounded-xl overflow-hidden z-50 shadow-2xl origin-top transition-all duration-300
+        absolute left-0 right-0 top-full mt-2 bg-[#1a1a1a] border border-white/10 rounded-lg overflow-hidden z-50 shadow-2xl origin-top transition-all duration-300 max-h-60 overflow-y-auto
         ${isOpen ? 'opacity-100 scale-y-100 translate-y-0' : 'opacity-0 scale-y-95 -translate-y-2 pointer-events-none'}
       `}>
         {options.map((opt) => (
@@ -95,7 +100,7 @@ const CustomSelect = ({
               setIsOpen(false);
             }}
             className={`
-              px-4 py-3 text-sm cursor-pointer transition-colors
+              px-4 py-2.5 text-sm cursor-pointer transition-colors border-b border-white/5 last:border-0
               ${value === opt ? 'bg-terracota text-white' : 'text-white/70 hover:bg-white/5 hover:text-white'}
             `}
           >
@@ -112,24 +117,26 @@ const CustomInput = ({
   value,
   onChange,
   placeholder,
-  type = "text"
+  type = "text",
+  optional = false
 }: {
   label: string,
   value: string,
   onChange: (val: string) => void,
   placeholder: string,
-  type?: string
+  type?: string,
+  optional?: boolean
 }) => (
   <div className="group">
-    <label className="block text-[10px] uppercase tracking-widest text-white/40 mb-2 group-focus-within:text-terracota transition-colors">
-      {label}
+    <label className="block text-[9px] uppercase tracking-widest text-white/40 mb-1 group-focus-within:text-terracota transition-colors">
+      {label} {optional && <span className="text-white/20">(Opcional)</span>}
     </label>
     <input
       type={type}
       value={value}
       onChange={(e) => onChange(e.target.value)}
       placeholder={placeholder}
-      className="w-full bg-transparent border-b border-white/20 py-3 text-lg focus:outline-none focus:border-terracota transition-colors placeholder-white/10"
+      className="w-full bg-transparent border-b border-white/20 py-2 text-base focus:outline-none focus:border-terracota transition-colors placeholder-white/10"
     />
   </div>
 );
@@ -145,7 +152,13 @@ export default function Cotiza() {
   const [area, setArea] = useState("");
   const [district, setDistrict] = useState("");
   const [budget, setBudget] = useState("");
+
+  // Contact Info
   const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
+  const [company, setCompany] = useState("");
+  const [notes, setNotes] = useState("");
 
   // Slideshow State
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -162,11 +175,10 @@ export default function Cotiza() {
     if (!projectType) return;
     const interval = setInterval(() => {
       setCurrentImageIndex(prev => (prev + 1) % (SERVICE_IMAGES[projectType]?.length || 1));
-    }, 3000);
+    }, 4000); // Slower transition
     return () => clearInterval(interval);
   }, [projectType]);
 
-  // Reset index on type change
   useEffect(() => {
     setCurrentImageIndex(0);
   }, [projectType]);
@@ -189,8 +201,8 @@ export default function Cotiza() {
   }, []);
 
   const isFormReady = useMemo(() => {
-    return projectType && area && district && name;
-  }, [projectType, area, district, name]);
+    return projectType && area && district && name && (phone || email);
+  }, [projectType, area, district, name, phone, email]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -201,6 +213,13 @@ Quisiera cotizar un proyecto:
 • Área: ${area} m²
 • Zona: ${district}
 • Presupuesto: ${budget || "Por definir"}
+
+Contacto:
+• Tel: ${phone}
+• Email: ${email}
+• Empresa: ${company || "N/A"}
+
+Notas: ${notes || "Ninguna"}
 `;
     const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
     window.open(url, "_blank");
@@ -210,16 +229,16 @@ Quisiera cotizar un proyecto:
     <section
       ref={sectionRef}
       id="cotiza"
-      className="relative bg-[#0a0a0a] text-white py-20 border-t border-white/5"
+      className="relative bg-[#0a0a0a] text-white py-24 border-t border-white/5"
     >
       <div className="max-w-[1400px] mx-auto px-6 md:px-12">
 
-        <div className="grid lg:grid-cols-[1fr_1fr] gap-12 lg:gap-24 items-start">
+        <div className="grid lg:grid-cols-[1fr_0.8fr] gap-12 lg:gap-24 items-start">
 
-          {/* Form Side */}
+          {/* Form Side - Compact & Professional */}
           <div className="quote-content">
-            <div className="mb-10">
-              <span className="block text-terracota text-[10px] tracking-[0.3em] uppercase font-bold mb-3">
+            <div className="mb-8">
+              <span className="block text-terracota text-[9px] tracking-[0.3em] uppercase font-bold mb-3">
                 Concierge
               </span>
               <h2 className="font-serif text-3xl md:text-4xl leading-tight">
@@ -230,49 +249,101 @@ Quisiera cotizar un proyecto:
 
             <form onSubmit={handleSubmit} className="space-y-8 max-w-lg">
 
-              <CustomSelect
-                label="Tipo de Proyecto"
-                value={projectType}
-                onChange={setProjectType}
-                options={Object.keys(SERVICE_IMAGES)}
-              />
+              {/* Project Details */}
+              <div className="space-y-6">
+                <h3 className="text-[10px] uppercase tracking-widest text-white/30 border-b border-white/5 pb-2">
+                  01. El Proyecto
+                </h3>
 
-              <div className="grid grid-cols-2 gap-6">
-                <CustomInput
-                  label="Área Aprox (m²)"
-                  value={area}
-                  onChange={setArea}
-                  placeholder="00"
-                  type="number"
+                <CustomSelect
+                  label="Tipo de Espacio"
+                  value={projectType}
+                  onChange={setProjectType}
+                  options={Object.keys(SERVICE_IMAGES)}
                 />
-                <CustomInput
-                  label="Distrito / Zona"
-                  value={district}
-                  onChange={setDistrict}
-                  placeholder="Ej. Miraflores"
+
+                <div className="grid grid-cols-2 gap-6">
+                  <CustomInput
+                    label="Área Aprox (m²)"
+                    value={area}
+                    onChange={setArea}
+                    placeholder="00"
+                    type="number"
+                  />
+                  <CustomInput
+                    label="Distrito / Zona"
+                    value={district}
+                    onChange={setDistrict}
+                    placeholder="Ej. Miraflores"
+                  />
+                </div>
+
+                <CustomSelect
+                  label="Rango de Inversión (Estimado)"
+                  value={budget}
+                  onChange={setBudget}
+                  options={BUDGET_RANGES}
+                  placeholder="Seleccionar rango..."
                 />
               </div>
 
-              <CustomSelect
-                label="Rango de Inversión (Opcional)"
-                value={budget}
-                onChange={setBudget}
-                options={["S/ 20k - 40k", "S/ 40k - 80k", "+ S/ 80k", "Prefiero no decir"]}
-                placeholder="Seleccionar rango..."
-              />
+              {/* Contact Details */}
+              <div className="space-y-6">
+                <h3 className="text-[10px] uppercase tracking-widest text-white/30 border-b border-white/5 pb-2">
+                  02. Tus Datos
+                </h3>
 
-              <CustomInput
-                label="Tu Nombre"
-                value={name}
-                onChange={setName}
-                placeholder="Nombre completo"
-              />
+                <CustomInput
+                  label="Nombre Completo"
+                  value={name}
+                  onChange={setName}
+                  placeholder="Tu nombre"
+                />
+
+                <div className="grid grid-cols-2 gap-6">
+                  <CustomInput
+                    label="Teléfono / WhatsApp"
+                    value={phone}
+                    onChange={setPhone}
+                    placeholder="+51 999..."
+                    type="tel"
+                  />
+                  <CustomInput
+                    label="Correo Electrónico"
+                    value={email}
+                    onChange={setEmail}
+                    placeholder="nombre@empresa.com"
+                    type="email"
+                  />
+                </div>
+
+                <CustomInput
+                  label="Empresa"
+                  value={company}
+                  onChange={setCompany}
+                  placeholder="Nombre de la empresa"
+                  optional
+                />
+
+                <div className="group">
+                  <label className="block text-[9px] uppercase tracking-widest text-white/40 mb-2 group-focus-within:text-terracota transition-colors">
+                    Detalles Adicionales
+                  </label>
+                  <textarea
+                    value={notes}
+                    onChange={(e) => setNotes(e.target.value)}
+                    placeholder="Cuéntanos más sobre tu visión..."
+                    rows={3}
+                    className="w-full bg-white/5 rounded-lg border border-white/10 p-3 text-sm focus:outline-none focus:border-terracota transition-colors placeholder-white/10 resize-none"
+                  />
+                </div>
+              </div>
 
               <button
                 type="submit"
                 disabled={!isFormReady}
                 className={`
-                  group w-full py-5 rounded-full border transition-all duration-300 flex items-center justify-center gap-3 mt-4
+                  group w-full py-4 rounded-lg border transition-all duration-300 flex items-center justify-center gap-3 mt-6
                   ${isFormReady
                     ? 'bg-white text-black border-white hover:bg-terracota hover:border-terracota hover:text-white cursor-pointer shadow-[0_0_30px_rgba(255,255,255,0.1)]'
                     : 'bg-white/5 text-white/20 border-white/5 cursor-not-allowed'}
@@ -285,71 +356,73 @@ Quisiera cotizar un proyecto:
             </form>
           </div>
 
-          {/* Ticket Preview Side */}
+          {/* Ticket Preview Side - Redesigned & Compact */}
           <div className="hidden lg:block sticky top-32 quote-content delay-100">
-            <div className="relative rounded-[2rem] bg-[#111] border border-white/10 overflow-hidden shadow-2xl min-h-[500px] flex flex-col">
+            <div className="relative rounded-2xl bg-[#111] border border-white/10 overflow-hidden shadow-2xl w-full max-w-md mx-auto">
 
-              {/* Image Slideshow Background */}
-              <div className="absolute inset-0 bg-[#0a0a0a]">
+              {/* Image Header (Compact) */}
+              <div className="relative h-48 overflow-hidden">
                 {projectType && SERVICE_IMAGES[projectType]?.map((img, index) => (
                   <div
                     key={img}
-                    className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${index === currentImageIndex ? 'opacity-60' : 'opacity-0'}`}
+                    className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${index === currentImageIndex ? 'opacity-100' : 'opacity-0'}`}
                   >
                     <img src={img} alt="" className="w-full h-full object-cover" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#111] via-[#111]/50 to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#111] to-transparent opacity-90" />
                   </div>
                 ))}
 
-                {/* Default State Background */}
                 {!projectType && (
-                  <div className="absolute inset-0 opacity-30">
-                    <div className="w-full h-full bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-white/10 to-transparent" />
+                  <div className="absolute inset-0 bg-[#151515]">
+                    <div className="w-full h-full bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-white/5 to-transparent" />
                   </div>
                 )}
+
+                <div className="absolute bottom-4 left-6 z-10">
+                  <span className="block text-[9px] uppercase tracking-[0.2em] text-white/60 mb-1">Ticket #001</span>
+                  <h3 className="font-serif text-xl text-white">
+                    {projectType || "Nuevo Proyecto"}
+                  </h3>
+                </div>
               </div>
 
-              {/* Ticket Content */}
-              <div className="relative z-10 p-8 md:p-10 flex-grow flex flex-col justify-between h-full">
+              {/* Ticket Body */}
+              <div className="p-6 space-y-6 bg-[#111]">
 
-                {/* Header */}
-                <div className="flex justify-between items-start">
+                {/* Client Info */}
+                <div className="flex items-center gap-4 border-b border-white/5 pb-4">
+                  <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-white/40">
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
+                  </div>
                   <div>
-                    <span className="block text-[9px] uppercase tracking-[0.3em] text-white/40 mb-2">Ticket #001</span>
-                    <h3 className="font-serif text-2xl text-white">
-                      {projectType || "Tu Proyecto"}
-                    </h3>
-                  </div>
-                  <div className="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center">
-                    <div className="w-2 h-2 bg-terracota rounded-full animate-pulse" />
+                    <p className="text-sm text-white font-medium">{name || "Cliente"}</p>
+                    <p className="text-xs text-white/40">{company || "Particular"}</p>
                   </div>
                 </div>
 
-                {/* Details Grid */}
-                <div className="space-y-6 backdrop-blur-sm bg-black/20 p-6 rounded-2xl border border-white/5">
-                  <div className="flex justify-between items-end border-b border-white/10 pb-3">
-                    <span className="text-[10px] uppercase tracking-wider text-white/40">Cliente</span>
-                    <span className="text-sm font-medium text-white">{name || "—"}</span>
+                {/* Specs Grid */}
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="bg-white/5 rounded-lg p-3">
+                    <span className="block text-[9px] uppercase tracking-wider text-white/40 mb-1">Ubicación</span>
+                    <span className="text-sm text-white/90">{district || "—"}</span>
                   </div>
-                  <div className="flex justify-between items-end border-b border-white/10 pb-3">
-                    <span className="text-[10px] uppercase tracking-wider text-white/40">Ubicación</span>
-                    <span className="text-sm font-medium text-white">{district || "—"}</span>
+                  <div className="bg-white/5 rounded-lg p-3">
+                    <span className="block text-[9px] uppercase tracking-wider text-white/40 mb-1">Área</span>
+                    <span className="text-sm text-white/90">{area ? `${area} m²` : "—"}</span>
                   </div>
-                  <div className="flex justify-between items-end border-b border-white/10 pb-3">
-                    <span className="text-[10px] uppercase tracking-wider text-white/40">Dimensiones</span>
-                    <span className="text-sm font-medium text-white">{area ? `${area} m²` : "—"}</span>
-                  </div>
-                  <div className="flex justify-between items-end">
-                    <span className="text-[10px] uppercase tracking-wider text-white/40">Inversión</span>
-                    <span className="text-sm font-medium text-terracota">{budget || "—"}</span>
+                  <div className="col-span-2 bg-white/5 rounded-lg p-3 border border-terracota/20">
+                    <span className="block text-[9px] uppercase tracking-wider text-terracota/80 mb-1">Inversión Estimada</span>
+                    <span className="text-sm text-terracota font-medium">{budget || "—"}</span>
                   </div>
                 </div>
 
-                {/* Footer */}
-                <div className="text-center pt-4">
-                  <p className="text-[9px] uppercase tracking-widest text-white/30">
-                    Respuesta estimada: 24h
-                  </p>
+                {/* Status Footer */}
+                <div className="flex justify-between items-center pt-2">
+                  <div className="flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
+                    <span className="text-[10px] uppercase tracking-wider text-white/40">Sistema Online</span>
+                  </div>
+                  <span className="text-[10px] text-white/30">ID: {Math.random().toString(36).substr(2, 6).toUpperCase()}</span>
                 </div>
 
               </div>
