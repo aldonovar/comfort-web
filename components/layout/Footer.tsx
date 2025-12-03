@@ -120,11 +120,23 @@ export default function Footer() {
             <ul className="space-y-4">
               <li className="text-sm text-white/70">
                 <span className="block text-white/30 text-xs mb-1">Teléfono</span>
-                +51 919 693 180
+                <a
+                  href="https://wa.me/51919693180"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-terracota transition-colors duration-300"
+                >
+                  +51 919 693 180
+                </a>
               </li>
               <li className="text-sm text-white/70">
                 <span className="block text-white/30 text-xs mb-1">Email</span>
-                contacto@comfortstudioperu.com
+                <a
+                  href="mailto:contacto@comfortstudioperu.com"
+                  className="hover:text-terracota transition-colors duration-300"
+                >
+                  contacto@comfortstudioperu.com
+                </a>
               </li>
             </ul>
           </div>
