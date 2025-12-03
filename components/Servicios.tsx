@@ -95,12 +95,12 @@ export default function Servicios() {
   const [activeStep, setActiveStep] = useState(0);
 
   const sectionRef = useRef(null);
-  const cardsRef = useRef<HTMLDivElement[]>([]);
+  const cardsRef = useRef<HTMLElement[]>([]);
   const stickyRef = useRef<HTMLDivElement>(null);
-  const stepRefs = useRef<HTMLDivElement[]>([]);
+  const stepRefs = useRef<HTMLElement[]>([]);
 
   // Tilt 3D / parallax en las tarjetas
-  const handleCardMouseMove = (index: number, event: React.MouseEvent<HTMLDivElement>) => {
+  const handleCardMouseMove = (index: number, event: React.MouseEvent<HTMLElement>) => {
     const card = cardsRef.current[index];
     if (!card) return;
 
@@ -122,7 +122,7 @@ export default function Servicios() {
     });
   };
 
-  const handleCardMouseLeave = (index) => {
+  const handleCardMouseLeave = (index: number) => {
     const card = cardsRef.current[index];
     if (!card) return;
 
@@ -142,8 +142,8 @@ export default function Servicios() {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting && entry.target.dataset.index) {
-            const idx = Number(entry.target.dataset.index);
+          if (entry.isIntersecting && (entry.target as HTMLElement).dataset.index) {
+            const idx = Number((entry.target as HTMLElement).dataset.index);
             setActiveStep(idx);
 
             const inner = stickyRef.current?.querySelector(".sticky-inner");
@@ -267,7 +267,7 @@ export default function Servicios() {
   }, []);
 
   // Click de "Cotizar este servicio" con tipo preseleccionado
-  const handleCotizarServicio = (projectTypeLabel) => {
+  const handleCotizarServicio = (projectTypeLabel: string) => {
     if (typeof window !== "undefined") {
       const url = new URL(window.location.href);
       url.searchParams.set("tipo", projectTypeLabel);
@@ -309,7 +309,7 @@ export default function Servicios() {
               className="service-card-shell group [perspective:1400px]"
             >
               <article
-                ref={(el) => (cardsRef.current[index] = el)}
+                ref={(el) => { if (el) cardsRef.current[index] = el; }}
                 onMouseMove={(e) => handleCardMouseMove(index, e)}
                 onMouseLeave={() => handleCardMouseLeave(index)}
                 className="relative h-full rounded-3xl border border-madera/10 bg-white/80 p-5 shadow-xl transition-shadow duration-300 group-hover:shadow-2xl"
@@ -451,17 +451,17 @@ export default function Servicios() {
                 {steps.map((step, index) => (
                   <div
                     key={step.id}
-                    ref={(el) => (stepRefs.current[index] = el)}
+                    ref={(el) => { if (el) stepRefs.current[index] = el; }}
                     data-index={index}
                     className={`services-step-card rounded-2xl border px-4 py-4 md:px-5 md:py-5 transition-all duration-300 ${activeStep === index
-                        ? "border-madera/80 bg-madera/5 shadow-lg shadow-madera/15"
-                        : "border-madera/15 bg-white/60"
+                      ? "border-madera/80 bg-madera/5 shadow-lg shadow-madera/15"
+                      : "border-madera/15 bg-white/60"
                       }`}
                   >
                     <p
                       className={`text-[0.72rem] uppercase tracking-[0.22em] mb-1 ${activeStep === index
-                          ? "text-madera/80"
-                          : "text-madera/55"
+                        ? "text-madera/80"
+                        : "text-madera/55"
                         }`}
                     >
                       {step.label}
