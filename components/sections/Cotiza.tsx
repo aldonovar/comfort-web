@@ -33,10 +33,11 @@ const SERVICE_IMAGES: Record<string, string[]> = {
 };
 
 const BUDGET_RANGES = [
-  { label: "S/ 20k - 40k  ($5k - 10k)", code: "20K" },
-  { label: "S/ 40k - 80k  ($10k - 20k)", code: "40K" },
-  { label: "+ S/ 80k  (+$20k)", code: "80K" },
-  { label: "Prefiero no decir", code: "ND" }
+  { label: "Menos de $5,000", code: "5K-" },
+  { label: "$5,000 - $10,000", code: "5K" },
+  { label: "$10,000 - $20,000", code: "10K" },
+  { label: "Más de $20,000", code: "20K+" },
+  { label: "Cotizar durante el contacto", code: "CTC" }
 ];
 
 // --- UTILS ---
@@ -49,25 +50,16 @@ const generateSmartID = (
   company: string,
   ticketNum: number
 ) => {
-  // 1. Type Code (First 2 letters, uppercase)
+  // Format: 101TR60JM5KALCOM
+
   const typeCode = type ? type.substring(0, 2).toUpperCase() : "XX";
-
-  // 2. Area
   const areaCode = area ? area : "00";
-
-  // 3. District (First 2 letters)
   const distCode = district ? district.substring(0, 2).toUpperCase() : "XX";
-
-  // 4. Budget (From code)
   const budCode = budgetCode || "XX";
-
-  // 5. Name (First 2 letters)
   const nameCode = name ? name.substring(0, 2).toUpperCase() : "XX";
-
-  // 6. Company (First 3 letters or 000)
   const compCode = company ? company.substring(0, 3).toUpperCase() : "000";
 
-  return `${typeCode}${areaCode}-${distCode}${budCode}-${nameCode}${compCode}-${ticketNum}`;
+  return `${ticketNum}${typeCode}${areaCode}${distCode}${budCode}${nameCode}${compCode}`.replace(/\s/g, '');
 };
 
 // --- CUSTOM COMPONENTS ---
@@ -202,6 +194,7 @@ export default function Cotiza() {
   // System State
   const [ticketNumber, setTicketNumber] = useState(101);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   // Load Ticket Number
@@ -224,7 +217,7 @@ export default function Cotiza() {
     if (!projectType) return;
     const interval = setInterval(() => {
       setCurrentImageIndex(prev => (prev + 1) % (SERVICE_IMAGES[projectType]?.length || 1));
-    }, 4000);
+    }, 5000); // Slower, more cinematic
     return () => clearInterval(interval);
   }, [projectType]);
 
@@ -315,8 +308,8 @@ ${notes || "Sin notas adicionales"}
       // 5. Open WhatsApp
       window.open(waUrl, "_blank");
 
-      // 6. Reset Form (Optional, maybe just show success state)
-      // alert("Solicitud enviada correctamente. Redirigiendo a WhatsApp...");
+      // 6. Show Success State
+      setIsSuccess(true);
 
     } catch (error) {
       console.error("Error submitting form:", error);
@@ -325,6 +318,43 @@ ${notes || "Sin notas adicionales"}
       setIsSubmitting(false);
     }
   };
+
+  const handleReset = () => {
+    setIsSuccess(false);
+    setProjectType("");
+    setArea("");
+    setDistrict("");
+    setBudget("");
+    setBudgetCode("");
+    setName("");
+    setPhone("");
+    setEmail("");
+    setCompany("");
+    setNotes("");
+  };
+
+  if (isSuccess) {
+    return (
+      <section className="relative bg-[#0a0a0a] text-white min-h-[80vh] flex items-center justify-center border-t border-white/5">
+        <div className="text-center max-w-lg px-6 animate-in fade-in zoom-in-95 duration-700">
+          <div className="w-20 h-20 rounded-full bg-terracota/10 flex items-center justify-center mx-auto mb-8">
+            <svg className="w-10 h-10 text-terracota" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M5 13l4 4L19 7" /></svg>
+          </div>
+          <h2 className="font-serif text-4xl md:text-5xl mb-6">Solicitud Enviada</h2>
+          <p className="text-white/60 text-lg mb-10">
+            Hemos recibido tu ticket correctamente. Se ha abierto WhatsApp para completar el proceso.
+          </p>
+          <button
+            onClick={handleReset}
+            className="group px-8 py-4 rounded-full border border-white/20 hover:border-terracota hover:bg-terracota transition-all duration-300 flex items-center gap-3 mx-auto"
+          >
+            <span className="uppercase tracking-widest text-xs font-bold">Enviar otra solicitud</span>
+            <span className="transform group-hover:translate-x-1 transition-transform">→</span>
+          </button>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section
@@ -380,7 +410,7 @@ ${notes || "Sin notas adicionales"}
                   />
                   <div className="md:col-span-2">
                     <CustomSelect
-                      label="Rango de Inversión"
+                      label="Rango de Inversión (USD)"
                       value={budget}
                       onChange={(val) => {
                         setBudget(val);
@@ -464,20 +494,23 @@ ${notes || "Sin notas adicionales"}
 
           {/* Ticket Preview Side - Ultra Premium */}
           <div className="hidden lg:flex justify-center items-center quote-content delay-100 h-full">
-            <div className="relative w-full max-w-md aspect-[3/4] rounded-[2rem] bg-[#0f0f0f] border border-white/10 overflow-hidden shadow-2xl flex flex-col">
+            <div className="relative w-full max-w-md aspect-[3/4] rounded-[2rem] bg-[#0f0f0f] border border-white/10 overflow-hidden shadow-2xl flex flex-col group">
 
               {/* Holographic/Glass Effect Overlay */}
               <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent pointer-events-none z-20" />
 
-              {/* Image Area */}
-              <div className="relative h-1/2 overflow-hidden">
+              {/* Image Area - Cinematic Transition */}
+              <div className="relative h-1/2 overflow-hidden bg-[#151515]">
                 {projectType && SERVICE_IMAGES[projectType]?.map((img, index) => (
                   <div
                     key={img}
-                    className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${index === currentImageIndex ? 'opacity-100' : 'opacity-0'}`}
+                    className={`
+                      absolute inset-0 transition-all duration-[2000ms] ease-in-out
+                      ${index === currentImageIndex ? 'opacity-100 scale-100' : 'opacity-0 scale-110'}
+                    `}
                   >
                     <img src={img} alt="" className="w-full h-full object-cover" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#0f0f0f] via-transparent to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0f0f0f] via-transparent to-transparent opacity-80" />
                   </div>
                 ))}
 
@@ -504,14 +537,6 @@ ${notes || "Sin notas adicionales"}
               {/* Ticket Details */}
               <div className="flex-1 p-8 bg-[#0f0f0f] relative z-10 flex flex-col justify-between">
 
-                {/* ID Strip */}
-                <div className="bg-white/5 rounded-lg p-3 border border-white/5 mb-4">
-                  <span className="block text-[9px] uppercase tracking-widest text-white/30 mb-1">ID de Atención</span>
-                  <p className="font-mono text-sm text-terracota tracking-wider truncate">
-                    {smartID}
-                  </p>
-                </div>
-
                 {/* Info Grid */}
                 <div className="grid grid-cols-2 gap-y-6 gap-x-4">
                   <div>
@@ -533,11 +558,13 @@ ${notes || "Sin notas adicionales"}
                   </div>
                 </div>
 
-                {/* Footer */}
+                {/* Footer with Stealth ID */}
                 <div className="pt-6 border-t border-white/5 flex justify-between items-end">
                   <div>
-                    <p className="text-[9px] uppercase tracking-widest text-white/30">Estado</p>
-                    <p className="text-[10px] text-green-500 mt-1">● Sistema Online</p>
+                    <p className="text-[9px] uppercase tracking-widest text-white/30">ID de Atención</p>
+                    <p className="font-mono text-[10px] text-white/20 mt-1 tracking-widest select-all hover:text-terracota transition-colors cursor-help" title="Código interno de seguimiento">
+                      {smartID}
+                    </p>
                   </div>
                   <div className="text-right">
                     <p className="text-[9px] uppercase tracking-widest text-white/30">Fecha</p>
