@@ -1,4 +1,4 @@
-import ScrollReveal from "./ScrollReveal";
+import ScrollReveal from "../ui/ScrollReveal";
 import Link from "next/link";
 
 export default function Footer() {
