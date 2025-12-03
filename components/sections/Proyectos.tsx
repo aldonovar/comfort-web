@@ -5,9 +5,8 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import dynamic from "next/dynamic";
 
-// Dynamically import ProjectImage to avoid SSR issues with R3F
 const ProjectImage = dynamic(
-  () => import("../components/canvas/ProjectImage"),
+  () => import("../canvas/ProjectImage"),
   { ssr: false }
 );
 

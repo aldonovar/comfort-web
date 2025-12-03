@@ -1,13 +1,13 @@
 // app/page.js
 import { Suspense } from "react";
 
-import Hero from "../components/Hero";
-import Servicios from "../components/Servicios";
-import Proyectos from "../components/Proyectos";
-import Proceso from "../components/Proceso";
-import Estudio from "../components/Estudio";
-import Cotiza from "../components/Cotiza";
-import Contacto from "../components/Contacto";
+import Hero from "../components/sections/Hero";
+import Servicios from "../components/sections/Servicios";
+import Proyectos from "../components/sections/Proyectos";
+import Proceso from "../components/sections/Proceso";
+import Estudio from "../components/sections/Estudio";
+import Cotiza from "../components/sections/Cotiza";
+import Contacto from "../components/sections/Contacto";
 
 export default function HomePage() {
   return (

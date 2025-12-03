@@ -2,12 +2,12 @@
 
 import { ReactLenis } from "@studio-freight/react-lenis";
 import "./globals.css";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
-import PageTransition from "../components/PageTransition";
+import Navbar from "../components/layout/Navbar";
+import Footer from "../components/layout/Footer";
+import PageTransition from "../components/layout/PageTransition";
 import dynamic from "next/dynamic";
 import { Suspense } from "react";
-import FloatingCTA from "../components/FloatingCTA";
+import FloatingCTA from "../components/ui/FloatingCTA";
 
 
 const Scene = dynamic(() => import("../components/canvas/Scene"), { ssr: false });

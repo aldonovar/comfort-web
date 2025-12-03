@@ -1,6 +1,6 @@
 // app/proyectos/page.js
 
-import Proyectos from "../../components/Proyectos";
+import Proyectos from "../../components/sections/Proyectos";
 
 export default function ProyectosPage() {
   return (

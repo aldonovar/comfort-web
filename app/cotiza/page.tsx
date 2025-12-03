@@ -1,7 +1,7 @@
 // app/cotiza/page.js
 
 import { Suspense } from "react";
-import Cotiza from "../../components/Cotiza";
+import Cotiza from "../../components/sections/Cotiza";
 
 export default function CotizaPage() {
   return (

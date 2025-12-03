@@ -1,6 +1,6 @@
 // app/contacto/page.js
 
-import Contacto from "../../components/Contacto";
+import Contacto from "../../components/sections/Contacto";
 
 export default function ContactoPage() {
   return (
