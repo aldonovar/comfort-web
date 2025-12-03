@@ -53,7 +53,11 @@ const HeroVideoMaterial = shaderMaterial(
 
 extend({ HeroVideoMaterial });
 
-export default function HeroBackground({ videoUrl, className, ...props }) {
+interface HeroBackgroundProps extends React.ComponentProps<typeof View> {
+    videoUrl: string;
+}
+
+export default function HeroBackground({ videoUrl, className, ...props }: HeroBackgroundProps) {
     return (
         <View className={className} {...props}>
             <HeroScene videoUrl={videoUrl} />
@@ -61,8 +65,8 @@ export default function HeroBackground({ videoUrl, className, ...props }) {
     );
 }
 
-function HeroScene({ videoUrl }) {
-    const materialRef = useRef();
+function HeroScene({ videoUrl }: { videoUrl: string }) {
+    const materialRef = useRef<any>(null);
     // Pass config object to ensure video plays automatically
     const texture = useVideoTexture(videoUrl, {
         unsuspend: "canplay",

@@ -1,43 +1,22 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
-:root {
-  /* Signature Palette */
+@theme {
   --color-crema: #f2f0e9;
   --color-madera: #2a2522;
   --color-terracota: #c16e4d;
   --color-olive: #4a4a38;
   --color-charcoal: #1a1a1a;
 
-  /* Typography */
   --font-serif: "Playfair Display", serif;
   --font-sans: "Inter", sans-serif;
 }
 
-@layer base {
-  /* Lenis handles smooth scroll, so we remove native CSS smooth scroll */
-
-  body {
-    @apply bg-crema text-madera font-sans;
-  }
-
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    @apply font-serif;
-  }
-}
-
+/* Custom Utilities */
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
 
-  /* Signature Gradients & Effects */
   .bg-noise {
     background-image: url("https://grainy-gradients.vercel.app/noise.svg");
     opacity: 0.03;
@@ -47,5 +26,16 @@
 
   .glass-panel {
     @apply bg-white/5 backdrop-blur-md border border-white/10;
+  }
+}
+
+/* Base Styles */
+@layer base {
+  body {
+    @apply bg-crema text-madera font-sans;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif;
   }
 }

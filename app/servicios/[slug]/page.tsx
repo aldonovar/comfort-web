@@ -9,7 +9,13 @@ export function generateStaticParams() {
   }));
 }
 
-export default function ServiceDetailPage({ params }) {
+interface ServiceDetailPageProps {
+  params: {
+    slug: string;
+  };
+}
+
+export default function ServiceDetailPage({ params }: ServiceDetailPageProps) {
   const service = services.find((s) => s.slug === params.slug);
 
   if (!service) {

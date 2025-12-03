@@ -3,7 +3,11 @@
 import { Canvas } from "@react-three/fiber";
 import { View, Preload } from "@react-three/drei";
 
-export default function Scene({ style, ...props }) {
+interface SceneProps extends React.ComponentProps<"div"> {
+    style?: React.CSSProperties;
+}
+
+export default function Scene({ style, ...props }: SceneProps) {
     return (
         <Canvas
             style={{

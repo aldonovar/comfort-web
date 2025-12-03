@@ -47,7 +47,11 @@ const WaveShaderMaterial = shaderMaterial(
 // Extend so we can use it in JSX
 extend({ WaveShaderMaterial });
 
-export default function ProjectImage({ imgUrl, className, ...props }) {
+interface ProjectImageProps extends React.ComponentProps<typeof View> {
+    imgUrl: string;
+}
+
+export default function ProjectImage({ imgUrl, className, ...props }: ProjectImageProps) {
     return (
         <View className={className} {...props}>
             <ProjectImageScene imgUrl={imgUrl} />
@@ -55,9 +59,9 @@ export default function ProjectImage({ imgUrl, className, ...props }) {
     );
 }
 
-function ProjectImageScene({ imgUrl }) {
-    const meshRef = useRef();
-    const materialRef = useRef();
+function ProjectImageScene({ imgUrl }: { imgUrl: string }) {
+    const meshRef = useRef(null);
+    const materialRef = useRef<any>(null);
     const texture = useLoader(TextureLoader, imgUrl);
 
     const [hovered, setHover] = useState(false);
