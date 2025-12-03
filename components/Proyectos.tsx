@@ -196,7 +196,7 @@ export default function Proyectos() {
 
     const el = cardRef.current;
 
-    const handleMove = (e) => {
+    const handleMove = (e: any) => {
       const rect = el.getBoundingClientRect();
       const x = (e.clientX - rect.left) / rect.width - 0.5;
       const y = (e.clientY - rect.top) / rect.height - 0.5;
