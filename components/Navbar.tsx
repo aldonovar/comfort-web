@@ -261,9 +261,9 @@ export default function Navbar() {
           {/* Right Side: WhatsApp & CTA */}
           <div className="hidden md:flex items-center gap-6">
              {/* WhatsApp Number */}
-             <a 
-              href="https://wa.me/51919693180" 
-              target="_blank" 
+             <a
+              href="https://wa.me/51919693180"
+              target="_blank"
               rel="noopener noreferrer"
               className={`flex items - center gap - 2 text - xs font - medium tracking - widest transition - colors duration - 300 ${
   scrolled || activeMega ? "text-madera/80 hover:text-terracota" : "text-crema/90 hover:text-white"
@@ -277,8 +277,8 @@ export default function Navbar() {
 px - 6 py - 2.5 rounded - full text - xs font - bold uppercase tracking - [0.2em] transition - all duration - 300 border
               ${
   scrolled || activeMega
-  ? "border-madera text-madera hover:bg-madera hover:text-crema"
-  : "border-crema/30 text-crema hover:bg-crema hover:text-madera"
+    ? "border-madera text-madera hover:bg-madera hover:text-crema"
+    : "border-crema/30 text-crema hover:bg-crema hover:text-madera"
 }
 `}>
               Cotizar
@@ -363,8 +363,8 @@ px - 6 py - 2.5 rounded - full text - xs font - bold uppercase tracking - [0.2em
             </Link>
           ))}
           <a
-             href="https://wa.me/51919693180" 
-             target="_blank" 
+             href="https://wa.me/51919693180"
+             target="_blank"
              rel="noopener noreferrer"
              className="flex items-center gap-3 text-madera text-lg font-medium"
           >
