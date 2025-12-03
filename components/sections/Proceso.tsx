@@ -1,195 +1,209 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const steps = [
   {
     id: 1,
-    etiqueta: "01 · Diagnóstico",
-    titulo: "Leemos el espacio y cómo lo quieres usar.",
-    descripcion:
-      "Analizamos vistas, orientación del sol, vientos, estructuras existentes y normativa del edificio. El objetivo: entender qué es posible sin promesas vacías.",
+    label: "01 · Diagnóstico",
+    title: "Lectura del Espacio",
+    description: "Analizamos luz, viento y estructura. Entendemos lo que el espacio pide antes de imponer una idea.",
     meta: {
-      paso: "01 · Diagnóstico",
-      foco: "Espacio",
-      duracion: "1 visita",
-    },
+      focus: "Análisis",
+      duration: "1 Visita",
+      outcome: "Viabilidad"
+    }
   },
   {
     id: 2,
-    etiqueta: "02 · Concepto",
-    titulo: "Definimos la idea guía de tu terraza.",
-    descripcion:
-      "No es solo elegir muebles. Diseñamos cómo se vive: recorridos, zonas de estar, parrilla, barra, vegetación e iluminación como un solo sistema.",
+    label: "02 · Concepto",
+    title: "Diseño de Experiencia",
+    description: "No solo muebles, sino flujos. Diseñamos cómo te moverás, dónde cocinarás y dónde descansarás.",
     meta: {
-      paso: "02 · Concepto",
-      foco: "Idea",
-      duracion: "1–2 semanas",
-    },
+      focus: "Estrategia",
+      duration: "2 Semanas",
+      outcome: "Masterplan"
+    }
   },
   {
     id: 3,
-    etiqueta: "03 · Detalle y materiales",
-    titulo: "Elegimos materiales que envejecen bien.",
-    descripcion:
-      "Pisos, cubiertas, luminarias y herrajes pensados para exterior peruano, minimizando mantenimiento y maximizando sensación de calidad.",
+    label: "03 · Materialidad",
+    title: "Selección Curada",
+    description: "Elegimos texturas que envejecen con dignidad. Maderas, piedras y metales que resisten el clima de Lima.",
     meta: {
-      paso: "03 · Detalle y materiales",
-      foco: "Calidad",
-      duracion: "2–3 semanas",
-    },
+      focus: "Tangibilidad",
+      duration: "1 Semana",
+      outcome: "Look & Feel"
+    }
   },
   {
     id: 4,
-    etiqueta: "04 · Ejecución y entrega",
-    titulo: "De la obra al primer encuentro en tu terraza.",
-    descripcion:
-      "Coordinamos con edificio, proveedores y tiempos de obra. Entregamos el espacio listo: limpio, iluminado y preparado para ser vivido.",
+    label: "04 · Ejecución",
+    title: "Obra y Entrega",
+    description: "Coordinación total. Desde la demolición hasta la última luz encendida, nosotros nos encargamos.",
     meta: {
-      paso: "04 · Ejecución y entrega",
-      foco: "Obra pactada",
-      duracion: "Según alcance",
-    },
+      focus: "Precisión",
+      duration: "Según Proyecto",
+      outcome: "Llave en Mano"
+    }
   },
 ];
 
 export default function Proceso() {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const listRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
+  const [activeStep, setActiveStep] = useState(0);
 
-  // Sincroniza la tarjeta con el scroll usando IntersectionObserver
   useEffect(() => {
-    if (!listRef.current) return;
+    const ctx = gsap.context(() => {
+      // Header Reveal
+      gsap.from(".process-header-reveal", {
+        y: 50,
+        opacity: 0,
+        duration: 1,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 80%",
+        }
+      });
 
-    const items = Array.from(
-      listRef.current.querySelectorAll("[data-step-index]")
-    );
-    if (!items.length) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting && entry.intersectionRatio > 0.35) {
-            const idx = Number(entry.target.getAttribute("data-step-index"));
-            if (!Number.isNaN(idx)) {
-              setActiveIndex(idx);
-            }
-          }
+      // Scroll Spy for Steps
+      steps.forEach((step, index) => {
+        ScrollTrigger.create({
+          trigger: `#process-step-${index}`,
+          start: "top center",
+          end: "bottom center",
+          onEnter: () => setActiveStep(index),
+          onEnterBack: () => setActiveStep(index),
         });
-      },
-      {
-        root: null,
-        threshold: [0.35, 0.6],
-      }
-    );
+      });
 
-    items.forEach((el) => observer.observe(el));
+    }, sectionRef);
 
-    return () => observer.disconnect();
+    return () => ctx.revert();
   }, []);
-
-  const active = steps[activeIndex] ?? steps[0];
 
   return (
     <section
+      ref={sectionRef}
       id="proceso"
-      className="bg-crema pt-16 lg:pt-20 pb-32 lg:pb-40 border-t border-madera/10"
+      className="relative bg-[#0a0a0a] text-white py-24 md:py-32 border-t border-white/5"
     >
-      <div className="max-w-6xl mx-auto px-4 lg:grid lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1.6fr)] lg:gap-12 gap-10 items-start">
-        {/* Tarjeta 3D fija */}
-        <div className="lg:sticky lg:top-28">
-          <div className="relative rounded-[32px] bg-madera text-crema px-7 pt-7 pb-8 shadow-[0_26px_80px_rgba(0,0,0,0.65)]">
-            {/* Pestañita superior */}
-            <div className="absolute left-1/2 top-0 h-[3px] w-24 -translate-x-1/2 -translate-y-1/2 rounded-full bg-crema/10" />
+      <div className="max-w-[1800px] mx-auto px-6 md:px-12">
 
-            <p className="text-[0.65rem] tracking-[0.32em] uppercase text-crema/60 mb-4">
-              Vista previa de cómo explicas el servicio
-            </p>
+        <div className="grid lg:grid-cols-[1fr_1.5fr] gap-16 lg:gap-24 items-start">
 
-            <h3 className="font-serif text-xl md:text-2xl leading-snug mb-3">
-              {active.titulo}
-            </h3>
-
-            <p className="text-xs md:text-sm text-crema/85 mb-6">
-              {active.descripcion}
-            </p>
-
-            <div className="grid grid-cols-3 gap-3 text-[0.7rem] md:text-[0.75rem] uppercase tracking-[0.18em] text-crema/70 border-t border-white/5 pt-4">
-              <div>
-                <p className="text-[0.65rem] mb-1 opacity-60">Paso</p>
-                <p>{active.meta.paso}</p>
-              </div>
-              <div>
-                <p className="text-[0.65rem] mb-1 opacity-60">Foco</p>
-                <p>{active.meta.foco}</p>
-              </div>
-              <div>
-                <p className="text-[0.65rem] mb-1 opacity-60">Duración</p>
-                <p>{active.meta.duracion}</p>
-              </div>
+          {/* Sticky Command Center (Left) */}
+          <div className="hidden lg:block sticky top-32 h-auto">
+            <div className="process-header-reveal mb-12">
+              <span className="block text-terracota text-xs tracking-[0.3em] uppercase font-bold mb-4">
+                Metodología
+              </span>
+              <h2 className="font-serif text-4xl leading-[1.1] mb-6">
+                Del caos al <br />
+                <span className="text-white/40 italic">orden estético.</span>
+              </h2>
             </div>
 
-            <p className="mt-5 text-[0.7rem] text-crema/70">
-              A medida que haces scroll, esta “maqueta digital” cambia para
-              acompañar la explicación al cliente, igual que en las webs de
-              dispositivos electrónicos.
-            </p>
-          </div>
-        </div>
+            <div className="relative rounded-3xl bg-white/5 border border-white/10 backdrop-blur-xl p-8 overflow-hidden">
+              {/* Dynamic Glow */}
+              <div className="absolute top-0 right-0 w-64 h-64 bg-terracota/20 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2" />
 
-        {/* Lista de pasos */}
-        <div ref={listRef} className="space-y-6">
-          <div className="space-y-2">
-            <p className="text-xs tracking-[0.32em] uppercase text-madera/60">
-              Cómo se ve trabajar con Comfort Studio
-            </p>
-            <h2 className="font-serif text-2xl md:text-3xl">
-              Del diagnóstico a la última luz encendida.
-            </h2>
-            <p className="text-sm md:text-base text-madera/70 max-w-xl">
-              El proceso está pensado para que puedas explicar el servicio con
-              claridad, paso a paso, mientras la tarjeta refuerza la idea
-              principal de cada etapa.
-            </p>
-          </div>
+              <div className="relative z-10">
+                <div className="flex items-center justify-between mb-8 border-b border-white/10 pb-4">
+                  <span className="text-xs uppercase tracking-[0.2em] text-white/50">Fase Actual</span>
+                  <span className="text-2xl font-serif text-terracota">0{activeStep + 1}</span>
+                </div>
 
-          <ol className="space-y-4">
-            {steps.map((step, index) => {
-              const isActive = index === activeIndex;
-              return (
-                <li
-                  key={step.id}
-                  data-step-index={index}
-                  className="scroll-mt-32"
-                >
-                  <button
-                    type="button"
-                    onMouseEnter={() => setActiveIndex(index)}
-                    className={`w-full text-left rounded-[22px] border px-4 py-3 md:px-5 md:py-4 transition-all duration-300 bg-white/70 backdrop-blur-sm ${isActive
-                        ? "border-madera/45 shadow-[0_16px_40px_rgba(0,0,0,0.06)]"
-                        : "border-madera/15 hover:border-madera/35"
-                      }`}
-                  >
-                    <div className="flex items-center justify-between gap-3 mb-1">
-                      <span className="text-[0.75rem] uppercase tracking-[0.22em] text-madera/60">
-                        {step.etiqueta}
-                      </span>
-                      <span
-                        className={`h-1.5 w-12 rounded-full transition-colors ${isActive ? "bg-madera" : "bg-madera/15"
-                          }`}
-                      />
-                    </div>
-                    <h3 className="font-semibold text-sm md:text-base">
-                      {step.titulo}
-                    </h3>
-                    <p className="text-xs md:text-sm text-madera/70 mt-1">
-                      {step.descripcion}
+                <div className="space-y-8">
+                  <div className="transition-all duration-500">
+                    <h3 className="text-3xl font-serif mb-2">{steps[activeStep].title}</h3>
+                    <p className="text-white/60 text-sm leading-relaxed">
+                      {steps[activeStep].description}
                     </p>
-                  </button>
-                </li>
-              );
-            })}
-          </ol>
+                  </div>
+
+                  <div className="grid grid-cols-3 gap-4 pt-4">
+                    <div>
+                      <span className="block text-[10px] uppercase tracking-wider text-white/40 mb-1">Foco</span>
+                      <span className="text-sm font-medium">{steps[activeStep].meta.focus}</span>
+                    </div>
+                    <div>
+                      <span className="block text-[10px] uppercase tracking-wider text-white/40 mb-1">Duración</span>
+                      <span className="text-sm font-medium">{steps[activeStep].meta.duration}</span>
+                    </div>
+                    <div>
+                      <span className="block text-[10px] uppercase tracking-wider text-white/40 mb-1">Resultado</span>
+                      <span className="text-sm font-medium">{steps[activeStep].meta.outcome}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Scrollable Steps (Right) */}
+          <div className="space-y-24 lg:pt-32">
+            {/* Mobile Header (Visible only on mobile) */}
+            <div className="lg:hidden mb-12">
+              <span className="block text-terracota text-xs tracking-[0.3em] uppercase font-bold mb-4">
+                Metodología
+              </span>
+              <h2 className="font-serif text-4xl leading-[1.1]">
+                Del caos al <br />
+                <span className="text-white/40 italic">orden estético.</span>
+              </h2>
+            </div>
+
+            {steps.map((step, index) => (
+              <div
+                key={step.id}
+                id={`process-step-${index}`}
+                className={`group transition-all duration-500 ${activeStep === index ? 'opacity-100' : 'opacity-30 lg:opacity-30'}`}
+              >
+                <div className="flex items-start gap-6 md:gap-10">
+                  <div className="flex-shrink-0 pt-2">
+                    <span className={`
+                      flex items-center justify-center w-12 h-12 rounded-full border text-sm font-bold transition-all duration-500
+                      ${activeStep === index ? 'border-terracota text-terracota bg-terracota/10' : 'border-white/20 text-white/40'}
+                    `}>
+                      0{index + 1}
+                    </span>
+                    <div className={`w-px h-32 mx-auto my-4 transition-colors duration-500 ${activeStep === index ? 'bg-terracota/50' : 'bg-white/10'}`} />
+                  </div>
+
+                  <div className="pt-2">
+                    <span className="block text-xs uppercase tracking-[0.2em] text-white/50 mb-2">
+                      {step.label}
+                    </span>
+                    <h3 className="text-2xl md:text-4xl font-serif mb-4 group-hover:text-terracota transition-colors">
+                      {step.title}
+                    </h3>
+                    <p className="text-white/60 text-base md:text-lg leading-relaxed max-w-xl">
+                      {step.description}
+                    </p>
+
+                    {/* Mobile Meta (Visible only on mobile) */}
+                    <div className="lg:hidden grid grid-cols-3 gap-4 mt-6 pt-6 border-t border-white/10">
+                      <div>
+                        <span className="block text-[10px] uppercase tracking-wider text-white/40 mb-1">Foco</span>
+                        <span className="text-xs font-medium">{step.meta.focus}</span>
+                      </div>
+                      <div>
+                        <span className="block text-[10px] uppercase tracking-wider text-white/40 mb-1">Duración</span>
+                        <span className="text-xs font-medium">{step.meta.duration}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
         </div>
       </div>
     </section>
