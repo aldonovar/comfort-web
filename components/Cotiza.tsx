@@ -83,7 +83,7 @@ export default function Cotiza() {
   }, [isFormReady, name, projectType, district, area, finishLevel, budgetRange, notes]);
 
   // --- SUBMIT → ABRIR WHATSAPP CON MENSAJE ARMADO ---
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: any) => {
     e.preventDefault();
 
     const bloques = [];
@@ -333,11 +333,10 @@ export default function Cotiza() {
                 <button
                   type="submit"
                   disabled={!isFormReady}
-                  className={`inline-flex items-center justify-center rounded-full px-6 py-2.5 text-[0.78rem] font-semibold tracking-[0.22em] uppercase transition-colors ${
-                    isFormReady
+                  className={`inline-flex items-center justify-center rounded-full px-6 py-2.5 text-[0.78rem] font-semibold tracking-[0.22em] uppercase transition-colors ${isFormReady
                       ? "bg-madera text-crema hover:bg-madera/90"
                       : "bg-madera/30 text-crema/70 cursor-not-allowed"
-                  }`}
+                    }`}
                 >
                   Enviar resumen por WhatsApp
                 </button>
