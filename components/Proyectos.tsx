@@ -81,8 +81,8 @@ const FILTERS = [
 ];
 
 export default function Proyectos() {
-  const sectionRef = useRef(null);
-  const cardRef = useRef(null);
+  const sectionRef = useRef<HTMLElement>(null);
+  const cardRef = useRef<HTMLDivElement>(null);
 
   const [filter, setFilter] = useState("todos");
   const [activeId, setActiveId] = useState(PROJECTS[0].id);
