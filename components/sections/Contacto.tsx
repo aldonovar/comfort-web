@@ -71,7 +71,7 @@ export default function Contacto() {
         </div>
 
         {/* Grid of Portals */}
-        <div className="contact-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="contact-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 relative z-20">
 
           {/* WhatsApp */}
           <a

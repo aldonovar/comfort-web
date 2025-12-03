@@ -88,7 +88,7 @@ export default function Hero() {
       </div>
 
       {/* Content Grid */}
-      <div className="relative z-20 h-full max-w-[1800px] mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-12 items-center pt-32 md:pt-0">
+      <div className="relative z-20 h-full max-w-[1800px] mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-12 items-center">
 
         {/* Left: Text Content */}
         <div ref={textRef} className="md:col-span-7 flex flex-col justify-center space-y-8">

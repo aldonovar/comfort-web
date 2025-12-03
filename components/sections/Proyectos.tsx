@@ -112,13 +112,18 @@ export default function Proyectos() {
 
                 {/* WebGL Image Background */}
                 <div className="absolute inset-0 w-full h-full">
-                  <View className="w-full h-full">
+                  <View className="w-full h-full absolute inset-0">
                     <ProjectDistortion
                       image={project.image}
                       hovered={hoveredProject === project.id}
                     />
                   </View>
-                  {/* Fallback/Loading placeholder could go here if needed, but View handles it well usually */}
+                  {/* Fallback Image - Visible if JS fails or WebGL issues */}
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    className="absolute inset-0 w-full h-full object-cover -z-10"
+                  />
                 </div>
 
                 {/* Gradient Overlay - Needs to be on top of canvas */}
