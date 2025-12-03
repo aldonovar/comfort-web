@@ -95,12 +95,12 @@ export default function Servicios() {
   const [activeStep, setActiveStep] = useState(0);
 
   const sectionRef = useRef(null);
-  const cardsRef = useRef([]);
-  const stickyRef = useRef(null);
-  const stepRefs = useRef([]);
+  const cardsRef = useRef<HTMLDivElement[]>([]);
+  const stickyRef = useRef<HTMLDivElement>(null);
+  const stepRefs = useRef<HTMLDivElement[]>([]);
 
   // Tilt 3D / parallax en las tarjetas
-  const handleCardMouseMove = (index, event) => {
+  const handleCardMouseMove = (index: number, event: React.MouseEvent<HTMLDivElement>) => {
     const card = cardsRef.current[index];
     if (!card) return;
 
@@ -453,18 +453,16 @@ export default function Servicios() {
                     key={step.id}
                     ref={(el) => (stepRefs.current[index] = el)}
                     data-index={index}
-                    className={`services-step-card rounded-2xl border px-4 py-4 md:px-5 md:py-5 transition-all duration-300 ${
-                      activeStep === index
+                    className={`services-step-card rounded-2xl border px-4 py-4 md:px-5 md:py-5 transition-all duration-300 ${activeStep === index
                         ? "border-madera/80 bg-madera/5 shadow-lg shadow-madera/15"
                         : "border-madera/15 bg-white/60"
-                    }`}
+                      }`}
                   >
                     <p
-                      className={`text-[0.72rem] uppercase tracking-[0.22em] mb-1 ${
-                        activeStep === index
+                      className={`text-[0.72rem] uppercase tracking-[0.22em] mb-1 ${activeStep === index
                           ? "text-madera/80"
                           : "text-madera/55"
-                      }`}
+                        }`}
                     >
                       {step.label}
                     </p>
