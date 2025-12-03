@@ -9,7 +9,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 const WHATSAPP_NUMBER = "51936230958";
 
-// --- DATA & ASSETS ---
+// --- DATA ---
 const SERVICE_IMAGES: Record<string, string[]> = {
   "Terraza Residencial": [
     "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2700&auto=format&fit=crop",
@@ -33,14 +33,44 @@ const SERVICE_IMAGES: Record<string, string[]> = {
 };
 
 const BUDGET_RANGES = [
-  "S/ 20k - 40k  ($5k - 10k)",
-  "S/ 40k - 80k  ($10k - 20k)",
-  "+ S/ 80k  (+$20k)",
-  "Prefiero no decir"
+  { label: "S/ 20k - 40k  ($5k - 10k)", code: "20K" },
+  { label: "S/ 40k - 80k  ($10k - 20k)", code: "40K" },
+  { label: "+ S/ 80k  (+$20k)", code: "80K" },
+  { label: "Prefiero no decir", code: "ND" }
 ];
 
-// --- CUSTOM COMPONENTS ---
+// --- UTILS ---
+const generateSmartID = (
+  type: string,
+  area: string,
+  district: string,
+  budgetCode: string,
+  name: string,
+  company: string,
+  ticketNum: number
+) => {
+  // 1. Type Code (First 2 letters, uppercase)
+  const typeCode = type ? type.substring(0, 2).toUpperCase() : "XX";
 
+  // 2. Area
+  const areaCode = area ? area : "00";
+
+  // 3. District (First 2 letters)
+  const distCode = district ? district.substring(0, 2).toUpperCase() : "XX";
+
+  // 4. Budget (From code)
+  const budCode = budgetCode || "XX";
+
+  // 5. Name (First 2 letters)
+  const nameCode = name ? name.substring(0, 2).toUpperCase() : "XX";
+
+  // 6. Company (First 3 letters or 000)
+  const compCode = company ? company.substring(0, 3).toUpperCase() : "000";
+
+  return `${typeCode}${areaCode}-${distCode}${budCode}-${nameCode}${compCode}-${ticketNum}`;
+};
+
+// --- CUSTOM COMPONENTS ---
 const CustomSelect = ({
   label,
   value,
@@ -51,7 +81,7 @@ const CustomSelect = ({
   label: string,
   value: string,
   onChange: (val: string) => void,
-  options: string[],
+  options: { label: string, value: string }[] | string[],
   placeholder?: string
 }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -67,6 +97,10 @@ const CustomSelect = ({
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  const displayValue = Array.isArray(options) && typeof options[0] === 'object'
+    ? (options as { label: string, value: string }[]).find(o => o.value === value)?.label
+    : value;
+
   return (
     <div className="group relative" ref={containerRef}>
       <label className="block text-[9px] uppercase tracking-widest text-white/40 mb-1 group-focus-within:text-terracota transition-colors">
@@ -76,12 +110,12 @@ const CustomSelect = ({
       <div
         onClick={() => setIsOpen(!isOpen)}
         className={`
-          w-full bg-transparent border-b py-2 text-base cursor-pointer flex justify-between items-center transition-colors
-          ${isOpen ? 'border-terracota' : 'border-white/20 hover:border-white/40'}
+          w-full bg-transparent border-b py-2 text-sm md:text-base cursor-pointer flex justify-between items-center transition-colors
+          ${isOpen ? 'border-terracota' : 'border-white/10 hover:border-white/30'}
         `}
       >
-        <span className={value ? "text-white" : "text-white/30"}>
-          {value || placeholder}
+        <span className={`truncate mr-2 ${value ? "text-white" : "text-white/30"}`}>
+          {displayValue || placeholder}
         </span>
         <span className={`text-[10px] text-white/40 transform transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}>
           ▼
@@ -89,24 +123,28 @@ const CustomSelect = ({
       </div>
 
       <div className={`
-        absolute left-0 right-0 top-full mt-2 bg-[#1a1a1a] border border-white/10 rounded-lg overflow-hidden z-50 shadow-2xl origin-top transition-all duration-300 max-h-60 overflow-y-auto
+        absolute left-0 right-0 top-full mt-2 bg-[#151515] border border-white/10 rounded-lg overflow-hidden z-50 shadow-2xl origin-top transition-all duration-300 max-h-48 overflow-y-auto
         ${isOpen ? 'opacity-100 scale-y-100 translate-y-0' : 'opacity-0 scale-y-95 -translate-y-2 pointer-events-none'}
       `}>
-        {options.map((opt) => (
-          <div
-            key={opt}
-            onClick={() => {
-              onChange(opt);
-              setIsOpen(false);
-            }}
-            className={`
-              px-4 py-2.5 text-sm cursor-pointer transition-colors border-b border-white/5 last:border-0
-              ${value === opt ? 'bg-terracota text-white' : 'text-white/70 hover:bg-white/5 hover:text-white'}
-            `}
-          >
-            {opt}
-          </div>
-        ))}
+        {options.map((opt) => {
+          const optValue = typeof opt === 'string' ? opt : opt.value;
+          const optLabel = typeof opt === 'string' ? opt : opt.label;
+          return (
+            <div
+              key={optValue}
+              onClick={() => {
+                onChange(optValue);
+                setIsOpen(false);
+              }}
+              className={`
+                px-4 py-2 text-xs md:text-sm cursor-pointer transition-colors border-b border-white/5 last:border-0
+                ${value === optValue ? 'bg-terracota text-white' : 'text-white/70 hover:bg-white/5 hover:text-white'}
+              `}
+            >
+              {optLabel}
+            </div>
+          );
+        })}
       </div>
     </div>
   );
@@ -136,7 +174,7 @@ const CustomInput = ({
       value={value}
       onChange={(e) => onChange(e.target.value)}
       placeholder={placeholder}
-      className="w-full bg-transparent border-b border-white/20 py-2 text-base focus:outline-none focus:border-terracota transition-colors placeholder-white/10"
+      className="w-full bg-transparent border-b border-white/10 py-2 text-sm md:text-base focus:outline-none focus:border-terracota transition-colors placeholder-white/10"
     />
   </div>
 );
@@ -152,6 +190,7 @@ export default function Cotiza() {
   const [area, setArea] = useState("");
   const [district, setDistrict] = useState("");
   const [budget, setBudget] = useState("");
+  const [budgetCode, setBudgetCode] = useState("");
 
   // Contact Info
   const [name, setName] = useState("");
@@ -160,8 +199,18 @@ export default function Cotiza() {
   const [company, setCompany] = useState("");
   const [notes, setNotes] = useState("");
 
-  // Slideshow State
+  // System State
+  const [ticketNumber, setTicketNumber] = useState(101);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  // Load Ticket Number
+  useEffect(() => {
+    const stored = localStorage.getItem("comfort_ticket_counter");
+    if (stored) {
+      setTicketNumber(parseInt(stored));
+    }
+  }, []);
 
   // Prefill
   useEffect(() => {
@@ -170,12 +219,12 @@ export default function Cotiza() {
     if (tipo && !projectType) setProjectType(tipo);
   }, [searchParams]);
 
-  // Slideshow Interval
+  // Slideshow
   useEffect(() => {
     if (!projectType) return;
     const interval = setInterval(() => {
       setCurrentImageIndex(prev => (prev + 1) % (SERVICE_IMAGES[projectType]?.length || 1));
-    }, 4000); // Slower transition
+    }, 4000);
     return () => clearInterval(interval);
   }, [projectType]);
 
@@ -200,229 +249,300 @@ export default function Cotiza() {
     return () => ctx.revert();
   }, []);
 
+  // Smart ID Calculation
+  const smartID = useMemo(() => {
+    return generateSmartID(projectType, area, district, budgetCode, name, company, ticketNumber);
+  }, [projectType, area, district, budgetCode, name, company, ticketNumber]);
+
   const isFormReady = useMemo(() => {
     return projectType && area && district && name && (phone || email);
   }, [projectType, area, district, name, phone, email]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const message = `Hola Comfort Studio, soy ${name}.
-    
-Quisiera cotizar un proyecto:
+    if (isSubmitting) return;
+    setIsSubmitting(true);
+
+    // 1. Prepare Data
+    const formData = {
+      ticketNumber,
+      smartID,
+      projectType,
+      area,
+      district,
+      budget,
+      name,
+      phone,
+      email,
+      company,
+      notes,
+      timestamp: new Date().toISOString()
+    };
+
+    // 2. WhatsApp Logic
+    const message = `*NUEVA SOLICITUD - TICKET #${ticketNumber}*
+ID: ${smartID}
+
+*PROYECTO*
 • Tipo: ${projectType}
 • Área: ${area} m²
 • Zona: ${district}
-• Presupuesto: ${budget || "Por definir"}
+• Inversión: ${budget || "No especificado"}
 
-Contacto:
-• Tel: ${phone}
-• Email: ${email}
+*CLIENTE*
+• Nombre: ${name}
 • Empresa: ${company || "N/A"}
+• Contacto: ${phone} / ${email}
 
-Notas: ${notes || "Ninguna"}
+*NOTAS*
+${notes || "Sin notas adicionales"}
 `;
-    const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
-    window.open(url, "_blank");
+    const waUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+
+    try {
+      // 3. API Call (Simulate Email/Sheet)
+      await fetch('/api/quote', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      });
+
+      // 4. Update Counter
+      const nextTicket = ticketNumber + 1;
+      setTicketNumber(nextTicket);
+      localStorage.setItem("comfort_ticket_counter", nextTicket.toString());
+
+      // 5. Open WhatsApp
+      window.open(waUrl, "_blank");
+
+      // 6. Reset Form (Optional, maybe just show success state)
+      // alert("Solicitud enviada correctamente. Redirigiendo a WhatsApp...");
+
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      alert("Hubo un error al procesar la solicitud. Por favor intenta nuevamente.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
     <section
       ref={sectionRef}
       id="cotiza"
-      className="relative bg-[#0a0a0a] text-white py-24 border-t border-white/5"
+      className="relative bg-[#0a0a0a] text-white min-h-screen flex items-center py-20 border-t border-white/5"
     >
-      <div className="max-w-[1400px] mx-auto px-6 md:px-12">
+      <div className="max-w-[1600px] mx-auto px-6 md:px-12 w-full">
 
-        <div className="grid lg:grid-cols-[1fr_0.8fr] gap-12 lg:gap-24 items-start">
+        <div className="grid lg:grid-cols-[1fr_1fr] gap-12 lg:gap-24 items-center">
 
-          {/* Form Side - Compact & Professional */}
+          {/* Form Side */}
           <div className="quote-content">
             <div className="mb-8">
-              <span className="block text-terracota text-[9px] tracking-[0.3em] uppercase font-bold mb-3">
+              <span className="block text-terracota text-[9px] tracking-[0.3em] uppercase font-bold mb-2">
                 Concierge
               </span>
-              <h2 className="font-serif text-3xl md:text-4xl leading-tight">
+              <h2 className="font-serif text-3xl md:text-5xl leading-tight">
                 Diseñemos tu <br />
                 <span className="text-white/40 italic">próximo escenario.</span>
               </h2>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-8 max-w-lg">
+            <form onSubmit={handleSubmit} className="space-y-6 max-w-xl">
 
-              {/* Project Details */}
-              <div className="space-y-6">
-                <h3 className="text-[10px] uppercase tracking-widest text-white/30 border-b border-white/5 pb-2">
+              {/* 01. Proyecto */}
+              <div className="space-y-4">
+                <h3 className="text-[9px] uppercase tracking-widest text-white/30 border-b border-white/5 pb-1">
                   01. El Proyecto
                 </h3>
 
-                <CustomSelect
-                  label="Tipo de Espacio"
-                  value={projectType}
-                  onChange={setProjectType}
-                  options={Object.keys(SERVICE_IMAGES)}
-                />
-
-                <div className="grid grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="md:col-span-2">
+                    <CustomSelect
+                      label="Tipo de Espacio"
+                      value={projectType}
+                      onChange={setProjectType}
+                      options={Object.keys(SERVICE_IMAGES)}
+                    />
+                  </div>
                   <CustomInput
-                    label="Área Aprox (m²)"
+                    label="Área (m²)"
                     value={area}
                     onChange={setArea}
                     placeholder="00"
                     type="number"
                   />
                   <CustomInput
-                    label="Distrito / Zona"
+                    label="Distrito"
                     value={district}
                     onChange={setDistrict}
                     placeholder="Ej. Miraflores"
                   />
+                  <div className="md:col-span-2">
+                    <CustomSelect
+                      label="Rango de Inversión"
+                      value={budget}
+                      onChange={(val) => {
+                        setBudget(val);
+                        const code = BUDGET_RANGES.find(b => b.value === val)?.code || BUDGET_RANGES.find(b => b.label === val)?.code || "XX";
+                        setBudgetCode(code);
+                      }}
+                      options={BUDGET_RANGES.map(b => ({ label: b.label, value: b.label }))}
+                    />
+                  </div>
                 </div>
-
-                <CustomSelect
-                  label="Rango de Inversión (Estimado)"
-                  value={budget}
-                  onChange={setBudget}
-                  options={BUDGET_RANGES}
-                  placeholder="Seleccionar rango..."
-                />
               </div>
 
-              {/* Contact Details */}
-              <div className="space-y-6">
-                <h3 className="text-[10px] uppercase tracking-widest text-white/30 border-b border-white/5 pb-2">
+              {/* 02. Datos */}
+              <div className="space-y-4">
+                <h3 className="text-[9px] uppercase tracking-widest text-white/30 border-b border-white/5 pb-1">
                   02. Tus Datos
                 </h3>
 
-                <CustomInput
-                  label="Nombre Completo"
-                  value={name}
-                  onChange={setName}
-                  placeholder="Tu nombre"
-                />
-
-                <div className="grid grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <CustomInput
-                    label="Teléfono / WhatsApp"
+                    label="Nombre"
+                    value={name}
+                    onChange={setName}
+                    placeholder="Tu nombre"
+                  />
+                  <CustomInput
+                    label="Empresa"
+                    value={company}
+                    onChange={setCompany}
+                    placeholder="Nombre empresa"
+                    optional
+                  />
+                  <CustomInput
+                    label="Teléfono"
                     value={phone}
                     onChange={setPhone}
-                    placeholder="+51 999..."
+                    placeholder="+51..."
                     type="tel"
                   />
                   <CustomInput
-                    label="Correo Electrónico"
+                    label="Email"
                     value={email}
                     onChange={setEmail}
-                    placeholder="nombre@empresa.com"
+                    placeholder="correo@..."
                     type="email"
                   />
                 </div>
 
-                <CustomInput
-                  label="Empresa"
-                  value={company}
-                  onChange={setCompany}
-                  placeholder="Nombre de la empresa"
-                  optional
-                />
-
                 <div className="group">
-                  <label className="block text-[9px] uppercase tracking-widest text-white/40 mb-2 group-focus-within:text-terracota transition-colors">
-                    Detalles Adicionales
+                  <label className="block text-[9px] uppercase tracking-widest text-white/40 mb-1 group-focus-within:text-terracota transition-colors">
+                    Notas
                   </label>
                   <textarea
                     value={notes}
                     onChange={(e) => setNotes(e.target.value)}
-                    placeholder="Cuéntanos más sobre tu visión..."
-                    rows={3}
-                    className="w-full bg-white/5 rounded-lg border border-white/10 p-3 text-sm focus:outline-none focus:border-terracota transition-colors placeholder-white/10 resize-none"
+                    placeholder="Detalles adicionales..."
+                    rows={2}
+                    className="w-full bg-white/5 rounded-lg border border-white/10 p-2 text-sm focus:outline-none focus:border-terracota transition-colors placeholder-white/10 resize-none"
                   />
                 </div>
               </div>
 
               <button
                 type="submit"
-                disabled={!isFormReady}
+                disabled={!isFormReady || isSubmitting}
                 className={`
-                  group w-full py-4 rounded-lg border transition-all duration-300 flex items-center justify-center gap-3 mt-6
-                  ${isFormReady
+                  group w-full py-4 rounded-lg border transition-all duration-300 flex items-center justify-center gap-3 mt-4
+                  ${isFormReady && !isSubmitting
                     ? 'bg-white text-black border-white hover:bg-terracota hover:border-terracota hover:text-white cursor-pointer shadow-[0_0_30px_rgba(255,255,255,0.1)]'
                     : 'bg-white/5 text-white/20 border-white/5 cursor-not-allowed'}
                 `}
               >
-                <span className="uppercase tracking-widest text-[10px] font-bold">Enviar Solicitud</span>
-                <span className="transform group-hover:translate-x-1 transition-transform">→</span>
+                <span className="uppercase tracking-widest text-[10px] font-bold">
+                  {isSubmitting ? "Procesando..." : "Generar Ticket y Enviar"}
+                </span>
+                {!isSubmitting && <span className="transform group-hover:translate-x-1 transition-transform">→</span>}
               </button>
 
             </form>
           </div>
 
-          {/* Ticket Preview Side - Redesigned & Compact */}
-          <div className="hidden lg:block sticky top-32 quote-content delay-100">
-            <div className="relative rounded-2xl bg-[#111] border border-white/10 overflow-hidden shadow-2xl w-full max-w-md mx-auto">
+          {/* Ticket Preview Side - Ultra Premium */}
+          <div className="hidden lg:flex justify-center items-center quote-content delay-100 h-full">
+            <div className="relative w-full max-w-md aspect-[3/4] rounded-[2rem] bg-[#0f0f0f] border border-white/10 overflow-hidden shadow-2xl flex flex-col">
 
-              {/* Image Header (Compact) */}
-              <div className="relative h-48 overflow-hidden">
+              {/* Holographic/Glass Effect Overlay */}
+              <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent pointer-events-none z-20" />
+
+              {/* Image Area */}
+              <div className="relative h-1/2 overflow-hidden">
                 {projectType && SERVICE_IMAGES[projectType]?.map((img, index) => (
                   <div
                     key={img}
                     className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${index === currentImageIndex ? 'opacity-100' : 'opacity-0'}`}
                   >
                     <img src={img} alt="" className="w-full h-full object-cover" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#111] to-transparent opacity-90" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0f0f0f] via-transparent to-transparent" />
                   </div>
                 ))}
 
                 {!projectType && (
                   <div className="absolute inset-0 bg-[#151515]">
-                    <div className="w-full h-full bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-white/5 to-transparent" />
+                    <div className="w-full h-full bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-white/5 to-transparent" />
                   </div>
                 )}
 
-                <div className="absolute bottom-4 left-6 z-10">
-                  <span className="block text-[9px] uppercase tracking-[0.2em] text-white/60 mb-1">Ticket #001</span>
-                  <h3 className="font-serif text-xl text-white">
+                <div className="absolute top-6 left-6 z-30">
+                  <div className="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center backdrop-blur-md">
+                    <div className="w-1.5 h-1.5 bg-terracota rounded-full animate-pulse" />
+                  </div>
+                </div>
+
+                <div className="absolute bottom-6 left-6 z-30">
+                  <span className="block text-[9px] uppercase tracking-[0.2em] text-white/60 mb-1">Ticket #{ticketNumber}</span>
+                  <h3 className="font-serif text-2xl text-white leading-none">
                     {projectType || "Nuevo Proyecto"}
                   </h3>
                 </div>
               </div>
 
-              {/* Ticket Body */}
-              <div className="p-6 space-y-6 bg-[#111]">
+              {/* Ticket Details */}
+              <div className="flex-1 p-8 bg-[#0f0f0f] relative z-10 flex flex-col justify-between">
 
-                {/* Client Info */}
-                <div className="flex items-center gap-4 border-b border-white/5 pb-4">
-                  <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-white/40">
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
+                {/* ID Strip */}
+                <div className="bg-white/5 rounded-lg p-3 border border-white/5 mb-4">
+                  <span className="block text-[9px] uppercase tracking-widest text-white/30 mb-1">ID de Atención</span>
+                  <p className="font-mono text-sm text-terracota tracking-wider truncate">
+                    {smartID}
+                  </p>
+                </div>
+
+                {/* Info Grid */}
+                <div className="grid grid-cols-2 gap-y-6 gap-x-4">
+                  <div>
+                    <span className="block text-[9px] uppercase tracking-widest text-white/30 mb-1">Cliente</span>
+                    <p className="text-sm text-white font-medium truncate">{name || "—"}</p>
+                    <p className="text-[10px] text-white/40 truncate">{company || "Particular"}</p>
                   </div>
                   <div>
-                    <p className="text-sm text-white font-medium">{name || "Cliente"}</p>
-                    <p className="text-xs text-white/40">{company || "Particular"}</p>
+                    <span className="block text-[9px] uppercase tracking-widest text-white/30 mb-1">Ubicación</span>
+                    <p className="text-sm text-white font-medium truncate">{district || "—"}</p>
+                  </div>
+                  <div>
+                    <span className="block text-[9px] uppercase tracking-widest text-white/30 mb-1">Dimensión</span>
+                    <p className="text-sm text-white font-medium">{area ? `${area} m²` : "—"}</p>
+                  </div>
+                  <div>
+                    <span className="block text-[9px] uppercase tracking-widest text-white/30 mb-1">Inversión</span>
+                    <p className="text-sm text-white font-medium truncate">{budgetCode !== "XX" ? budgetCode : "—"}</p>
                   </div>
                 </div>
 
-                {/* Specs Grid */}
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="bg-white/5 rounded-lg p-3">
-                    <span className="block text-[9px] uppercase tracking-wider text-white/40 mb-1">Ubicación</span>
-                    <span className="text-sm text-white/90">{district || "—"}</span>
+                {/* Footer */}
+                <div className="pt-6 border-t border-white/5 flex justify-between items-end">
+                  <div>
+                    <p className="text-[9px] uppercase tracking-widest text-white/30">Estado</p>
+                    <p className="text-[10px] text-green-500 mt-1">● Sistema Online</p>
                   </div>
-                  <div className="bg-white/5 rounded-lg p-3">
-                    <span className="block text-[9px] uppercase tracking-wider text-white/40 mb-1">Área</span>
-                    <span className="text-sm text-white/90">{area ? `${area} m²` : "—"}</span>
+                  <div className="text-right">
+                    <p className="text-[9px] uppercase tracking-widest text-white/30">Fecha</p>
+                    <p className="text-[10px] text-white/50 mt-1">{new Date().toLocaleDateString()}</p>
                   </div>
-                  <div className="col-span-2 bg-white/5 rounded-lg p-3 border border-terracota/20">
-                    <span className="block text-[9px] uppercase tracking-wider text-terracota/80 mb-1">Inversión Estimada</span>
-                    <span className="text-sm text-terracota font-medium">{budget || "—"}</span>
-                  </div>
-                </div>
-
-                {/* Status Footer */}
-                <div className="flex justify-between items-center pt-2">
-                  <div className="flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
-                    <span className="text-[10px] uppercase tracking-wider text-white/40">Sistema Online</span>
-                  </div>
-                  <span className="text-[10px] text-white/30">ID: {Math.random().toString(36).substr(2, 6).toUpperCase()}</span>
                 </div>
 
               </div>
