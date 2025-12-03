@@ -3,78 +3,67 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Link from "next/link";
 
 export default function Hero() {
   const containerRef = useRef<HTMLElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
-  const videoRef = useRef<HTMLVideoElement>(null);
+  const cardRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+
     const ctx = gsap.context(() => {
-      const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
+      const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
 
-      // 1. Video Scale-in & Fade-in
-      tl.from(videoRef.current, { scale: 1.1, opacity: 0, duration: 2.5, ease: "expo.out" }, 0);
+      // 1. Initial State
+      gsap.set(".hero-text-reveal", { y: 100, opacity: 0 });
+      gsap.set(cardRef.current, { x: 100, opacity: 0 });
+      gsap.set(".hero-btn", { y: 20, opacity: 0 });
 
-      // 2. Title Reveal (Staggered & Cinematic)
-      tl.from(".hero-char", {
-        y: 100,
-        opacity: 0,
-        rotateX: -45,
-        duration: 1.8,
-        stagger: 0.05,
-        ease: "power3.out"
-      }, 0.5);
-
-      // 3. Subtitle & Meta Reveal
-      tl.from(".hero-meta", {
-        y: 20,
-        opacity: 0,
-        duration: 1,
+      // 2. Entrance Animation
+      tl.to(".hero-text-reveal", {
+        y: 0,
+        opacity: 1,
+        duration: 1.2,
         stagger: 0.1,
-        ease: "power2.out"
-      }, 1.5);
+        delay: 0.2
+      })
+        .to(cardRef.current, {
+          x: 0,
+          opacity: 1,
+          duration: 1.2,
+          ease: "power2.out"
+        }, "-=1")
+        .to(".hero-btn", {
+          y: 0,
+          opacity: 1,
+          duration: 0.8,
+          stagger: 0.1
+        }, "-=0.8");
 
-      // 4. CTA Reveal
-      tl.from(".hero-cta", { scale: 0.8, opacity: 0, duration: 1, ease: "back.out(1.7)" }, 1.8);
-
-      // 5. Parallax on Scroll
-      gsap.to(videoRef.current, {
-        yPercent: 20,
-        scale: 1.1, // Slight zoom on scroll
-        ease: "none",
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: "top top",
-          end: "bottom top",
-          scrub: true,
-        },
-      });
-
-      // 6. Mouse Parallax (Refined)
+      // 3. Mouse Parallax Effect
       const handleMouseMove = (e: MouseEvent) => {
         const { clientX, clientY } = e;
-        const x = (clientX / window.innerWidth - 0.5) * 30;
-        const y = (clientY / window.innerHeight - 0.5) * 30;
+        const x = (clientX / window.innerWidth - 0.5) * 20;
+        const y = (clientY / window.innerHeight - 0.5) * 20;
 
-        gsap.to(titleRef.current, {
-          x: x,
-          y: y,
-          rotationY: x * 0.5,
-          rotationX: -y * 0.5,
-          duration: 1.5,
+        gsap.to(cardRef.current, {
+          x: -x,
+          y: -y,
+          duration: 1,
           ease: "power2.out"
         });
 
-        gsap.to(".hero-meta", {
+        gsap.to(titleRef.current, {
           x: x * 0.5,
           y: y * 0.5,
-          duration: 1.5,
+          duration: 1,
           ease: "power2.out"
         });
       };
-      window.addEventListener("mousemove", handleMouseMove);
 
+      window.addEventListener("mousemove", handleMouseMove);
       return () => window.removeEventListener("mousemove", handleMouseMove);
 
     }, containerRef);
@@ -85,94 +74,136 @@ export default function Hero() {
   return (
     <section
       ref={containerRef}
-      className="relative h-screen w-full overflow-hidden bg-black text-crema flex flex-col justify-center items-center text-center perspective-1000"
+      className="relative min-h-screen w-full bg-[#0a0a0a] text-white overflow-hidden flex items-center pt-24 md:pt-0"
     >
-      {/* --- Background Video --- */}
-      <div className="absolute inset-0 z-0">
-        <video
-          ref={videoRef}
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="w-full h-full object-cover opacity-70"
-          src="https://videos.pexels.com/video-files/3205634/3205634-uhd_2560_1440_25fps.mp4"
-        />
-        {/* Cinematic Overlays */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/80 pointer-events-none" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.4)_100%)] pointer-events-none" />
-        <div className="absolute inset-0 opacity-[0.07] bg-[url('https://grainy-gradients.vercel.app/noise.svg')] pointer-events-none mix-blend-overlay" />
+      {/* Background Noise & Gradient */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.03)_0%,transparent_60%)]" />
+        <div className="absolute inset-0 opacity-[0.04] bg-[url('https://grainy-gradients.vercel.app/noise.svg')] mix-blend-overlay" />
       </div>
 
-      {/* --- Main Content --- */}
-      <div className="relative z-10 w-full max-w-[1800px] mx-auto px-6 flex flex-col items-center gap-8 md:gap-12">
+      <div className="relative z-10 w-full max-w-[1600px] mx-auto px-6 md:px-12 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
 
-        {/* Brand Tag */}
-        <div className="hero-meta overflow-hidden">
-          <div className="flex items-center gap-4">
-            <div className="h-[1px] w-12 bg-white/50"></div>
-            <p className="text-xs md:text-sm uppercase tracking-[0.5em] text-white/90 font-light">
-              Comfort Studio
+        {/* --- Left Column: Content --- */}
+        <div className="lg:col-span-7 space-y-10">
+
+          {/* Tagline */}
+          <div className="hero-text-reveal flex items-center gap-4">
+            <div className="h-[1px] w-8 bg-terracota"></div>
+            <p className="text-xs uppercase tracking-[0.3em] text-white/60 font-medium">
+              Arquitectura Exterior · Lima
             </p>
-            <div className="h-[1px] w-12 bg-white/50"></div>
           </div>
-        </div>
 
-        {/* Title */}
-        <h1 ref={titleRef} className="font-serif text-[16vw] md:text-[14vw] leading-[0.8] tracking-tighter flex flex-col items-center text-white mix-blend-overlay select-none drop-shadow-2xl">
-          <div className="overflow-hidden flex">
-            {"Espacios".split("").map((char, i) => (
-              <span key={i} className="hero-char inline-block origin-bottom">{char}</span>
-            ))}
-          </div>
-          <div className="overflow-hidden flex">
-            {"Vivos".split("").map((char, i) => (
-              <span key={i} className="hero-char inline-block italic text-terracota-light origin-bottom">{char}</span>
-            ))}
-          </div>
-        </h1>
-
-        {/* Description */}
-        <div className="hero-meta overflow-hidden max-w-2xl">
-          <p className="text-lg md:text-2xl text-white/80 font-light tracking-wide leading-relaxed">
-            Arquitectura sensorial que transforma <span className="text-white font-normal">terrazas</span> en experiencias de vida.
-          </p>
-        </div>
-
-        {/* Magnetic CTA */}
-        <div className="hero-cta mt-8">
-          <a
-            href="#cotiza"
-            className="group relative flex items-center justify-center w-24 h-24 md:w-32 md:h-32 rounded-full bg-white/5 backdrop-blur-sm border border-white/20 transition-all duration-500 hover:scale-110 hover:bg-white/10 hover:border-white/40"
-          >
-            <div className="absolute inset-0 rounded-full border border-white/10 animate-ping opacity-20"></div>
-            <span className="text-[0.6rem] md:text-xs font-bold uppercase tracking-widest text-white group-hover:opacity-0 transition-opacity duration-300">
-              Explora
+          {/* Main Title */}
+          <h1 ref={titleRef} className="font-serif text-5xl md:text-7xl lg:text-[5.5rem] leading-[1.1] tracking-tight">
+            <span className="block hero-text-reveal">Terrazas que se</span>
+            <span className="block hero-text-reveal">
+              sienten <span className="text-terracota italic">hogar</span>
             </span>
-            <svg
-              className="absolute w-8 h-8 text-white opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-4 group-hover:translate-y-0"
-              fill="none" stroke="currentColor" viewBox="0 0 24 24"
+            <span className="block hero-text-reveal">desde el inicio.</span>
+          </h1>
+
+          {/* Description */}
+          <p className="hero-text-reveal text-lg text-white/60 max-w-xl leading-relaxed font-light">
+            Transformamos terrazas, azoteas y patios en espacios diseñados con luz cálida, materiales premium y arquitectura pensada para ser vivida.
+          </p>
+
+          {/* Buttons */}
+          <div className="flex flex-col sm:flex-row gap-4 pt-4">
+            <Link
+              href="/cotiza"
+              className="hero-btn group relative px-8 py-4 bg-terracota rounded-full overflow-hidden flex items-center justify-center gap-3 transition-transform hover:scale-105"
             >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-            </svg>
-          </a>
+              <span className="relative z-10 text-xs font-bold uppercase tracking-[0.2em] text-white">
+                Cotizar Proyecto
+              </span>
+              <span className="relative z-10 text-lg group-hover:translate-x-1 transition-transform">↗</span>
+            </Link>
+
+            <Link
+              href="/contacto"
+              className="hero-btn group px-8 py-4 rounded-full border border-white/10 hover:bg-white/5 flex items-center justify-center gap-3 transition-all"
+            >
+              <span className="text-xs font-bold uppercase tracking-[0.2em] text-white">
+                Agendar Reunión
+              </span>
+              <svg className="w-4 h-4 text-white/70" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+            </Link>
+          </div>
+        </div>
+
+        {/* --- Right Column: Stats Card --- */}
+        <div className="lg:col-span-5 flex justify-center lg:justify-end relative">
+          <div
+            ref={cardRef}
+            className="w-full max-w-md bg-[#141414] border border-white/5 rounded-[2rem] p-8 md:p-10 relative overflow-hidden shadow-2xl"
+          >
+            {/* Active Indicator */}
+            <div className="absolute top-8 right-8 flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+              <span className="text-[0.6rem] uppercase tracking-widest text-white/40">Active</span>
+            </div>
+
+            <p className="text-[0.65rem] uppercase tracking-[0.25em] text-terracota mb-6 font-bold">
+              Diseño + Obra Integral
+            </p>
+
+            <h3 className="font-serif text-3xl text-white mb-2">
+              De la idea al espacio real:
+            </h3>
+            <p className="font-serif text-3xl text-white/50 italic mb-12">
+              terrazas que venden confianza.
+            </p>
+
+            <div className="grid grid-cols-2 gap-y-8 border-t border-white/5 pt-8">
+              <div>
+                <span className="block text-4xl font-light text-white mb-1">80+</span>
+                <span className="text-xs text-white/40 uppercase tracking-wider">Terrazas</span>
+                <p className="text-[0.65rem] text-white/20 mt-1">Construidas en Lima</p>
+              </div>
+
+              <div className="relative">
+                {/* Stamp Effect */}
+                <div className="absolute -right-4 -bottom-4 w-24 h-24 rounded-full border border-white/10 flex items-center justify-center animate-[spin_10s_linear_infinite]">
+                  <svg viewBox="0 0 100 100" className="w-full h-full p-2">
+                    <path id="curve" d="M 50 50 m -37 0 a 37 37 0 1 1 74 0 a 37 37 0 1 1 -74 0" fill="transparent" />
+                    <text className="text-[11px] uppercase font-bold fill-white/30 tracking-[0.1em]">
+                      <textPath href="#curve">
+                        Comfort Studio • Design • Build •
+                      </textPath>
+                    </text>
+                  </svg>
+                </div>
+              </div>
+
+              <div>
+                <div className="flex items-center gap-2 mb-1">
+                  <span className="text-3xl font-light text-white">4.9</span>
+                  <span className="text-terracota">★</span>
+                </div>
+                <span className="text-xs text-white/40 uppercase tracking-wider">Satisfacción</span>
+                <p className="text-[0.65rem] text-white/20 mt-1">Promedio en procesos</p>
+              </div>
+
+              <div>
+                <span className="block text-3xl font-light text-white mb-1">12 <span className="text-sm">años</span></span>
+                <span className="text-xs text-white/40 uppercase tracking-wider">Experiencia</span>
+                <p className="text-[0.65rem] text-white/20 mt-1">Diseñando exteriores</p>
+              </div>
+            </div>
+
+          </div>
         </div>
 
       </div>
 
-      {/* Floating Elements */}
-      <div className="absolute bottom-12 left-12 hidden md:flex hero-meta items-center gap-4 opacity-60">
-        <div className="w-2 h-2 bg-terracota rounded-full animate-pulse"></div>
-        <p className="text-xs uppercase tracking-[0.3em] text-white">Lima, Perú — 2025</p>
+      {/* Floating Chat Button (Bottom Right) */}
+      <div className="absolute bottom-8 right-8 hidden md:block">
+        <button className="w-12 h-12 bg-[#1a1a1a] rounded-full flex items-center justify-center border border-white/10 text-white hover:bg-terracota transition-colors">
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" /></svg>
+        </button>
       </div>
-
-      <div className="absolute bottom-12 right-12 hidden md:block hero-meta opacity-60">
-        <div className="flex flex-col items-center gap-2">
-          <p className="text-[10px] uppercase tracking-widest text-white rotate-90 origin-right translate-x-4">Scroll</p>
-          <div className="w-[1px] h-16 bg-gradient-to-b from-white to-transparent"></div>
-        </div>
-      </div>
-
     </section>
   );
 }
