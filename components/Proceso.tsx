@@ -55,7 +55,7 @@ const steps = [
 
 export default function Proceso() {
   const [activeIndex, setActiveIndex] = useState(0);
-  const listRef = useRef(null);
+  const listRef = useRef<HTMLDivElement>(null);
 
   // Sincroniza la tarjeta con el scroll usando IntersectionObserver
   useEffect(() => {
@@ -165,20 +165,18 @@ export default function Proceso() {
                   <button
                     type="button"
                     onMouseEnter={() => setActiveIndex(index)}
-                    className={`w-full text-left rounded-[22px] border px-4 py-3 md:px-5 md:py-4 transition-all duration-300 bg-white/70 backdrop-blur-sm ${
-                      isActive
+                    className={`w-full text-left rounded-[22px] border px-4 py-3 md:px-5 md:py-4 transition-all duration-300 bg-white/70 backdrop-blur-sm ${isActive
                         ? "border-madera/45 shadow-[0_16px_40px_rgba(0,0,0,0.06)]"
                         : "border-madera/15 hover:border-madera/35"
-                    }`}
+                      }`}
                   >
                     <div className="flex items-center justify-between gap-3 mb-1">
                       <span className="text-[0.75rem] uppercase tracking-[0.22em] text-madera/60">
                         {step.etiqueta}
                       </span>
                       <span
-                        className={`h-1.5 w-12 rounded-full transition-colors ${
-                          isActive ? "bg-madera" : "bg-madera/15"
-                        }`}
+                        className={`h-1.5 w-12 rounded-full transition-colors ${isActive ? "bg-madera" : "bg-madera/15"
+                          }`}
                       />
                     </div>
                     <h3 className="font-semibold text-sm md:text-base">
