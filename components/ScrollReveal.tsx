@@ -4,16 +4,27 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
+interface ScrollRevealProps {
+    children: React.ReactNode;
+    className?: string;
+    animation?: "fade-up" | "fade-in" | "scale-up" | "slide-left" | "slide-right";
+    delay?: number;
+    duration?: number;
+    ease?: string;
+    threshold?: string;
+    once?: boolean;
+}
+
 export default function ScrollReveal({
     children,
     className = "",
-    animation = "fade-up", // fade-up, fade-in, scale-up, slide-left, slide-right
+    animation = "fade-up",
     delay = 0,
     duration = 0.8,
     ease = "power3.out",
-    threshold = "85%", // start position (top 85% of viewport)
+    threshold = "85%",
     once = true,
-}) {
+}: ScrollRevealProps) {
     const ref = useRef(null);
 
     useEffect(() => {
