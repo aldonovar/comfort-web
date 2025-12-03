@@ -4,8 +4,8 @@ import { useEffect } from "react";
 
 export default function SmoothScroller() {
   useEffect(() => {
-    const handler = (e) => {
-      const target = e.target.closest("a[href^='#']");
+    const handler = (e: MouseEvent) => {
+      const target = (e.target as HTMLElement).closest("a[href^='#']");
       if (!target) return;
       const id = target.getAttribute("href").slice(1);
       const el = document.getElementById(id);
