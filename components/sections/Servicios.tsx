@@ -143,6 +143,15 @@ export default function Servicios() {
                 />
               </div>
 
+              {/* Mobile Video/Image Fallback */}
+              <div className="absolute inset-0 md:hidden">
+                <img
+                  src={service.image}
+                  alt={service.title}
+                  className="w-full h-full object-cover opacity-60"
+                />
+              </div>
+
               {/* Gradient Overlay */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
 

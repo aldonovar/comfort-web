@@ -74,7 +74,7 @@ export default function Hero() {
   };
 
   return (
-    <section ref={containerRef} className="relative h-screen w-full overflow-hidden bg-[#0a0a0a] text-white">
+    <section ref={containerRef} className="relative min-h-[100dvh] w-full overflow-hidden bg-[#0a0a0a] text-white">
 
       {/* Background Video */}
       <div className="absolute inset-0 z-0">
@@ -88,13 +88,13 @@ export default function Hero() {
       </div>
 
       {/* Content Grid */}
-      <div className="relative z-20 h-full max-w-[1800px] mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-12 items-center">
+      <div className="relative z-20 h-full max-w-[1800px] mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-12 items-center pt-32 md:pt-0">
 
         {/* Left: Text Content */}
-        <div ref={textRef} className="md:col-span-7 flex flex-col justify-center space-y-8 pt-20">
+        <div ref={textRef} className="md:col-span-7 flex flex-col justify-center space-y-8">
           <div className="w-20 h-[1px] bg-terracota mb-4" />
 
-          <h1 className="font-serif text-6xl md:text-8xl leading-[0.9] tracking-tight">
+          <h1 className="font-serif text-5xl md:text-8xl leading-[1.1] md:leading-[0.9] tracking-tight">
             Terrazas que se <br />
             <span className="italic text-terracota">sienten hogar</span> <br />
             desde el inicio.

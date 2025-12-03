@@ -46,7 +46,7 @@ export default function Contacto() {
     <section
       ref={sectionRef}
       id="contacto"
-      className="relative bg-[#050505] text-white py-32 overflow-hidden"
+      className="relative bg-[#050505] text-white py-20 md:py-32 overflow-hidden"
     >
       {/* Background Ambience */}
       <div className="absolute inset-0 pointer-events-none">

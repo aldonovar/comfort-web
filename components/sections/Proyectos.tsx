@@ -1,9 +1,13 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { View } from "@react-three/drei";
+import dynamic from "next/dynamic";
+
+const ProjectDistortion = dynamic(() => import("../canvas/ProjectDistortion"), { ssr: false });
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -52,6 +56,7 @@ const PROJECTS = [
 
 export default function Proyectos() {
   const sectionRef = useRef<HTMLElement>(null);
+  const [hoveredProject, setHoveredProject] = useState<string | null>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -98,27 +103,33 @@ export default function Proyectos() {
           {PROJECTS.map((project, index) => (
             <div
               key={project.id}
-              className="sticky top-24 md:top-32 min-h-[60vh] md:h-[80vh] w-full"
+              className="sticky top-20 md:top-32 min-h-[50vh] md:h-[80vh] w-full"
               style={{ zIndex: index + 1 }}
+              onMouseEnter={() => setHoveredProject(project.id)}
+              onMouseLeave={() => setHoveredProject(null)}
             >
               <article className="relative w-full h-full rounded-3xl overflow-hidden shadow-2xl border border-white/10 bg-[#121212] group">
 
-                {/* Image Background */}
-                <div className="absolute inset-0">
-                  <img
-                    src={project.image}
-                    alt={project.title}
-                    className="w-full h-full object-cover transition-transform duration-[1.5s] ease-out group-hover:scale-105 opacity-60"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
+                {/* WebGL Image Background */}
+                <div className="absolute inset-0 w-full h-full">
+                  <View className="w-full h-full">
+                    <ProjectDistortion
+                      image={project.image}
+                      hovered={hoveredProject === project.id}
+                    />
+                  </View>
+                  {/* Fallback/Loading placeholder could go here if needed, but View handles it well usually */}
                 </div>
 
+                {/* Gradient Overlay - Needs to be on top of canvas */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent pointer-events-none" />
+
                 {/* Content */}
-                <div className="absolute inset-0 p-8 md:p-12 flex flex-col justify-end md:justify-between">
+                <div className="absolute inset-0 p-8 md:p-12 flex flex-col justify-end md:justify-between pointer-events-none">
 
                   {/* Top Tags (Desktop) */}
                   <div className="hidden md:flex justify-between items-start">
-                    <div className="flex gap-2">
+                    <div className="flex gap-2 pointer-events-auto">
                       {project.tags.map(tag => (
                         <span key={tag} className="px-3 py-1 rounded-full border border-white/20 bg-black/30 backdrop-blur-md text-xs uppercase tracking-wider text-white/80">
                           {tag}
@@ -131,7 +142,7 @@ export default function Proyectos() {
                   </div>
 
                   {/* Main Info */}
-                  <div className="max-w-3xl">
+                  <div className="max-w-3xl pointer-events-auto">
                     <div className="flex items-center gap-4 mb-4 text-terracota text-xs font-bold tracking-[0.2em] uppercase">
                       <span>{project.location}</span>
                       <span className="w-1 h-1 rounded-full bg-terracota" />
@@ -146,7 +157,7 @@ export default function Proyectos() {
                       {project.description}
                     </p>
 
-                    <button className="group/btn inline-flex items-center gap-3 px-8 py-4 rounded-full bg-white text-black hover:bg-terracota hover:text-white transition-all duration-300">
+                    <button className="group/btn inline-flex items-center gap-3 px-8 py-4 rounded-full bg-white text-black hover:bg-terracota hover:text-white transition-all duration-300 pointer-events-auto">
                       <span className="uppercase tracking-widest text-xs font-bold">Ver Proyecto</span>
                       <span className="transform group-hover/btn:translate-x-1 transition-transform">→</span>
                     </button>

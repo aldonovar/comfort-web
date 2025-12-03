@@ -171,8 +171,6 @@ const CustomInput = ({
   </div>
 );
 
-// --- MAIN COMPONENT ---
-
 export default function Cotiza() {
   const searchParams = useSearchParams();
   const sectionRef = useRef<HTMLElement>(null);
@@ -274,22 +272,22 @@ export default function Cotiza() {
 
     // 2. WhatsApp Logic
     const message = `*NUEVA SOLICITUD - TICKET #${ticketNumber}*
-ID: ${smartID}
+              ID: ${smartID}
 
-*PROYECTO*
-• Tipo: ${projectType}
-• Área: ${area} m²
-• Zona: ${district}
-• Inversión: ${budget || "No especificado"}
+              *PROYECTO*
+              • Tipo: ${projectType}
+              • Área: ${area} m²
+              • Zona: ${district}
+              • Inversión: ${budget || "No especificado"}
 
-*CLIENTE*
-• Nombre: ${name}
-• Empresa: ${company || "N/A"}
-• Contacto: ${phone} / ${email}
+              *CLIENTE*
+              • Nombre: ${name}
+              • Empresa: ${company || "N/A"}
+              • Contacto: ${phone} / ${email}
 
-*NOTAS*
-${notes || "Sin notas adicionales"}
-`;
+              *NOTAS*
+              ${notes || "Sin notas adicionales"}
+              `;
     const waUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
 
     try {
@@ -493,11 +491,11 @@ ${notes || "Sin notas adicionales"}
           </div>
 
           {/* Ticket Preview Side - Ultra Premium */}
-          <div className="hidden lg:flex justify-center items-center quote-content delay-100 h-full">
-            <div className="relative w-full max-w-md aspect-[3/4] rounded-[2rem] bg-[#0f0f0f] border border-white/10 overflow-hidden shadow-2xl flex flex-col group">
+          <div className="flex justify-center items-center quote-content delay-100 h-full mt-12 lg:mt-0">
+            <div className="relative w-full max-w-md aspect-3/4 rounded-4xl bg-[#0f0f0f] border border-white/10 overflow-hidden shadow-2xl flex flex-col group">
 
               {/* Holographic/Glass Effect Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent pointer-events-none z-20" />
+              <div className="absolute inset-0 bg-linear-to-br from-white/5 to-transparent pointer-events-none z-20" />
 
               {/* Image Area - Cinematic Transition */}
               <div className="relative h-1/2 overflow-hidden bg-[#151515]">
@@ -505,18 +503,18 @@ ${notes || "Sin notas adicionales"}
                   <div
                     key={img}
                     className={`
-                      absolute inset-0 transition-all duration-[2000ms] ease-in-out
+                      absolute inset-0 transition-all duration-2000 ease-in-out
                       ${index === currentImageIndex ? 'opacity-100 scale-100' : 'opacity-0 scale-110'}
                     `}
                   >
                     <img src={img} alt="" className="w-full h-full object-cover" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#0f0f0f] via-transparent to-transparent opacity-80" />
+                    <div className="absolute inset-0 bg-linear-to-t from-[#0f0f0f] via-transparent to-transparent opacity-80" />
                   </div>
                 ))}
 
                 {!projectType && (
                   <div className="absolute inset-0 bg-[#151515]">
-                    <div className="w-full h-full bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-white/5 to-transparent" />
+                    <div className="w-full h-full bg-[radial-gradient(circle_at_top_right,var(--tw-gradient-stops))] from-white/5 to-transparent" />
                   </div>
                 )}
 
