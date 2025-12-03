@@ -25,14 +25,6 @@ const FOOTER_LINKS = [
       { label: "Proyecto Estación de parrilla", href: "/servicios/estacion-parrilla" },
       { label: "Otro tipo de proyecto al aire libre", href: "/servicios/otros-proyectos" },
     ]
-  },
-  {
-    title: "Legal",
-    links: [
-      { label: "Términos y Condiciones", href: "/terminos" },
-      { label: "Política de Privacidad", href: "/privacidad" },
-      { label: "Libro de Reclamaciones", href: "/reclamaciones" },
-    ]
   }
 ];
 
@@ -141,10 +133,18 @@ export default function Footer() {
 
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-center md:justify-between items-center gap-4 text-xs text-white/30 footer-reveal pb-20 md:pb-0">
-          <p>© {new Date().getFullYear()} Comfort Studio. Todos los derechos reservados.</p>
-          <div className="flex items-center gap-1 md:pr-40">
-            <span>Diseñado por</span>
-            <a href="https://allyxorb.com" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors font-bold">
+          <div className="flex flex-col md:flex-row items-center gap-4 md:gap-8">
+            <p>© {new Date().getFullYear()} Comfort Studio.</p>
+            <div className="hidden md:block w-px h-3 bg-white/20"></div>
+            <div className="flex gap-6">
+              <Link href="/privacidad" className="hover:text-white transition-colors">Política de Privacidad</Link>
+              <Link href="/terminos" className="hover:text-white transition-colors">Términos y Condiciones</Link>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-1 md:pr-40 uppercase tracking-wider text-[10px]">
+            <span>EXPERIENCIA DIGITAL DESARROLLADA POR</span>
+            <a href="https://allyxorb.com" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors font-bold text-white/50 hover:text-white ml-1">
               ALLYX
             </a>
           </div>
