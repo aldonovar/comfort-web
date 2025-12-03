@@ -9,6 +9,133 @@ gsap.registerPlugin(ScrollTrigger);
 
 const WHATSAPP_NUMBER = "51936230958";
 
+// --- DATA & ASSETS ---
+const SERVICE_IMAGES: Record<string, string[]> = {
+  "Terraza Residencial": [
+    "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2700&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?q=80&w=2700&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=2574&auto=format&fit=crop"
+  ],
+  "Rooftop Corporativo": [
+    "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=2653&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2301&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1497366811353-6870744d04b2?q=80&w=2301&auto=format&fit=crop"
+  ],
+  "Casa de Playa": [
+    "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=2670&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1600596542815-3ad196bb4a7f?q=80&w=2675&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1570129477492-45c003edd2be?q=80&w=2670&auto=format&fit=crop"
+  ],
+  "Otro": [
+    "https://images.unsplash.com/photo-1600585154526-990dced4db0d?q=80&w=2700&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=2700&auto=format&fit=crop"
+  ]
+};
+
+// --- CUSTOM COMPONENTS ---
+
+const CustomSelect = ({
+  label,
+  value,
+  onChange,
+  options,
+  placeholder = "Seleccionar..."
+}: {
+  label: string,
+  value: string,
+  onChange: (val: string) => void,
+  options: string[],
+  placeholder?: string
+}) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  // Close on click outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  return (
+    <div className="group relative" ref={containerRef}>
+      <label className="block text-[10px] uppercase tracking-widest text-white/40 mb-2 group-focus-within:text-terracota transition-colors">
+        {label}
+      </label>
+
+      <div
+        onClick={() => setIsOpen(!isOpen)}
+        className={`
+          w-full bg-transparent border-b py-3 text-lg cursor-pointer flex justify-between items-center transition-colors
+          ${isOpen ? 'border-terracota' : 'border-white/20 hover:border-white/40'}
+        `}
+      >
+        <span className={value ? "text-white" : "text-white/30"}>
+          {value || placeholder}
+        </span>
+        <span className={`text-xs text-white/40 transform transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}>
+          ▼
+        </span>
+      </div>
+
+      {/* Dropdown Menu */}
+      <div className={`
+        absolute left-0 right-0 top-full mt-2 bg-[#1a1a1a] border border-white/10 rounded-xl overflow-hidden z-50 shadow-2xl origin-top transition-all duration-300
+        ${isOpen ? 'opacity-100 scale-y-100 translate-y-0' : 'opacity-0 scale-y-95 -translate-y-2 pointer-events-none'}
+      `}>
+        {options.map((opt) => (
+          <div
+            key={opt}
+            onClick={() => {
+              onChange(opt);
+              setIsOpen(false);
+            }}
+            className={`
+              px-4 py-3 text-sm cursor-pointer transition-colors
+              ${value === opt ? 'bg-terracota text-white' : 'text-white/70 hover:bg-white/5 hover:text-white'}
+            `}
+          >
+            {opt}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+const CustomInput = ({
+  label,
+  value,
+  onChange,
+  placeholder,
+  type = "text"
+}: {
+  label: string,
+  value: string,
+  onChange: (val: string) => void,
+  placeholder: string,
+  type?: string
+}) => (
+  <div className="group">
+    <label className="block text-[10px] uppercase tracking-widest text-white/40 mb-2 group-focus-within:text-terracota transition-colors">
+      {label}
+    </label>
+    <input
+      type={type}
+      value={value}
+      onChange={(e) => onChange(e.target.value)}
+      placeholder={placeholder}
+      className="w-full bg-transparent border-b border-white/20 py-3 text-lg focus:outline-none focus:border-terracota transition-colors placeholder-white/10"
+    />
+  </div>
+);
+
+// --- MAIN COMPONENT ---
+
 export default function Cotiza() {
   const searchParams = useSearchParams();
   const sectionRef = useRef<HTMLElement>(null);
@@ -19,7 +146,9 @@ export default function Cotiza() {
   const [district, setDistrict] = useState("");
   const [budget, setBudget] = useState("");
   const [name, setName] = useState("");
-  const [notes, setNotes] = useState("");
+
+  // Slideshow State
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   // Prefill
   useEffect(() => {
@@ -28,11 +157,25 @@ export default function Cotiza() {
     if (tipo && !projectType) setProjectType(tipo);
   }, [searchParams]);
 
+  // Slideshow Interval
+  useEffect(() => {
+    if (!projectType) return;
+    const interval = setInterval(() => {
+      setCurrentImageIndex(prev => (prev + 1) % (SERVICE_IMAGES[projectType]?.length || 1));
+    }, 3000);
+    return () => clearInterval(interval);
+  }, [projectType]);
+
+  // Reset index on type change
+  useEffect(() => {
+    setCurrentImageIndex(0);
+  }, [projectType]);
+
   // Animation
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.from(".quote-header-reveal", {
-        y: 50,
+      gsap.from(".quote-content", {
+        y: 30,
         opacity: 0,
         duration: 1,
         ease: "power3.out",
@@ -45,7 +188,6 @@ export default function Cotiza() {
     return () => ctx.revert();
   }, []);
 
-  // Live Summary Logic
   const isFormReady = useMemo(() => {
     return projectType && area && district && name;
   }, [projectType, area, district, name]);
@@ -59,8 +201,6 @@ Quisiera cotizar un proyecto:
 • Área: ${area} m²
 • Zona: ${district}
 • Presupuesto: ${budget || "Por definir"}
-
-Notas: ${notes || "Ninguna"}
 `;
     const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
     window.open(url, "_blank");
@@ -70,162 +210,148 @@ Notas: ${notes || "Ninguna"}
     <section
       ref={sectionRef}
       id="cotiza"
-      className="relative bg-[#0a0a0a] text-white py-24 md:py-32 border-t border-white/5"
+      className="relative bg-[#0a0a0a] text-white py-20 border-t border-white/5"
     >
-      <div className="max-w-[1800px] mx-auto px-6 md:px-12">
+      <div className="max-w-[1400px] mx-auto px-6 md:px-12">
 
-        <div className="grid lg:grid-cols-[1.2fr_1fr] gap-16 lg:gap-32 items-start">
+        <div className="grid lg:grid-cols-[1fr_1fr] gap-12 lg:gap-24 items-start">
 
-          {/* Form (Left) */}
-          <div className="quote-header-reveal">
-            <span className="block text-terracota text-xs tracking-[0.3em] uppercase font-bold mb-4">
-              Concierge
-            </span>
-            <h2 className="font-serif text-4xl md:text-5xl leading-[1.1] mb-12">
-              Inicia la <br />
-              <span className="text-white/40 italic">conversación.</span>
-            </h2>
+          {/* Form Side */}
+          <div className="quote-content">
+            <div className="mb-10">
+              <span className="block text-terracota text-[10px] tracking-[0.3em] uppercase font-bold mb-3">
+                Concierge
+              </span>
+              <h2 className="font-serif text-3xl md:text-4xl leading-tight">
+                Diseñemos tu <br />
+                <span className="text-white/40 italic">próximo escenario.</span>
+              </h2>
+            </div>
 
-            <form onSubmit={handleSubmit} className="space-y-12">
+            <form onSubmit={handleSubmit} className="space-y-8 max-w-lg">
 
-              {/* Group 1: Basics */}
-              <div className="space-y-8">
-                <div className="group">
-                  <label className="block text-xs uppercase tracking-widest text-white/40 mb-2 group-focus-within:text-terracota transition-colors">
-                    Tipo de Proyecto
-                  </label>
-                  <select
-                    value={projectType}
-                    onChange={(e) => setProjectType(e.target.value)}
-                    className="w-full bg-transparent border-b border-white/20 py-4 text-xl md:text-2xl focus:outline-none focus:border-terracota transition-colors cursor-pointer appearance-none rounded-none"
-                  >
-                    <option value="" className="bg-black text-white/50">Seleccionar...</option>
-                    <option value="Terraza Residencial" className="bg-black">Terraza Residencial</option>
-                    <option value="Rooftop Corporativo" className="bg-black">Rooftop Corporativo</option>
-                    <option value="Casa de Playa" className="bg-black">Casa de Playa</option>
-                    <option value="Otro" className="bg-black">Otro</option>
-                  </select>
-                </div>
+              <CustomSelect
+                label="Tipo de Proyecto"
+                value={projectType}
+                onChange={setProjectType}
+                options={Object.keys(SERVICE_IMAGES)}
+              />
 
-                <div className="grid grid-cols-2 gap-8">
-                  <div className="group">
-                    <label className="block text-xs uppercase tracking-widest text-white/40 mb-2 group-focus-within:text-terracota transition-colors">
-                      Área Aprox (m²)
-                    </label>
-                    <input
-                      type="number"
-                      value={area}
-                      onChange={(e) => setArea(e.target.value)}
-                      placeholder="00"
-                      className="w-full bg-transparent border-b border-white/20 py-4 text-xl md:text-2xl focus:outline-none focus:border-terracota transition-colors placeholder-white/10"
-                    />
-                  </div>
-                  <div className="group">
-                    <label className="block text-xs uppercase tracking-widest text-white/40 mb-2 group-focus-within:text-terracota transition-colors">
-                      Distrito / Zona
-                    </label>
-                    <input
-                      type="text"
-                      value={district}
-                      onChange={(e) => setDistrict(e.target.value)}
-                      placeholder="Ej. Miraflores"
-                      className="w-full bg-transparent border-b border-white/20 py-4 text-xl md:text-2xl focus:outline-none focus:border-terracota transition-colors placeholder-white/10"
-                    />
-                  </div>
-                </div>
+              <div className="grid grid-cols-2 gap-6">
+                <CustomInput
+                  label="Área Aprox (m²)"
+                  value={area}
+                  onChange={setArea}
+                  placeholder="00"
+                  type="number"
+                />
+                <CustomInput
+                  label="Distrito / Zona"
+                  value={district}
+                  onChange={setDistrict}
+                  placeholder="Ej. Miraflores"
+                />
               </div>
 
-              {/* Group 2: Details */}
-              <div className="space-y-8">
-                <div className="group">
-                  <label className="block text-xs uppercase tracking-widest text-white/40 mb-2 group-focus-within:text-terracota transition-colors">
-                    Rango de Inversión (Opcional)
-                  </label>
-                  <select
-                    value={budget}
-                    onChange={(e) => setBudget(e.target.value)}
-                    className="w-full bg-transparent border-b border-white/20 py-4 text-xl md:text-2xl focus:outline-none focus:border-terracota transition-colors cursor-pointer appearance-none rounded-none"
-                  >
-                    <option value="" className="bg-black text-white/50">Prefiero no decir</option>
-                    <option value="S/ 20k - 40k" className="bg-black">S/ 20k - 40k</option>
-                    <option value="S/ 40k - 80k" className="bg-black">S/ 40k - 80k</option>
-                    <option value="+ S/ 80k" className="bg-black">+ S/ 80k</option>
-                  </select>
-                </div>
+              <CustomSelect
+                label="Rango de Inversión (Opcional)"
+                value={budget}
+                onChange={setBudget}
+                options={["S/ 20k - 40k", "S/ 40k - 80k", "+ S/ 80k", "Prefiero no decir"]}
+                placeholder="Seleccionar rango..."
+              />
 
-                <div className="group">
-                  <label className="block text-xs uppercase tracking-widest text-white/40 mb-2 group-focus-within:text-terracota transition-colors">
-                    Tu Nombre
-                  </label>
-                  <input
-                    type="text"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    placeholder="Nombre completo"
-                    className="w-full bg-transparent border-b border-white/20 py-4 text-xl md:text-2xl focus:outline-none focus:border-terracota transition-colors placeholder-white/10"
-                  />
-                </div>
-              </div>
+              <CustomInput
+                label="Tu Nombre"
+                value={name}
+                onChange={setName}
+                placeholder="Nombre completo"
+              />
 
               <button
                 type="submit"
                 disabled={!isFormReady}
                 className={`
-                  group w-full py-6 rounded-full border transition-all duration-300 flex items-center justify-center gap-4
+                  group w-full py-5 rounded-full border transition-all duration-300 flex items-center justify-center gap-3 mt-4
                   ${isFormReady
-                    ? 'bg-white text-black border-white hover:bg-terracota hover:border-terracota hover:text-white cursor-pointer'
+                    ? 'bg-white text-black border-white hover:bg-terracota hover:border-terracota hover:text-white cursor-pointer shadow-[0_0_30px_rgba(255,255,255,0.1)]'
                     : 'bg-white/5 text-white/20 border-white/5 cursor-not-allowed'}
                 `}
               >
-                <span className="uppercase tracking-widest text-xs font-bold">Enviar Solicitud</span>
+                <span className="uppercase tracking-widest text-[10px] font-bold">Enviar Solicitud</span>
                 <span className="transform group-hover:translate-x-1 transition-transform">→</span>
               </button>
 
             </form>
           </div>
 
-          {/* Ticket Preview (Right) */}
-          <div className="hidden lg:block sticky top-32">
-            <div className="relative rounded-3xl bg-[#151515] border border-white/10 p-8 overflow-hidden">
-              {/* Decorative Elements */}
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-1 bg-[#0a0a0a] rounded-b-xl border-b border-x border-white/10" />
-              <div className="absolute -left-3 top-1/2 w-6 h-6 bg-[#0a0a0a] rounded-full" />
-              <div className="absolute -right-3 top-1/2 w-6 h-6 bg-[#0a0a0a] rounded-full" />
-              <div className="absolute top-1/2 left-0 right-0 border-t-2 border-dashed border-white/5" />
+          {/* Ticket Preview Side */}
+          <div className="hidden lg:block sticky top-32 quote-content delay-100">
+            <div className="relative rounded-[2rem] bg-[#111] border border-white/10 overflow-hidden shadow-2xl min-h-[500px] flex flex-col">
 
-              <div className="relative z-10 space-y-8">
-                <div className="text-center pb-8">
-                  <span className="block text-[10px] uppercase tracking-[0.3em] text-white/30 mb-2">Ticket de Servicio</span>
-                  <h3 className="font-serif text-2xl text-white">Resumen de Solicitud</h3>
+              {/* Image Slideshow Background */}
+              <div className="absolute inset-0 bg-[#0a0a0a]">
+                {projectType && SERVICE_IMAGES[projectType]?.map((img, index) => (
+                  <div
+                    key={img}
+                    className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${index === currentImageIndex ? 'opacity-60' : 'opacity-0'}`}
+                  >
+                    <img src={img} alt="" className="w-full h-full object-cover" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#111] via-[#111]/50 to-transparent" />
+                  </div>
+                ))}
+
+                {/* Default State Background */}
+                {!projectType && (
+                  <div className="absolute inset-0 opacity-30">
+                    <div className="w-full h-full bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-white/10 to-transparent" />
+                  </div>
+                )}
+              </div>
+
+              {/* Ticket Content */}
+              <div className="relative z-10 p-8 md:p-10 flex-grow flex flex-col justify-between h-full">
+
+                {/* Header */}
+                <div className="flex justify-between items-start">
+                  <div>
+                    <span className="block text-[9px] uppercase tracking-[0.3em] text-white/40 mb-2">Ticket #001</span>
+                    <h3 className="font-serif text-2xl text-white">
+                      {projectType || "Tu Proyecto"}
+                    </h3>
+                  </div>
+                  <div className="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center">
+                    <div className="w-2 h-2 bg-terracota rounded-full animate-pulse" />
+                  </div>
                 </div>
 
-                <div className="space-y-6 pt-4">
-                  <div className="flex justify-between items-end border-b border-white/5 pb-2">
-                    <span className="text-xs uppercase tracking-wider text-white/40">Cliente</span>
-                    <span className="text-lg font-serif text-terracota">{name || "..."}</span>
+                {/* Details Grid */}
+                <div className="space-y-6 backdrop-blur-sm bg-black/20 p-6 rounded-2xl border border-white/5">
+                  <div className="flex justify-between items-end border-b border-white/10 pb-3">
+                    <span className="text-[10px] uppercase tracking-wider text-white/40">Cliente</span>
+                    <span className="text-sm font-medium text-white">{name || "—"}</span>
                   </div>
-                  <div className="flex justify-between items-end border-b border-white/5 pb-2">
-                    <span className="text-xs uppercase tracking-wider text-white/40">Proyecto</span>
-                    <span className="text-base text-white/80">{projectType || "..."}</span>
+                  <div className="flex justify-between items-end border-b border-white/10 pb-3">
+                    <span className="text-[10px] uppercase tracking-wider text-white/40">Ubicación</span>
+                    <span className="text-sm font-medium text-white">{district || "—"}</span>
                   </div>
-                  <div className="flex justify-between items-end border-b border-white/5 pb-2">
-                    <span className="text-xs uppercase tracking-wider text-white/40">Ubicación</span>
-                    <span className="text-base text-white/80">{district || "..."}</span>
+                  <div className="flex justify-between items-end border-b border-white/10 pb-3">
+                    <span className="text-[10px] uppercase tracking-wider text-white/40">Dimensiones</span>
+                    <span className="text-sm font-medium text-white">{area ? `${area} m²` : "—"}</span>
                   </div>
-                  <div className="flex justify-between items-end border-b border-white/5 pb-2">
-                    <span className="text-xs uppercase tracking-wider text-white/40">Área</span>
-                    <span className="text-base text-white/80">{area ? `${area} m²` : "..."}</span>
+                  <div className="flex justify-between items-end">
+                    <span className="text-[10px] uppercase tracking-wider text-white/40">Inversión</span>
+                    <span className="text-sm font-medium text-terracota">{budget || "—"}</span>
                   </div>
                 </div>
 
-                <div className="pt-8 text-center">
-                  <p className="text-[10px] uppercase tracking-widest text-white/30">
-                    Tiempo de respuesta estimado
+                {/* Footer */}
+                <div className="text-center pt-4">
+                  <p className="text-[9px] uppercase tracking-widest text-white/30">
+                    Respuesta estimada: 24h
                   </p>
-                  <p className="text-sm text-white/60 mt-1">
-                    24 Horas Hábiles
-                  </p>
                 </div>
+
               </div>
             </div>
           </div>
