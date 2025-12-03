@@ -3,7 +3,7 @@
 import { Canvas } from "@react-three/fiber";
 import { View, Preload } from "@react-three/drei";
 
-interface SceneProps extends React.ComponentProps<"div"> {
+interface SceneProps extends Omit<React.ComponentProps<"div">, "ref"> {
     style?: React.CSSProperties;
 }
 
