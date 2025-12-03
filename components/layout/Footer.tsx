@@ -52,7 +52,7 @@ export default function Footer() {
   }, []);
 
   return (
-    <footer ref={footerRef} className="bg-[#050505] text-white pt-32 pb-12 border-t border-white/5">
+    <footer ref={footerRef} className="bg-[#050505] text-white pt-32 pb-24 border-t border-white/5">
       <div className="max-w-[1800px] mx-auto px-6 md:px-12">
 
         <div className="grid grid-cols-1 md:grid-cols-12 gap-16 md:gap-8 mb-24">
@@ -142,7 +142,7 @@ export default function Footer() {
             </div>
           </div>
 
-          <div className="flex items-center gap-1 md:pr-40 uppercase tracking-wider text-[10px]">
+          <div className="flex items-center gap-1 uppercase tracking-wider text-[10px]">
             <span>EXPERIENCIA DIGITAL DESARROLLADA POR</span>
             <a href="https://allyxorb.com" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors font-bold text-white/50 hover:text-white ml-1">
               ALLYX
