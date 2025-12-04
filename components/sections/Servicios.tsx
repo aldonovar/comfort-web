@@ -98,9 +98,9 @@ export default function Servicios() {
           <span className="block text-terracota text-xs tracking-[0.3em] uppercase font-bold mb-4">
             Nuestros Servicios
           </span>
-          <h2 className="font-serif text-4xl md:text-6xl leading-[1.1] mb-6">
+          <h2 className="font-serif text-4xl md:text-6xl leading-[1.1] mb-6 text-white">
             Arquitectura para <br />
-            <span className="text-primary/40 italic transition-colors duration-500">vivir el exterior.</span>
+            <span className="text-terracota italic transition-colors duration-500">vivir el exterior.</span>
           </h2>
           <p className="text-primary/60 text-lg font-light leading-relaxed max-w-lg transition-colors duration-500">
             No vendemos productos, creamos atmósferas. Un sistema integral de diseño y ejecución para transformar tu terraza.
@@ -118,7 +118,7 @@ export default function Servicios() {
                 transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)]
                 h-[450px] md:h-full
                 ${hoveredIndex === index ? 'md:flex-3' : 'md:flex-1'}
-                border border-primary/10 hover:border-primary/30
+                shadow-[0_30px_60px_rgba(0,0,0,0.3)] ring-1 ring-white/10 hover:ring-white/20
               `}
               onMouseEnter={() => setHoveredIndex(index)}
               onMouseLeave={() => setHoveredIndex(null)}
