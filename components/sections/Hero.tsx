@@ -13,6 +13,8 @@ export default function Hero() {
   const cardRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
 
+  const stampRef = useRef<SVGSVGElement>(null);
+
   // Tilt State
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
 
@@ -46,6 +48,16 @@ export default function Hero() {
           end: "bottom top",
           scrub: true
         }
+      });
+    }
+
+    // Rotate Stamp
+    if (stampRef.current) {
+      gsap.to(stampRef.current, {
+        rotation: 360,
+        duration: 20,
+        repeat: -1,
+        ease: "linear"
       });
     }
 
@@ -163,11 +175,11 @@ export default function Hero() {
 
             {/* Decorative Stamp */}
             <div className="absolute -bottom-12 -right-12 w-40 h-40 opacity-20 group-hover:opacity-40 transition-opacity duration-500">
-              <svg viewBox="0 0 100 100" className="w-full h-full animate-spin-slow">
+              <svg ref={stampRef} viewBox="0 0 100 100" className="w-full h-full">
                 <path id="curve" d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0" fill="transparent" />
                 <text className="text-[10px] uppercase font-bold tracking-widest fill-white">
                   <textPath href="#curve">
-                    Comfort Studio • Design • Build •
+                    Comfort Studio • Comfort Studio •
                   </textPath>
                 </text>
               </svg>
