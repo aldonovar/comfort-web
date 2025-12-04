@@ -89,6 +89,9 @@ export default function Estudio() {
       {/* Background Noise */}
       <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div>
 
+      {/* Subtle Color Gradient Blob */}
+      <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-terracota/5 blur-[100px] rounded-full pointer-events-none mix-blend-screen" />
+
       <div className="max-w-[1800px] mx-auto px-6 md:px-12 relative z-10">
 
         <div className="grid lg:grid-cols-[1fr_1.5fr] gap-16 lg:gap-24 items-start">
@@ -106,7 +109,7 @@ export default function Estudio() {
               Comfort Studio nace de una obsesión: tratar el exterior con el mismo rigor, lujo y calidez que el interior más exclusivo.
             </p>
 
-            <button className="group relative px-8 py-4 bg-primary text-secondary rounded-full overflow-hidden transition-all duration-300 hover:shadow-lg hover:shadow-primary/20">
+            <button className="group relative px-8 py-4 bg-transparent border border-terracota text-terracota rounded-full overflow-hidden transition-all duration-300 hover:shadow-lg hover:shadow-terracota/20">
               <div className="absolute inset-0 bg-terracota translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out" />
               <span className="relative z-10 flex items-center gap-3 text-xs font-bold uppercase tracking-widest group-hover:text-white transition-colors duration-300">
                 Conocer al equipo
