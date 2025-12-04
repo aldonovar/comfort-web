@@ -7,6 +7,7 @@ import Footer from "../components/layout/Footer";
 import PageTransition from "../components/layout/PageTransition";
 import dynamic from "next/dynamic";
 import { Suspense } from "react";
+import Preloader from "../components/layout/Preloader";
 import FloatingCTA from "../components/ui/FloatingCTA";
 
 
@@ -29,6 +30,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {/* Tuned for "Luxury" feel: heavier than native, but controllable */}
         <ReactLenis root options={{ lerp: 0.07, duration: 1.2, smoothWheel: true }}>
 
+          <Preloader />
           <Navbar />
           <FloatingCTA />
 

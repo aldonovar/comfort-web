@@ -74,7 +74,7 @@ export default function Hero() {
   };
 
   return (
-    <section ref={containerRef} className="relative min-h-[100dvh] w-full overflow-hidden bg-[#0a0a0a] text-white">
+    <section ref={containerRef} className="relative min-h-dvh w-full overflow-hidden bg-[#0a0a0a] text-white flex items-center">
 
       {/* Background Video */}
       <div className="absolute inset-0 z-0">
@@ -92,7 +92,7 @@ export default function Hero() {
 
         {/* Left: Text Content */}
         <div ref={textRef} className="md:col-span-7 flex flex-col justify-center space-y-8">
-          <div className="w-20 h-[1px] bg-terracota mb-4" />
+          <div className="w-20 h-px bg-terracota mb-4" />
 
           <h1 className="font-serif text-5xl md:text-8xl leading-[1.1] md:leading-[0.9] tracking-tight">
             Terrazas que se <br />
@@ -133,10 +133,10 @@ export default function Hero() {
               transform: `perspective(1000px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
               transition: "transform 0.1s ease-out"
             }}
-            className="w-[400px] bg-[#1a1a1a]/80 backdrop-blur-xl border border-white/10 p-10 rounded-3xl shadow-2xl relative overflow-hidden group"
+            className="w-[400px] bg-charcoal/80 backdrop-blur-xl border border-white/10 p-10 rounded-3xl shadow-2xl relative overflow-hidden group"
           >
             {/* Glossy Reflection */}
-            <div className="absolute inset-0 bg-gradient-to-tr from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+            <div className="absolute inset-0 bg-linear-to-tr from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
 
             <div className="flex items-center justify-between mb-12">
               <span className="text-[0.65rem] uppercase tracking-[0.3em] text-terracota font-bold flex items-center gap-2">

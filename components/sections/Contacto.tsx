@@ -46,9 +46,13 @@ export default function Contacto() {
       ScrollTrigger.refresh();
     }, 100);
 
+    const handleLoad = () => ScrollTrigger.refresh();
+    window.addEventListener("load", handleLoad);
+
     return () => {
       ctx.revert();
       clearTimeout(timer);
+      window.removeEventListener("load", handleLoad);
     };
   }, []);
 

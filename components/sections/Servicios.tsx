@@ -116,7 +116,7 @@ export default function Servicios() {
                 service-card-reveal group relative flex-1 overflow-hidden rounded-2xl md:rounded-none md:first:rounded-l-2xl md:last:rounded-r-2xl
                 transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)]
                 h-[450px] md:h-full
-                ${hoveredIndex === index ? 'md:flex-[3]' : 'md:flex-1'}
+                ${hoveredIndex === index ? 'md:flex-3' : 'md:flex-1'}
                 border border-white/10 hover:border-white/30
               `}
               onMouseEnter={() => setHoveredIndex(index)}
@@ -127,7 +127,7 @@ export default function Servicios() {
                 <img
                   src={service.image}
                   alt={service.title}
-                  className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 opacity-60 group-hover:opacity-40"
+                  className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 opacity-80 group-hover:opacity-60"
                 />
               </div>
 
@@ -153,7 +153,7 @@ export default function Servicios() {
               </div>
 
               {/* Gradient Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
+              <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/40 to-transparent" />
 
               {/* Content */}
               <div className="absolute inset-0 p-8 flex flex-col justify-end">

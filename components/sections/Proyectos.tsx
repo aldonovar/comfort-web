@@ -108,7 +108,7 @@ export default function Proyectos() {
               onMouseEnter={() => setHoveredProject(project.id)}
               onMouseLeave={() => setHoveredProject(null)}
             >
-              <article className="relative w-full h-full rounded-3xl overflow-hidden shadow-2xl border border-white/10 bg-[#121212] group">
+              <article className="relative w-full h-full rounded-3xl overflow-hidden shadow-2xl border border-white/10 bg-transparent group">
 
                 {/* WebGL Image Background */}
                 <div className="absolute inset-0 w-full h-full">
@@ -122,12 +122,12 @@ export default function Proyectos() {
                   <img
                     src={project.image}
                     alt={project.title}
-                    className="absolute inset-0 w-full h-full object-cover -z-10"
+                    className="absolute inset-0 w-full h-full object-cover"
                   />
                 </div>
 
                 {/* Gradient Overlay - Needs to be on top of canvas */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent pointer-events-none" />
+                <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/20 to-transparent pointer-events-none" />
 
                 {/* Content */}
                 <div className="absolute inset-0 p-8 md:p-12 flex flex-col justify-end md:justify-between pointer-events-none">
