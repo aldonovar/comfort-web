@@ -8,9 +8,9 @@ import gsap from "gsap";
 import ThemeToggle from "../ui/ThemeToggle";
 
 const NAV_ITEMS = [
+  { id: "servicios", label: "Servicios", href: "/servicios" },
   { id: "proyectos", label: "Proyectos", href: "/proyectos" },
   { id: "estudio", label: "Estudio", href: "/estudio" },
-  { id: "servicios", label: "Servicios", href: "/servicios" },
   { id: "contacto", label: "Contacto", href: "/contacto" },
 ];
 
@@ -251,8 +251,8 @@ export default function Navbar() {
         ref={headerRef}
         onMouseLeave={handleMouseLeave}
         className={`fixed top-0 left-0 right-0 z-100 transition-all duration-700 will-change-transform ${scrolled || activeMega || mobileOpen
-          ? "bg-[var(--bg-primary)] py-4 border-b border-primary/5"
-          : "bg-transparent py-8"
+          ? "bg-primary/80 backdrop-blur-md py-4 border-b border-primary/5 shadow-sm"
+          : "bg-transparent py-8 border-b border-transparent"
           }`}
       >
         <div className="max-w-[1800px] mx-auto px-6 md:px-12 flex items-center justify-between relative z-50">
@@ -273,15 +273,18 @@ export default function Navbar() {
           </Link>
 
           {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-10 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+          <nav className="hidden md:flex items-center gap-12 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
             {NAV_ITEMS.map((item) => (
               <div key={item.id} className="relative group" onMouseEnter={() => handleMouseEnter(item.id)}>
                 <Link
                   href={item.href}
-                  className={`relative text-[0.7rem] font-bold uppercase tracking-[0.25em] py-4 transition-colors duration-500 block ${activeMega === item.id || scrolled ? "text-primary" : "text-white/70 hover:text-white"}`}
+                  className={`relative text-[0.7rem] font-bold uppercase tracking-[0.25em] py-4 transition-colors duration-500 block ${activeMega === item.id || scrolled ? "text-primary" : "text-white/80 hover:text-white"}`}
                 >
                   {item.label}
                   <span className={`absolute bottom-2 left-0 w-full h-px bg-terracota transition-transform duration-500 origin-left ease-out ${activeMega === item.id ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"}`} />
+
+                  {/* Glow Effect */}
+                  <span className={`absolute inset-0 bg-terracota/20 blur-xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 scale-150 pointer-events-none`} />
                 </Link>
               </div>
             ))}
@@ -333,7 +336,7 @@ export default function Navbar() {
         {/* --- MEGA MENU --- */}
         <div
           ref={megaRef}
-          className="absolute top-full left-0 w-full bg-[var(--bg-primary)] border-t border-primary/5 overflow-hidden shadow-2xl h-0 opacity-0"
+          className="absolute top-full left-0 w-full bg-primary/95 backdrop-blur-xl border-t border-primary/5 overflow-hidden shadow-2xl h-0 opacity-0"
         >
           {activeMega && MEGA_CONTENT[activeMega] && (
             <div className="relative w-full h-[50vh] flex max-w-[1800px] mx-auto">
