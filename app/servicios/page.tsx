@@ -14,6 +14,7 @@ const SERVICES = [
     title: "Techo Sol y Sombra",
     subtitle: "Control de Luz y Clima",
     desc: "Estructuras que doman el sol y la lluvia sin perder la conexión con el cielo. Madera, aluminio y tecnología.",
+    image: "https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=2700&auto=format&fit=crop",
     video: "https://cdn.coverr.co/videos/coverr-sunlight-through-trees-in-forest-4467/1080p.mp4",
     slug: "techo-sol-y-sombra",
     stats: ["Madera", "Aluminio", "Retráctil"]
@@ -23,6 +24,7 @@ const SERVICES = [
     title: "Diseño de Terrazas",
     subtitle: "Proyecto Integral",
     desc: "Desde el primer trazo hasta la última luz. Un solo equipo, una visión unificada para tu espacio exterior.",
+    image: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=2574&auto=format&fit=crop",
     video: "https://cdn.coverr.co/videos/coverr-modern-architecture-with-pool-5686/1080p.mp4",
     slug: "diseno-ejecucion-terrazas",
     stats: ["Diseño", "Planos", "Ejecución"]
@@ -32,6 +34,7 @@ const SERVICES = [
     title: "Estación de Parrilla",
     subtitle: "Outdoor Kitchen",
     desc: "El corazón de la reunión. Fuego, sabor y diseño para el chef anfitrión. Acabados premium y funcionalidad.",
+    image: "https://images.unsplash.com/photo-1556910103-1c02745a30bf?q=80&w=2670&auto=format&fit=crop",
     video: "https://cdn.coverr.co/videos/coverr-grilling-meat-on-barbecue-4462/1080p.mp4",
     slug: "estacion-parrilla",
     stats: ["Acero", "Granito", "Equipamiento"]
@@ -41,6 +44,7 @@ const SERVICES = [
     title: "Otros Proyectos",
     subtitle: "A Medida",
     desc: "Fogateros, lounges, decks. Soluciones únicas para espacios que desafían lo estándar.",
+    image: "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?q=80&w=2670&auto=format&fit=crop",
     video: "https://cdn.coverr.co/videos/coverr-fire-pit-in-the-evening-4465/1080p.mp4",
     slug: "otros-proyectos",
     stats: ["Fogateros", "Decks", "Lounges"]
@@ -144,15 +148,23 @@ export default function ServicesLensPage() {
           key={service.id}
           className={`service-slide-${i} absolute inset-0 w-full h-full`}
         >
-          {/* Video Background */}
+          {/* Background Media */}
           <div className="absolute inset-0">
+            {/* Image Fallback/Poster */}
+            <img
+              src={service.image}
+              alt={service.title}
+              className="absolute inset-0 w-full h-full object-cover opacity-60"
+            />
+            {/* Video Overlay */}
             <video
               src={service.video}
               autoPlay
               muted
               loop
               playsInline
-              className="w-full h-full object-cover opacity-60"
+              poster={service.image}
+              className="absolute inset-0 w-full h-full object-cover opacity-60"
             />
             <div className="absolute inset-0 bg-black/40" />
             {/* Noise Overlay */}
