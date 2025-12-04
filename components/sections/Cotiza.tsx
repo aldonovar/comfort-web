@@ -358,29 +358,35 @@ export default function Cotiza() {
     <section
       ref={sectionRef}
       id="cotiza"
-      className="relative bg-primary text-primary min-h-screen flex items-center py-4 border-t border-primary/5 transition-colors duration-500"
+      className="relative bg-primary text-primary min-h-screen flex items-center py-4 transition-colors duration-500 overflow-hidden"
     >
-      <div className="max-w-[1600px] mx-auto px-6 md:px-12 w-full">
+      {/* Background Ambience */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-terracota/5 rounded-full blur-[120px] mix-blend-screen animate-pulse duration-3000" />
+        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[120px] mix-blend-screen" />
+      </div>
 
-        <div className="grid lg:grid-cols-[1fr_1fr] gap-8 lg:gap-12 items-center">
+      <div className="max-w-[1600px] mx-auto px-6 md:px-12 w-full relative z-10">
+
+        <div className="grid lg:grid-cols-[1fr_1fr] gap-8 lg:gap-16 items-center">
 
           {/* Form Side */}
           <div className="quote-content">
-            <div className="mb-4">
+            <div className="mb-6 quote-item">
               <span className="block text-terracota text-[9px] tracking-[0.3em] uppercase font-bold mb-2">
                 Concierge
               </span>
-              <h2 className="font-serif text-3xl md:text-5xl leading-tight">
+              <h2 className="font-serif text-4xl md:text-6xl leading-tight">
                 Diseñemos tu <br />
                 <span className="text-primary/40 italic transition-colors duration-500">próximo escenario.</span>
               </h2>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-3 max-w-xl">
+            <form onSubmit={handleSubmit} className="space-y-4 max-w-xl">
 
               {/* 01. Proyecto */}
-              <div className="space-y-2">
-                <h3 className="text-[10px] uppercase tracking-widest text-primary/60 border-b border-primary/10 pb-1 font-bold transition-colors duration-500">
+              <div className="space-y-3 quote-item">
+                <h3 className="text-[10px] uppercase tracking-widest text-primary/40 font-bold transition-colors duration-500 mb-2">
                   01. El Proyecto
                 </h3>
 
@@ -422,8 +428,8 @@ export default function Cotiza() {
               </div>
 
               {/* 02. Datos */}
-              <div className="space-y-2">
-                <h3 className="text-[10px] uppercase tracking-widest text-primary/60 border-b border-primary/10 pb-1 font-bold transition-colors duration-500">
+              <div className="space-y-3 quote-item">
+                <h3 className="text-[10px] uppercase tracking-widest text-primary/40 font-bold transition-colors duration-500 mb-2">
                   02. Tus Datos
                 </h3>
 
@@ -458,7 +464,7 @@ export default function Cotiza() {
                 </div>
 
                 <div className="group">
-                  <label className="block text-[10px] uppercase tracking-widest text-primary/70 mb-1 group-focus-within:text-terracota transition-colors font-medium">
+                  <label className="block text-[10px] uppercase tracking-widest text-primary/70 mb-1 group-focus-within:text-terracota transition-colors font-medium pl-1">
                     Notas
                   </label>
                   <textarea
@@ -466,39 +472,44 @@ export default function Cotiza() {
                     onChange={(e) => setNotes(e.target.value)}
                     placeholder="Detalles adicionales..."
                     rows={2}
-                    className="w-full bg-primary/5 rounded-lg border border-primary/20 p-2 text-sm focus:outline-none focus:border-terracota transition-colors placeholder-primary/40 resize-none text-primary"
+                    className="w-full bg-primary/5 hover:bg-primary/10 rounded-xl p-4 text-sm focus:outline-none focus:ring-1 focus:ring-terracota transition-all duration-300 placeholder-primary/30 resize-none text-primary"
                   />
                 </div>
               </div>
 
-              <button
-                type="submit"
-                disabled={!isFormReady || isSubmitting}
-                className={`
-                  group w-full py-3 rounded-lg border transition-all duration-300 flex items-center justify-center gap-3 mt-4
-                  ${isFormReady && !isSubmitting
-                    ? 'bg-[var(--text-primary)] text-[var(--bg-primary)] border-[var(--text-primary)] hover:bg-terracota hover:border-terracota hover:text-white cursor-pointer shadow-[0_0_30px_rgba(255,255,255,0.1)]'
-                    : 'bg-primary/5 text-primary/20 border-primary/5 cursor-not-allowed'}
-                `}
-              >
-                <span className="uppercase tracking-widest text-[10px] font-bold">
-                  {isSubmitting ? "Procesando..." : "Generar Ticket y Enviar"}
-                </span>
-                {!isSubmitting && <span className="transform group-hover:translate-x-1 transition-transform">→</span>}
-              </button>
+              <div className="quote-item pt-2">
+                <button
+                  type="submit"
+                  disabled={!isFormReady || isSubmitting}
+                  className={`
+                    group w-full py-4 rounded-xl transition-all duration-500 flex items-center justify-center gap-3
+                    ${isFormReady && !isSubmitting
+                      ? 'bg-terracota text-white shadow-lg shadow-terracota/20 hover:shadow-terracota/40 hover:scale-[1.02] cursor-pointer'
+                      : 'bg-primary/5 text-primary/20 cursor-not-allowed'}
+                  `}
+                >
+                  <span className="uppercase tracking-widest text-[10px] font-bold">
+                    {isSubmitting ? "Procesando..." : "Generar Ticket y Enviar"}
+                  </span>
+                  {!isSubmitting && <span className="transform group-hover:translate-x-1 transition-transform">→</span>}
+                </button>
+              </div>
 
             </form>
           </div>
 
           {/* Ticket Preview Side - Ultra Premium */}
-          <div className="flex justify-center items-center quote-content delay-100 h-full mt-8 lg:mt-0">
-            <div className="relative w-full max-w-sm aspect-3/4 rounded-3xl bg-secondary border border-primary/10 overflow-hidden shadow-2xl flex flex-col group transition-colors duration-500">
+          <div className="flex justify-center items-center quote-content delay-100 h-full mt-8 lg:mt-0 perspective-1000">
+            <div
+              className="relative w-full max-w-sm aspect-3/4 rounded-[2rem] bg-white/5 backdrop-blur-2xl overflow-hidden shadow-2xl flex flex-col group transition-all duration-700 hover:shadow-[0_20px_50px_rgba(0,0,0,0.2)] hover:-translate-y-2"
+              style={{ transformStyle: 'preserve-3d' }}
+            >
 
               {/* Holographic/Glass Effect Overlay */}
-              <div className="absolute inset-0 bg-linear-to-br from-primary/5 to-transparent pointer-events-none z-20 transition-colors duration-500" />
+              <div className="absolute inset-0 bg-linear-to-br from-white/10 to-transparent pointer-events-none z-20 transition-colors duration-500 mix-blend-overlay" />
 
               {/* Image Area - Cinematic Transition */}
-              <div className="relative h-1/2 overflow-hidden bg-black">
+              <div className="relative h-[55%] overflow-hidden bg-black">
                 {projectType && SERVICE_IMAGES[projectType]?.map((img, index) => (
                   <div
                     key={img}
@@ -509,7 +520,7 @@ export default function Cotiza() {
                   >
                     <img src={img} alt="" className="w-full h-full object-cover" />
                     {/* Dark Overlay for Text Legibility */}
-                    <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/40 to-transparent opacity-100 transition-colors duration-500" />
+                    <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/20 to-transparent opacity-100 transition-colors duration-500" />
                   </div>
                 ))}
 
@@ -520,54 +531,54 @@ export default function Cotiza() {
                 )}
 
                 <div className="absolute top-6 left-6 z-30">
-                  <div className="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center backdrop-blur-md">
+                  <div className="w-8 h-8 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center">
                     <div className="w-1.5 h-1.5 bg-terracota rounded-full animate-pulse" />
                   </div>
                 </div>
 
                 <div className="absolute bottom-6 left-6 z-30 drop-shadow-md">
                   <span className="block text-[9px] uppercase tracking-[0.2em] text-white/80 mb-1">Ticket #{ticketNumber}</span>
-                  <h3 className="font-serif text-2xl text-white leading-none">
+                  <h3 className="font-serif text-3xl text-white leading-none">
                     {projectType || "Nuevo Proyecto"}
                   </h3>
                 </div>
               </div>
 
               {/* Ticket Details */}
-              <div className="flex-1 p-6 bg-secondary relative z-10 flex flex-col justify-between transition-colors duration-500">
+              <div className="flex-1 p-8 bg-white/5 backdrop-blur-xl relative z-10 flex flex-col justify-between transition-colors duration-500">
 
                 {/* Info Grid */}
-                <div className="grid grid-cols-2 gap-y-4 gap-x-4">
+                <div className="grid grid-cols-2 gap-y-6 gap-x-4">
                   <div>
-                    <span className="block text-[10px] uppercase tracking-widest text-primary/50 mb-1 font-medium transition-colors duration-500">Cliente</span>
-                    <p className="text-sm text-primary font-medium truncate transition-colors duration-500">{name || "—"}</p>
-                    <p className="text-[10px] text-primary/40 truncate transition-colors duration-500">{company || "Particular"}</p>
+                    <span className="block text-[9px] uppercase tracking-widest text-primary/40 mb-1 font-medium">Cliente</span>
+                    <p className="text-sm text-primary font-medium truncate">{name || "—"}</p>
+                    <p className="text-[10px] text-primary/40 truncate">{company || "Particular"}</p>
                   </div>
                   <div>
-                    <span className="block text-[10px] uppercase tracking-widest text-primary/50 mb-1 font-medium transition-colors duration-500">Ubicación</span>
-                    <p className="text-sm text-primary font-medium truncate transition-colors duration-500">{district || "—"}</p>
+                    <span className="block text-[9px] uppercase tracking-widest text-primary/40 mb-1 font-medium">Ubicación</span>
+                    <p className="text-sm text-primary font-medium truncate">{district || "—"}</p>
                   </div>
                   <div>
-                    <span className="block text-[10px] uppercase tracking-widest text-primary/50 mb-1 font-medium transition-colors duration-500">Dimensión</span>
-                    <p className="text-sm text-primary font-medium transition-colors duration-500">{area ? `${area} m²` : "—"}</p>
+                    <span className="block text-[9px] uppercase tracking-widest text-primary/40 mb-1 font-medium">Dimensión</span>
+                    <p className="text-sm text-primary font-medium">{area ? `${area} m²` : "—"}</p>
                   </div>
                   <div>
-                    <span className="block text-[10px] uppercase tracking-widest text-primary/50 mb-1 font-medium transition-colors duration-500">Inversión</span>
-                    <p className="text-sm text-primary font-medium truncate transition-colors duration-500">{budgetCode !== "XX" ? budgetCode : "—"}</p>
+                    <span className="block text-[9px] uppercase tracking-widest text-primary/40 mb-1 font-medium">Inversión</span>
+                    <p className="text-sm text-primary font-medium truncate">{budgetCode !== "XX" ? budgetCode : "—"}</p>
                   </div>
                 </div>
 
                 {/* Footer with Stealth ID */}
-                <div className="pt-4 border-t border-primary/5 flex justify-between items-end transition-colors duration-500">
+                <div className="pt-6 flex justify-between items-end">
                   <div>
-                    <p className="text-[10px] uppercase tracking-widest text-primary/50 font-medium transition-colors duration-500">ID de Atención</p>
-                    <p className="font-mono text-[10px] text-primary/20 mt-1 tracking-widest select-all hover:text-terracota transition-colors cursor-help" title="Código interno de seguimiento">
+                    <p className="text-[9px] uppercase tracking-widest text-primary/40 font-medium">ID de Atención</p>
+                    <p className="font-mono text-[10px] text-primary/30 mt-1 tracking-widest select-all hover:text-terracota transition-colors cursor-help" title="Código interno de seguimiento">
                       {smartID}
                     </p>
                   </div>
                   <div className="text-right">
-                    <p className="text-[10px] uppercase tracking-widest text-primary/50 font-medium transition-colors duration-500">Fecha</p>
-                    <p className="text-[10px] text-primary/50 mt-1 transition-colors duration-500">{new Date().toLocaleDateString()}</p>
+                    <p className="text-[9px] uppercase tracking-widest text-primary/40 font-medium">Fecha</p>
+                    <p className="text-[10px] text-primary/40 mt-1">{new Date().toLocaleDateString()}</p>
                   </div>
                 </div>
 
