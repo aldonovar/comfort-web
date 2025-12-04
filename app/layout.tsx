@@ -9,6 +9,7 @@ import dynamic from "next/dynamic";
 import { Suspense } from "react";
 import Preloader from "../components/layout/Preloader";
 import FloatingCTA from "../components/ui/FloatingCTA";
+import { Analytics } from "@vercel/analytics/react";
 
 const Scene = dynamic(() => import("../components/canvas/Scene"), { ssr: false });
 
@@ -47,6 +48,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
           {/* Global Noise Overlay */}
           <div className="fixed inset-0 z-50 pointer-events-none opacity-[0.03] mix-blend-overlay bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div>
+
+          <Analytics />
         </ReactLenis>
       </body>
     </html>
