@@ -42,7 +42,8 @@ export default function Footer() {
           stagger: 0.1,
           scrollTrigger: {
             trigger: footerRef.current,
-            start: "top 80%",
+            start: "top bottom-=100", // Trigger a bit before it enters fully
+            toggleActions: "play none none reverse"
           }
         }
       );
@@ -52,7 +53,7 @@ export default function Footer() {
   }, []);
 
   return (
-    <footer ref={footerRef} className="relative bg-[#121212] text-white pt-32 pb-24 border-t border-white/5 overflow-hidden">
+    <footer ref={footerRef} className="relative z-50 bg-[#121212] text-white pt-32 pb-24 border-t border-white/5 overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div>
 
