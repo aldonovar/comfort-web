@@ -174,10 +174,10 @@ export default function Hero() {
             </div>
 
             {/* Decorative Stamp */}
-            <div className="absolute -bottom-12 -right-12 w-40 h-40 opacity-20 group-hover:opacity-40 transition-opacity duration-500">
+            <div className="absolute -bottom-12 -right-12 w-40 h-40 opacity-100 transition-opacity duration-500">
               <svg ref={stampRef} viewBox="0 0 100 100" className="w-full h-full">
                 <path id="curve" d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0" fill="transparent" />
-                <text className="text-[10px] uppercase font-bold tracking-widest fill-primary">
+                <text className="text-[10px] uppercase font-bold tracking-widest fill-[var(--text-primary)] transition-colors duration-500">
                   <textPath href="#curve">
                     Comfort Studio • Comfort Studio •
                   </textPath>
