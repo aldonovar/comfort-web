@@ -3,32 +3,7 @@
 export const services = [
 
 
-  {
-    slug: "proyecto-estacion-parrilla",
-    name: "Proyecto estación de parrilla",
-    category: "Outdoor kitchen",
-    shortDescription:
-      "Parrilla, barra y apoyo de cocina exterior pensados para reuniones frecuentes y cómodas.",
-    heroTagline: "No solo una parrilla: una pequeña cocina exterior bien organizada.",
-    longDescription:
-      "Una estación de parrilla bien resuelta hace que cocinar afuera sea cómodo y seguro. Diseñamos zonas diferenciadas para preparación, cocción y servicio, cuidando humos, ventilación, materiales y tránsito de personas.",
-    idealFor: [
-      "Personas que reciben invitados con frecuencia y cocinan a la parrilla.",
-      "Terrazas donde la parrilla convive con sala exterior, barra y comedor.",
-      "Proyectos que necesitan orden, seguridad y limpieza después de cada uso.",
-    ],
-    includes: [
-      "Diseño de parrilla (a gas, carbón o mixta) y mesadas de apoyo.",
-      "Ubicación de lavadero, enchufes y zonas de trabajo.",
-      "Materiales de fácil limpieza y alta resistencia a calor y grasa.",
-    ],
-    specs: {
-      rangoMetros: "Desde 6 m² dedicados a cocina exterior",
-      tipoObra: "Intervención puntual o parte de proyecto mayor",
-      duracion: "3 a 8 semanas según complejidad",
-      inversion: "Depende de equipamiento elegido y terminaciones",
-    },
-  },
+
   {
     slug: "proyecto-aire-libre-medida",
     name: "Otro tipo de proyecto al aire libre",
