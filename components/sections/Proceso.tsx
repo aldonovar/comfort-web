@@ -91,7 +91,7 @@ export default function Proceso() {
     <section
       ref={sectionRef}
       id="proceso"
-      className="relative bg-[#0a0a0a] text-white py-24 md:py-32 border-t border-white/5"
+      className="relative bg-primary text-primary py-24 md:py-32 border-t border-primary/5 transition-colors duration-500"
     >
       <div className="max-w-[1800px] mx-auto px-6 md:px-12">
 
@@ -105,40 +105,40 @@ export default function Proceso() {
               </span>
               <h2 className="font-serif text-4xl leading-[1.1] mb-6">
                 Del caos al <br />
-                <span className="text-white/40 italic">orden estético.</span>
+                <span className="text-primary/40 italic transition-colors duration-500">orden estético.</span>
               </h2>
             </div>
 
-            <div className="relative rounded-3xl bg-white/5 border border-white/10 backdrop-blur-xl p-8 overflow-hidden">
+            <div className="relative rounded-3xl bg-primary/5 border border-primary/10 backdrop-blur-xl p-8 overflow-hidden transition-colors duration-500">
               {/* Dynamic Glow */}
               <div className="absolute top-0 right-0 w-64 h-64 bg-terracota/20 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2" />
 
               <div className="relative z-10">
-                <div className="flex items-center justify-between mb-8 border-b border-white/10 pb-4">
-                  <span className="text-xs uppercase tracking-[0.2em] text-white/50">Fase Actual</span>
+                <div className="flex items-center justify-between mb-8 border-b border-primary/10 pb-4 transition-colors duration-500">
+                  <span className="text-xs uppercase tracking-[0.2em] text-primary/50 transition-colors duration-500">Fase Actual</span>
                   <span className="text-2xl font-serif text-terracota">0{activeStep + 1}</span>
                 </div>
 
                 <div className="space-y-8">
                   <div className="transition-all duration-500">
-                    <h3 className="text-3xl font-serif mb-2">{steps[activeStep].title}</h3>
-                    <p className="text-white/60 text-sm leading-relaxed">
+                    <h3 className="text-3xl font-serif mb-2 text-primary transition-colors duration-500">{steps[activeStep].title}</h3>
+                    <p className="text-primary/60 text-sm leading-relaxed transition-colors duration-500">
                       {steps[activeStep].description}
                     </p>
                   </div>
 
                   <div className="grid grid-cols-3 gap-4 pt-4">
                     <div>
-                      <span className="block text-[10px] uppercase tracking-wider text-white/40 mb-1">Foco</span>
-                      <span className="text-sm font-medium">{steps[activeStep].meta.focus}</span>
+                      <span className="block text-[10px] uppercase tracking-wider text-primary/40 mb-1 transition-colors duration-500">Foco</span>
+                      <span className="text-sm font-medium text-primary transition-colors duration-500">{steps[activeStep].meta.focus}</span>
                     </div>
                     <div>
-                      <span className="block text-[10px] uppercase tracking-wider text-white/40 mb-1">Duración</span>
-                      <span className="text-sm font-medium">{steps[activeStep].meta.duration}</span>
+                      <span className="block text-[10px] uppercase tracking-wider text-primary/40 mb-1 transition-colors duration-500">Duración</span>
+                      <span className="text-sm font-medium text-primary transition-colors duration-500">{steps[activeStep].meta.duration}</span>
                     </div>
                     <div>
-                      <span className="block text-[10px] uppercase tracking-wider text-white/40 mb-1">Resultado</span>
-                      <span className="text-sm font-medium">{steps[activeStep].meta.outcome}</span>
+                      <span className="block text-[10px] uppercase tracking-wider text-primary/40 mb-1 transition-colors duration-500">Resultado</span>
+                      <span className="text-sm font-medium text-primary transition-colors duration-500">{steps[activeStep].meta.outcome}</span>
                     </div>
                   </div>
                 </div>
@@ -155,7 +155,7 @@ export default function Proceso() {
               </span>
               <h2 className="font-serif text-4xl leading-[1.1]">
                 Del caos al <br />
-                <span className="text-white/40 italic">orden estético.</span>
+                <span className="text-primary/40 italic transition-colors duration-500">orden estético.</span>
               </h2>
             </div>
 
@@ -169,33 +169,33 @@ export default function Proceso() {
                   <div className="flex-shrink-0 pt-2">
                     <span className={`
                       flex items-center justify-center w-12 h-12 rounded-full border text-sm font-bold transition-all duration-500
-                      ${activeStep === index ? 'border-terracota text-terracota bg-terracota/10' : 'border-white/20 text-white/40'}
+                      ${activeStep === index ? 'border-terracota text-terracota bg-terracota/10' : 'border-primary/20 text-primary/40'}
                     `}>
                       0{index + 1}
                     </span>
-                    <div className={`w-px h-32 mx-auto my-4 transition-colors duration-500 ${activeStep === index ? 'bg-terracota/50' : 'bg-white/10'}`} />
+                    <div className={`w-px h-32 mx-auto my-4 transition-colors duration-500 ${activeStep === index ? 'bg-terracota/50' : 'bg-primary/10'}`} />
                   </div>
 
                   <div className="pt-2">
-                    <span className="block text-xs uppercase tracking-[0.2em] text-white/50 mb-2">
+                    <span className="block text-xs uppercase tracking-[0.2em] text-primary/50 mb-2 transition-colors duration-500">
                       {step.label}
                     </span>
-                    <h3 className="text-2xl md:text-4xl font-serif mb-4 group-hover:text-terracota transition-colors">
+                    <h3 className="text-2xl md:text-4xl font-serif mb-4 group-hover:text-terracota transition-colors text-primary">
                       {step.title}
                     </h3>
-                    <p className="text-white/60 text-base md:text-lg leading-relaxed max-w-xl">
+                    <p className="text-primary/60 text-base md:text-lg leading-relaxed max-w-xl transition-colors duration-500">
                       {step.description}
                     </p>
 
                     {/* Mobile Meta (Visible only on mobile) */}
-                    <div className="lg:hidden grid grid-cols-3 gap-4 mt-6 pt-6 border-t border-white/10">
+                    <div className="lg:hidden grid grid-cols-3 gap-4 mt-6 pt-6 border-t border-primary/10 transition-colors duration-500">
                       <div>
-                        <span className="block text-[10px] uppercase tracking-wider text-white/40 mb-1">Foco</span>
-                        <span className="text-xs font-medium">{step.meta.focus}</span>
+                        <span className="block text-[10px] uppercase tracking-wider text-primary/40 mb-1 transition-colors duration-500">Foco</span>
+                        <span className="text-xs font-medium text-primary transition-colors duration-500">{step.meta.focus}</span>
                       </div>
                       <div>
-                        <span className="block text-[10px] uppercase tracking-wider text-white/40 mb-1">Duración</span>
-                        <span className="text-xs font-medium">{step.meta.duration}</span>
+                        <span className="block text-[10px] uppercase tracking-wider text-primary/40 mb-1 transition-colors duration-500">Duración</span>
+                        <span className="text-xs font-medium text-primary transition-colors duration-500">{step.meta.duration}</span>
                       </div>
                     </div>
                   </div>

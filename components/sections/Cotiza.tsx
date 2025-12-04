@@ -95,7 +95,7 @@ const CustomSelect = ({
 
   return (
     <div className="group relative" ref={containerRef}>
-      <label className="block text-[10px] uppercase tracking-widest text-white/70 mb-2 group-focus-within:text-terracota transition-colors font-medium">
+      <label className="block text-[10px] uppercase tracking-widest text-primary/70 mb-2 group-focus-within:text-terracota transition-colors font-medium">
         {label}
       </label>
 
@@ -103,19 +103,19 @@ const CustomSelect = ({
         onClick={() => setIsOpen(!isOpen)}
         className={`
           w-full bg-transparent border-b py-2 text-sm md:text-base cursor-pointer flex justify-between items-center transition-colors
-          ${isOpen ? 'border-terracota' : 'border-white/20 hover:border-white/40'}
+          ${isOpen ? 'border-terracota' : 'border-primary/20 hover:border-primary/40'}
         `}
       >
-        <span className={`truncate mr-2 ${value ? "text-white" : "text-white/50"}`}>
+        <span className={`truncate mr-2 ${value ? "text-primary" : "text-primary/50"}`}>
           {displayValue || placeholder}
         </span>
-        <span className={`text-[10px] text-white/40 transform transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}>
+        <span className={`text-[10px] text-primary/40 transform transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}>
           ▼
         </span>
       </div>
 
       <div className={`
-        absolute left-0 right-0 top-full mt-2 bg-[#151515] border border-white/10 rounded-lg overflow-hidden z-50 shadow-2xl origin-top transition-all duration-300 max-h-48 overflow-y-auto
+        absolute left-0 right-0 top-full mt-2 bg-secondary border border-primary/10 rounded-lg overflow-hidden z-50 shadow-2xl origin-top transition-all duration-300 max-h-48 overflow-y-auto
         ${isOpen ? 'opacity-100 scale-y-100 translate-y-0' : 'opacity-0 scale-y-95 -translate-y-2 pointer-events-none'}
       `}>
         {options.map((opt) => {
@@ -129,8 +129,8 @@ const CustomSelect = ({
                 setIsOpen(false);
               }}
               className={`
-                px-4 py-2 text-xs md:text-sm cursor-pointer transition-colors border-b border-white/5 last:border-0
-                ${value === optValue ? 'bg-terracota text-white' : 'text-white/70 hover:bg-white/5 hover:text-white'}
+                px-4 py-2 text-xs md:text-sm cursor-pointer transition-colors border-b border-primary/5 last:border-0
+                ${value === optValue ? 'bg-terracota text-white' : 'text-primary/70 hover:bg-primary/5 hover:text-primary'}
               `}
             >
               {optLabel}
@@ -158,15 +158,15 @@ const CustomInput = ({
   optional?: boolean
 }) => (
   <div className="group">
-    <label className="block text-[10px] uppercase tracking-widest text-white/70 mb-2 group-focus-within:text-terracota transition-colors font-medium">
-      {label} {optional && <span className="text-white/40 normal-case tracking-normal ml-1">(Opcional)</span>}
+    <label className="block text-[10px] uppercase tracking-widest text-primary/70 mb-2 group-focus-within:text-terracota transition-colors font-medium">
+      {label} {optional && <span className="text-primary/40 normal-case tracking-normal ml-1">(Opcional)</span>}
     </label>
     <input
       type={type}
       value={value}
       onChange={(e) => onChange(e.target.value)}
       placeholder={placeholder}
-      className="w-full bg-transparent border-b border-white/20 py-3 text-sm md:text-base focus:outline-none focus:border-terracota transition-colors placeholder-white/40 text-white"
+      className="w-full bg-transparent border-b border-primary/20 py-3 text-sm md:text-base focus:outline-none focus:border-terracota transition-colors placeholder-primary/40 text-primary"
     />
   </div>
 );
@@ -333,18 +333,18 @@ export default function Cotiza() {
 
   if (isSuccess) {
     return (
-      <section className="relative bg-[#0a0a0a] text-white min-h-[80vh] flex items-center justify-center border-t border-white/5">
+      <section className="relative bg-primary text-primary min-h-[80vh] flex items-center justify-center border-t border-primary/5 transition-colors duration-500">
         <div className="text-center max-w-lg px-6 animate-in fade-in zoom-in-95 duration-700">
           <div className="w-20 h-20 rounded-full bg-terracota/10 flex items-center justify-center mx-auto mb-8">
             <svg className="w-10 h-10 text-terracota" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M5 13l4 4L19 7" /></svg>
           </div>
           <h2 className="font-serif text-4xl md:text-5xl mb-6">Solicitud Enviada</h2>
-          <p className="text-white/60 text-lg mb-10">
+          <p className="text-primary/60 text-lg mb-10 transition-colors duration-500">
             Hemos recibido tu ticket correctamente. Se ha abierto WhatsApp para completar el proceso.
           </p>
           <button
             onClick={handleReset}
-            className="group px-8 py-4 rounded-full border border-white/20 hover:border-terracota hover:bg-terracota transition-all duration-300 flex items-center gap-3 mx-auto"
+            className="group px-8 py-4 rounded-full border border-primary/20 hover:border-terracota hover:bg-terracota transition-all duration-300 flex items-center gap-3 mx-auto"
           >
             <span className="uppercase tracking-widest text-xs font-bold">Enviar otra solicitud</span>
             <span className="transform group-hover:translate-x-1 transition-transform">→</span>
@@ -358,7 +358,7 @@ export default function Cotiza() {
     <section
       ref={sectionRef}
       id="cotiza"
-      className="relative bg-[#0a0a0a] text-white min-h-screen flex items-center py-20 border-t border-white/5"
+      className="relative bg-primary text-primary min-h-screen flex items-center py-20 border-t border-primary/5 transition-colors duration-500"
     >
       <div className="max-w-[1600px] mx-auto px-6 md:px-12 w-full">
 
@@ -372,7 +372,7 @@ export default function Cotiza() {
               </span>
               <h2 className="font-serif text-3xl md:text-5xl leading-tight">
                 Diseñemos tu <br />
-                <span className="text-white/40 italic">próximo escenario.</span>
+                <span className="text-primary/40 italic transition-colors duration-500">próximo escenario.</span>
               </h2>
             </div>
 
@@ -380,7 +380,7 @@ export default function Cotiza() {
 
               {/* 01. Proyecto */}
               <div className="space-y-4">
-                <h3 className="text-[10px] uppercase tracking-widest text-white/60 border-b border-white/10 pb-2 font-bold">
+                <h3 className="text-[10px] uppercase tracking-widest text-primary/60 border-b border-primary/10 pb-2 font-bold transition-colors duration-500">
                   01. El Proyecto
                 </h3>
 
@@ -423,7 +423,7 @@ export default function Cotiza() {
 
               {/* 02. Datos */}
               <div className="space-y-4">
-                <h3 className="text-[10px] uppercase tracking-widest text-white/60 border-b border-white/10 pb-2 font-bold">
+                <h3 className="text-[10px] uppercase tracking-widest text-primary/60 border-b border-primary/10 pb-2 font-bold transition-colors duration-500">
                   02. Tus Datos
                 </h3>
 
@@ -458,7 +458,7 @@ export default function Cotiza() {
                 </div>
 
                 <div className="group">
-                  <label className="block text-[10px] uppercase tracking-widest text-white/70 mb-2 group-focus-within:text-terracota transition-colors font-medium">
+                  <label className="block text-[10px] uppercase tracking-widest text-primary/70 mb-2 group-focus-within:text-terracota transition-colors font-medium">
                     Notas
                   </label>
                   <textarea
@@ -466,7 +466,7 @@ export default function Cotiza() {
                     onChange={(e) => setNotes(e.target.value)}
                     placeholder="Detalles adicionales..."
                     rows={2}
-                    className="w-full bg-white/5 rounded-lg border border-white/20 p-3 text-sm focus:outline-none focus:border-terracota transition-colors placeholder-white/40 resize-none text-white"
+                    className="w-full bg-primary/5 rounded-lg border border-primary/20 p-3 text-sm focus:outline-none focus:border-terracota transition-colors placeholder-primary/40 resize-none text-primary"
                   />
                 </div>
               </div>
@@ -477,8 +477,8 @@ export default function Cotiza() {
                 className={`
                   group w-full py-4 rounded-lg border transition-all duration-300 flex items-center justify-center gap-3 mt-4
                   ${isFormReady && !isSubmitting
-                    ? 'bg-white text-black border-white hover:bg-terracota hover:border-terracota hover:text-white cursor-pointer shadow-[0_0_30px_rgba(255,255,255,0.1)]'
-                    : 'bg-white/5 text-white/20 border-white/5 cursor-not-allowed'}
+                    ? 'bg-(--text-primary) text-(--bg-primary) border-(--text-primary) hover:bg-terracota hover:border-terracota hover:text-white cursor-pointer shadow-[0_0_30px_rgba(255,255,255,0.1)]'
+                    : 'bg-primary/5 text-primary/20 border-primary/5 cursor-not-allowed'}
                 `}
               >
                 <span className="uppercase tracking-widest text-[10px] font-bold">
@@ -492,13 +492,13 @@ export default function Cotiza() {
 
           {/* Ticket Preview Side - Ultra Premium */}
           <div className="flex justify-center items-center quote-content delay-100 h-full mt-12 lg:mt-0">
-            <div className="relative w-full max-w-md aspect-3/4 rounded-4xl bg-[#0f0f0f] border border-white/10 overflow-hidden shadow-2xl flex flex-col group">
+            <div className="relative w-full max-w-md aspect-3/4 rounded-4xl bg-secondary border border-primary/10 overflow-hidden shadow-2xl flex flex-col group transition-colors duration-500">
 
               {/* Holographic/Glass Effect Overlay */}
-              <div className="absolute inset-0 bg-linear-to-br from-white/5 to-transparent pointer-events-none z-20" />
+              <div className="absolute inset-0 bg-linear-to-br from-primary/5 to-transparent pointer-events-none z-20 transition-colors duration-500" />
 
               {/* Image Area - Cinematic Transition */}
-              <div className="relative h-1/2 overflow-hidden bg-[#151515]">
+              <div className="relative h-1/2 overflow-hidden bg-secondary">
                 {projectType && SERVICE_IMAGES[projectType]?.map((img, index) => (
                   <div
                     key={img}
@@ -508,13 +508,13 @@ export default function Cotiza() {
                     `}
                   >
                     <img src={img} alt="" className="w-full h-full object-cover" />
-                    <div className="absolute inset-0 bg-linear-to-t from-[#0f0f0f] via-transparent to-transparent opacity-80" />
+                    <div className="absolute inset-0 bg-linear-to-t from-secondary via-transparent to-transparent opacity-80 transition-colors duration-500" />
                   </div>
                 ))}
 
                 {!projectType && (
-                  <div className="absolute inset-0 bg-[#151515]">
-                    <div className="w-full h-full bg-[radial-gradient(circle_at_top_right,var(--tw-gradient-stops))] from-white/5 to-transparent" />
+                  <div className="absolute inset-0 bg-secondary transition-colors duration-500">
+                    <div className="w-full h-full bg-[radial-gradient(circle_at_top_right,var(--tw-gradient-stops))] from-primary/5 to-transparent transition-colors duration-500" />
                   </div>
                 )}
 
@@ -533,40 +533,40 @@ export default function Cotiza() {
               </div>
 
               {/* Ticket Details */}
-              <div className="flex-1 p-8 bg-[#0f0f0f] relative z-10 flex flex-col justify-between">
+              <div className="flex-1 p-8 bg-secondary relative z-10 flex flex-col justify-between transition-colors duration-500">
 
                 {/* Info Grid */}
                 <div className="grid grid-cols-2 gap-y-6 gap-x-4">
                   <div>
-                    <span className="block text-[10px] uppercase tracking-widest text-white/50 mb-1 font-medium">Cliente</span>
-                    <p className="text-sm text-white font-medium truncate">{name || "—"}</p>
-                    <p className="text-[10px] text-white/40 truncate">{company || "Particular"}</p>
+                    <span className="block text-[10px] uppercase tracking-widest text-primary/50 mb-1 font-medium transition-colors duration-500">Cliente</span>
+                    <p className="text-sm text-primary font-medium truncate transition-colors duration-500">{name || "—"}</p>
+                    <p className="text-[10px] text-primary/40 truncate transition-colors duration-500">{company || "Particular"}</p>
                   </div>
                   <div>
-                    <span className="block text-[10px] uppercase tracking-widest text-white/50 mb-1 font-medium">Ubicación</span>
-                    <p className="text-sm text-white font-medium truncate">{district || "—"}</p>
+                    <span className="block text-[10px] uppercase tracking-widest text-primary/50 mb-1 font-medium transition-colors duration-500">Ubicación</span>
+                    <p className="text-sm text-primary font-medium truncate transition-colors duration-500">{district || "—"}</p>
                   </div>
                   <div>
-                    <span className="block text-[10px] uppercase tracking-widest text-white/50 mb-1 font-medium">Dimensión</span>
-                    <p className="text-sm text-white font-medium">{area ? `${area} m²` : "—"}</p>
+                    <span className="block text-[10px] uppercase tracking-widest text-primary/50 mb-1 font-medium transition-colors duration-500">Dimensión</span>
+                    <p className="text-sm text-primary font-medium transition-colors duration-500">{area ? `${area} m²` : "—"}</p>
                   </div>
                   <div>
-                    <span className="block text-[10px] uppercase tracking-widest text-white/50 mb-1 font-medium">Inversión</span>
-                    <p className="text-sm text-white font-medium truncate">{budgetCode !== "XX" ? budgetCode : "—"}</p>
+                    <span className="block text-[10px] uppercase tracking-widest text-primary/50 mb-1 font-medium transition-colors duration-500">Inversión</span>
+                    <p className="text-sm text-primary font-medium truncate transition-colors duration-500">{budgetCode !== "XX" ? budgetCode : "—"}</p>
                   </div>
                 </div>
 
                 {/* Footer with Stealth ID */}
-                <div className="pt-6 border-t border-white/5 flex justify-between items-end">
+                <div className="pt-6 border-t border-primary/5 flex justify-between items-end transition-colors duration-500">
                   <div>
-                    <p className="text-[10px] uppercase tracking-widest text-white/50 font-medium">ID de Atención</p>
-                    <p className="font-mono text-[10px] text-white/20 mt-1 tracking-widest select-all hover:text-terracota transition-colors cursor-help" title="Código interno de seguimiento">
+                    <p className="text-[10px] uppercase tracking-widest text-primary/50 font-medium transition-colors duration-500">ID de Atención</p>
+                    <p className="font-mono text-[10px] text-primary/20 mt-1 tracking-widest select-all hover:text-terracota transition-colors cursor-help" title="Código interno de seguimiento">
                       {smartID}
                     </p>
                   </div>
                   <div className="text-right">
-                    <p className="text-[10px] uppercase tracking-widest text-white/50 font-medium">Fecha</p>
-                    <p className="text-[10px] text-white/50 mt-1">{new Date().toLocaleDateString()}</p>
+                    <p className="text-[10px] uppercase tracking-widest text-primary/50 font-medium transition-colors duration-500">Fecha</p>
+                    <p className="text-[10px] text-primary/50 mt-1 transition-colors duration-500">{new Date().toLocaleDateString()}</p>
                   </div>
                 </div>
 

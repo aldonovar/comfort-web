@@ -117,7 +117,7 @@ export default function ServicesFluidPage() {
           </p>
         </div>
         {/* Abstract Background */}
-        <div className="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-terracota/30 via-black to-black" />
+        <div className="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_center,var(--tw-gradient-stops))] from-terracota/30 via-black to-black" />
       </section>
 
       {/* Services Stack */}

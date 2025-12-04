@@ -62,7 +62,7 @@ export default function EquipoPage() {
                 <div className="grid md:grid-cols-3 gap-8 team-grid">
                     {TEAM.map((member, i) => (
                         <div key={i} className="team-card group">
-                            <div className="relative aspect-[3/4] overflow-hidden rounded-sm mb-6 grayscale group-hover:grayscale-0 transition-all duration-700">
+                            <div className="relative aspect-3/4 overflow-hidden rounded-sm mb-6 grayscale group-hover:grayscale-0 transition-all duration-700">
                                 <Image
                                     src={member.image}
                                     alt={member.name}

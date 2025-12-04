@@ -10,6 +10,7 @@ import { Suspense } from "react";
 import Preloader from "../components/layout/Preloader";
 import FloatingCTA from "../components/ui/FloatingCTA";
 import { Analytics } from "@vercel/analytics/react";
+import { ThemeProvider } from "../components/providers/ThemeProvider";
 
 const Scene = dynamic(() => import("../components/canvas/Scene"), { ssr: false });
 
@@ -29,27 +30,28 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="antialiased bg-crema text-madera selection:bg-terracota selection:text-white">
         {/* Tuned for "Luxury" feel: heavier than native, but controllable */}
         <ReactLenis root options={{ lerp: 0.1, duration: 1.5, smoothWheel: true }}>
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+            <Preloader />
+            <Navbar />
+            <FloatingCTA />
 
-          <Preloader />
-          <Navbar />
-          <FloatingCTA />
+            {/* Global 3D Scene */}
+            <Suspense fallback={null}>
+              <Scene style={{ pointerEvents: 'none' }} />
+            </Suspense>
 
-          {/* Global 3D Scene */}
-          <Suspense fallback={null}>
-            <Scene style={{ pointerEvents: 'none' }} />
-          </Suspense>
+            <PageTransition>
+              <main className="relative z-10 min-h-screen">
+                {children}
+              </main>
+            </PageTransition>
+            <Footer />
 
-          <PageTransition>
-            <main className="relative z-10 min-h-screen">
-              {children}
-            </main>
-          </PageTransition>
-          <Footer />
+            {/* Global Noise Overlay */}
+            <div className="fixed inset-0 z-50 pointer-events-none opacity-[0.03] mix-blend-overlay bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div>
 
-          {/* Global Noise Overlay */}
-          <div className="fixed inset-0 z-50 pointer-events-none opacity-[0.03] mix-blend-overlay bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div>
-
-          <Analytics />
+            <Analytics />
+          </ThemeProvider>
         </ReactLenis>
       </body>
     </html>

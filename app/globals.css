@@ -1,5 +1,4 @@
 @import "tailwindcss";
-/* Force Rebuild */
 
 @theme {
   --color-crema: #f2f0e9;
@@ -24,19 +23,42 @@
     mix-blend-mode: overlay;
     pointer-events: none;
   }
+}
 
-  .glass-panel {
-    @apply bg-white/5 backdrop-blur-md border border-white/10;
-  }
+/* CSS Variables for Theming */
+:root {
+  /* Light Mode (Default) */
+  --bg-primary: var(--color-crema);
+  --bg-secondary: #ffffff;
+  --text-primary: var(--color-madera);
+  --text-secondary: var(--color-olive);
+  --border-color: rgba(42, 37, 34, 0.1);
+  /* madera with opacity */
+}
+
+.dark {
+  /* Dark Mode */
+  --bg-primary: var(--color-charcoal);
+  /* or #0a0a0a */
+  --bg-secondary: #000000;
+  --text-primary: var(--color-crema);
+  --text-secondary: rgba(242, 240, 233, 0.7);
+  /* crema with opacity */
+  --border-color: rgba(255, 255, 255, 0.1);
 }
 
 /* Base Styles */
 @layer base {
   body {
-    @apply bg-crema text-madera font-sans;
+    @apply bg-(--bg-primary) text-(--text-primary) font-sans transition-colors duration-500;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     @apply font-serif;
   }
 }

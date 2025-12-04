@@ -97,7 +97,7 @@ export default function ProyectosArchive() {
     }, []);
 
     return (
-        <section ref={containerRef} className="bg-crema min-h-screen py-32 px-6 md:px-12">
+        <section ref={containerRef} className="bg-primary min-h-screen py-32 px-6 md:px-12 transition-colors duration-500">
 
             <div className="max-w-[1800px] mx-auto">
 
@@ -106,9 +106,9 @@ export default function ProyectosArchive() {
                     <span className="block text-terracota text-xs tracking-[0.3em] uppercase font-bold mb-4">
                         Archivo de Obras
                     </span>
-                    <h1 className="font-serif text-5xl md:text-8xl text-madera mb-8">
+                    <h1 className="font-serif text-5xl md:text-8xl text-primary mb-8 transition-colors duration-500">
                         Colección <br className="hidden md:block" />
-                        <span className="italic text-madera/40">Selecta</span>
+                        <span className="italic text-primary/40 transition-colors duration-500">Selecta</span>
                     </h1>
                 </div>
 
@@ -122,7 +122,7 @@ export default function ProyectosArchive() {
                             <Link href={`/proyectos/${project.slug}`} className="block">
 
                                 {/* Image Container - Landscape for better viewport fit */}
-                                <div className="relative aspect-[16/9] overflow-hidden rounded-sm mb-6">
+                                <div className="relative aspect-video overflow-hidden rounded-sm mb-6">
                                     <div className="project-image w-full h-full relative">
                                         <Image
                                             src={project.image}
@@ -150,12 +150,12 @@ export default function ProyectosArchive() {
                                             <span>{project.surface}</span>
                                         </div>
 
-                                        <h2 className="font-serif text-3xl md:text-5xl text-madera group-hover:text-terracota transition-colors duration-300">
+                                        <h2 className="font-serif text-3xl md:text-5xl text-primary group-hover:text-terracota transition-colors duration-300">
                                             {project.title}
                                         </h2>
                                     </div>
 
-                                    <p className="text-madera/60 text-sm leading-relaxed max-w-md mx-auto md:mx-0 text-center md:text-right">
+                                    <p className="text-primary/60 text-sm leading-relaxed max-w-md mx-auto md:mx-0 text-center md:text-right transition-colors duration-500">
                                         {project.description}
                                     </p>
                                 </div>

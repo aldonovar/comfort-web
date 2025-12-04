@@ -86,11 +86,11 @@ export default function Hero() {
   };
 
   return (
-    <section ref={containerRef} className="relative min-h-dvh w-full overflow-hidden bg-[#0a0a0a] text-white flex items-center">
+    <section ref={containerRef} className="relative min-h-dvh w-full overflow-hidden bg-primary text-primary flex items-center transition-colors duration-500">
 
       {/* Background Video */}
       <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-black/40 z-10" /> {/* Overlay */}
+        <div className="absolute inset-0 bg-primary/40 z-10 transition-colors duration-500" /> {/* Overlay */}
         <video
           ref={videoRef}
           autoPlay muted loop playsInline
@@ -112,7 +112,7 @@ export default function Hero() {
             desde el inicio.
           </h1>
 
-          <p className="text-lg md:text-xl text-white/70 max-w-xl font-light leading-relaxed">
+          <p className="text-lg md:text-xl text-primary/70 max-w-xl font-light leading-relaxed transition-colors duration-500">
             Transformamos terrazas, azoteas y patios en espacios diseñados
             con luz cálida, materiales premium y arquitectura pensada para ser vivida.
           </p>
@@ -120,15 +120,15 @@ export default function Hero() {
           <div className="flex flex-wrap gap-6 pt-4">
             <Link href="/cotiza" className="group relative px-8 py-4 bg-terracota rounded-full overflow-hidden shadow-lg shadow-terracota/20 hover:shadow-terracota/40 transition-all duration-500 hover:-translate-y-1">
               <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out" />
-              <span className="relative z-10 font-bold uppercase tracking-widest text-sm flex items-center gap-2">
+              <span className="relative z-10 font-bold uppercase tracking-widest text-sm flex items-center gap-2 text-white">
                 Cotizar Proyecto <span className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300">↗</span>
               </span>
             </Link>
 
             <Link href="/contacto" className="group relative px-8 py-4 overflow-hidden rounded-full transition-all duration-500 hover:-translate-y-1">
-              <div className="absolute inset-0 border border-white/30 group-hover:border-white/60 transition-colors duration-500 rounded-full" />
-              <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <span className="relative z-10 font-bold uppercase tracking-widest text-sm flex items-center gap-2">
+              <div className="absolute inset-0 border border-primary/30 group-hover:border-primary/60 transition-colors duration-500 rounded-full" />
+              <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <span className="relative z-10 font-bold uppercase tracking-widest text-sm flex items-center gap-2 text-primary">
                 Agendar Reunión <span className="opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all duration-300">→</span>
               </span>
             </Link>
@@ -145,7 +145,7 @@ export default function Hero() {
               transform: `perspective(1000px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
               transition: "transform 0.1s ease-out"
             }}
-            className="w-[400px] bg-charcoal/80 backdrop-blur-xl border border-white/10 p-10 rounded-3xl shadow-2xl relative overflow-hidden group"
+            className="w-[400px] bg-secondary/80 backdrop-blur-xl border border-primary/10 p-10 rounded-3xl shadow-2xl relative overflow-hidden group transition-colors duration-500"
           >
             {/* Glossy Reflection */}
             <div className="absolute inset-0 bg-linear-to-tr from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
@@ -157,19 +157,19 @@ export default function Hero() {
               </span>
             </div>
 
-            <h3 className="font-serif text-3xl leading-tight mb-8">
+            <h3 className="font-serif text-3xl leading-tight mb-8 text-primary transition-colors duration-500">
               De la idea al espacio real: <br />
-              <span className="italic text-white/60">terrazas que venden confianza.</span>
+              <span className="italic text-primary/60">terrazas que venden confianza.</span>
             </h3>
 
-            <div className="grid grid-cols-2 gap-8 border-t border-white/10 pt-8">
+            <div className="grid grid-cols-2 gap-8 border-t border-primary/10 pt-8">
               <div>
-                <span className="block text-4xl font-bold mb-1">80+</span>
-                <span className="text-xs text-white/40 uppercase tracking-wider">Terrazas <br />Construidas</span>
+                <span className="block text-4xl font-bold mb-1 text-primary">80+</span>
+                <span className="text-xs text-primary/40 uppercase tracking-wider">Terrazas <br />Construidas</span>
               </div>
               <div>
-                <span className="block text-4xl font-bold mb-1">12 <span className="text-lg font-normal">años</span></span>
-                <span className="text-xs text-white/40 uppercase tracking-wider">Experiencia <br />Diseñando exteriores</span>
+                <span className="block text-4xl font-bold mb-1 text-primary">12 <span className="text-lg font-normal">años</span></span>
+                <span className="text-xs text-primary/40 uppercase tracking-wider">Experiencia <br />Diseñando exteriores</span>
               </div>
             </div>
 
@@ -177,7 +177,7 @@ export default function Hero() {
             <div className="absolute -bottom-12 -right-12 w-40 h-40 opacity-20 group-hover:opacity-40 transition-opacity duration-500">
               <svg ref={stampRef} viewBox="0 0 100 100" className="w-full h-full">
                 <path id="curve" d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0" fill="transparent" />
-                <text className="text-[10px] uppercase font-bold tracking-widest fill-white">
+                <text className="text-[10px] uppercase font-bold tracking-widest fill-primary">
                   <textPath href="#curve">
                     Comfort Studio • Comfort Studio •
                   </textPath>

@@ -83,7 +83,7 @@ export default function EstudioPage() {
                         fill
                         className="object-cover opacity-30"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-transparent to-black" />
+                    <div className="absolute inset-0 bg-linear-to-b from-black/80 via-transparent to-black" />
                 </div>
 
                 <div className="relative z-10 text-center px-6 studio-hero-text">

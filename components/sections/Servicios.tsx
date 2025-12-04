@@ -86,7 +86,7 @@ export default function Servicios() {
     <section
       ref={sectionRef}
       id="servicios"
-      className="relative py-20 md:py-24 bg-[#0a0a0a] text-white overflow-hidden"
+      className="relative py-20 md:py-24 bg-primary text-primary overflow-hidden transition-colors duration-500"
     >
       {/* Background Noise Texture */}
       <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div>
@@ -100,9 +100,9 @@ export default function Servicios() {
           </span>
           <h2 className="font-serif text-4xl md:text-6xl leading-[1.1] mb-6">
             Arquitectura para <br />
-            <span className="text-white/40 italic">vivir el exterior.</span>
+            <span className="text-primary/40 italic transition-colors duration-500">vivir el exterior.</span>
           </h2>
-          <p className="text-white/60 text-lg font-light leading-relaxed max-w-lg">
+          <p className="text-primary/60 text-lg font-light leading-relaxed max-w-lg transition-colors duration-500">
             No vendemos productos, creamos atmósferas. Un sistema integral de diseño y ejecución para transformar tu terraza.
           </p>
         </div>
@@ -118,7 +118,7 @@ export default function Servicios() {
                 transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)]
                 h-[450px] md:h-full
                 ${hoveredIndex === index ? 'md:flex-3' : 'md:flex-1'}
-                border border-white/10 hover:border-white/30
+                border border-primary/10 hover:border-primary/30
               `}
               onMouseEnter={() => setHoveredIndex(index)}
               onMouseLeave={() => setHoveredIndex(null)}
@@ -154,7 +154,7 @@ export default function Servicios() {
               </div>
 
               {/* Gradient Overlay */}
-              <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/40 to-transparent" />
+              <div className="absolute inset-0 bg-linear-to-t from-primary/90 via-primary/40 to-transparent transition-colors duration-500" />
 
               {/* Content */}
               <div className="absolute inset-0 p-8 flex flex-col justify-end">
@@ -162,13 +162,13 @@ export default function Servicios() {
 
                   {/* Tag */}
                   <div className="mb-4 overflow-hidden">
-                    <span className="inline-block px-3 py-1 rounded-full border border-white/20 bg-white/5 backdrop-blur-sm text-[10px] tracking-[0.2em] uppercase text-white/80">
+                    <span className="inline-block px-3 py-1 rounded-full border border-primary/20 bg-primary/5 backdrop-blur-sm text-[10px] tracking-[0.2em] uppercase text-primary/80 transition-colors duration-500">
                       {service.subtitle}
                     </span>
                   </div>
 
                   {/* Title */}
-                  <h3 className="font-serif text-3xl md:text-4xl mb-3 text-white group-hover:text-terracota transition-colors duration-300">
+                  <h3 className="font-serif text-3xl md:text-4xl mb-3 text-primary group-hover:text-terracota transition-colors duration-300">
                     {service.title}
                   </h3>
 
@@ -179,11 +179,11 @@ export default function Servicios() {
                     md:max-h-0 md:opacity-0
                     ${hoveredIndex === index ? 'md:max-h-[100px] md:opacity-100' : ''}
                   `}>
-                    <p className="text-white/70 text-sm leading-relaxed max-w-md mb-6">
+                    <p className="text-primary/70 text-sm leading-relaxed max-w-md mb-6 transition-colors duration-500">
                       {service.description}
                     </p>
 
-                    <div className="flex items-center gap-2 text-xs font-bold tracking-widest uppercase text-white">
+                    <div className="flex items-center gap-2 text-xs font-bold tracking-widest uppercase text-primary transition-colors duration-500">
                       <span>Explorar</span>
                       <span className="transform group-hover:translate-x-1 transition-transform duration-300">→</span>
                     </div>
