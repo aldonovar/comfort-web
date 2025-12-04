@@ -108,7 +108,7 @@ export default function Proyectos() {
               onMouseEnter={() => setHoveredProject(project.id)}
               onMouseLeave={() => setHoveredProject(null)}
             >
-              <article className="relative w-full h-full rounded-3xl overflow-hidden shadow-2xl border border-primary/10 bg-transparent group transition-colors duration-500">
+              <article className="relative w-full h-full rounded-3xl overflow-hidden shadow-[0_30px_60px_rgba(0,0,0,0.3)] ring-1 ring-white/10 bg-transparent group transition-all duration-500">
 
                 {/* WebGL Image Background */}
                 <div className="absolute inset-0 w-full h-full">
