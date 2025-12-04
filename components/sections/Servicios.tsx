@@ -154,7 +154,7 @@ export default function Servicios() {
               </div>
 
               {/* Gradient Overlay */}
-              <div className="absolute inset-0 bg-linear-to-t from-primary/90 via-primary/40 to-transparent transition-colors duration-500" />
+              <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/50 to-transparent transition-colors duration-500" />
 
               {/* Content */}
               <div className="absolute inset-0 p-8 flex flex-col justify-end">
@@ -162,13 +162,13 @@ export default function Servicios() {
 
                   {/* Tag */}
                   <div className="mb-4 overflow-hidden">
-                    <span className="inline-block px-3 py-1 rounded-full border border-primary/20 bg-primary/5 backdrop-blur-sm text-[10px] tracking-[0.2em] uppercase text-primary/80 transition-colors duration-500">
+                    <span className="inline-block px-3 py-1 rounded-full border border-white/20 bg-white/10 backdrop-blur-md text-[10px] tracking-[0.2em] uppercase text-white transition-colors duration-500">
                       {service.subtitle}
                     </span>
                   </div>
 
                   {/* Title */}
-                  <h3 className="font-serif text-3xl md:text-4xl mb-3 text-primary group-hover:text-terracota transition-colors duration-300">
+                  <h3 className="font-serif text-3xl md:text-4xl mb-3 text-white group-hover:text-terracota transition-colors duration-300">
                     {service.title}
                   </h3>
 
@@ -179,11 +179,11 @@ export default function Servicios() {
                     md:max-h-0 md:opacity-0
                     ${hoveredIndex === index ? 'md:max-h-[100px] md:opacity-100' : ''}
                   `}>
-                    <p className="text-primary/70 text-sm leading-relaxed max-w-md mb-6 transition-colors duration-500">
+                    <p className="text-white/80 text-sm leading-relaxed max-w-md mb-6 transition-colors duration-500">
                       {service.description}
                     </p>
 
-                    <div className="flex items-center gap-2 text-xs font-bold tracking-widest uppercase text-primary transition-colors duration-500">
+                    <div className="flex items-center gap-2 text-xs font-bold tracking-widest uppercase text-white transition-colors duration-500">
                       <span>Explorar</span>
                       <span className="transform group-hover:translate-x-1 transition-transform duration-300">→</span>
                     </div>

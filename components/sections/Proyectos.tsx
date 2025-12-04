@@ -127,7 +127,7 @@ export default function Proyectos() {
                 </div>
 
                 {/* Gradient Overlay - Needs to be on top of canvas */}
-                <div className="absolute inset-0 bg-linear-to-t from-primary/90 via-primary/20 to-transparent pointer-events-none transition-colors duration-500" />
+                <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/50 to-transparent pointer-events-none transition-colors duration-500" />
 
                 {/* Content */}
                 <div className="absolute inset-0 p-8 md:p-12 flex flex-col justify-end md:justify-between pointer-events-none">
@@ -136,12 +136,12 @@ export default function Proyectos() {
                   <div className="hidden md:flex justify-between items-start">
                     <div className="flex gap-2 pointer-events-auto">
                       {project.tags.map(tag => (
-                        <span key={tag} className="px-3 py-1 rounded-full border border-primary/20 bg-primary/30 backdrop-blur-md text-xs uppercase tracking-wider text-primary/80 transition-colors duration-500">
+                        <span key={tag} className="px-3 py-1 rounded-full border border-white/20 bg-white/10 backdrop-blur-md text-xs uppercase tracking-wider text-white transition-colors duration-500">
                           {tag}
                         </span>
                       ))}
                     </div>
-                    <span className="text-4xl font-serif text-primary/10 font-bold transition-colors duration-500">
+                    <span className="text-4xl font-serif text-white/20 font-bold transition-colors duration-500">
                       0{index + 1}
                     </span>
                   </div>
@@ -154,15 +154,15 @@ export default function Proyectos() {
                       <span>{project.surface}</span>
                     </div>
 
-                    <h3 className="font-serif text-4xl md:text-7xl mb-6 text-primary leading-none transition-colors duration-500">
+                    <h3 className="font-serif text-4xl md:text-7xl mb-6 text-white leading-none transition-colors duration-500">
                       {project.title}
                     </h3>
 
-                    <p className="text-primary/70 text-base md:text-xl font-light leading-relaxed max-w-xl mb-8 transition-colors duration-500">
+                    <p className="text-white/80 text-base md:text-xl font-light leading-relaxed max-w-xl mb-8 transition-colors duration-500">
                       {project.description}
                     </p>
 
-                    <button className="group/btn inline-flex items-center gap-3 px-8 py-4 rounded-full bg-(--text-primary) text-(--bg-primary) hover:bg-terracota hover:text-white transition-all duration-300 pointer-events-auto">
+                    <button className="group/btn inline-flex items-center gap-3 px-8 py-4 rounded-full bg-white text-black hover:bg-terracota hover:text-white transition-all duration-300 pointer-events-auto">
                       <span className="uppercase tracking-widest text-xs font-bold">Ver Proyecto</span>
                       <span className="transform group-hover/btn:translate-x-1 transition-transform">→</span>
                     </button>
