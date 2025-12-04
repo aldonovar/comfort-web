@@ -125,11 +125,11 @@ export default function Navbar() {
   // Image Transition State
   const [currentImage, setCurrentImage] = useState<string>("");
   const [nextImage, setNextImage] = useState<string>("");
-  const [isTransitioning, setIsTransitioning] = useState(false);
 
   const headerRef = useRef<HTMLElement>(null);
   const megaRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
+  const textRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
 
   // Scroll Listener
@@ -192,35 +192,40 @@ export default function Navbar() {
     }
   }, [activeMega]);
 
-  // Image Transition Logic (Double Buffer)
+  // Image & Text Transition Logic
   useEffect(() => {
     if (!activeMega) return;
 
     const targetImage = activeSubItem?.image || MEGA_CONTENT[activeMega]?.defaultImage;
 
+    // Image Transition
     if (targetImage && targetImage !== currentImage) {
       if (!currentImage) {
-        // First load - just fade in
+        // First load
         setCurrentImage(targetImage);
         gsap.fromTo(".current-image", { opacity: 0 }, { opacity: 0.4, duration: 0.8 });
       } else {
-        // Transition
+        // Crossfade
         setNextImage(targetImage);
-        setIsTransitioning(true);
-
         const tl = gsap.timeline({
           onComplete: () => {
             setCurrentImage(targetImage);
             setNextImage("");
-            setIsTransitioning(false);
           }
         });
-
-        // Crossfade
         tl.to(".current-image", { opacity: 0, duration: 0.6 })
           .to(".next-image", { opacity: 0.4, duration: 0.6 }, "<");
       }
     }
+
+    // Text Transition (Title & Desc)
+    if (textRef.current) {
+      gsap.fromTo(textRef.current.children,
+        { y: 20, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.5, stagger: 0.1, ease: "power2.out", overwrite: true }
+      );
+    }
+
   }, [activeSubItem, activeMega]);
 
   const handleMouseEnter = (id: string) => {
@@ -354,7 +359,8 @@ export default function Navbar() {
                     src={currentImage}
                     alt="Current Preview"
                     fill
-                    className="current-image object-cover opacity-40"
+                    className="current-image object-cover"
+                    style={{ opacity: 0 }} // Controlled by GSAP
                     priority
                   />
                 )}
@@ -365,17 +371,18 @@ export default function Navbar() {
                     src={nextImage}
                     alt="Next Preview"
                     fill
-                    className="next-image object-cover opacity-0"
+                    className="next-image object-cover"
+                    style={{ opacity: 0 }} // Controlled by GSAP
                     priority
                   />
                 )}
 
                 {/* Overlay Content */}
-                <div className="absolute bottom-0 left-0 w-full p-16 bg-linear-to-t from-black via-black/50 to-transparent z-20">
-                  <h3 className="text-white font-serif text-5xl mb-4 transition-all duration-500 key={activeSubItem?.label}">
+                <div ref={textRef} className="absolute bottom-0 left-0 w-full p-16 bg-linear-to-t from-black via-black/50 to-transparent z-20">
+                  <h3 className="text-white font-serif text-5xl mb-4">
                     {activeSubItem?.label || "Experiencia Comfort"}
                   </h3>
-                  <p className="text-white/70 text-lg max-w-lg font-light leading-relaxed transition-all duration-500 key={activeSubItem?.desc}">
+                  <p className="text-white/70 text-lg max-w-lg font-light leading-relaxed">
                     {activeSubItem?.desc || "Diseñamos espacios que conectan con tus sentidos."}
                   </p>
                 </div>
