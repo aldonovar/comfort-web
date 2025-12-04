@@ -17,25 +17,25 @@ export default function Preloader() {
       // 1. Entrance
       tl.fromTo(brandRef.current,
         { opacity: 0, scale: 0.9, filter: "blur(10px)" },
-        { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.8, ease: "power3.out" }
+        { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.5, ease: "power3.out" }
       );
 
       // 2. Wait
-      tl.to({}, { duration: 0.5 });
+      tl.to({}, { duration: 0.2 });
 
       // 3. Exit (Smooth Curtain Up)
       tl.to(brandRef.current, {
         y: -50,
         opacity: 0,
-        duration: 0.5,
+        duration: 0.4,
         ease: "power2.in"
       });
 
       tl.to(containerRef.current, {
         yPercent: -100,
-        duration: 0.8,
+        duration: 0.6,
         ease: "power3.inOut"
-      }, "-=0.3");
+      }, "-=0.2");
 
     }, containerRef);
 
