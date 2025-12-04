@@ -94,7 +94,7 @@ export default function Servicios() {
       <div className="max-w-[1800px] mx-auto px-6 md:px-12 relative z-10">
 
         {/* Header */}
-        <div className="services-header-reveal mb-10 md:mb-14 max-w-2xl">
+        <div className="services-header-reveal mb-8 md:mb-10 max-w-2xl">
           <span className="block text-terracota text-xs tracking-[0.3em] uppercase font-bold mb-4">
             Nuestros Servicios
           </span>
@@ -126,7 +126,7 @@ export default function Servicios() {
               {/* Background Image */}
               <div className="absolute inset-0">
                 <img
-                  src={service.image}
+                  src={service.id === 'estacion-parrilla' ? "https://images.unsplash.com/photo-1529310399831-ed472b81d589?q=80&w=2574&auto=format&fit=crop" : service.image}
                   alt={service.title}
                   className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 opacity-80 group-hover:opacity-60"
                 />
