@@ -105,7 +105,7 @@ export default function Contacto() {
 
               {/* MENU VIEW */}
               <div className={`absolute inset-0 p-8 md:p-12 flex flex-col justify-center transition-all duration-500 ${activeTab === 'menu' ? 'opacity-100 translate-x-0 pointer-events-auto' : 'opacity-0 -translate-x-10 pointer-events-none'}`}>
-                <div className="contact-menu space-y-4 animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-300">
+                <div className="contact-menu space-y-4">
 
                   {/* 1. WhatsApp (Priority) */}
                   <a href="https://wa.me/51936230958" target="_blank" rel="noopener noreferrer" className="contact-item group block p-6 rounded-xl bg-white/5 border border-white/5 hover:bg-white/10 hover:border-white/20 transition-all duration-300">
