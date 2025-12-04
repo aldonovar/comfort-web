@@ -14,28 +14,25 @@ export default function Preloader() {
         onComplete: () => setIsUnmounted(true)
       });
 
-      // 1. Entrance
-      tl.fromTo(brandRef.current,
-        { opacity: 0, scale: 0.9, filter: "blur(10px)" },
-        { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.5, ease: "power3.out" }
-      );
+      // 1. Initial State (No animation, just present)
+      gsap.set(brandRef.current, { opacity: 1, scale: 1, filter: "blur(0px)" });
 
-      // 2. Wait
-      tl.to({}, { duration: 0.2 });
+      // 2. Wait (Very short)
+      tl.to({}, { duration: 0.5 });
 
       // 3. Exit (Smooth Curtain Up)
       tl.to(brandRef.current, {
         y: -50,
         opacity: 0,
-        duration: 0.4,
+        duration: 0.5,
         ease: "power2.in"
       });
 
       tl.to(containerRef.current, {
         yPercent: -100,
-        duration: 0.6,
+        duration: 0.8,
         ease: "power3.inOut"
-      }, "-=0.2");
+      }, "-=0.3");
 
     }, containerRef);
 
