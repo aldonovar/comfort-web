@@ -26,20 +26,23 @@ export default function PageTransition({ children }: { children: React.ReactNode
       // Slide Up (Reveal new content)
       tl.to(overlayRef.current, {
         scaleY: 0,
-        duration: 0.8,
-        ease: "power4.inOut",
+        duration: 1.2, // Slower, more elegant
+        ease: "expo.inOut", // Smoother "luxury" feel
         transformOrigin: "top"
       });
 
     });
 
-    // Safety: Force reveal after 1.5s in case GSAP fails
+    // Safety: Force reveal after 2s (give animation time to finish)
     const safetyTimer = setTimeout(() => {
       if (overlayRef.current) {
+        // Only force if it hasn't finished (though GSAP usually handles this)
+        // We use a simple style set to ensure it's gone
         overlayRef.current.style.transform = "scaleY(0)";
         overlayRef.current.style.pointerEvents = "none";
       }
-    }, 1500);
+      setIsAnimating(false);
+    }, 2000);
 
     return () => {
       ctx.revert();
