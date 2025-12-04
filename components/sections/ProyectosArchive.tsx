@@ -47,7 +47,7 @@ const PROJECTS = [
         tags: ["Familia", "Juego", "Parrilla"],
         description: "El corazón de la casa se mueve al exterior. Un espacio versátil para crecer, jugar y celebrar.",
         image: "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?q=80&w=2700&auto=format&fit=crop",
-        slug: "la-molina" // Assuming this slug, though file structure showed only 3 folders. Will check later.
+        slug: "la-molina"
     }
 ];
 
@@ -102,7 +102,7 @@ export default function ProyectosArchive() {
             <div className="max-w-[1800px] mx-auto">
 
                 {/* Header */}
-                <div className="mb-32 text-center md:text-left">
+                <div className="mb-24 text-center md:text-left">
                     <span className="block text-terracota text-xs tracking-[0.3em] uppercase font-bold mb-4">
                         Archivo de Obras
                     </span>
@@ -112,17 +112,17 @@ export default function ProyectosArchive() {
                     </h1>
                 </div>
 
-                {/* Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-32">
+                {/* Grid - Single Column for "One at a Time" focus */}
+                <div className="flex flex-col gap-24 max-w-5xl mx-auto">
                     {PROJECTS.map((project, index) => (
                         <div
                             key={project.id}
-                            className={`project-item group relative ${index % 2 === 1 ? 'md:mt-32' : ''}`}
+                            className="project-item group relative"
                         >
                             <Link href={`/proyectos/${project.slug}`} className="block">
 
-                                {/* Image Container */}
-                                <div className="relative aspect-[4/5] overflow-hidden rounded-sm mb-8">
+                                {/* Image Container - Landscape for better viewport fit */}
+                                <div className="relative aspect-[16/9] overflow-hidden rounded-sm mb-6">
                                     <div className="project-image w-full h-full relative">
                                         <Image
                                             src={project.image}
@@ -135,25 +135,27 @@ export default function ProyectosArchive() {
 
                                     {/* Hover Overlay */}
                                     <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                                        <div className="w-24 h-24 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/20">
-                                            <span className="text-white text-2xl">→</span>
+                                        <div className="w-20 h-20 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/20">
+                                            <span className="text-white text-xl">→</span>
                                         </div>
                                     </div>
                                 </div>
 
-                                {/* Text Content */}
-                                <div className="project-text">
-                                    <div className="flex items-center gap-4 mb-4 text-terracota text-[10px] font-bold tracking-[0.2em] uppercase">
-                                        <span>{project.location}</span>
-                                        <span className="w-1 h-1 rounded-full bg-terracota" />
-                                        <span>{project.surface}</span>
+                                {/* Text Content - Compact & Centered */}
+                                <div className="project-text text-center md:text-left flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+                                    <div>
+                                        <div className="flex items-center justify-center md:justify-start gap-4 mb-2 text-terracota text-[10px] font-bold tracking-[0.2em] uppercase">
+                                            <span>{project.location}</span>
+                                            <span className="w-1 h-1 rounded-full bg-terracota" />
+                                            <span>{project.surface}</span>
+                                        </div>
+
+                                        <h2 className="font-serif text-3xl md:text-5xl text-madera group-hover:text-terracota transition-colors duration-300">
+                                            {project.title}
+                                        </h2>
                                     </div>
 
-                                    <h2 className="font-serif text-4xl text-madera mb-4 group-hover:text-terracota transition-colors duration-300">
-                                        {project.title}
-                                    </h2>
-
-                                    <p className="text-madera/60 text-sm leading-relaxed max-w-md">
+                                    <p className="text-madera/60 text-sm leading-relaxed max-w-md mx-auto md:mx-0 text-center md:text-right">
                                         {project.description}
                                     </p>
                                 </div>
