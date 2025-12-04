@@ -122,11 +122,17 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
+  // Image Transition State
+  const [currentImage, setCurrentImage] = useState<string>("");
+  const [nextImage, setNextImage] = useState<string>("");
+  const [isTransitioning, setIsTransitioning] = useState(false);
+
   const headerRef = useRef<HTMLElement>(null);
   const megaRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
 
-  // Scroll Listener (Optimized)
+  // Scroll Listener
   useEffect(() => {
     let ticking = false;
     const onScroll = () => {
@@ -148,24 +154,21 @@ export default function Navbar() {
     setMobileOpen(false);
   }, [pathname]);
 
-  // Mega Menu Animation (Optimized & Smoother)
+  // Mega Menu Open/Close Animation
   useEffect(() => {
     if (!megaRef.current) return;
 
     if (activeMega) {
+      // Opening
       const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
       tl.to(megaRef.current, {
         height: "auto",
         opacity: 1,
-        duration: 0.5,
+        duration: 0.6,
         overwrite: true
-      })
-        .fromTo(megaRef.current.querySelectorAll(".mega-link"),
-          { y: 10, opacity: 0 },
-          { y: 0, opacity: 1, duration: 0.4, stagger: 0.05 },
-          "-=0.3"
-        );
+      });
     } else {
+      // Closing
       gsap.to(megaRef.current, {
         height: 0,
         opacity: 0,
@@ -174,29 +177,61 @@ export default function Navbar() {
         overwrite: true
       });
       setActiveSubItem(null);
+      setCurrentImage("");
+      setNextImage("");
     }
   }, [activeMega]);
 
-  // Image Transition (Optimized & Smoother)
+  // Content Transition (List Items)
   useEffect(() => {
-    if (activeMega) {
-      const newSrc = activeSubItem?.image || MEGA_CONTENT[activeMega]?.defaultImage;
-      if (newSrc) {
-        // Crossfade effect for image
-        const tl = gsap.timeline();
-        tl.to(".mega-image", { opacity: 0, duration: 0.3 })
-          .add(() => {
-            // We don't need to manually set src here as React handles it, 
-            // but we animate opacity to create the transition effect
-          })
-          .to(".mega-image", { opacity: 0.4, duration: 0.5 });
+    if (activeMega && contentRef.current) {
+      gsap.fromTo(contentRef.current.querySelectorAll(".mega-link, .mega-title"),
+        { y: 20, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.5, stagger: 0.05, ease: "power2.out", overwrite: true }
+      );
+    }
+  }, [activeMega]);
+
+  // Image Transition Logic (Double Buffer)
+  useEffect(() => {
+    if (!activeMega) return;
+
+    const targetImage = activeSubItem?.image || MEGA_CONTENT[activeMega]?.defaultImage;
+
+    if (targetImage && targetImage !== currentImage) {
+      if (!currentImage) {
+        // First load - just fade in
+        setCurrentImage(targetImage);
+        gsap.fromTo(".current-image", { opacity: 0 }, { opacity: 0.4, duration: 0.8 });
+      } else {
+        // Transition
+        setNextImage(targetImage);
+        setIsTransitioning(true);
+
+        const tl = gsap.timeline({
+          onComplete: () => {
+            setCurrentImage(targetImage);
+            setNextImage("");
+            setIsTransitioning(false);
+          }
+        });
+
+        // Crossfade
+        tl.to(".current-image", { opacity: 0, duration: 0.6 })
+          .to(".next-image", { opacity: 0.4, duration: 0.6 }, "<");
       }
     }
   }, [activeSubItem, activeMega]);
 
   const handleMouseEnter = (id: string) => {
-    if (MEGA_CONTENT[id]) setActiveMega(id);
-    else setActiveMega(null);
+    if (MEGA_CONTENT[id]) {
+      if (activeMega !== id) {
+        setActiveSubItem(null); // Reset subitem when switching categories
+      }
+      setActiveMega(id);
+    } else {
+      setActiveMega(null);
+    }
   };
 
   const handleMouseLeave = () => {
@@ -230,16 +265,16 @@ export default function Navbar() {
             </span>
           </Link>
 
-          {/* Desktop Nav - Centered & Reactive */}
+          {/* Desktop Nav */}
           <nav className="hidden md:flex items-center gap-10 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
             {NAV_ITEMS.map((item) => (
               <div key={item.id} className="relative group" onMouseEnter={() => handleMouseEnter(item.id)}>
                 <Link
                   href={item.href}
-                  className="relative text-[0.7rem] font-bold uppercase tracking-[0.25em] py-4 text-white/70 hover:text-white transition-colors duration-500 block"
+                  className={`relative text-[0.7rem] font-bold uppercase tracking-[0.25em] py-4 transition-colors duration-500 block ${activeMega === item.id ? "text-white" : "text-white/70 hover:text-white"}`}
                 >
                   {item.label}
-                  <span className="absolute bottom-2 left-0 w-full h-px bg-terracota scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left ease-out" />
+                  <span className={`absolute bottom-2 left-0 w-full h-px bg-terracota transition-transform duration-500 origin-left ease-out ${activeMega === item.id ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"}`} />
                 </Link>
               </div>
             ))}
@@ -247,7 +282,6 @@ export default function Navbar() {
 
           {/* Right Side: CTA */}
           <div className="hidden md:flex items-center gap-8">
-            {/* WhatsApp / Atención */}
             <div className="flex flex-col items-end">
               <span className="text-[0.6rem] text-white/40 uppercase tracking-widest mb-1">Atención</span>
               <a
@@ -293,8 +327,8 @@ export default function Navbar() {
             <div className="relative w-full h-[50vh] flex max-w-[1800px] mx-auto">
 
               {/* Left: Navigation List */}
-              <div className="w-1/3 h-full z-10 p-12 flex flex-col justify-center space-y-2 border-r border-white/5">
-                <p className="text-[0.65rem] uppercase tracking-[0.3em] text-terracota mb-8 font-bold">Explora {activeMega}</p>
+              <div ref={contentRef} className="w-1/3 h-full z-10 p-12 flex flex-col justify-center space-y-2 border-r border-white/5">
+                <p className="mega-title text-[0.65rem] uppercase tracking-[0.3em] text-terracota mb-8 font-bold">Explora {activeMega}</p>
                 {MEGA_CONTENT[activeMega].items.map((sub: any) => (
                   <Link
                     key={sub.label}
@@ -312,18 +346,32 @@ export default function Navbar() {
                 ))}
               </div>
 
-              {/* Right: Immersive Image Preview */}
+              {/* Right: Immersive Image Preview (Double Buffer for Crossfade) */}
               <div className="w-2/3 h-full relative overflow-hidden bg-black">
-                <Image
-                  src={activeSubItem?.image || MEGA_CONTENT[activeMega].defaultImage}
-                  alt={activeSubItem?.label || activeMega}
-                  fill
-                  className="mega-image object-cover opacity-40 transition-opacity duration-700"
-                  priority
-                />
+                {/* Current Image */}
+                {currentImage && (
+                  <Image
+                    src={currentImage}
+                    alt="Current Preview"
+                    fill
+                    className="current-image object-cover opacity-40"
+                    priority
+                  />
+                )}
+
+                {/* Next Image (for transition) */}
+                {nextImage && (
+                  <Image
+                    src={nextImage}
+                    alt="Next Preview"
+                    fill
+                    className="next-image object-cover opacity-0"
+                    priority
+                  />
+                )}
 
                 {/* Overlay Content */}
-                <div className="absolute bottom-0 left-0 w-full p-16 bg-linear-to-t from-black via-black/50 to-transparent">
+                <div className="absolute bottom-0 left-0 w-full p-16 bg-linear-to-t from-black via-black/50 to-transparent z-20">
                   <h3 className="text-white font-serif text-5xl mb-4 transition-all duration-500 key={activeSubItem?.label}">
                     {activeSubItem?.label || "Experiencia Comfort"}
                   </h3>
