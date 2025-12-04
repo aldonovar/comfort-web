@@ -115,7 +115,7 @@ const CustomSelect = ({
       </div>
 
       <div className={`
-        absolute left-0 right-0 top-full mt-2 bg-secondary border border-primary/10 rounded-xl overflow-hidden z-50 shadow-[0_10px_40px_rgba(0,0,0,0.2)] origin-top transition-all duration-300 max-h-60 overflow-y-auto ring-1 ring-white/5
+        absolute left-0 right-0 top-full mt-2 bg-[#1a1a1a] border border-white/10 rounded-xl overflow-hidden z-50 shadow-[0_10px_40px_rgba(0,0,0,0.5)] origin-top transition-all duration-300 max-h-60 overflow-y-auto ring-1 ring-white/5
         ${isOpen ? 'opacity-100 scale-y-100 translate-y-0' : 'opacity-0 scale-y-95 -translate-y-2 pointer-events-none'}
       `}>
         {options.map((opt) => {
@@ -129,8 +129,8 @@ const CustomSelect = ({
                 setIsOpen(false);
               }}
               className={`
-                px-4 py-3 text-sm cursor-pointer transition-colors border-b border-primary/5 last:border-0
-                ${value === optValue ? 'bg-terracota text-white' : 'text-primary/70 hover:bg-primary/5 hover:text-primary'}
+                px-4 py-3 text-sm cursor-pointer transition-colors border-b border-white/5 last:border-0
+                ${value === optValue ? 'bg-terracota text-white' : 'text-white/70 hover:bg-white/5 hover:text-white'}
               `}
             >
               {optLabel}
@@ -370,27 +370,27 @@ export default function Cotiza() {
 
         <div className="grid lg:grid-cols-[1fr_1fr] gap-8 lg:gap-16 items-center">
 
-          {/* Form Side */}
-          <div className="quote-content">
-            <div className="mb-6 quote-item">
+          {/* Form Side - NOW WITH CONTAINER */}
+          <div className="quote-content bg-secondary/50 backdrop-blur-xl border border-white/5 rounded-3xl p-8 md:p-12 shadow-2xl">
+            <div className="mb-8 quote-item">
               <span className="block text-terracota text-[9px] tracking-[0.3em] uppercase font-bold mb-2">
                 Concierge
               </span>
-              <h2 className="font-serif text-4xl md:text-6xl leading-tight">
+              <h2 className="font-serif text-3xl md:text-5xl leading-tight">
                 Diseñemos tu <br />
                 <span className="text-primary/40 italic transition-colors duration-500">próximo escenario.</span>
               </h2>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-4 max-w-xl">
+            <form onSubmit={handleSubmit} className="space-y-6 max-w-xl">
 
               {/* 01. Proyecto */}
-              <div className="space-y-3 quote-item">
-                <h3 className="text-[10px] uppercase tracking-widest text-primary/40 font-bold transition-colors duration-500 mb-2">
+              <div className="space-y-4 quote-item">
+                <h3 className="text-[10px] uppercase tracking-widest text-primary/40 font-bold transition-colors duration-500 mb-2 border-b border-primary/10 pb-2">
                   01. El Proyecto
                 </h3>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="md:col-span-2">
                     <CustomSelect
                       label="Tipo de Espacio"
@@ -428,12 +428,12 @@ export default function Cotiza() {
               </div>
 
               {/* 02. Datos */}
-              <div className="space-y-3 quote-item">
-                <h3 className="text-[10px] uppercase tracking-widest text-primary/40 font-bold transition-colors duration-500 mb-2">
+              <div className="space-y-4 quote-item">
+                <h3 className="text-[10px] uppercase tracking-widest text-primary/40 font-bold transition-colors duration-500 mb-2 border-b border-primary/10 pb-2">
                   02. Tus Datos
                 </h3>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <CustomInput
                     label="Nombre"
                     value={name}
@@ -477,18 +477,18 @@ export default function Cotiza() {
                 </div>
               </div>
 
-              <div className="quote-item pt-2">
+              <div className="quote-item pt-4">
                 <button
                   type="submit"
                   disabled={!isFormReady || isSubmitting}
                   className={`
-                    group w-full py-4 rounded-xl transition-all duration-500 flex items-center justify-center gap-3
+                    group w-full py-5 rounded-xl transition-all duration-500 flex items-center justify-center gap-3
                     ${isFormReady && !isSubmitting
                       ? 'bg-terracota text-white shadow-lg shadow-terracota/20 hover:shadow-terracota/40 hover:scale-[1.02] cursor-pointer'
-                      : 'bg-primary/5 text-primary/20 cursor-not-allowed'}
+                      : 'bg-primary/10 text-primary/30 cursor-not-allowed'}
                   `}
                 >
-                  <span className="uppercase tracking-widest text-[10px] font-bold">
+                  <span className="uppercase tracking-widest text-xs font-bold">
                     {isSubmitting ? "Procesando..." : "Generar Ticket y Enviar"}
                   </span>
                   {!isSubmitting && <span className="transform group-hover:translate-x-1 transition-transform">→</span>}
