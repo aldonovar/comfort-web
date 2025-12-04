@@ -1,32 +1,7 @@
 // app/servicios/serviceData.js
 
 export const services = [
-  {
-    slug: "techo-sol-y-sombra",
-    name: "Techo sol y sombra",
-    category: "Control de luz y clima",
-    shortDescription:
-      "Estructuras ligeras que filtran el sol y protegen de la lluvia, sin perder la sensación de exterior.",
-    heroTagline: "Luz filtrada, sombra precisa y un clima habitable todo el año.",
-    longDescription:
-      "El techo sol y sombra es el primer gran filtro entre el interior y el exterior. Bien resuelto, controla la radiación, la lluvia ligera y la privacidad sin convertir la terraza en un ambiente encerrado. Diseñamos cada estructura leyendo orientación, viento, vistas y reglamento del edificio.",
-    idealFor: [
-      "Terrazas de departamento con sol directo gran parte del día.",
-      "Azoteas expuestas donde la radiación hace imposible usar el espacio al mediodía.",
-      "Proyectos que necesitan sombra pero no quieren perder cielo abierto.",
-    ],
-    includes: [
-      "Diseño estructural del techo según contexto (metal, madera, mixto).",
-      "Definición de tipo de lama (fija, móvil, regulable) según orientación solar.",
-      "Preparación para iluminación integrada y futuras instalaciones.",
-    ],
-    specs: {
-      rangoMetros: "Desde 10 m² hasta 80 m²",
-      tipoObra: "Obra ligera / media",
-      duracion: "3 a 6 semanas según alcance",
-      inversion: "Se define según estructura, acabados y tipo de lama",
-    },
-  },
+
   {
     slug: "diseno-ejecucion-terraza",
     name: "Diseño y ejecución de proyecto de terraza",
