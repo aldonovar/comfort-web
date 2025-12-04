@@ -22,25 +22,25 @@ const MEGA_CONTENT: any = {
       {
         label: "Techo sol y sombra",
         href: "/servicios/techo-sol-y-sombra",
-        video: "https://cdn.coverr.co/videos/coverr-walking-by-a-wooden-wall-4608/1080p.mp4",
+        video: "https://cdn.coverr.co/videos/coverr-sunlight-through-trees-in-forest-4467/1080p.mp4",
         desc: "Protección y estilo para tus exteriores."
       },
       {
         label: "Diseño y ejecución de proyecto de terraza",
         href: "/servicios/diseno-ejecucion-terrazas",
-        video: "https://cdn.coverr.co/videos/coverr-modern-office-space-4853/1080p.mp4",
+        video: "https://cdn.coverr.co/videos/coverr-modern-architecture-with-pool-5686/1080p.mp4",
         desc: "Transformamos tu espacio de principio a fin."
       },
       {
         label: "Proyecto Estación de parrilla",
         href: "/servicios/estacion-parrilla",
-        video: "https://cdn.coverr.co/videos/coverr-sunlight-hitting-a-plant-4610/1080p.mp4",
+        video: "https://cdn.coverr.co/videos/coverr-grilling-meat-on-barbecue-4462/1080p.mp4",
         desc: "El corazón de tus reuniones al aire libre."
       },
       {
         label: "Otro tipo de proyecto al aire libre",
         href: "/servicios/otros-proyectos",
-        video: "https://cdn.coverr.co/videos/coverr-leaves-blowing-in-the-wind-4598/1080p.mp4",
+        video: "https://cdn.coverr.co/videos/coverr-fire-pit-in-the-evening-4465/1080p.mp4",
         desc: "Soluciones personalizadas para cada necesidad."
       },
     ]
@@ -74,7 +74,7 @@ const MEGA_CONTENT: any = {
       {
         label: "Filosofía",
         href: "/estudio#filosofia",
-        video: "https://cdn.coverr.co/videos/coverr-architect-working-on-plans-4602/1080p.mp4",
+        video: "https://cdn.coverr.co/videos/coverr-sunlight-hitting-a-plant-4610/1080p.mp4",
         desc: "Nuestra visión de la arquitectura sensorial."
       },
       {
@@ -246,7 +246,7 @@ export default function Navbar() {
                   className="relative text-[0.7rem] font-bold uppercase tracking-[0.25em] py-4 text-white/70 hover:text-white transition-colors duration-500 block"
                 >
                   {item.label}
-                  <span className="absolute bottom-2 left-0 w-full h-[1px] bg-terracota scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left ease-out" />
+                  <span className="absolute bottom-2 left-0 w-full h-px bg-terracota scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left ease-out" />
                 </Link>
               </div>
             ))}
@@ -285,9 +285,9 @@ export default function Navbar() {
             onClick={() => setMobileOpen(!mobileOpen)}
             className="md:hidden relative z-50 w-10 h-10 flex flex-col justify-center gap-1.5"
           >
-            <span className={`w-full h-[1px] bg-white transition-all ${mobileOpen ? "rotate-45 translate-y-2" : ""}`} />
-            <span className={`w-full h-[1px] bg-white transition-all ${mobileOpen ? "opacity-0" : ""}`} />
-            <span className={`w-full h-[1px] bg-white transition-all ${mobileOpen ? "-rotate-45 -translate-y-2" : ""}`} />
+            <span className={`w-full h-px bg-white transition-all ${mobileOpen ? "rotate-45 translate-y-2" : ""}`} />
+            <span className={`w-full h-px bg-white transition-all ${mobileOpen ? "opacity-0" : ""}`} />
+            <span className={`w-full h-px bg-white transition-all ${mobileOpen ? "-rotate-45 -translate-y-2" : ""}`} />
           </button>
         </div>
 
@@ -329,7 +329,7 @@ export default function Navbar() {
                 />
 
                 {/* Overlay Content */}
-                <div className="absolute bottom-0 left-0 w-full p-16 bg-gradient-to-t from-black via-black/50 to-transparent">
+                <div className="absolute bottom-0 left-0 w-full p-16 bg-linear-to-t from-black via-black/50 to-transparent">
                   <h3 className="text-white font-serif text-5xl mb-4 transition-all duration-500 key={activeSubItem?.label}">
                     {activeSubItem?.label || "Experiencia Comfort"}
                   </h3>
