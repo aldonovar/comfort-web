@@ -192,41 +192,65 @@ export default function Navbar() {
     }
   }, [activeMega]);
 
-  // Image & Text Transition Logic
+  // 1. Determine Target Image Logic
   useEffect(() => {
     if (!activeMega) return;
 
     const targetImage = activeSubItem?.image || MEGA_CONTENT[activeMega]?.defaultImage;
 
-    // Image Transition
     if (targetImage && targetImage !== currentImage) {
       if (!currentImage) {
-        // First load
+        // Initial load
         setCurrentImage(targetImage);
-        gsap.fromTo(".current-image", { opacity: 0 }, { opacity: 0.4, duration: 0.8 });
       } else {
-        // Crossfade
+        // Transition needed
         setNextImage(targetImage);
-        const tl = gsap.timeline({
-          onComplete: () => {
-            setCurrentImage(targetImage);
-            setNextImage("");
-          }
-        });
-        tl.to(".current-image", { opacity: 0, duration: 0.6 })
-          .to(".next-image", { opacity: 0.4, duration: 0.6 }, "<");
       }
     }
+  }, [activeSubItem, activeMega]); // Removed currentImage dependency to avoid loops
 
-    // Text Transition (Title & Desc)
+  // 2. Animate Initial Load (Current Image)
+  useEffect(() => {
+    if (currentImage && !nextImage) {
+      // Only animate if we are NOT in the middle of a crossfade
+      gsap.fromTo(".current-image",
+        { opacity: 0 },
+        { opacity: 0.4, duration: 0.8, overwrite: true }
+      );
+    }
+  }, [currentImage]);
+
+  // 3. Animate Crossfade (Next Image)
+  useEffect(() => {
+    if (nextImage) {
+      const tl = gsap.timeline({
+        onComplete: () => {
+          setCurrentImage(nextImage);
+          setNextImage("");
+        }
+      });
+
+      // Animate current out
+      tl.to(".current-image", { opacity: 0, duration: 0.6, overwrite: true })
+        // Animate next in
+        .fromTo(".next-image",
+          { opacity: 0 },
+          { opacity: 0.4, duration: 0.6, overwrite: true },
+          "<"
+        );
+    }
+  }, [nextImage]);
+
+  // Text Transition (Title & Desc)
+  useEffect(() => {
     if (textRef.current) {
       gsap.fromTo(textRef.current.children,
         { y: 20, opacity: 0 },
         { y: 0, opacity: 1, duration: 0.5, stagger: 0.1, ease: "power2.out", overwrite: true }
       );
     }
-
   }, [activeSubItem, activeMega]);
+
 
   const handleMouseEnter = (id: string) => {
     if (MEGA_CONTENT[id]) {
