@@ -8,32 +8,11 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const FEATURES = [
-    {
-        title: "Estructura",
-        subtitle: "Madera Huayruro",
-        desc: "Densidad superior. Resistencia natural.",
-    },
-    {
-        title: "Protección",
-        subtitle: "Policarbonato Alveolar",
-        desc: "Filtrado UV avanzado. Luz suave.",
-    },
-    {
-        title: "Acabado",
-        subtitle: "Barniz Marino",
-        desc: "Escudo invisible. Brillo satinado.",
-    }
-];
-
 export default function TechoSolSombraPage() {
     const container = useRef<HTMLDivElement>(null);
     const heroRef = useRef<HTMLDivElement>(null);
-
     const dayNightRef = useRef<HTMLDivElement>(null);
     const xrayRef = useRef<HTMLDivElement>(null);
-
-
 
     useEffect(() => {
         const ctx = gsap.context(() => {
@@ -51,16 +30,33 @@ export default function TechoSolSombraPage() {
                 }
             });
 
-            // 2. Hero Title Reveal
-            gsap.from(".hero-char", {
-                y: 100,
-                opacity: 0,
-                stagger: 0.05,
-                duration: 1.5,
-                ease: "power4.out"
+            // 2. Background Zoom Effect (Cinematic)
+            gsap.to(".bg-image", {
+                scale: 1.1,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: container.current,
+                    start: "top top",
+                    end: "bottom bottom",
+                    scrub: true
+                }
             });
 
-            // 3. X-Ray / Layer Peel Effect (Sticky Dissolve)
+            // 3. Hero Title Reveal (Kinetic)
+            const tl = gsap.timeline();
+            tl.from(".hero-line", {
+                yPercent: 100,
+                duration: 1.2,
+                ease: "power4.out",
+                stagger: 0.1
+            }).from(".hero-subtitle", {
+                opacity: 0,
+                y: 20,
+                duration: 1,
+                ease: "power3.out"
+            }, "-=0.8");
+
+            // 4. X-Ray / Layer Peel Effect (Sticky Dissolve)
             const layers = gsap.utils.toArray(".xray-layer");
 
             ScrollTrigger.create({
@@ -92,7 +88,7 @@ export default function TechoSolSombraPage() {
                 }
             });
 
-            // 4. Footer Reveal
+            // 5. Footer Reveal
             gsap.from(".footer-cta", {
                 yPercent: 50,
                 opacity: 0,
@@ -109,20 +105,20 @@ export default function TechoSolSombraPage() {
     }, []);
 
     return (
-        <div ref={container} className="relative min-h-[300vh] bg-black">
+        <div ref={container} className="relative min-h-[300vh]">
 
             {/* --- FIXED BACKGROUNDS (Day to Night) --- */}
-            <div className="fixed inset-0 z-0">
+            <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
                 {/* Day Layer */}
                 <div className="absolute inset-0">
                     <Image
                         src="https://images.unsplash.com/photo-1596230529625-7ee541fb33f6?q=80&w=1920&auto=format&fit=crop"
                         alt="Day Terrace"
                         fill
-                        className="object-cover"
+                        className="bg-image object-cover"
                         priority
                     />
-                    <div className="absolute inset-0 bg-black/20" />
+                    <div className="absolute inset-0 bg-black/30" />
                 </div>
 
                 {/* Night Layer (Starts invisible) */}
@@ -131,47 +127,48 @@ export default function TechoSolSombraPage() {
                         src="https://images.unsplash.com/photo-1633505899104-44f3e3e09093?q=80&w=1920&auto=format&fit=crop"
                         alt="Night Terrace"
                         fill
-                        className="object-cover"
+                        className="bg-image object-cover"
                     />
-                    <div className="absolute inset-0 bg-black/40" />
+                    <div className="absolute inset-0 bg-black/50" />
                 </div>
             </div>
 
-            {/* --- HERO SECTION (Interactive Light) --- */}
+            {/* --- HERO SECTION --- */}
             <section ref={heroRef} className="relative h-screen flex items-center justify-center overflow-hidden z-10">
-
-
-                <div className="relative z-30 text-center text-white mix-blend-overlay">
-                    <p className="text-xs uppercase tracking-[0.5em] font-bold mb-8 drop-shadow-lg">Experiencia Comfort</p>
-                    <h1 className="font-serif text-[10vw] leading-[0.85] tracking-tighter drop-shadow-2xl">
-                        {"LUZ &".split("").map((c, i) => (
-                            <span key={i} className="hero-char inline-block">{c === " " ? "\u00A0" : c}</span>
-                        ))}
-                        <br />
-                        {"SOMBRA".split("").map((c, i) => (
-                            <span key={i + 10} className="hero-char inline-block">{c === " " ? "\u00A0" : c}</span>
-                        ))}
-                    </h1>
+                <div className="relative z-30 text-center text-white">
+                    <p className="hero-subtitle text-xs md:text-sm uppercase tracking-[0.5em] font-bold mb-8 drop-shadow-lg text-terracota">
+                        Experiencia Comfort
+                    </p>
+                    <div className="overflow-hidden">
+                        <h1 className="hero-line font-serif text-[12vw] leading-[0.85] tracking-tighter drop-shadow-2xl">
+                            TECHO SOL
+                        </h1>
+                    </div>
+                    <div className="overflow-hidden">
+                        <h1 className="hero-line font-serif text-[12vw] leading-[0.85] tracking-tighter drop-shadow-2xl italic text-white/90">
+                            & SOMBRA
+                        </h1>
+                    </div>
                 </div>
             </section>
 
             {/* --- SPACER FOR SCROLL EFFECT --- */}
             <div className="h-[50vh] relative z-10 flex items-center justify-center">
-                <p className="text-white/80 text-xl md:text-3xl font-serif italic max-w-2xl text-center px-6 drop-shadow-md">
-                    "El sol se oculta, pero tu espacio cobra vida."
+                <p className="text-white/90 text-2xl md:text-4xl font-serif italic max-w-3xl text-center px-6 drop-shadow-lg leading-relaxed">
+                    "El sol se oculta, pero tu espacio <br /> <span className="text-terracota">cobra vida</span>."
                 </p>
             </div>
 
             {/* --- X-RAY / LAYER PEEL (Sticky Dissolve) --- */}
-            <section ref={xrayRef} className="relative h-screen w-full z-20 bg-black/80 backdrop-blur-sm border-y border-white/10">
+            <section ref={xrayRef} className="relative h-screen w-full z-20 bg-black/60 backdrop-blur-md border-y border-white/10">
                 {/* Layer 1: Structure */}
                 <div className="xray-layer absolute inset-0 flex items-center justify-center">
                     <div className="relative w-full h-full">
-                        <Image src="https://images.unsplash.com/photo-1533090161767-e6ffed986c88?q=80&w=1920&auto=format&fit=crop" alt="Structure" fill className="object-cover opacity-50" />
-                        <div className="absolute inset-0 flex flex-col items-center justify-center text-white">
+                        <Image src="https://images.unsplash.com/photo-1533090161767-e6ffed986c88?q=80&w=1920&auto=format&fit=crop" alt="Structure" fill className="object-cover opacity-60" />
+                        <div className="absolute inset-0 flex flex-col items-center justify-center text-white p-6 text-center">
                             <span className="text-terracota text-sm uppercase tracking-widest mb-4">Capa 01</span>
-                            <h2 className="font-serif text-6xl md:text-8xl">Estructura</h2>
-                            <p className="mt-4 text-xl text-white/60">Madera Huayruro Sólida</p>
+                            <h2 className="font-serif text-6xl md:text-9xl mb-4">Estructura</h2>
+                            <p className="text-xl md:text-2xl text-white/80 font-light tracking-wide">Madera Huayruro Sólida</p>
                         </div>
                     </div>
                 </div>
@@ -179,11 +176,11 @@ export default function TechoSolSombraPage() {
                 {/* Layer 2: Finish */}
                 <div className="xray-layer absolute inset-0 flex items-center justify-center opacity-0">
                     <div className="relative w-full h-full">
-                        <Image src="https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=1920&auto=format&fit=crop" alt="Finish" fill className="object-cover opacity-50" />
-                        <div className="absolute inset-0 flex flex-col items-center justify-center text-white">
+                        <Image src="https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=1920&auto=format&fit=crop" alt="Finish" fill className="object-cover opacity-60" />
+                        <div className="absolute inset-0 flex flex-col items-center justify-center text-white p-6 text-center">
                             <span className="text-terracota text-sm uppercase tracking-widest mb-4">Capa 02</span>
-                            <h2 className="font-serif text-6xl md:text-8xl">Acabado</h2>
-                            <p className="mt-4 text-xl text-white/60">Barniz Marino UV</p>
+                            <h2 className="font-serif text-6xl md:text-9xl mb-4">Acabado</h2>
+                            <p className="text-xl md:text-2xl text-white/80 font-light tracking-wide">Barniz Marino UV</p>
                         </div>
                     </div>
                 </div>
@@ -191,11 +188,11 @@ export default function TechoSolSombraPage() {
                 {/* Layer 3: Cover */}
                 <div className="xray-layer absolute inset-0 flex items-center justify-center opacity-0">
                     <div className="relative w-full h-full">
-                        <Image src="https://images.unsplash.com/photo-1510627489930-0c1b0bfb6785?q=80&w=1920&auto=format&fit=crop" alt="Cover" fill className="object-cover opacity-50" />
-                        <div className="absolute inset-0 flex flex-col items-center justify-center text-white">
+                        <Image src="https://images.unsplash.com/photo-1510627489930-0c1b0bfb6785?q=80&w=1920&auto=format&fit=crop" alt="Cover" fill className="object-cover opacity-60" />
+                        <div className="absolute inset-0 flex flex-col items-center justify-center text-white p-6 text-center">
                             <span className="text-terracota text-sm uppercase tracking-widest mb-4">Capa 03</span>
-                            <h2 className="font-serif text-6xl md:text-8xl">Cobertura</h2>
-                            <p className="mt-4 text-xl text-white/60">Policarbonato Alveolar</p>
+                            <h2 className="font-serif text-6xl md:text-9xl mb-4">Cobertura</h2>
+                            <p className="text-xl md:text-2xl text-white/80 font-light tracking-wide">Policarbonato Alveolar</p>
                         </div>
                     </div>
                 </div>
