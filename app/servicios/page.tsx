@@ -11,39 +11,39 @@ gsap.registerPlugin(ScrollTrigger, Observer);
 const SERVICES = [
   {
     id: "01",
-    title: "Residencial",
-    subtitle: "Refugio Privado",
-    desc: "Transformamos terrazas de departamento en extensiones vitales de tu hogar. Privacidad, confort y estética en altura.",
-    video: "https://cdn.coverr.co/videos/coverr-walking-by-a-wooden-wall-4608/1080p.mp4",
-    slug: "residencial",
-    stats: ["Penthouse", "Duplex", "Flat"]
+    title: "Techo Sol y Sombra",
+    subtitle: "Control de Luz y Clima",
+    desc: "Estructuras que doman el sol y la lluvia sin perder la conexión con el cielo. Madera, aluminio y tecnología.",
+    video: "https://cdn.coverr.co/videos/coverr-sunlight-through-trees-in-forest-4467/1080p.mp4",
+    slug: "techo-sol-y-sombra",
+    stats: ["Madera", "Aluminio", "Retráctil"]
   },
   {
     id: "02",
-    title: "Corporativo",
-    subtitle: "Espacios de Poder",
-    desc: "Diseñamos rooftops y áreas comunes que redefinen la cultura laboral. Espacios que inspiran y conectan.",
-    video: "https://cdn.coverr.co/videos/coverr-modern-office-space-4853/1080p.mp4",
-    slug: "corporativo",
-    stats: ["Oficinas", "Hoteles", "Retail"]
+    title: "Diseño de Terrazas",
+    subtitle: "Proyecto Integral",
+    desc: "Desde el primer trazo hasta la última luz. Un solo equipo, una visión unificada para tu espacio exterior.",
+    video: "https://cdn.coverr.co/videos/coverr-modern-architecture-with-pool-5686/1080p.mp4",
+    slug: "diseno-ejecucion-terrazas",
+    stats: ["Diseño", "Planos", "Ejecución"]
   },
   {
     id: "03",
-    title: "Campo & Playa",
-    subtitle: "Vida Exterior",
-    desc: "Arquitectura que dialoga con el paisaje. Estructuras robustas para climas exigentes, sin sacrificar elegancia.",
-    video: "https://cdn.coverr.co/videos/coverr-sunlight-hitting-a-plant-4610/1080p.mp4",
-    slug: "patios",
-    stats: ["Casas de Playa", "Casas de Campo", "Clubes"]
+    title: "Estación de Parrilla",
+    subtitle: "Outdoor Kitchen",
+    desc: "El corazón de la reunión. Fuego, sabor y diseño para el chef anfitrión. Acabados premium y funcionalidad.",
+    video: "https://cdn.coverr.co/videos/coverr-grilling-meat-on-barbecue-4462/1080p.mp4",
+    slug: "estacion-parrilla",
+    stats: ["Acero", "Granito", "Equipamiento"]
   },
   {
     id: "04",
-    title: "Integral",
-    subtitle: "Llave en Mano",
-    desc: "Desde el boceto hasta el último detalle. Gestionamos todo el proceso constructivo para tu tranquilidad.",
-    video: "https://cdn.coverr.co/videos/coverr-modern-architecture-building-4606/1080p.mp4",
-    slug: "integral",
-    stats: ["Diseño", "Permisos", "Construcción"]
+    title: "Otros Proyectos",
+    subtitle: "A Medida",
+    desc: "Fogateros, lounges, decks. Soluciones únicas para espacios que desafían lo estándar.",
+    video: "https://cdn.coverr.co/videos/coverr-fire-pit-in-the-evening-4465/1080p.mp4",
+    slug: "otros-proyectos",
+    stats: ["Fogateros", "Decks", "Lounges"]
   }
 ];
 
@@ -54,6 +54,15 @@ export default function ServicesLensPage() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
+
+      // Initial State: Hide all except first
+      SERVICES.forEach((_, i) => {
+        if (i !== 0) {
+          gsap.set(`.service-slide-${i}`, { autoAlpha: 0 });
+        } else {
+          gsap.set(`.service-slide-${i}`, { autoAlpha: 1, zIndex: 10 });
+        }
+      });
 
       // Initial Reveal
       gsap.from(".service-title-char", {
@@ -89,7 +98,6 @@ export default function ServicesLensPage() {
 
     setIsAnimating(true);
     const direction = index > currentIndex ? 1 : -1;
-    const nextService = SERVICES[index];
 
     // 1. Animate Out Current
     gsap.to(`.service-slide-${currentIndex} .service-content`, {
@@ -99,19 +107,20 @@ export default function ServicesLensPage() {
       ease: "power3.inOut"
     });
 
-    // 2. Reveal Next Slide (Curtain Effect)
+    // 2. Reveal Next Slide
     const nextSlide = document.querySelector(`.service-slide-${index}`);
 
-    gsap.set(nextSlide, { zIndex: 10, clipPath: direction === 1 ? "inset(100% 0 0 0)" : "inset(0 0 100% 0)" });
+    // Make sure next slide is visible for animation
+    gsap.set(nextSlide, { autoAlpha: 1, zIndex: 10, clipPath: direction === 1 ? "inset(100% 0 0 0)" : "inset(0 0 100% 0)" });
 
     gsap.to(nextSlide, {
       clipPath: "inset(0% 0 0 0)",
       duration: 1.2,
       ease: "expo.inOut",
       onComplete: () => {
-        // Reset Previous Slide
-        gsap.set(`.service-slide-${currentIndex}`, { zIndex: 0, clipPath: "inset(0 0 0 0)" });
-        gsap.set(`.service-slide-${currentIndex} .service-content`, { y: 0, opacity: 1 }); // Reset for next time
+        // Hide Previous Slide
+        gsap.set(`.service-slide-${currentIndex}`, { autoAlpha: 0, zIndex: 0, clipPath: "inset(0 0 0 0)" });
+        gsap.set(`.service-slide-${currentIndex} .service-content`, { y: 0, opacity: 1 });
 
         setCurrentIndex(index);
         setIsAnimating(false);
@@ -133,7 +142,7 @@ export default function ServicesLensPage() {
       {SERVICES.map((service, i) => (
         <div
           key={service.id}
-          className={`service-slide-${i} absolute inset-0 w-full h-full ${i === 0 ? 'z-10' : 'z-0'}`}
+          className={`service-slide-${i} absolute inset-0 w-full h-full`}
         >
           {/* Video Background */}
           <div className="absolute inset-0">
@@ -159,10 +168,8 @@ export default function ServicesLensPage() {
               </span>
             </div>
 
-            <h1 className="font-serif text-[12vw] md:text-[10vw] leading-[0.8] text-white mix-blend-overlay opacity-90 mb-8">
-              {service.title.split("").map((char, charIndex) => (
-                <span key={charIndex} className="service-title-char inline-block">{char}</span>
-              ))}
+            <h1 className="font-serif text-[10vw] md:text-[8vw] leading-[0.9] text-white mix-blend-overlay opacity-90 mb-8 max-w-5xl">
+              {service.title}
             </h1>
 
             <p className="max-w-xl text-white/80 text-lg md:text-xl font-light leading-relaxed mb-12">
