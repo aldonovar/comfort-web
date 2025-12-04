@@ -1,58 +1,14 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
-
-gsap.registerPlugin(ScrollTrigger);
 
 export default function Contacto() {
   const sectionRef = useRef<HTMLElement>(null);
   const [activeTab, setActiveTab] = useState<"menu" | "calendar">("menu");
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      // Split Screen Reveal
-      gsap.from(".contact-left", {
-        x: -50,
-        opacity: 0,
-        duration: 1.2,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top 70%",
-        }
-      });
-
-      gsap.from(".contact-right", {
-        x: 50,
-        opacity: 0,
-        duration: 1.2,
-        delay: 0.2,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top 70%",
-        }
-      });
-
-      // Stagger Menu Items
-      gsap.from(".contact-right", {
-        x: 50,
-        opacity: 0,
-        duration: 1.2,
-        delay: 0.2,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top 70%",
-        }
-      });
-
-    }, sectionRef);
-
-    return () => ctx.revert();
+    // Animations removed to ensure visibility
   }, []);
 
   return (
