@@ -123,11 +123,14 @@ export default function Hero() {
         {/* Night Mode Background */}
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2700&auto=format&fit=crop')] bg-cover bg-center opacity-0 dark:opacity-100 transition-opacity duration-1000" />
 
-        {/* Navbar Gradient (Top) - Ensures visibility of white/light text */}
-        <div className="absolute inset-x-0 top-0 h-32 bg-linear-to-b from-black/60 to-transparent z-10 pointer-events-none" />
+        {/* Global Overlay for Contrast */}
+        <div className="absolute inset-0 bg-black/30 z-10" />
 
-        {/* Text Gradient (Left) - Ensures legibility of hero text */}
-        <div className="absolute inset-y-0 left-0 w-full md:w-2/3 bg-linear-to-r from-primary/95 via-primary/70 to-transparent z-10 pointer-events-none transition-colors duration-500" />
+        {/* Navbar Gradient (Top) */}
+        <div className="absolute inset-x-0 top-0 h-40 bg-linear-to-b from-black/80 to-transparent z-10 pointer-events-none" />
+
+        {/* Text Gradient (Left) - Stronger for White Text */}
+        <div className="absolute inset-y-0 left-0 w-full md:w-3/4 bg-linear-to-r from-black/90 via-black/50 to-transparent z-10 pointer-events-none" />
       </div>
 
       {/* Content Grid */}
@@ -137,13 +140,13 @@ export default function Hero() {
         <div ref={textRef} className="md:col-span-7 flex flex-col justify-center space-y-8">
           <div className="w-20 h-px bg-terracota mb-4" />
 
-          <h1 className="font-serif text-5xl md:text-8xl leading-[1.1] md:leading-[0.9] tracking-tight">
+          <h1 className="font-serif text-5xl md:text-8xl leading-[1.1] md:leading-[0.9] tracking-tight text-white">
             Terrazas que se <br />
             <span className="italic text-terracota">sienten hogar</span> <br />
             desde el inicio.
           </h1>
 
-          <p className="text-lg md:text-xl text-primary/70 max-w-xl font-light leading-relaxed transition-colors duration-500">
+          <p className="text-lg md:text-xl text-white/80 max-w-xl font-light leading-relaxed">
             Transformamos terrazas, azoteas y patios en espacios diseñados
             con luz cálida, materiales premium y arquitectura pensada para ser vivida.
           </p>
@@ -156,10 +159,8 @@ export default function Hero() {
               </span>
             </Link>
 
-            <Link href="/contacto" className="group relative px-8 py-4 overflow-hidden rounded-full transition-all duration-500 hover:-translate-y-1">
-              <div className="absolute inset-0 border border-primary/30 group-hover:border-primary/60 transition-colors duration-500 rounded-full" />
-              <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <span className="relative z-10 font-bold uppercase tracking-widest text-sm flex items-center gap-2 text-primary">
+            <Link href="/contacto" className="group relative px-8 py-4 overflow-hidden rounded-full transition-all duration-500 hover:-translate-y-1 bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 hover:border-white/40">
+              <span className="relative z-10 font-bold uppercase tracking-widest text-sm flex items-center gap-2 text-white">
                 Agendar Reunión <span className="opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all duration-300">→</span>
               </span>
             </Link>
