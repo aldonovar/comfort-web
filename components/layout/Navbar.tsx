@@ -17,99 +17,99 @@ const NAV_ITEMS = [
 
 const MEGA_CONTENT: any = {
   servicios: {
-    defaultVideo: "https://cdn.coverr.co/videos/coverr-walking-by-a-wooden-wall-4608/1080p.mp4",
+    defaultImage: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=1920&auto=format&fit=crop",
     items: [
       {
         label: "Techo sol y sombra",
         href: "/servicios/techo-sol-y-sombra",
-        video: "https://cdn.coverr.co/videos/coverr-sunlight-through-trees-in-forest-4467/1080p.mp4",
+        image: "https://images.unsplash.com/photo-1510627489930-0c1b0bfb6785?q=80&w=1920&auto=format&fit=crop",
         desc: "Protección y estilo para tus exteriores."
       },
       {
         label: "Diseño y ejecución de proyecto de terraza",
         href: "/servicios/diseno-ejecucion-terrazas",
-        video: "https://cdn.coverr.co/videos/coverr-modern-architecture-with-pool-5686/1080p.mp4",
+        image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=1920&auto=format&fit=crop",
         desc: "Transformamos tu espacio de principio a fin."
       },
       {
         label: "Proyecto Estación de parrilla",
         href: "/servicios/estacion-parrilla",
-        video: "https://cdn.coverr.co/videos/coverr-grilling-meat-on-barbecue-4462/1080p.mp4",
+        image: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=1920&auto=format&fit=crop",
         desc: "El corazón de tus reuniones al aire libre."
       },
       {
         label: "Otro tipo de proyecto al aire libre",
         href: "/servicios/otros-proyectos",
-        video: "https://cdn.coverr.co/videos/coverr-fire-pit-in-the-evening-4465/1080p.mp4",
+        image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1920&auto=format&fit=crop",
         desc: "Soluciones personalizadas para cada necesidad."
       },
     ]
   },
   proyectos: {
-    defaultVideo: "https://cdn.coverr.co/videos/coverr-modern-architecture-building-4606/1080p.mp4",
+    defaultImage: "https://images.unsplash.com/photo-1600607687644-c7171b42498b?q=80&w=1920&auto=format&fit=crop",
     items: [
       {
         label: "Casa Miraflores",
         href: "/proyectos/miraflores",
-        video: "https://cdn.coverr.co/videos/coverr-modern-architecture-building-4606/1080p.mp4",
+        image: "https://images.unsplash.com/photo-1600607687644-c7171b42498b?q=80&w=1920&auto=format&fit=crop",
         desc: "Reforma integral de azotea frente al mar."
       },
       {
         label: "Loft Barranco",
         href: "/proyectos/barranco",
-        video: "https://cdn.coverr.co/videos/coverr-walking-inside-a-modern-home-4612/1080p.mp4",
+        image: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=1920&auto=format&fit=crop",
         desc: "Minimalismo cálido en espacio histórico."
       },
       {
         label: "Oficinas San Isidro",
         href: "/proyectos/san-isidro",
-        video: "https://cdn.coverr.co/videos/coverr-people-working-in-office-4855/1080p.mp4",
+        image: "https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1920&auto=format&fit=crop",
         desc: "Terraza ejecutiva de alto tránsito."
       },
     ]
   },
   estudio: {
-    defaultVideo: "https://cdn.coverr.co/videos/coverr-architect-working-on-plans-4602/1080p.mp4",
+    defaultImage: "https://images.unsplash.com/photo-1497366811353-6870744d04b2?q=80&w=1920&auto=format&fit=crop",
     items: [
       {
         label: "Filosofía",
         href: "/estudio#filosofia",
-        video: "https://cdn.coverr.co/videos/coverr-sunlight-hitting-a-plant-4610/1080p.mp4",
+        image: "https://images.unsplash.com/photo-1497366811353-6870744d04b2?q=80&w=1920&auto=format&fit=crop",
         desc: "Nuestra visión de la arquitectura sensorial."
       },
       {
         label: "Equipo",
         href: "/estudio#equipo",
-        video: "https://cdn.coverr.co/videos/coverr-team-working-together-4851/1080p.mp4",
+        image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1920&auto=format&fit=crop",
         desc: "Conoce a los arquitectos detrás de cada proyecto."
       },
       {
         label: "Proceso",
         href: "/estudio#proceso",
-        video: "https://cdn.coverr.co/videos/coverr-hands-drawing-on-paper-4604/1080p.mp4",
+        image: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=1920&auto=format&fit=crop",
         desc: "Cómo llevamos tu idea a la realidad."
       }
     ]
   },
   contacto: {
-    defaultVideo: "https://cdn.coverr.co/videos/coverr-typing-on-keyboard-4600/1080p.mp4",
+    defaultImage: "https://images.unsplash.com/photo-1423666639041-f56000c27a9a?q=80&w=1920&auto=format&fit=crop",
     items: [
       {
         label: "Agendar Cita",
         href: "/contacto",
-        video: "https://cdn.coverr.co/videos/coverr-typing-on-keyboard-4600/1080p.mp4",
+        image: "https://images.unsplash.com/photo-1423666639041-f56000c27a9a?q=80&w=1920&auto=format&fit=crop",
         desc: "Reserva una reunión con nuestro equipo."
       },
       {
         label: "WhatsApp",
         href: "https://wa.me/51919693180",
-        video: "https://cdn.coverr.co/videos/coverr-person-typing-on-phone-4601/1080p.mp4",
+        image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1920&auto=format&fit=crop",
         desc: "Chat directo: +51 919 693 180"
       },
       {
         label: "Ubicación",
         href: "/contacto#mapa",
-        video: "https://cdn.coverr.co/videos/coverr-walking-in-city-4605/1080p.mp4",
+        image: "https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?q=80&w=1920&auto=format&fit=crop",
         desc: "Visítanos en nuestras oficinas en Lima."
       }
     ]
@@ -124,7 +124,6 @@ export default function Navbar() {
 
   const headerRef = useRef<HTMLElement>(null);
   const megaRef = useRef<HTMLDivElement>(null);
-  const videoRef = useRef<HTMLVideoElement>(null);
   const pathname = usePathname();
 
   // Scroll Listener (Optimized)
@@ -158,7 +157,7 @@ export default function Navbar() {
       tl.to(megaRef.current, {
         height: "auto",
         opacity: 1,
-        duration: 0.5, // Slower, smoother
+        duration: 0.5,
         overwrite: true
       })
         .fromTo(megaRef.current.querySelectorAll(".mega-link"),
@@ -170,33 +169,27 @@ export default function Navbar() {
       gsap.to(megaRef.current, {
         height: 0,
         opacity: 0,
-        duration: 0.5, // Slower fade out
-        ease: "power3.inOut", // Smoother ease
+        duration: 0.5,
+        ease: "power3.inOut",
         overwrite: true
       });
       setActiveSubItem(null);
     }
   }, [activeMega]);
 
-  // Video Transition (Optimized & Smoother)
+  // Image Transition (Optimized & Smoother)
   useEffect(() => {
-    if (videoRef.current && activeMega) {
-      const newSrc = activeSubItem?.video || MEGA_CONTENT[activeMega]?.defaultVideo;
-      if (newSrc && videoRef.current.src !== newSrc) {
-        // Crossfade effect
+    if (activeMega) {
+      const newSrc = activeSubItem?.image || MEGA_CONTENT[activeMega]?.defaultImage;
+      if (newSrc) {
+        // Crossfade effect for image
         const tl = gsap.timeline();
-        tl.to(videoRef.current, { opacity: 0, duration: 0.3 })
+        tl.to(".mega-image", { opacity: 0, duration: 0.3 })
           .add(() => {
-            if (videoRef.current) {
-              videoRef.current.src = newSrc;
-              videoRef.current.load();
-              const playPromise = videoRef.current.play();
-              if (playPromise !== undefined) {
-                playPromise.catch(() => { });
-              }
-            }
+            // We don't need to manually set src here as React handles it, 
+            // but we animate opacity to create the transition effect
           })
-          .to(videoRef.current, { opacity: 0.6, duration: 0.5 });
+          .to(".mega-image", { opacity: 0.4, duration: 0.5 });
       }
     }
   }, [activeSubItem, activeMega]);
@@ -319,13 +312,14 @@ export default function Navbar() {
                 ))}
               </div>
 
-              {/* Right: Immersive Video Preview */}
+              {/* Right: Immersive Image Preview */}
               <div className="w-2/3 h-full relative overflow-hidden bg-black">
-                <video
-                  ref={videoRef}
-                  autoPlay muted loop playsInline
-                  className="absolute inset-0 w-full h-full object-cover opacity-40 transition-opacity duration-700"
-                  src={MEGA_CONTENT[activeMega].defaultVideo}
+                <Image
+                  src={activeSubItem?.image || MEGA_CONTENT[activeMega].defaultImage}
+                  alt={activeSubItem?.label || activeMega}
+                  fill
+                  className="mega-image object-cover opacity-40 transition-opacity duration-700"
+                  priority
                 />
 
                 {/* Overlay Content */}

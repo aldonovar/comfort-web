@@ -13,29 +13,35 @@ export default function Contacto() {
   useEffect(() => {
     const ctx = gsap.context(() => {
       // Header Animation
-      gsap.from(".contact-header-reveal", {
-        y: 50,
-        opacity: 0,
-        duration: 1,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top 70%",
+      gsap.fromTo(".contact-header-reveal",
+        { y: 50, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 1,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 70%",
+          }
         }
-      });
+      );
 
       // Cards Animation
-      gsap.from(".contact-card", {
-        y: 50,
-        opacity: 0,
-        duration: 0.8,
-        stagger: 0.1,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: ".contact-grid",
-          start: "top 80%",
+      gsap.fromTo(".contact-card",
+        { y: 50, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.8,
+          stagger: 0.1,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: ".contact-grid",
+            start: "top 80%",
+          }
         }
-      });
+      );
 
     }, sectionRef);
 
