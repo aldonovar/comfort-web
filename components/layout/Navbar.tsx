@@ -1,49 +1,47 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import gsap from "gsap";
 import { usePathname } from "next/navigation";
+import gsap from "gsap";
 import ThemeToggle from "../ui/ThemeToggle";
 
-// --- Configuration ---
 const NAV_ITEMS = [
-  { id: "inicio", label: "Inicio", href: "/" },
-  { id: "servicios", label: "Servicios", href: "/servicios", hasMega: true },
-  { id: "proyectos", label: "Proyectos", href: "/proyectos", hasMega: true },
-  { id: "estudio", label: "Estudio", href: "/estudio", hasMega: true },
-  { id: "contacto", label: "Contacto", href: "/contacto", hasMega: true },
+  { id: "proyectos", label: "Proyectos", href: "/proyectos" },
+  { id: "estudio", label: "Estudio", href: "/estudio" },
+  { id: "servicios", label: "Servicios", href: "/servicios" },
+  { id: "contacto", label: "Contacto", href: "/contacto" },
 ];
 
 const MEGA_CONTENT: any = {
   servicios: {
-    defaultImage: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=1920&auto=format&fit=crop",
+    defaultImage: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1920&auto=format&fit=crop",
     items: [
       {
         label: "Techo sol y sombra",
         href: "/servicios/techo-sol-y-sombra",
-        image: "https://images.unsplash.com/photo-1510627489930-0c1b0bfb6785?q=80&w=1920&auto=format&fit=crop",
-        desc: "Protección y estilo para tus exteriores."
+        image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1920&auto=format&fit=crop",
+        desc: "Estructuras que combinan luz y protección."
       },
       {
         label: "Diseño y ejecución de proyecto de terraza",
-        href: "/servicios/diseno-ejecucion-terrazas",
+        href: "/servicios/diseno-ejecucion",
         image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=1920&auto=format&fit=crop",
-        desc: "Transformamos tu espacio de principio a fin."
+        desc: "Transformación integral de espacios exteriores."
       },
       {
         label: "Proyecto Estación de parrilla",
-        href: "/servicios/estacion-parrilla",
-        image: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=1920&auto=format&fit=crop",
-        desc: "El corazón de tus reuniones al aire libre."
+        href: "/servicios/parrilla",
+        image: "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?q=80&w=1920&auto=format&fit=crop",
+        desc: "El corazón de tu terraza, diseñado para compartir."
       },
       {
         label: "Otro tipo de proyecto al aire libre",
-        href: "/servicios/otros-proyectos",
-        image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1920&auto=format&fit=crop",
-        desc: "Soluciones personalizadas para cada necesidad."
-      },
+        href: "/servicios/otros",
+        image: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=1920&auto=format&fit=crop",
+        desc: "Paisajismo, piscinas y zonas de relax."
+      }
     ]
   },
   proyectos: {
@@ -253,7 +251,7 @@ export default function Navbar() {
         ref={headerRef}
         onMouseLeave={handleMouseLeave}
         className={`fixed top-0 left-0 right-0 z-100 transition-all duration-700 will-change-transform ${scrolled || activeMega || mobileOpen
-          ? "bg-primary/90 backdrop-blur-md py-4 border-b border-primary/5"
+          ? "bg-[var(--bg-primary)] py-4 border-b border-primary/5"
           : "bg-transparent py-8"
           }`}
       >
@@ -335,7 +333,7 @@ export default function Navbar() {
         {/* --- MEGA MENU --- */}
         <div
           ref={megaRef}
-          className="absolute top-full left-0 w-full bg-primary border-t border-primary/5 overflow-hidden shadow-2xl h-0 opacity-0"
+          className="absolute top-full left-0 w-full bg-[var(--bg-primary)] border-t border-primary/5 overflow-hidden shadow-2xl h-0 opacity-0"
         >
           {activeMega && MEGA_CONTENT[activeMega] && (
             <div className="relative w-full h-[50vh] flex max-w-[1800px] mx-auto">
