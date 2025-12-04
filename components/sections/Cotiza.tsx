@@ -102,8 +102,8 @@ const CustomSelect = ({
       <div
         onClick={() => setIsOpen(!isOpen)}
         className={`
-          w-full bg-primary/5 hover:bg-primary/10 rounded-xl px-4 py-3 text-sm md:text-base cursor-pointer flex justify-between items-center transition-all duration-300 border border-transparent
-          ${isOpen ? 'ring-1 ring-terracota bg-primary/10' : 'hover:border-primary/10'}
+          w-full bg-white/5 hover:bg-white/10 rounded-xl px-4 py-3 text-sm md:text-base cursor-pointer flex justify-between items-center transition-all duration-300 border border-white/5
+          ${isOpen ? 'ring-1 ring-terracota bg-white/10' : 'hover:border-white/10'}
         `}
       >
         <span className={`truncate mr-2 ${value ? "text-primary" : "text-primary/40"}`}>
@@ -166,7 +166,7 @@ const CustomInput = ({
       value={value}
       onChange={(e) => onChange(e.target.value)}
       placeholder={placeholder}
-      className="w-full bg-primary/5 hover:bg-primary/10 rounded-xl px-4 py-3 text-sm md:text-base focus:outline-none focus:ring-1 focus:ring-terracota focus:bg-primary/10 transition-all duration-300 placeholder-primary/30 text-primary border border-transparent hover:border-primary/10"
+      className="w-full bg-white/5 hover:bg-white/10 rounded-xl px-4 py-3 text-sm md:text-base focus:outline-none focus:ring-1 focus:ring-terracota focus:bg-white/10 transition-all duration-300 placeholder-primary/30 text-primary border border-white/5 hover:border-white/10"
     />
   </div>
 );
@@ -371,26 +371,26 @@ export default function Cotiza() {
         <div className="grid lg:grid-cols-[1fr_1fr] gap-8 lg:gap-16 items-center">
 
           {/* Form Side - NOW WITH CONTAINER */}
-          <div className="quote-content bg-secondary/50 backdrop-blur-xl border border-white/5 rounded-3xl p-8 md:p-12 shadow-2xl">
-            <div className="mb-8 quote-item">
+          <div className="quote-content bg-secondary/50 backdrop-blur-xl border border-white/5 rounded-3xl p-6 md:p-8 shadow-2xl">
+            <div className="mb-6 quote-item">
               <span className="block text-terracota text-[9px] tracking-[0.3em] uppercase font-bold mb-2">
                 Concierge
               </span>
-              <h2 className="font-serif text-3xl md:text-5xl leading-tight">
+              <h2 className="font-serif text-3xl md:text-4xl leading-tight text-white">
                 Diseñemos tu <br />
-                <span className="text-primary/40 italic transition-colors duration-500">próximo escenario.</span>
+                <span className="text-terracota italic transition-colors duration-500">próximo escenario.</span>
               </h2>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-6 max-w-xl">
+            <form onSubmit={handleSubmit} className="space-y-4 max-w-xl">
 
               {/* 01. Proyecto */}
-              <div className="space-y-4 quote-item">
-                <h3 className="text-[10px] uppercase tracking-widest text-primary/40 font-bold transition-colors duration-500 mb-2 border-b border-primary/10 pb-2">
+              <div className="space-y-3 quote-item">
+                <h3 className="text-[10px] uppercase tracking-widest text-primary/40 font-bold transition-colors duration-500 mb-2 border-b border-primary/10 pb-1">
                   01. El Proyecto
                 </h3>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                   <div className="md:col-span-2">
                     <CustomSelect
                       label="Tipo de Espacio"
@@ -428,12 +428,12 @@ export default function Cotiza() {
               </div>
 
               {/* 02. Datos */}
-              <div className="space-y-4 quote-item">
-                <h3 className="text-[10px] uppercase tracking-widest text-primary/40 font-bold transition-colors duration-500 mb-2 border-b border-primary/10 pb-2">
+              <div className="space-y-3 quote-item">
+                <h3 className="text-[10px] uppercase tracking-widest text-primary/40 font-bold transition-colors duration-500 mb-2 border-b border-primary/10 pb-1">
                   02. Tus Datos
                 </h3>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                   <CustomInput
                     label="Nombre"
                     value={name}
@@ -471,18 +471,18 @@ export default function Cotiza() {
                     value={notes}
                     onChange={(e) => setNotes(e.target.value)}
                     placeholder="Detalles adicionales..."
-                    rows={2}
-                    className="w-full bg-primary/5 hover:bg-primary/10 rounded-xl p-4 text-sm focus:outline-none focus:ring-1 focus:ring-terracota transition-all duration-300 placeholder-primary/30 resize-none text-primary"
+                    rows={1}
+                    className="w-full bg-white/5 hover:bg-white/10 rounded-xl p-3 text-sm focus:outline-none focus:ring-1 focus:ring-terracota transition-all duration-300 placeholder-primary/30 resize-none text-primary border border-white/5"
                   />
                 </div>
               </div>
 
-              <div className="quote-item pt-4">
+              <div className="quote-item pt-2">
                 <button
                   type="submit"
                   disabled={!isFormReady || isSubmitting}
                   className={`
-                    group w-full py-5 rounded-xl transition-all duration-500 flex items-center justify-center gap-3
+                    group w-full py-4 rounded-xl transition-all duration-500 flex items-center justify-center gap-3
                     ${isFormReady && !isSubmitting
                       ? 'bg-terracota text-white shadow-lg shadow-terracota/20 hover:shadow-terracota/40 hover:scale-[1.02] cursor-pointer'
                       : 'bg-primary/10 text-primary/30 cursor-not-allowed'}
@@ -501,7 +501,7 @@ export default function Cotiza() {
           {/* Ticket Preview Side - Ultra Premium */}
           <div className="flex justify-center items-center quote-content delay-100 h-full mt-8 lg:mt-0 perspective-1000">
             <div
-              className="relative w-full max-w-sm aspect-3/4 rounded-[2rem] bg-white/5 backdrop-blur-2xl overflow-hidden shadow-2xl flex flex-col group transition-all duration-700 hover:shadow-[0_20px_50px_rgba(0,0,0,0.2)] hover:-translate-y-2"
+              className="relative w-full max-w-md aspect-3/4 rounded-[2.5rem] bg-white/5 backdrop-blur-2xl overflow-hidden shadow-2xl flex flex-col group transition-all duration-700 hover:shadow-[0_30px_60px_rgba(0,0,0,0.3)] hover:-translate-y-2 scale-110"
               style={{ transformStyle: 'preserve-3d' }}
             >
 
