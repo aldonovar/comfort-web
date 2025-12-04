@@ -90,8 +90,9 @@ export default function Estudio() {
       {/* Background Noise */}
       <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div>
 
-      {/* Subtle Color Gradient Blob */}
-      <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-terracota/5 blur-[100px] rounded-full pointer-events-none mix-blend-screen" />
+      {/* Vibrant Gradient Orbs */}
+      <div className="absolute top-[-20%] left-[-10%] w-[800px] h-[800px] bg-terracota/10 blur-[120px] rounded-full pointer-events-none mix-blend-screen animate-pulse duration-[10000ms]" />
+      <div className="absolute bottom-[-20%] right-[-10%] w-[600px] h-[600px] bg-orange-500/10 blur-[100px] rounded-full pointer-events-none mix-blend-screen" />
 
       <div className="max-w-[1800px] mx-auto px-6 md:px-12 relative z-10">
 
@@ -99,18 +100,24 @@ export default function Estudio() {
 
           {/* Header (Left) */}
           <div className="studio-header-reveal lg:sticky lg:top-32">
-            <span className="block text-terracota text-xs tracking-[0.3em] uppercase font-bold mb-4">
-              El Estudio
-            </span>
-            <h2 className="font-serif text-4xl md:text-6xl leading-[1.1] mb-8">
-              No hacemos terrazas. <br />
-              <span className="text-primary/40 italic transition-colors duration-500">Creamos escenarios de vida.</span>
+            <div className="flex items-center gap-4 mb-6">
+              <span className="w-12 h-px bg-terracota"></span>
+              <span className="text-terracota text-xs tracking-[0.3em] uppercase font-bold">
+                El Estudio
+              </span>
+            </div>
+
+            <h2 className="font-serif text-5xl md:text-7xl leading-[1] mb-8">
+              No hacemos <br />
+              <span className="text-terracota italic">terrazas.</span> <br />
+              <span className="text-primary/40">Creamos escenarios.</span>
             </h2>
-            <p className="text-primary/60 text-lg leading-relaxed max-w-md mb-10 transition-colors duration-500">
-              Comfort Studio nace de una obsesión: tratar el exterior con el mismo rigor, lujo y calidez que el interior más exclusivo.
+
+            <p className="text-primary/70 text-lg leading-relaxed max-w-md mb-10 transition-colors duration-500">
+              <span className="text-terracota font-bold">Comfort Studio</span> nace de una obsesión: tratar el exterior con el mismo <span className="text-primary font-medium">rigor, lujo y calidez</span> que el interior más exclusivo.
             </p>
 
-            <button className="group relative px-8 py-4 bg-transparent border border-terracota text-terracota rounded-full overflow-hidden transition-all duration-300 hover:shadow-lg hover:shadow-terracota/20">
+            <button className="group relative px-8 py-4 bg-transparent border border-terracota text-terracota rounded-full overflow-hidden transition-all duration-300 hover:shadow-xl hover:shadow-terracota/20 hover:scale-105 active:scale-95">
               <div className="absolute inset-0 bg-terracota translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out" />
               <span className="relative z-10 flex items-center gap-3 text-xs font-bold uppercase tracking-widest group-hover:text-white transition-colors duration-300">
                 Conocer al equipo
@@ -128,7 +135,7 @@ export default function Estudio() {
                   studio-card-reveal relative rounded-3xl overflow-hidden group transition-all duration-500
                   ${item.colSpan}
                   min-h-[300px] md:min-h-[350px]
-                  border border-primary/10 hover:border-primary/30
+                  border border-primary/10 hover:border-terracota/50 hover:shadow-2xl hover:shadow-terracota/10
                 `}
               >
                 {/* Background Image (for specific cards) */}
@@ -148,7 +155,7 @@ export default function Estudio() {
 
                 {/* Glass Background for others */}
                 {item.id !== 'enfoque' && item.id !== 'detalle' && (
-                  <div className="absolute inset-0 bg-primary/5 backdrop-blur-sm group-hover:bg-primary/10 transition-colors duration-500" />
+                  <div className="absolute inset-0 bg-primary/5 backdrop-blur-md group-hover:bg-primary/10 transition-colors duration-500" />
                 )}
 
                 {/* Content */}
@@ -156,7 +163,7 @@ export default function Estudio() {
                   <div className="flex justify-between items-start">
                     <span className={`
                       px-3 py-1 rounded-full text-[10px] uppercase tracking-widest border transition-colors duration-500
-                      ${(item.id === 'enfoque' || item.id === 'detalle') ? 'border-white/20 bg-white/10 text-white' : 'border-primary/10 bg-primary/5 text-primary/60'}
+                      ${(item.id === 'enfoque' || item.id === 'detalle') ? 'border-white/20 bg-white/10 text-white' : 'border-primary/10 bg-primary/5 text-primary/60 group-hover:border-terracota/30 group-hover:text-terracota'}
                     `}>
                       {item.label}
                     </span>
@@ -169,7 +176,7 @@ export default function Estudio() {
                     <div className="grid grid-cols-3 gap-4 mt-auto">
                       {item.stats?.map((stat, i) => (
                         <div key={i}>
-                          <span className="block text-3xl md:text-4xl font-serif text-primary mb-1 transition-colors duration-500">{stat.value}</span>
+                          <span className="block text-3xl md:text-5xl font-serif text-primary mb-2 transition-colors duration-500 group-hover:text-terracota">{stat.value}</span>
                           <span className="block text-[10px] uppercase tracking-wider text-primary/40 transition-colors duration-500">{stat.label}</span>
                         </div>
                       ))}
