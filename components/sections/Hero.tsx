@@ -17,6 +17,13 @@ const ROTATING_TAGS = [
   "ESPACIOS ÚNICOS"
 ];
 
+const HERO_IMAGES = [
+  "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=2653&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2700&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?q=80&w=2670&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=2574&auto=format&fit=crop"
+];
+
 export default function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLDivElement>(null);
@@ -31,6 +38,18 @@ export default function Hero() {
   // Rotating Tag State
   const [currentTagIndex, setCurrentTagIndex] = useState(0);
   const [isTagVisible, setIsTagVisible] = useState(true);
+
+  // Background Slideshow State
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  useEffect(() => {
+    // Background Slideshow Interval
+    const imageInterval = setInterval(() => {
+      setCurrentImageIndex((prev) => (prev + 1) % HERO_IMAGES.length);
+    }, 5000); // Change every 5 seconds
+
+    return () => clearInterval(imageInterval);
+  }, []);
 
   useEffect(() => {
     // Rotating Tag Interval
@@ -90,20 +109,21 @@ export default function Hero() {
 
   }, []);
 
-  // 3D Tilt Logic
+  // Global 3D Tilt Logic
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!cardRef.current) return;
+    if (!containerRef.current) return;
 
-    const card = cardRef.current;
-    const rect = card.getBoundingClientRect();
+    const rect = containerRef.current.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
 
     const centerX = rect.width / 2;
     const centerY = rect.height / 2;
 
-    const rotateX = ((y - centerY) / centerY) * -10; // Max rotation deg
-    const rotateY = ((x - centerX) / centerX) * 10;
+    // Calculate tilt based on distance from center of the SECTION, not just the card
+    // Invert X/Y for natural feel
+    const rotateX = ((y - centerY) / centerY) * -5; // Reduced intensity for global effect
+    const rotateY = ((x - centerX) / centerX) * 5;
 
     setTilt({ x: rotateX, y: rotateY });
   };
@@ -113,18 +133,25 @@ export default function Hero() {
   };
 
   return (
-    <section ref={containerRef} className="relative min-h-dvh w-full overflow-hidden bg-primary text-primary flex items-center transition-colors duration-500">
+    <section
+      ref={containerRef}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      className="relative min-h-dvh w-full overflow-hidden bg-primary text-primary flex items-center transition-colors duration-500"
+    >
 
-      {/* Background Images (Day/Night) */}
+      {/* Background Images Slideshow */}
       <div className="absolute inset-0 z-0">
-        {/* Day Mode Background */}
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=2653&auto=format&fit=crop')] bg-cover bg-center opacity-100 dark:opacity-0 transition-opacity duration-1000" />
-
-        {/* Night Mode Background */}
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2700&auto=format&fit=crop')] bg-cover bg-center opacity-0 dark:opacity-100 transition-opacity duration-1000" />
+        {HERO_IMAGES.map((img, index) => (
+          <div
+            key={img}
+            className={`absolute inset-0 bg-cover bg-center transition-opacity duration-1000 ease-in-out ${index === currentImageIndex ? 'opacity-100' : 'opacity-0'}`}
+            style={{ backgroundImage: `url('${img}')` }}
+          />
+        ))}
 
         {/* Global Overlay for Contrast */}
-        <div className="absolute inset-0 bg-black/30 z-10" />
+        <div className="absolute inset-0 bg-black/40 z-10" />
 
         {/* Navbar Gradient (Top) */}
         <div className="absolute inset-x-0 top-0 h-40 bg-linear-to-b from-black/80 to-transparent z-10 pointer-events-none" />
@@ -171,8 +198,6 @@ export default function Hero() {
         <div className="hidden md:col-span-5 md:flex justify-end relative perspective-1000">
           <div
             ref={cardRef}
-            onMouseMove={handleMouseMove}
-            onMouseLeave={handleMouseLeave}
             style={{
               transform: `perspective(1000px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
               transition: "transform 0.1s ease-out"
