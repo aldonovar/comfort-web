@@ -358,15 +358,15 @@ export default function Cotiza() {
     <section
       ref={sectionRef}
       id="cotiza"
-      className="relative bg-primary text-primary min-h-screen flex items-center py-20 border-t border-primary/5 transition-colors duration-500"
+      className="relative bg-primary text-primary min-h-screen flex items-center py-4 border-t border-primary/5 transition-colors duration-500"
     >
       <div className="max-w-[1600px] mx-auto px-6 md:px-12 w-full">
 
-        <div className="grid lg:grid-cols-[1fr_1fr] gap-12 lg:gap-24 items-center">
+        <div className="grid lg:grid-cols-[1fr_1fr] gap-8 lg:gap-12 items-center">
 
           {/* Form Side */}
           <div className="quote-content">
-            <div className="mb-8">
+            <div className="mb-4">
               <span className="block text-terracota text-[9px] tracking-[0.3em] uppercase font-bold mb-2">
                 Concierge
               </span>
@@ -376,15 +376,15 @@ export default function Cotiza() {
               </h2>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-6 max-w-xl">
+            <form onSubmit={handleSubmit} className="space-y-3 max-w-xl">
 
               {/* 01. Proyecto */}
-              <div className="space-y-4">
-                <h3 className="text-[10px] uppercase tracking-widest text-primary/60 border-b border-primary/10 pb-2 font-bold transition-colors duration-500">
+              <div className="space-y-2">
+                <h3 className="text-[10px] uppercase tracking-widest text-primary/60 border-b border-primary/10 pb-1 font-bold transition-colors duration-500">
                   01. El Proyecto
                 </h3>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                   <div className="md:col-span-2">
                     <CustomSelect
                       label="Tipo de Espacio"
@@ -422,12 +422,12 @@ export default function Cotiza() {
               </div>
 
               {/* 02. Datos */}
-              <div className="space-y-4">
-                <h3 className="text-[10px] uppercase tracking-widest text-primary/60 border-b border-primary/10 pb-2 font-bold transition-colors duration-500">
+              <div className="space-y-2">
+                <h3 className="text-[10px] uppercase tracking-widest text-primary/60 border-b border-primary/10 pb-1 font-bold transition-colors duration-500">
                   02. Tus Datos
                 </h3>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                   <CustomInput
                     label="Nombre"
                     value={name}
@@ -458,7 +458,7 @@ export default function Cotiza() {
                 </div>
 
                 <div className="group">
-                  <label className="block text-[10px] uppercase tracking-widest text-primary/70 mb-2 group-focus-within:text-terracota transition-colors font-medium">
+                  <label className="block text-[10px] uppercase tracking-widest text-primary/70 mb-1 group-focus-within:text-terracota transition-colors font-medium">
                     Notas
                   </label>
                   <textarea
@@ -466,7 +466,7 @@ export default function Cotiza() {
                     onChange={(e) => setNotes(e.target.value)}
                     placeholder="Detalles adicionales..."
                     rows={2}
-                    className="w-full bg-primary/5 rounded-lg border border-primary/20 p-3 text-sm focus:outline-none focus:border-terracota transition-colors placeholder-primary/40 resize-none text-primary"
+                    className="w-full bg-primary/5 rounded-lg border border-primary/20 p-2 text-sm focus:outline-none focus:border-terracota transition-colors placeholder-primary/40 resize-none text-primary"
                   />
                 </div>
               </div>
@@ -475,9 +475,9 @@ export default function Cotiza() {
                 type="submit"
                 disabled={!isFormReady || isSubmitting}
                 className={`
-                  group w-full py-4 rounded-lg border transition-all duration-300 flex items-center justify-center gap-3 mt-4
+                  group w-full py-3 rounded-lg border transition-all duration-300 flex items-center justify-center gap-3 mt-4
                   ${isFormReady && !isSubmitting
-                    ? 'bg-(--text-primary) text-(--bg-primary) border-(--text-primary) hover:bg-terracota hover:border-terracota hover:text-white cursor-pointer shadow-[0_0_30px_rgba(255,255,255,0.1)]'
+                    ? 'bg-[var(--text-primary)] text-[var(--bg-primary)] border-[var(--text-primary)] hover:bg-terracota hover:border-terracota hover:text-white cursor-pointer shadow-[0_0_30px_rgba(255,255,255,0.1)]'
                     : 'bg-primary/5 text-primary/20 border-primary/5 cursor-not-allowed'}
                 `}
               >
@@ -491,14 +491,14 @@ export default function Cotiza() {
           </div>
 
           {/* Ticket Preview Side - Ultra Premium */}
-          <div className="flex justify-center items-center quote-content delay-100 h-full mt-12 lg:mt-0">
-            <div className="relative w-full max-w-md aspect-3/4 rounded-4xl bg-secondary border border-primary/10 overflow-hidden shadow-2xl flex flex-col group transition-colors duration-500">
+          <div className="flex justify-center items-center quote-content delay-100 h-full mt-8 lg:mt-0">
+            <div className="relative w-full max-w-sm aspect-3/4 rounded-3xl bg-secondary border border-primary/10 overflow-hidden shadow-2xl flex flex-col group transition-colors duration-500">
 
               {/* Holographic/Glass Effect Overlay */}
               <div className="absolute inset-0 bg-linear-to-br from-primary/5 to-transparent pointer-events-none z-20 transition-colors duration-500" />
 
               {/* Image Area - Cinematic Transition */}
-              <div className="relative h-1/2 overflow-hidden bg-secondary">
+              <div className="relative h-1/2 overflow-hidden bg-black">
                 {projectType && SERVICE_IMAGES[projectType]?.map((img, index) => (
                   <div
                     key={img}
@@ -508,7 +508,8 @@ export default function Cotiza() {
                     `}
                   >
                     <img src={img} alt="" className="w-full h-full object-cover" />
-                    <div className="absolute inset-0 bg-linear-to-t from-secondary via-transparent to-transparent opacity-80 transition-colors duration-500" />
+                    {/* Dark Overlay for Text Legibility */}
+                    <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/40 to-transparent opacity-100 transition-colors duration-500" />
                   </div>
                 ))}
 
@@ -524,8 +525,8 @@ export default function Cotiza() {
                   </div>
                 </div>
 
-                <div className="absolute bottom-6 left-6 z-30">
-                  <span className="block text-[9px] uppercase tracking-[0.2em] text-white/60 mb-1">Ticket #{ticketNumber}</span>
+                <div className="absolute bottom-6 left-6 z-30 drop-shadow-md">
+                  <span className="block text-[9px] uppercase tracking-[0.2em] text-white/80 mb-1">Ticket #{ticketNumber}</span>
                   <h3 className="font-serif text-2xl text-white leading-none">
                     {projectType || "Nuevo Proyecto"}
                   </h3>
@@ -533,10 +534,10 @@ export default function Cotiza() {
               </div>
 
               {/* Ticket Details */}
-              <div className="flex-1 p-8 bg-secondary relative z-10 flex flex-col justify-between transition-colors duration-500">
+              <div className="flex-1 p-6 bg-secondary relative z-10 flex flex-col justify-between transition-colors duration-500">
 
                 {/* Info Grid */}
-                <div className="grid grid-cols-2 gap-y-6 gap-x-4">
+                <div className="grid grid-cols-2 gap-y-4 gap-x-4">
                   <div>
                     <span className="block text-[10px] uppercase tracking-widest text-primary/50 mb-1 font-medium transition-colors duration-500">Cliente</span>
                     <p className="text-sm text-primary font-medium truncate transition-colors duration-500">{name || "—"}</p>
@@ -557,7 +558,7 @@ export default function Cotiza() {
                 </div>
 
                 {/* Footer with Stealth ID */}
-                <div className="pt-6 border-t border-primary/5 flex justify-between items-end transition-colors duration-500">
+                <div className="pt-4 border-t border-primary/5 flex justify-between items-end transition-colors duration-500">
                   <div>
                     <p className="text-[10px] uppercase tracking-widest text-primary/50 font-medium transition-colors duration-500">ID de Atención</p>
                     <p className="font-mono text-[10px] text-primary/20 mt-1 tracking-widest select-all hover:text-terracota transition-colors cursor-help" title="Código interno de seguimiento">
