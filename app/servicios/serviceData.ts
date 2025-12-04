@@ -2,32 +2,7 @@
 
 export const services = [
 
-  {
-    slug: "diseno-ejecucion-terraza",
-    name: "Diseño y ejecución de proyecto de terraza",
-    category: "Proyecto integral",
-    shortDescription:
-      "Del concepto a la entrega final: un solo equipo se encarga de diseño, obra y ambientación.",
-    heroTagline: "Un único estudio para todo lo que pasa en tu terraza.",
-    longDescription:
-      "Cuando la terraza se vuelve protagonista de la casa, el proyecto integral permite alinear decisión estética, uso diario y presupuesto. No es solo \"arreglar\" el espacio: es pensar circulaciones, vistas, iluminación, parrilla, barra, vegetación y mobiliario como un sistema completo.",
-    idealFor: [
-      "Familias que quieren que la terraza sea su espacio principal de reunión.",
-      "Clientes que prefieren trabajar con un único interlocutor para diseño y obra.",
-      "Proyectos donde la terraza se ve desde la sala, comedor o dormitorios.",
-    ],
-    includes: [
-      "Diagnóstico del espacio (vistas, orientación, reglamentos, instalaciones existentes).",
-      "Concepto de diseño, planos, vistas y definición de materiales.",
-      "Ejecución de obra, coordinación con edificio y entrega final limpia.",
-    ],
-    specs: {
-      rangoMetros: "Desde 15 m² hasta 150 m²",
-      tipoObra: "Integral (diseño + obra)",
-      duracion: "6 a 12 semanas según alcance",
-      inversion: "Se ajusta a fases y materiales definidos en conjunto",
-    },
-  },
+
   {
     slug: "proyecto-estacion-parrilla",
     name: "Proyecto estación de parrilla",
