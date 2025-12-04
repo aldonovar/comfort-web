@@ -125,6 +125,7 @@ export default function Navbar() {
   // Image Transition State
   const [currentImage, setCurrentImage] = useState<string>("");
   const [nextImage, setNextImage] = useState<string>("");
+  const prevImageRef = useRef<string>("");
 
   const headerRef = useRef<HTMLElement>(null);
   const megaRef = useRef<HTMLDivElement>(null);
@@ -179,6 +180,7 @@ export default function Navbar() {
       setActiveSubItem(null);
       setCurrentImage("");
       setNextImage("");
+      prevImageRef.current = ""; // Reset
     }
   }, [activeMega]);
 
@@ -207,17 +209,19 @@ export default function Navbar() {
         setNextImage(targetImage);
       }
     }
-  }, [activeSubItem, activeMega]); // Removed currentImage dependency to avoid loops
+  }, [activeSubItem, activeMega]);
 
   // 2. Animate Initial Load (Current Image)
   useEffect(() => {
-    if (currentImage && !nextImage) {
-      // Only animate if we are NOT in the middle of a crossfade
+    // Only animate if we went from NO image to SOME image (Initial Open)
+    if (currentImage && !prevImageRef.current && !nextImage) {
       gsap.fromTo(".current-image",
         { opacity: 0 },
         { opacity: 0.4, duration: 0.8, overwrite: true }
       );
     }
+    // Update ref
+    prevImageRef.current = currentImage;
   }, [currentImage]);
 
   // 3. Animate Crossfade (Next Image)
@@ -250,7 +254,6 @@ export default function Navbar() {
       );
     }
   }, [activeSubItem, activeMega]);
-
 
   const handleMouseEnter = (id: string) => {
     if (MEGA_CONTENT[id]) {
