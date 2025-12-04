@@ -95,18 +95,18 @@ const CustomSelect = ({
 
   return (
     <div className="group relative" ref={containerRef}>
-      <label className="block text-[10px] uppercase tracking-widest text-primary/70 mb-2 group-focus-within:text-terracota transition-colors font-medium">
+      <label className="block text-[10px] uppercase tracking-widest text-primary/70 mb-2 group-focus-within:text-terracota transition-colors font-medium pl-1">
         {label}
       </label>
 
       <div
         onClick={() => setIsOpen(!isOpen)}
         className={`
-          w-full bg-transparent border-b py-2 text-sm md:text-base cursor-pointer flex justify-between items-center transition-colors
-          ${isOpen ? 'border-terracota' : 'border-primary/20 hover:border-primary/40'}
+          w-full bg-primary/5 hover:bg-primary/10 rounded-xl px-4 py-3 text-sm md:text-base cursor-pointer flex justify-between items-center transition-all duration-300 border border-transparent
+          ${isOpen ? 'ring-1 ring-terracota bg-primary/10' : 'hover:border-primary/10'}
         `}
       >
-        <span className={`truncate mr-2 ${value ? "text-primary" : "text-primary/50"}`}>
+        <span className={`truncate mr-2 ${value ? "text-primary" : "text-primary/40"}`}>
           {displayValue || placeholder}
         </span>
         <span className={`text-[10px] text-primary/40 transform transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}>
@@ -115,7 +115,7 @@ const CustomSelect = ({
       </div>
 
       <div className={`
-        absolute left-0 right-0 top-full mt-2 bg-secondary border border-primary/10 rounded-lg overflow-hidden z-50 shadow-2xl origin-top transition-all duration-300 max-h-48 overflow-y-auto
+        absolute left-0 right-0 top-full mt-2 bg-secondary border border-primary/10 rounded-xl overflow-hidden z-50 shadow-[0_10px_40px_rgba(0,0,0,0.2)] origin-top transition-all duration-300 max-h-60 overflow-y-auto ring-1 ring-white/5
         ${isOpen ? 'opacity-100 scale-y-100 translate-y-0' : 'opacity-0 scale-y-95 -translate-y-2 pointer-events-none'}
       `}>
         {options.map((opt) => {
@@ -129,7 +129,7 @@ const CustomSelect = ({
                 setIsOpen(false);
               }}
               className={`
-                px-4 py-2 text-xs md:text-sm cursor-pointer transition-colors border-b border-primary/5 last:border-0
+                px-4 py-3 text-sm cursor-pointer transition-colors border-b border-primary/5 last:border-0
                 ${value === optValue ? 'bg-terracota text-white' : 'text-primary/70 hover:bg-primary/5 hover:text-primary'}
               `}
             >
@@ -158,7 +158,7 @@ const CustomInput = ({
   optional?: boolean
 }) => (
   <div className="group">
-    <label className="block text-[10px] uppercase tracking-widest text-primary/70 mb-2 group-focus-within:text-terracota transition-colors font-medium">
+    <label className="block text-[10px] uppercase tracking-widest text-primary/70 mb-2 group-focus-within:text-terracota transition-colors font-medium pl-1">
       {label} {optional && <span className="text-primary/40 normal-case tracking-normal ml-1">(Opcional)</span>}
     </label>
     <input
@@ -166,7 +166,7 @@ const CustomInput = ({
       value={value}
       onChange={(e) => onChange(e.target.value)}
       placeholder={placeholder}
-      className="w-full bg-transparent border-b border-primary/20 py-3 text-sm md:text-base focus:outline-none focus:border-terracota transition-colors placeholder-primary/40 text-primary"
+      className="w-full bg-primary/5 hover:bg-primary/10 rounded-xl px-4 py-3 text-sm md:text-base focus:outline-none focus:ring-1 focus:ring-terracota focus:bg-primary/10 transition-all duration-300 placeholder-primary/30 text-primary border border-transparent hover:border-primary/10"
     />
   </div>
 );
