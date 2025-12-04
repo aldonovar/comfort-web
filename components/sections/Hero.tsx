@@ -123,8 +123,11 @@ export default function Hero() {
         {/* Night Mode Background */}
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2700&auto=format&fit=crop')] bg-cover bg-center opacity-0 dark:opacity-100 transition-opacity duration-1000" />
 
-        {/* Overlay for readability */}
-        <div className="absolute inset-0 bg-primary/80 z-10 transition-colors duration-500" />
+        {/* Navbar Gradient (Top) - Ensures visibility of white/light text */}
+        <div className="absolute inset-x-0 top-0 h-32 bg-linear-to-b from-black/60 to-transparent z-10 pointer-events-none" />
+
+        {/* Text Gradient (Left) - Ensures legibility of hero text */}
+        <div className="absolute inset-y-0 left-0 w-full md:w-2/3 bg-linear-to-r from-primary/95 via-primary/70 to-transparent z-10 pointer-events-none transition-colors duration-500" />
       </div>
 
       {/* Content Grid */}
