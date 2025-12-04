@@ -122,10 +122,9 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  // Image Transition State
+  // Image State
   const [currentImage, setCurrentImage] = useState<string>("");
-  const [nextImage, setNextImage] = useState<string>("");
-  const prevImageRef = useRef<string>("");
+  const [isAnimating, setIsAnimating] = useState(false);
 
   const headerRef = useRef<HTMLElement>(null);
   const megaRef = useRef<HTMLDivElement>(null);
@@ -168,6 +167,15 @@ export default function Navbar() {
         duration: 0.6,
         overwrite: true
       });
+
+      // Set initial image immediately
+      const initialImg = MEGA_CONTENT[activeMega]?.defaultImage;
+      if (initialImg) {
+        setCurrentImage(initialImg);
+        setIsAnimating(true); // Trigger fade in
+        setTimeout(() => setIsAnimating(false), 50); // Small delay to ensure transition happens
+      }
+
     } else {
       // Closing
       gsap.to(megaRef.current, {
@@ -179,8 +187,7 @@ export default function Navbar() {
       });
       setActiveSubItem(null);
       setCurrentImage("");
-      setNextImage("");
-      prevImageRef.current = ""; // Reset
+      setIsAnimating(false);
     }
   }, [activeMega]);
 
@@ -194,56 +201,25 @@ export default function Navbar() {
     }
   }, [activeMega]);
 
-  // 1. Determine Target Image Logic
+  // Image Switching Logic (CSS Based)
   useEffect(() => {
     if (!activeMega) return;
 
     const targetImage = activeSubItem?.image || MEGA_CONTENT[activeMega]?.defaultImage;
 
     if (targetImage && targetImage !== currentImage) {
-      if (!currentImage) {
-        // Initial load
+      // Start fade out
+      setIsAnimating(true);
+
+      // Wait for fade out, then swap and fade in
+      const timer = setTimeout(() => {
         setCurrentImage(targetImage);
-      } else {
-        // Transition needed
-        setNextImage(targetImage);
-      }
-    }
-  }, [activeSubItem, activeMega]);
+        setIsAnimating(false);
+      }, 300); // Match CSS transition duration
 
-  // 2. Animate Initial Load (Current Image)
-  useEffect(() => {
-    // Only animate if we went from NO image to SOME image (Initial Open)
-    if (currentImage && !prevImageRef.current && !nextImage) {
-      gsap.fromTo(".current-image",
-        { opacity: 0 },
-        { opacity: 0.4, duration: 0.8, overwrite: true }
-      );
+      return () => clearTimeout(timer);
     }
-    // Update ref
-    prevImageRef.current = currentImage;
-  }, [currentImage]);
-
-  // 3. Animate Crossfade (Next Image)
-  useEffect(() => {
-    if (nextImage) {
-      const tl = gsap.timeline({
-        onComplete: () => {
-          setCurrentImage(nextImage);
-          setNextImage("");
-        }
-      });
-
-      // Animate current out
-      tl.to(".current-image", { opacity: 0, duration: 0.6, overwrite: true })
-        // Animate next in
-        .fromTo(".next-image",
-          { opacity: 0 },
-          { opacity: 0.4, duration: 0.6, overwrite: true },
-          "<"
-        );
-    }
-  }, [nextImage]);
+  }, [activeSubItem, activeMega, currentImage]);
 
   // Text Transition (Title & Desc)
   useEffect(() => {
@@ -378,26 +354,14 @@ export default function Navbar() {
                 ))}
               </div>
 
-              {/* Right: Immersive Image Preview (Double Buffer for Crossfade) */}
+              {/* Right: Immersive Image Preview (CSS Transition) */}
               <div className="w-2/3 h-full relative overflow-hidden bg-black">
-                {/* Current Image */}
                 {currentImage && (
                   <Image
                     src={currentImage}
-                    alt="Current Preview"
+                    alt="Preview"
                     fill
-                    className="current-image object-cover opacity-40"
-                    priority
-                  />
-                )}
-
-                {/* Next Image (for transition) */}
-                {nextImage && (
-                  <Image
-                    src={nextImage}
-                    alt="Next Preview"
-                    fill
-                    className="next-image object-cover opacity-0"
+                    className={`object-cover transition-opacity duration-300 ${isAnimating ? "opacity-0" : "opacity-40"}`}
                     priority
                   />
                 )}
