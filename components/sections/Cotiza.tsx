@@ -95,7 +95,7 @@ const CustomSelect = ({
 
   return (
     <div className="group relative" ref={containerRef}>
-      <label className="block text-[9px] uppercase tracking-widest text-white/40 mb-1 group-focus-within:text-terracota transition-colors">
+      <label className="block text-[10px] uppercase tracking-widest text-white/70 mb-2 group-focus-within:text-terracota transition-colors font-medium">
         {label}
       </label>
 
@@ -103,10 +103,10 @@ const CustomSelect = ({
         onClick={() => setIsOpen(!isOpen)}
         className={`
           w-full bg-transparent border-b py-2 text-sm md:text-base cursor-pointer flex justify-between items-center transition-colors
-          ${isOpen ? 'border-terracota' : 'border-white/10 hover:border-white/30'}
+          ${isOpen ? 'border-terracota' : 'border-white/20 hover:border-white/40'}
         `}
       >
-        <span className={`truncate mr-2 ${value ? "text-white" : "text-white/30"}`}>
+        <span className={`truncate mr-2 ${value ? "text-white" : "text-white/50"}`}>
           {displayValue || placeholder}
         </span>
         <span className={`text-[10px] text-white/40 transform transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}>
@@ -158,15 +158,15 @@ const CustomInput = ({
   optional?: boolean
 }) => (
   <div className="group">
-    <label className="block text-[9px] uppercase tracking-widest text-white/40 mb-1 group-focus-within:text-terracota transition-colors">
-      {label} {optional && <span className="text-white/20">(Opcional)</span>}
+    <label className="block text-[10px] uppercase tracking-widest text-white/70 mb-2 group-focus-within:text-terracota transition-colors font-medium">
+      {label} {optional && <span className="text-white/40 normal-case tracking-normal ml-1">(Opcional)</span>}
     </label>
     <input
       type={type}
       value={value}
       onChange={(e) => onChange(e.target.value)}
       placeholder={placeholder}
-      className="w-full bg-transparent border-b border-white/10 py-2 text-sm md:text-base focus:outline-none focus:border-terracota transition-colors placeholder-white/10"
+      className="w-full bg-transparent border-b border-white/20 py-3 text-sm md:text-base focus:outline-none focus:border-terracota transition-colors placeholder-white/40 text-white"
     />
   </div>
 );
@@ -380,7 +380,7 @@ export default function Cotiza() {
 
               {/* 01. Proyecto */}
               <div className="space-y-4">
-                <h3 className="text-[9px] uppercase tracking-widest text-white/30 border-b border-white/5 pb-1">
+                <h3 className="text-[10px] uppercase tracking-widest text-white/60 border-b border-white/10 pb-2 font-bold">
                   01. El Proyecto
                 </h3>
 
@@ -423,7 +423,7 @@ export default function Cotiza() {
 
               {/* 02. Datos */}
               <div className="space-y-4">
-                <h3 className="text-[9px] uppercase tracking-widest text-white/30 border-b border-white/5 pb-1">
+                <h3 className="text-[10px] uppercase tracking-widest text-white/60 border-b border-white/10 pb-2 font-bold">
                   02. Tus Datos
                 </h3>
 
@@ -458,7 +458,7 @@ export default function Cotiza() {
                 </div>
 
                 <div className="group">
-                  <label className="block text-[9px] uppercase tracking-widest text-white/40 mb-1 group-focus-within:text-terracota transition-colors">
+                  <label className="block text-[10px] uppercase tracking-widest text-white/70 mb-2 group-focus-within:text-terracota transition-colors font-medium">
                     Notas
                   </label>
                   <textarea
@@ -466,7 +466,7 @@ export default function Cotiza() {
                     onChange={(e) => setNotes(e.target.value)}
                     placeholder="Detalles adicionales..."
                     rows={2}
-                    className="w-full bg-white/5 rounded-lg border border-white/10 p-2 text-sm focus:outline-none focus:border-terracota transition-colors placeholder-white/10 resize-none"
+                    className="w-full bg-white/5 rounded-lg border border-white/20 p-3 text-sm focus:outline-none focus:border-terracota transition-colors placeholder-white/40 resize-none text-white"
                   />
                 </div>
               </div>
@@ -538,20 +538,20 @@ export default function Cotiza() {
                 {/* Info Grid */}
                 <div className="grid grid-cols-2 gap-y-6 gap-x-4">
                   <div>
-                    <span className="block text-[9px] uppercase tracking-widest text-white/30 mb-1">Cliente</span>
+                    <span className="block text-[10px] uppercase tracking-widest text-white/50 mb-1 font-medium">Cliente</span>
                     <p className="text-sm text-white font-medium truncate">{name || "—"}</p>
                     <p className="text-[10px] text-white/40 truncate">{company || "Particular"}</p>
                   </div>
                   <div>
-                    <span className="block text-[9px] uppercase tracking-widest text-white/30 mb-1">Ubicación</span>
+                    <span className="block text-[10px] uppercase tracking-widest text-white/50 mb-1 font-medium">Ubicación</span>
                     <p className="text-sm text-white font-medium truncate">{district || "—"}</p>
                   </div>
                   <div>
-                    <span className="block text-[9px] uppercase tracking-widest text-white/30 mb-1">Dimensión</span>
+                    <span className="block text-[10px] uppercase tracking-widest text-white/50 mb-1 font-medium">Dimensión</span>
                     <p className="text-sm text-white font-medium">{area ? `${area} m²` : "—"}</p>
                   </div>
                   <div>
-                    <span className="block text-[9px] uppercase tracking-widest text-white/30 mb-1">Inversión</span>
+                    <span className="block text-[10px] uppercase tracking-widest text-white/50 mb-1 font-medium">Inversión</span>
                     <p className="text-sm text-white font-medium truncate">{budgetCode !== "XX" ? budgetCode : "—"}</p>
                   </div>
                 </div>
@@ -559,13 +559,13 @@ export default function Cotiza() {
                 {/* Footer with Stealth ID */}
                 <div className="pt-6 border-t border-white/5 flex justify-between items-end">
                   <div>
-                    <p className="text-[9px] uppercase tracking-widest text-white/30">ID de Atención</p>
+                    <p className="text-[10px] uppercase tracking-widest text-white/50 font-medium">ID de Atención</p>
                     <p className="font-mono text-[10px] text-white/20 mt-1 tracking-widest select-all hover:text-terracota transition-colors cursor-help" title="Código interno de seguimiento">
                       {smartID}
                     </p>
                   </div>
                   <div className="text-right">
-                    <p className="text-[9px] uppercase tracking-widest text-white/30">Fecha</p>
+                    <p className="text-[10px] uppercase tracking-widest text-white/50 font-medium">Fecha</p>
                     <p className="text-[10px] text-white/50 mt-1">{new Date().toLocaleDateString()}</p>
                   </div>
                 </div>
