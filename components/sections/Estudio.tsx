@@ -84,9 +84,12 @@ export default function Estudio() {
     <section
       ref={sectionRef}
       id="estudio"
-      className="relative bg-primary text-primary py-24 md:py-32 border-t border-primary/5 transition-colors duration-500"
+      className="relative bg-primary text-primary py-24 md:py-32 overflow-hidden transition-colors duration-500"
     >
-      <div className="max-w-[1800px] mx-auto px-6 md:px-12">
+      {/* Background Noise */}
+      <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div>
+
+      <div className="max-w-[1800px] mx-auto px-6 md:px-12 relative z-10">
 
         <div className="grid lg:grid-cols-[1fr_1.5fr] gap-16 lg:gap-24 items-start">
 
@@ -95,61 +98,84 @@ export default function Estudio() {
             <span className="block text-terracota text-xs tracking-[0.3em] uppercase font-bold mb-4">
               El Estudio
             </span>
-            <h2 className="font-serif text-4xl md:text-5xl leading-[1.1] mb-8">
+            <h2 className="font-serif text-4xl md:text-6xl leading-[1.1] mb-8">
               No hacemos terrazas. <br />
               <span className="text-primary/40 italic transition-colors duration-500">Creamos escenarios de vida.</span>
             </h2>
-            <p className="text-primary/60 text-lg leading-relaxed max-w-md mb-8 transition-colors duration-500">
+            <p className="text-primary/60 text-lg leading-relaxed max-w-md mb-10 transition-colors duration-500">
               Comfort Studio nace de una obsesión: tratar el exterior con el mismo rigor, lujo y calidez que el interior más exclusivo.
             </p>
 
-            <button className="group inline-flex items-center gap-3 px-6 py-3 rounded-full border border-primary/20 hover:bg-(--text-primary) hover:text-(--bg-primary) transition-all duration-300">
-              <span className="uppercase tracking-widest text-xs font-bold">Conocer al equipo</span>
-              <span className="transform group-hover:translate-x-1 transition-transform">→</span>
+            <button className="group relative px-8 py-4 bg-primary text-secondary rounded-full overflow-hidden transition-all duration-300 hover:shadow-lg hover:shadow-primary/20">
+              <div className="absolute inset-0 bg-terracota translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out" />
+              <span className="relative z-10 flex items-center gap-3 text-xs font-bold uppercase tracking-widest group-hover:text-white transition-colors duration-300">
+                Conocer al equipo
+                <span className="transform group-hover:translate-x-1 transition-transform">→</span>
+              </span>
             </button>
           </div>
 
           {/* Bento Grid (Right) */}
-          <div className="studio-grid grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="studio-grid grid grid-cols-1 md:grid-cols-3 gap-6">
             {principles.map((item) => (
               <div
                 key={item.id}
                 className={`
-                  studio-card-reveal relative rounded-3xl p-8 border border-primary/5 overflow-hidden group hover:border-primary/20 transition-colors duration-500
+                  studio-card-reveal relative rounded-3xl overflow-hidden group transition-all duration-500
                   ${item.colSpan}
-                  ${item.bg}
+                  min-h-[300px] md:min-h-[350px]
+                  border border-primary/10 hover:border-primary/30
                 `}
               >
-                {/* Hover Gradient */}
-                <div className="absolute inset-0 bg-linear-to-br from-terracota/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                {/* Background Image (for specific cards) */}
+                {item.id === 'enfoque' && (
+                  <div className="absolute inset-0">
+                    <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=2653&auto=format&fit=crop" className="w-full h-full object-cover opacity-60 grayscale group-hover:grayscale-0 transition-all duration-700" alt="" />
+                    <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/40 to-transparent" />
+                  </div>
+                )}
 
-                <div className="relative z-10 h-full flex flex-col justify-between gap-8">
+                {item.id === 'detalle' && (
+                  <div className="absolute inset-0">
+                    <img src="https://images.unsplash.com/photo-1556910103-1c02745a30bf?q=80&w=2670&auto=format&fit=crop" className="w-full h-full object-cover opacity-40 grayscale group-hover:grayscale-0 transition-all duration-700" alt="" />
+                    <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/40 to-transparent" />
+                  </div>
+                )}
+
+                {/* Glass Background for others */}
+                {item.id !== 'enfoque' && item.id !== 'detalle' && (
+                  <div className="absolute inset-0 bg-primary/5 backdrop-blur-sm group-hover:bg-primary/10 transition-colors duration-500" />
+                )}
+
+                {/* Content */}
+                <div className="relative z-10 h-full p-8 flex flex-col justify-between">
                   <div className="flex justify-between items-start">
-                    <span className="px-3 py-1 rounded-full border border-primary/10 bg-primary/20 text-[10px] uppercase tracking-widest text-primary/60 transition-colors duration-500">
+                    <span className={`
+                      px-3 py-1 rounded-full text-[10px] uppercase tracking-widest border transition-colors duration-500
+                      ${(item.id === 'enfoque' || item.id === 'detalle') ? 'border-white/20 bg-white/10 text-white' : 'border-primary/10 bg-primary/5 text-primary/60'}
+                    `}>
                       {item.label}
                     </span>
                     {item.type === 'stats' && (
-                      <div className="flex gap-1">
-                        <span className="w-2 h-2 rounded-full bg-terracota animate-pulse" />
-                      </div>
+                      <span className="w-2 h-2 rounded-full bg-terracota animate-pulse" />
                     )}
                   </div>
 
                   {item.type === 'stats' ? (
-                    <div className="grid grid-cols-3 gap-4">
+                    <div className="grid grid-cols-3 gap-4 mt-auto">
                       {item.stats?.map((stat, i) => (
                         <div key={i}>
-                          <span className="block text-2xl md:text-3xl font-serif text-primary mb-1 transition-colors duration-500">{stat.value}</span>
+                          <span className="block text-3xl md:text-4xl font-serif text-primary mb-1 transition-colors duration-500">{stat.value}</span>
                           <span className="block text-[10px] uppercase tracking-wider text-primary/40 transition-colors duration-500">{stat.label}</span>
                         </div>
                       ))}
                     </div>
                   ) : (
-                    <div>
-                      <h3 className="text-2xl font-serif mb-3 group-hover:text-terracota transition-colors duration-300">
+                    <div className="mt-auto">
+                      <h3 className={`font-serif text-3xl mb-4 transition-colors duration-300 ${(item.id === 'enfoque' || item.id === 'detalle') ? 'text-white' : 'text-primary group-hover:text-terracota'}`}>
                         {item.title}
                       </h3>
-                      <p className="text-primary/60 text-sm leading-relaxed transition-colors duration-500">
+                      <p className={`text-sm leading-relaxed transition-colors duration-500 ${(item.id === 'enfoque' || item.id === 'detalle') ? 'text-white/80' : 'text-primary/60'}`}>
                         {item.text}
                       </p>
                     </div>
