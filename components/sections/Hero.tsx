@@ -7,6 +7,16 @@ import Link from "next/link";
 
 gsap.registerPlugin(ScrollTrigger);
 
+const ROTATING_TAGS = [
+  "DISEÑO + OBRA INTEGRAL",
+  "EXTERIORES DE LUJO",
+  "PAISAJISMO URBANO",
+  "TERRAZAS PREMIUM",
+  "CONFORT Y ESTILO",
+  "ARQUITECTURA VIVA",
+  "ESPACIOS ÚNICOS"
+];
+
 export default function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLDivElement>(null);
@@ -17,6 +27,23 @@ export default function Hero() {
 
   // Tilt State
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
+
+  // Rotating Tag State
+  const [currentTagIndex, setCurrentTagIndex] = useState(0);
+  const [isTagVisible, setIsTagVisible] = useState(true);
+
+  useEffect(() => {
+    // Rotating Tag Interval
+    const interval = setInterval(() => {
+      setIsTagVisible(false);
+      setTimeout(() => {
+        setCurrentTagIndex((prev) => (prev + 1) % ROTATING_TAGS.length);
+        setIsTagVisible(true);
+      }, 500); // Wait for fade out
+    }, 7000); // 7 seconds
+
+    return () => clearInterval(interval);
+  }, []);
 
   useEffect(() => {
     // Entrance Animation (Simplified for Headline)
@@ -88,19 +115,20 @@ export default function Hero() {
   return (
     <section ref={containerRef} className="relative min-h-dvh w-full overflow-hidden bg-primary text-primary flex items-center transition-colors duration-500">
 
-      {/* Background Video */}
+      {/* Background Images (Day/Night) */}
       <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-primary/40 z-10 transition-colors duration-500" /> {/* Overlay */}
-        <video
-          ref={videoRef}
-          autoPlay muted loop playsInline
-          className="w-full h-full object-cover opacity-60"
-          src="https://cdn.coverr.co/videos/coverr-walking-by-a-wooden-wall-4608/1080p.mp4"
-        />
+        {/* Day Mode Background */}
+        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=2653&auto=format&fit=crop')] bg-cover bg-center opacity-100 dark:opacity-0 transition-opacity duration-1000" />
+
+        {/* Night Mode Background */}
+        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2700&auto=format&fit=crop')] bg-cover bg-center opacity-0 dark:opacity-100 transition-opacity duration-1000" />
+
+        {/* Overlay for readability */}
+        <div className="absolute inset-0 bg-primary/80 z-10 transition-colors duration-500" />
       </div>
 
       {/* Content Grid */}
-      <div className="relative z-20 h-full max-w-[1800px] mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-12 items-center">
+      <div className="relative z-20 h-full max-w-[1800px] mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-12 items-center gap-12 md:gap-20">
 
         {/* Left: Text Content */}
         <div ref={textRef} className="md:col-span-7 flex flex-col justify-center space-y-8">
@@ -145,15 +173,15 @@ export default function Hero() {
               transform: `perspective(1000px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
               transition: "transform 0.1s ease-out"
             }}
-            className="w-[400px] bg-secondary/80 backdrop-blur-xl border border-primary/10 p-10 rounded-3xl shadow-2xl relative overflow-hidden group transition-colors duration-500"
+            className="w-[400px] bg-secondary/80 backdrop-blur-xl border border-primary/10 p-10 rounded-3xl shadow-2xl relative overflow-hidden group transition-colors duration-500 ml-auto mr-0"
           >
             {/* Glossy Reflection */}
             <div className="absolute inset-0 bg-linear-to-tr from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
 
-            <div className="flex items-center justify-between mb-12">
-              <span className="text-[0.65rem] uppercase tracking-[0.3em] text-terracota font-bold flex items-center gap-2">
+            <div className="flex items-center justify-between mb-12 h-6">
+              <span className={`text-[0.65rem] uppercase tracking-[0.3em] text-terracota font-bold flex items-center gap-2 transition-all duration-500 ${isTagVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2'}`}>
                 <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-                Diseño + Obra Integral
+                {ROTATING_TAGS[currentTagIndex]}
               </span>
             </div>
 
@@ -177,7 +205,7 @@ export default function Hero() {
             <div className="absolute -bottom-12 -right-12 w-40 h-40 opacity-100 transition-opacity duration-500">
               <svg ref={stampRef} viewBox="0 0 100 100" className="w-full h-full">
                 <path id="curve" d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0" fill="transparent" />
-                <text className="text-[10px] uppercase font-bold tracking-widest fill-[var(--text-primary)] transition-colors duration-500">
+                <text className="text-[10px] uppercase font-bold tracking-widest fill-terracota transition-colors duration-500">
                   <textPath href="#curve">
                     Comfort Studio • Comfort Studio •
                   </textPath>
