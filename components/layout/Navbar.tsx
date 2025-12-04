@@ -251,7 +251,7 @@ export default function Navbar() {
         ref={headerRef}
         onMouseLeave={handleMouseLeave}
         className={`fixed top-0 left-0 right-0 z-100 transition-all duration-700 will-change-transform ${scrolled || activeMega || mobileOpen
-          ? "bg-primary/80 backdrop-blur-md py-4 border-b border-primary/5 shadow-sm"
+          ? "bg-[var(--bg-primary)] py-4 border-b border-primary/5 shadow-sm"
           : "bg-transparent py-8 border-b border-transparent"
           }`}
       >
@@ -336,7 +336,7 @@ export default function Navbar() {
         {/* --- MEGA MENU --- */}
         <div
           ref={megaRef}
-          className="absolute top-full left-0 w-full bg-primary/95 backdrop-blur-xl border-t border-primary/5 overflow-hidden shadow-2xl h-0 opacity-0"
+          className="absolute top-full left-0 w-full bg-[var(--bg-primary)] border-t border-primary/5 overflow-hidden shadow-2xl h-0 opacity-0"
         >
           {activeMega && MEGA_CONTENT[activeMega] && (
             <div className="relative w-full h-[50vh] flex max-w-[1800px] mx-auto">
