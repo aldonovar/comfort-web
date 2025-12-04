@@ -88,7 +88,13 @@ export default function OtrosProyectosPage() {
 
         }, container);
 
-        return () => ctx.revert();
+        // Force refresh for sticky positioning
+        const timer = setTimeout(() => ScrollTrigger.refresh(), 500);
+
+        return () => {
+            ctx.revert();
+            clearTimeout(timer);
+        };
     }, []);
 
     return (

@@ -26,19 +26,19 @@ const MEGA_CONTENT: any = {
       },
       {
         label: "Diseño y ejecución de proyecto de terraza",
-        href: "/servicios/diseno-ejecucion",
+        href: "/servicios/diseno-ejecucion-terrazas",
         image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=1920&auto=format&fit=crop",
         desc: "Transformación integral de espacios exteriores."
       },
       {
         label: "Proyecto Estación de parrilla",
-        href: "/servicios/parrilla",
+        href: "/servicios/estacion-parrilla",
         image: "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?q=80&w=1920&auto=format&fit=crop",
         desc: "El corazón de tu terraza, diseñado para compartir."
       },
       {
         label: "Otro tipo de proyecto al aire libre",
-        href: "/servicios/otros",
+        href: "/servicios/otros-proyectos",
         image: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=1920&auto=format&fit=crop",
         desc: "Paisajismo, piscinas y zonas de relax."
       }
