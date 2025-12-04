@@ -8,95 +8,97 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const FEATURES = [
-    {
-        title: "Diseño 3D",
-        desc: "Visualización fotorrealista para que vivas tu terraza antes de construirla.",
-        img: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=1920&auto=format&fit=crop"
-    },
-    {
-        title: "Optimización",
-        desc: "Aprovechamos cada metro cuadrado para funcionalidad y flujo.",
-        img: "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?q=80&w=1920&auto=format&fit=crop"
-    },
-    {
-        title: "Mobiliario",
-        desc: "Selección curada de piezas resistentes y estéticamente coherentes.",
-        img: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=1920&auto=format&fit=crop"
-    },
-    {
-        title: "Paisajismo",
-        desc: "Integración de vegetación que respira y da vida al espacio.",
-        img: "https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?q=80&w=1920&auto=format&fit=crop"
-    }
+const CONCEPT_IMAGES = [
+    "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=1920&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?q=80&w=1920&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=1920&auto=format&fit=crop"
+];
+
+const GALLERY_IMAGES = [
+    "https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?q=80&w=800&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=800&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1510627489930-0c1b0bfb6785?q=80&w=800&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1611269154421-4e27233ac5c7?q=80&w=800&auto=format&fit=crop"
 ];
 
 export default function TerrazasPage() {
     const container = useRef<HTMLDivElement>(null);
     const heroRef = useRef<HTMLDivElement>(null);
-    const horizontalRef = useRef<HTMLDivElement>(null);
+    const conceptRef = useRef<HTMLDivElement>(null);
+    const galleryRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         const ctx = gsap.context(() => {
-            // 1. Hero Parallax & Reveal
+            // 1. Hero Architecture Reveal
             const tl = gsap.timeline();
-            tl.from(".hero-title-char", {
+            tl.from(".hero-title-line", {
                 y: 100,
                 opacity: 0,
                 duration: 1.5,
-                stagger: 0.05,
+                stagger: 0.1,
                 ease: "power4.out"
             })
-                .from(".hero-subtitle", {
-                    y: 20,
+                .from(".hero-meta", {
                     opacity: 0,
+                    y: 20,
                     duration: 1,
                     ease: "power3.out"
                 }, "-=1");
 
-            gsap.to(".hero-bg", {
-                yPercent: 30,
-                ease: "none",
-                scrollTrigger: {
-                    trigger: heroRef.current,
-                    start: "top top",
-                    end: "bottom top",
-                    scrub: true
-                }
-            });
-
-            // 2. Sticky Text Section
+            // 2. Sticky Concept Section (Side-by-Side)
             ScrollTrigger.create({
-                trigger: ".sticky-section",
+                trigger: conceptRef.current,
                 start: "top top",
                 end: "bottom bottom",
-                pin: ".sticky-content",
+                pin: ".concept-text-col",
             });
 
-            gsap.from(".sticky-text", {
-                opacity: 0.2,
-                stagger: 0.1,
-                scrollTrigger: {
-                    trigger: ".sticky-section",
-                    start: "top center",
-                    end: "center center",
-                    scrub: true
-                }
+            // Image fade transition in concept section
+            const conceptImages = gsap.utils.toArray(".concept-image");
+            conceptImages.forEach((img: any, i) => {
+                if (i === 0) return;
+                gsap.fromTo(img,
+                    { opacity: 0 },
+                    {
+                        opacity: 1,
+                        scrollTrigger: {
+                            trigger: img,
+                            start: "top center",
+                            end: "center center",
+                            scrub: true,
+                            toggleActions: "play reverse play reverse"
+                        }
+                    }
+                );
             });
 
-            // 3. Horizontal Scroll
-            const sections = gsap.utils.toArray(".horizontal-item");
-            gsap.to(sections, {
-                xPercent: -100 * (sections.length - 1),
-                ease: "none",
-                scrollTrigger: {
-                    trigger: horizontalRef.current,
-                    pin: true,
-                    scrub: 1,
-                    snap: 1 / (sections.length - 1),
-                    end: () => "+=" + (horizontalRef.current?.offsetWidth || 0)
-                }
-            });
+            // 3. Parallax Grid
+            const col1 = galleryRef.current?.querySelector(".gallery-col-1");
+            const col2 = galleryRef.current?.querySelector(".gallery-col-2");
+
+            if (col1 && col2) {
+                gsap.to(col1, {
+                    yPercent: -20,
+                    ease: "none",
+                    scrollTrigger: {
+                        trigger: galleryRef.current,
+                        start: "top bottom",
+                        end: "bottom top",
+                        scrub: 1
+                    }
+                });
+
+                gsap.to(col2, {
+                    yPercent: 10,
+                    ease: "none",
+                    scrollTrigger: {
+                        trigger: galleryRef.current,
+                        start: "top bottom",
+                        end: "bottom top",
+                        scrub: 1.5
+                    }
+                });
+            }
 
             // 4. Footer Reveal
             gsap.from(".footer-cta", {
@@ -118,105 +120,140 @@ export default function TerrazasPage() {
     return (
         <div ref={container} className="bg-[#050505] text-white overflow-hidden">
 
-            {/* --- HERO SECTION --- */}
-            <section ref={heroRef} className="relative h-screen w-full overflow-hidden flex items-center justify-center">
-                <div className="hero-bg absolute inset-0 w-full h-[120%] -top-[10%] z-0">
+            {/* --- HERO SECTION (Architectural Layout) --- */}
+            <section ref={heroRef} className="relative h-screen w-full px-6 md:px-12 pt-32 pb-12 flex flex-col justify-between">
+                <div className="absolute inset-0 z-0">
                     <Image
                         src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=1920&auto=format&fit=crop"
                         alt="Diseño de Terrazas"
                         fill
-                        className="object-cover opacity-40 grayscale-30"
+                        className="object-cover opacity-30 grayscale-30"
                         priority
                     />
-                    <div className="absolute inset-0 bg-linear-to-b from-black/60 via-transparent to-[#050505]" />
+                    <div className="absolute inset-0 bg-linear-to-b from-[#050505]/80 via-transparent to-[#050505]" />
                 </div>
 
-                <div className="relative z-10 text-center px-6">
-                    <p className="hero-subtitle text-terracota text-sm md:text-base tracking-[0.5em] uppercase font-bold mb-8">
-                        Arquitectura Exterior
+                <div className="relative z-10 max-w-4xl">
+                    <p className="hero-meta text-terracota text-xs md:text-sm tracking-[0.5em] uppercase font-bold mb-6">
+                        Proyecto Integral
                     </p>
-                    <h1 className="font-serif text-6xl md:text-9xl leading-[0.9] tracking-tight overflow-hidden">
-                        {"DISEÑO DE".split("").map((char, i) => (
-                            <span key={i} className="hero-title-char inline-block">{char === " " ? "\u00A0" : char}</span>
-                        ))}
-                        <br />
-                        <span className="text-white/30 italic">
-                            {"TERRAZAS".split("").map((char, i) => (
-                                <span key={i} className="hero-title-char inline-block">{char === " " ? "\u00A0" : char}</span>
-                            ))}
-                        </span>
+                    <h1 className="font-serif text-6xl md:text-9xl leading-[0.85] tracking-tight">
+                        <div className="overflow-hidden"><span className="hero-title-line block">DISEÑO</span></div>
+                        <div className="overflow-hidden"><span className="hero-title-line block text-white/40 italic">DE TERRAZAS</span></div>
+                        <div className="overflow-hidden"><span className="hero-title-line block">& EJECUCIÓN</span></div>
                     </h1>
                 </div>
 
-                <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 opacity-50 animate-pulse">
-                    <span className="text-[10px] uppercase tracking-widest">Scroll</span>
-                    <div className="w-px h-12 bg-white" />
-                </div>
-            </section>
-
-            {/* --- STICKY MANIFESTO --- */}
-            <section className="sticky-section relative min-h-[200vh] flex">
-                <div className="sticky-content w-full h-screen sticky top-0 flex items-center justify-center px-6 md:px-24">
-                    <div className="max-w-4xl text-center">
-                        <p className="font-serif text-3xl md:text-6xl leading-tight text-white sticky-text">
-                            Transformamos azoteas y patios en <span className="text-terracota italic">oasis privados</span>.
+                <div className="relative z-10 flex justify-end items-end">
+                    <div className="hero-meta max-w-sm text-right">
+                        <p className="text-white/60 text-lg leading-relaxed">
+                            Transformamos azoteas y patios en oasis privados. Arquitectura exterior pensada desde el concepto hasta el último detalle.
                         </p>
-                        <p className="font-serif text-3xl md:text-6xl leading-tight text-white/50 mt-8 sticky-text">
-                            Desde la conceptualización hasta la ejecución, cuidamos cada detalle para crear un espacio de relax y entretenimiento único.
-                        </p>
+                        <div className="mt-8 w-full h-px bg-white/20" />
+                        <div className="mt-4 flex justify-end gap-8 text-xs uppercase tracking-widest text-white/40">
+                            <span>Lima, Perú</span>
+                            <span>Est. 2024</span>
+                        </div>
                     </div>
                 </div>
             </section>
 
-            {/* --- HORIZONTAL SCROLL FEATURES --- */}
-            <section ref={horizontalRef} className="relative h-screen bg-[#0a0a0a] flex overflow-hidden">
-                <div className="absolute top-12 left-12 z-20">
-                    <span className="text-xs uppercase tracking-[0.3em] text-white/40 border-b border-white/10 pb-2">El Proceso</span>
+            {/* --- STICKY SIDE-BY-SIDE CONCEPT --- */}
+            <section ref={conceptRef} className="relative flex flex-col md:flex-row bg-[#0a0a0a]">
+                {/* Left: Sticky Text */}
+                <div className="concept-text-col w-full md:w-1/2 h-screen sticky top-0 flex items-center px-6 md:px-24 z-10">
+                    <div className="max-w-xl">
+                        <span className="text-terracota text-xs uppercase tracking-[0.3em] mb-6 block">Filosofía</span>
+                        <h2 className="font-serif text-4xl md:text-6xl mb-8 leading-tight">
+                            Más que un espacio, <br /> <span className="text-white/40 italic">un estilo de vida.</span>
+                        </h2>
+                        <p className="text-white/60 text-lg leading-relaxed mb-12">
+                            No solo diseñamos terrazas; creamos extensiones de tu hogar que invitan a la calma y la celebración. Integramos materiales nobles, vegetación y luz para construir atmósferas únicas.
+                        </p>
+                        <ul className="space-y-4 border-t border-white/10 pt-8">
+                            {["Diseño 3D Fotorrealista", "Selección de Materiales", "Paisajismo Integrado"].map((item, i) => (
+                                <li key={i} className="flex items-center gap-4 text-sm uppercase tracking-widest text-white/80">
+                                    <span className="w-1.5 h-1.5 bg-terracota rounded-full" />
+                                    {item}
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
                 </div>
 
-                <div className="flex w-[400%] h-full">
-                    {FEATURES.map((feature, i) => (
-                        <div key={i} className="horizontal-item w-screen h-full flex-shrink-0 relative flex items-center justify-center px-6 md:px-24 border-r border-white/5">
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center w-full max-w-7xl">
-                                <div className="order-2 md:order-1">
-                                    <span className="text-terracota text-6xl md:text-9xl font-serif opacity-20 absolute -top-20 -left-10 md:relative md:top-auto md:left-auto md:mb-8 block">
-                                        0{i + 1}
-                                    </span>
-                                    <h3 className="text-4xl md:text-7xl font-serif mb-6">{feature.title}</h3>
-                                    <p className="text-xl text-white/60 max-w-md leading-relaxed">
-                                        {feature.desc}
-                                    </p>
-                                </div>
-                                <div className="order-1 md:order-2 relative aspect-square md:aspect-4/5 w-full overflow-hidden rounded-lg grayscale hover:grayscale-0 transition-all duration-700">
-                                    <Image
-                                        src={feature.img}
-                                        alt={feature.title}
-                                        fill
-                                        className="object-cover"
-                                    />
-                                </div>
-                            </div>
+                {/* Right: Scrolling Images */}
+                <div className="w-full md:w-1/2 relative z-0">
+                    {CONCEPT_IMAGES.map((src, i) => (
+                        <div key={i} className="concept-image h-screen w-full relative sticky top-0 border-l border-white/5">
+                            <Image
+                                src={src}
+                                alt={`Concepto ${i + 1}`}
+                                fill
+                                className="object-cover grayscale hover:grayscale-0 transition-all duration-700"
+                            />
+                            <div className="absolute inset-0 bg-black/20" />
                         </div>
                     ))}
                 </div>
             </section>
 
-            {/* --- DETAILS GRID --- */}
-            <section className="py-32 px-6 md:px-24 bg-[#050505]">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-white/10 border border-white/10">
-                    {[
-                        { label: "Rango", val: "15 m² - 150 m²" },
-                        { label: "Tipo de Obra", val: "Integral (Diseño + Obra)" },
-                        { label: "Duración", val: "6 - 12 Semanas" },
-                        { label: "Entregables", val: "Planos + Vistas 3D" },
-                        { label: "Gestión", val: "Llave en Mano" },
-                        { label: "Garantía", val: "1 Año Post-Entrega" },
-                    ].map((item, i) => (
-                        <div key={i} className="bg-[#050505] p-12 hover:bg-[#0a0a0a] transition-colors group">
-                            <span className="block text-xs uppercase tracking-widest text-white/40 mb-4 group-hover:text-terracota transition-colors">{item.label}</span>
-                            <p className="text-2xl font-serif">{item.val}</p>
+            {/* --- PARALLAX GRID GALLERY --- */}
+            <section ref={galleryRef} className="relative py-32 px-6 md:px-12 bg-[#050505] overflow-hidden">
+                <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-24">
+                    {/* Column 1 - Moves Up */}
+                    <div className="gallery-col-1 flex flex-col gap-12 md:gap-24 pt-24">
+                        {GALLERY_IMAGES.slice(0, 2).map((src, i) => (
+                            <div key={i} className="relative aspect-[3/4] w-full overflow-hidden rounded-sm">
+                                <Image
+                                    src={src}
+                                    alt={`Gallery ${i}`}
+                                    fill
+                                    className="object-cover hover:scale-105 transition-transform duration-700"
+                                />
+                            </div>
+                        ))}
+                        <div className="p-8 border border-white/10 bg-[#0a0a0a]">
+                            <h3 className="font-serif text-3xl mb-4">Detalles que importan</h3>
+                            <p className="text-white/50">Cada textura, cada sombra y cada planta es seleccionada con propósito.</p>
                         </div>
-                    ))}
+                    </div>
+
+                    {/* Column 2 - Moves Down */}
+                    <div className="gallery-col-2 flex flex-col gap-12 md:gap-24">
+                        <div className="p-8 border border-white/10 bg-[#0a0a0a] text-right">
+                            <h3 className="font-serif text-3xl mb-4">Ejecución Impecable</h3>
+                            <p className="text-white/50">Supervisión constante para asegurar que el diseño se haga realidad.</p>
+                        </div>
+                        {GALLERY_IMAGES.slice(2, 4).map((src, i) => (
+                            <div key={i} className="relative aspect-[3/4] w-full overflow-hidden rounded-sm">
+                                <Image
+                                    src={src}
+                                    alt={`Gallery ${i + 2}`}
+                                    fill
+                                    className="object-cover hover:scale-105 transition-transform duration-700"
+                                />
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* --- DETAILS LIST --- */}
+            <section className="py-24 px-6 md:px-24 bg-[#0a0a0a] border-t border-white/5">
+                <div className="max-w-5xl mx-auto">
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-12">
+                        {[
+                            { label: "Rango", val: "15 m² - 150 m²" },
+                            { label: "Tiempo", val: "6 - 12 Semanas" },
+                            { label: "Gestión", val: "Llave en Mano" },
+                            { label: "Garantía", val: "1 Año" },
+                        ].map((item, i) => (
+                            <div key={i} className="text-center">
+                                <span className="block text-xs uppercase tracking-widest text-terracota mb-2">{item.label}</span>
+                                <p className="font-serif text-2xl md:text-3xl">{item.val}</p>
+                            </div>
+                        ))}
+                    </div>
                 </div>
             </section>
 
