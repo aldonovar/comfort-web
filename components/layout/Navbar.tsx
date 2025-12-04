@@ -359,8 +359,7 @@ export default function Navbar() {
                     src={currentImage}
                     alt="Current Preview"
                     fill
-                    className="current-image object-cover"
-                    style={{ opacity: 0 }} // Controlled by GSAP
+                    className="current-image object-cover opacity-40"
                     priority
                   />
                 )}
@@ -371,8 +370,7 @@ export default function Navbar() {
                     src={nextImage}
                     alt="Next Preview"
                     fill
-                    className="next-image object-cover"
-                    style={{ opacity: 0 }} // Controlled by GSAP
+                    className="next-image object-cover opacity-0"
                     priority
                   />
                 )}
