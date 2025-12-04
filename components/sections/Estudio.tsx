@@ -65,13 +65,14 @@ export default function Estudio() {
       // Grid Reveal
       gsap.from(".studio-card-reveal", {
         y: 50,
-        opacity: 0,
+        autoAlpha: 0,
         duration: 0.8,
         stagger: 0.1,
         ease: "power2.out",
+        clearProps: "all",
         scrollTrigger: {
           trigger: ".studio-grid",
-          start: "top 85%",
+          start: "top 95%", // Trigger earlier
         }
       });
 
