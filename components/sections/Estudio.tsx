@@ -145,7 +145,7 @@ export default function Estudio() {
                   studio-card-reveal relative rounded-3xl overflow-hidden group transition-all duration-500
                   ${item.colSpan}
                   min-h-[300px] md:min-h-[350px]
-                  border border-transparent hover:border-terracota/50 hover:shadow-2xl hover:shadow-terracota/10
+                  border border-white/10 dark:border-white/5 hover:border-terracota/50 hover:shadow-2xl hover:shadow-terracota/10
                 `}
               >
                 {/* Background Image (for specific cards) */}
@@ -163,9 +163,9 @@ export default function Estudio() {
                   </div>
                 )}
 
-                {/* Glass Background for others */}
+                {/* Glass Background for others - Frosted Glass Effect */}
                 {item.id !== 'enfoque' && item.id !== 'detalle' && (
-                  <div className="absolute inset-0 bg-white/90 dark:bg-black/60 backdrop-blur-xl group-hover:bg-white/95 dark:group-hover:bg-black/70 transition-colors duration-500" />
+                  <div className="absolute inset-0 bg-white/10 dark:bg-black/20 backdrop-blur-2xl group-hover:bg-white/20 dark:group-hover:bg-black/30 transition-all duration-500" />
                 )}
 
                 {/* Content */}
