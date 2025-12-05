@@ -93,21 +93,21 @@ const CustomSelect = ({
 
   return (
     <div className={`group relative ${isOpen ? 'z-[60]' : 'z-20'}`} ref={containerRef}>
-      <label className="block text-[10px] uppercase tracking-widest text-madera/60 dark:text-crema/60 mb-1.5 group-focus-within:text-terracota transition-colors font-medium pl-1">
+      <label className="block text-[10px] uppercase tracking-widest text-madera/80 dark:text-crema/80 mb-1.5 group-focus-within:text-terracota transition-colors font-medium pl-1">
         {label}
       </label>
 
       <div
         onClick={() => setIsOpen(!isOpen)}
         className={`
-          w-full bg-madera/5 dark:bg-crema/5 hover:bg-madera/10 dark:hover:bg-crema/10 rounded-xl px-4 py-2.5 text-sm cursor-pointer flex justify-between items-center transition-all duration-300 border border-madera/10 dark:border-crema/10 backdrop-blur-sm
+          w-full bg-madera/10 dark:bg-crema/10 hover:bg-madera/20 dark:hover:bg-crema/20 rounded-xl px-4 py-2.5 text-sm cursor-pointer flex justify-between items-center transition-all duration-300 border border-madera/20 dark:border-crema/20 backdrop-blur-sm
           ${isOpen ? 'ring-1 ring-terracota border-terracota/50' : ''}
         `}
       >
-        <span className={`truncate mr-2 ${value ? "text-madera dark:text-crema" : "text-madera/40 dark:text-crema/40"}`}>
+        <span className={`truncate mr-2 ${value ? "text-madera dark:text-crema" : "text-madera/50 dark:text-crema/50"}`}>
           {displayValue || placeholder}
         </span>
-        <span className={`text-[10px] text-madera/40 dark:text-crema/40 transform transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}>
+        <span className={`text-[10px] text-madera/50 dark:text-crema/50 transform transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}>
           ▼
         </span>
       </div>
@@ -158,15 +158,15 @@ const CustomInput = ({
   optional?: boolean
 }) => (
   <div className="group">
-    <label className="block text-[10px] uppercase tracking-widest text-madera/60 dark:text-crema/60 mb-1.5 group-focus-within:text-terracota transition-colors font-medium pl-1">
-      {label} {optional && <span className="text-madera/30 dark:text-crema/30 normal-case tracking-normal ml-1">(Opcional)</span>}
+    <label className="block text-[10px] uppercase tracking-widest text-madera/80 dark:text-crema/80 mb-1.5 group-focus-within:text-terracota transition-colors font-medium pl-1">
+      {label} {optional && <span className="text-madera/40 dark:text-crema/40 normal-case tracking-normal ml-1">(Opcional)</span>}
     </label>
     <input
       type={type}
       value={value}
       onChange={(e) => onChange(e.target.value)}
       placeholder={placeholder}
-      className="w-full bg-madera/5 dark:bg-crema/5 hover:bg-madera/10 dark:hover:bg-crema/10 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-1 focus:ring-terracota focus:border-terracota/50 transition-all duration-300 placeholder-madera/30 dark:placeholder-crema/30 text-madera dark:text-crema border border-madera/10 dark:border-crema/10 backdrop-blur-sm"
+      className="w-full bg-madera/10 dark:bg-crema/10 hover:bg-madera/20 dark:hover:bg-crema/20 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-1 focus:ring-terracota focus:border-terracota/50 transition-all duration-300 placeholder-madera/40 dark:placeholder-crema/40 text-madera dark:text-crema border border-madera/20 dark:border-crema/20 backdrop-blur-sm"
     />
   </div>
 );
@@ -356,17 +356,13 @@ export default function Cotiza() {
     >
       {/* Dynamic Background */}
       <div className="absolute inset-0 transition-opacity duration-1000">
-        {projectType && SERVICE_IMAGES[projectType] ? (
-          <Image
-            src={SERVICE_IMAGES[projectType][currentImageIndex]}
-            alt="Background"
-            fill
-            className="object-cover opacity-10 dark:opacity-30 blur-sm scale-105 transition-transform duration-[10s]"
-          />
-        ) : (
-          <div className="absolute inset-0 bg-white dark:bg-zinc-900" />
-        )}
-        <div className="absolute inset-0 bg-linear-to-b from-(--bg-primary)/5 via-(--bg-primary)/20 to-(--bg-primary)/5" />
+        <Image
+          src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2700&auto=format&fit=crop"
+          alt="Background"
+          fill
+          className="object-cover opacity-5 dark:opacity-20 blur-sm scale-105"
+        />
+        <div className="absolute inset-0 bg-linear-to-b from-(--bg-primary)/80 via-(--bg-primary)/90 to-(--bg-primary)/80" />
         <div className="absolute inset-0 opacity-[0.05] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')] mix-blend-overlay"></div>
       </div>
 
@@ -378,8 +374,8 @@ export default function Cotiza() {
 
             {/* Background Effects (Clipped) */}
             <div className="absolute inset-0 rounded-[2rem] overflow-hidden pointer-events-none">
-              <div className="absolute inset-0 bg-white/60 dark:bg-white/5 backdrop-blur-2xl border border-madera/5 dark:border-crema/5" />
-              <div className="absolute top-0 right-0 w-64 h-64 bg-terracota/5 dark:bg-terracota/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+              <div className="absolute inset-0 bg-white/90 dark:bg-black/40 backdrop-blur-3xl border border-madera/10 dark:border-crema/10" />
+              <div className="absolute top-0 right-0 w-64 h-64 bg-terracota/5 dark:bg-terracota/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
             </div>
 
             {/* Content (Not Clipped) */}
@@ -474,7 +470,7 @@ export default function Cotiza() {
                     />
                   </div>
                   <div className="group">
-                    <label className="block text-[10px] uppercase tracking-widest text-madera/60 dark:text-crema/60 mb-1.5 group-focus-within:text-terracota transition-colors font-medium pl-1">
+                    <label className="block text-[10px] uppercase tracking-widest text-madera/80 dark:text-crema/80 mb-1.5 group-focus-within:text-terracota transition-colors font-medium pl-1">
                       Notas
                     </label>
                     <textarea
@@ -482,7 +478,7 @@ export default function Cotiza() {
                       onChange={(e) => setNotes(e.target.value)}
                       placeholder="Detalles adicionales..."
                       rows={1}
-                      className="w-full bg-madera/5 dark:bg-crema/5 hover:bg-madera/10 dark:hover:bg-crema/10 rounded-xl p-3 text-sm focus:outline-none focus:ring-1 focus:ring-terracota transition-all duration-300 placeholder-madera/30 dark:placeholder-crema/30 resize-none text-madera dark:text-crema border border-madera/10 dark:border-crema/10 backdrop-blur-sm"
+                      className="w-full bg-madera/10 dark:bg-crema/10 hover:bg-madera/20 dark:hover:bg-crema/20 rounded-xl p-3 text-sm focus:outline-none focus:ring-1 focus:ring-terracota transition-all duration-300 placeholder-madera/40 dark:placeholder-crema/40 resize-none text-madera dark:text-crema border border-madera/20 dark:border-crema/20 backdrop-blur-sm"
                     />
                   </div>
                 </div>
