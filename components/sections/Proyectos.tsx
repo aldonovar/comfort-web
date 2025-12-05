@@ -80,20 +80,21 @@ export default function Proyectos() {
     <section
       ref={sectionRef}
       id="proyectos"
-      className="relative bg-primary text-primary py-24 md:py-32 transition-colors duration-500"
+
+      className="relative bg-primary text-primary py-16 md:py-32 transition-colors duration-500"
     >
       <div className="max-w-[1800px] mx-auto px-6 md:px-12">
 
         {/* Header */}
-        <div className="projects-header-reveal mb-24 max-w-2xl">
+        <div className="projects-header-reveal mb-12 md:mb-24 max-w-2xl">
           <span className="block text-terracota text-xs tracking-[0.3em] uppercase font-bold mb-4">
             Portafolio Selecto
           </span>
-          <h2 className="font-serif text-4xl md:text-6xl leading-[1.1] mb-6">
+          <h2 className="font-serif text-3xl md:text-6xl leading-[1.1] mb-6">
             Espacios que cuentan <br />
             <span className="text-primary/40 italic transition-colors duration-500">historias.</span>
           </h2>
-          <p className="text-primary/60 text-lg font-light leading-relaxed max-w-lg transition-colors duration-500">
+          <p className="text-primary/60 text-sm md:text-lg font-light leading-relaxed max-w-lg transition-colors duration-500">
             Cada proyecto es un diálogo entre la arquitectura y el estilo de vida. Aquí, una muestra de lo que es posible.
           </p>
         </div>
@@ -103,7 +104,7 @@ export default function Proyectos() {
           {PROJECTS.map((project, index) => (
             <div
               key={project.id}
-              className="sticky top-20 md:top-32 min-h-[50vh] md:h-[80vh] w-full"
+              className="sticky top-20 md:top-32 min-h-[45vh] md:h-[80vh] w-full"
               style={{ zIndex: index + 1 }}
               onMouseEnter={() => setHoveredProject(project.id)}
               onMouseLeave={() => setHoveredProject(null)}
@@ -130,7 +131,7 @@ export default function Proyectos() {
                 <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/50 to-transparent pointer-events-none transition-colors duration-500" />
 
                 {/* Content */}
-                <div className="absolute inset-0 p-8 md:p-12 flex flex-col justify-end md:justify-between pointer-events-none">
+                <div className="absolute inset-0 p-6 md:p-12 flex flex-col justify-end md:justify-between pointer-events-none">
 
                   {/* Top Tags (Desktop) */}
                   <div className="hidden md:flex justify-between items-start">
@@ -154,15 +155,15 @@ export default function Proyectos() {
                       <span>{project.surface}</span>
                     </div>
 
-                    <h3 className="font-serif text-4xl md:text-7xl mb-6 text-white leading-none transition-colors duration-500">
+                    <h3 className="font-serif text-3xl md:text-7xl mb-4 md:mb-6 text-white leading-none transition-colors duration-500">
                       {project.title}
                     </h3>
 
-                    <p className="text-white/80 text-base md:text-xl font-light leading-relaxed max-w-xl mb-8 transition-colors duration-500">
+                    <p className="text-white/80 text-sm md:text-xl font-light leading-relaxed max-w-xl mb-6 md:mb-8 transition-colors duration-500">
                       {project.description}
                     </p>
 
-                    <button className="group/btn inline-flex items-center gap-3 px-8 py-4 rounded-full bg-white text-black hover:bg-terracota hover:text-white transition-all duration-300 pointer-events-auto">
+                    <button className="group/btn inline-flex items-center gap-3 px-6 py-3 md:px-8 md:py-4 rounded-full bg-white text-black hover:bg-terracota hover:text-white transition-all duration-300 pointer-events-auto">
                       <span className="uppercase tracking-widest text-xs font-bold">Ver Proyecto</span>
                       <span className="transform group-hover/btn:translate-x-1 transition-transform">→</span>
                     </button>
