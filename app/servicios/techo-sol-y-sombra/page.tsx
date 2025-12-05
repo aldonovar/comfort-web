@@ -107,44 +107,62 @@ export default function TechoSolSombraPage() {
                 }
             });
 
-            // 2. ANATOMY: Split View Sticky
-            const sections = gsap.utils.toArray(".anatomy-section");
-            ScrollTrigger.create({
-                trigger: anatomyRef.current,
-                start: "top top",
-                end: "+=300%",
-                pin: true,
-                scrub: true,
-                onUpdate: (self) => {
-                    const total = sections.length;
-                    const progress = self.progress * total;
-                    const index = Math.floor(progress);
+            // 2. NEW MATERIALITY REVEAL
+            const anatomySections = gsap.utils.toArray(".anatomy-section");
+            anatomySections.forEach((section: any) => {
+                const img = section.querySelector(".anatomy-img");
+                const content = section.querySelector(".anatomy-content");
 
-                    sections.forEach((section: any, i) => {
-                        const img = section.querySelector(".anatomy-img");
-                        const content = section.querySelector(".anatomy-content");
-
-                        if (i === index) {
-                            gsap.to(section, { opacity: 1, zIndex: 10, overwrite: true });
-                            gsap.to(img, { scale: 1.1, overwrite: true }); // Zoom effect
-                            gsap.fromTo(content, { y: 50, opacity: 0 }, { y: 0, opacity: 1, overwrite: true });
-                        } else {
-                            gsap.to(section, { opacity: 0, zIndex: 0, overwrite: true });
+                gsap.fromTo(img,
+                    { scale: 1.1 },
+                    {
+                        scale: 1,
+                        ease: "none",
+                        scrollTrigger: {
+                            trigger: section,
+                            start: "top bottom",
+                            end: "bottom top",
+                            scrub: true
                         }
-                    });
+                    }
+                );
+
+                gsap.fromTo(content,
+                    { y: 100, opacity: 0 },
+                    {
+                        y: 0,
+                        opacity: 1,
+                        duration: 1,
+                        scrollTrigger: {
+                            trigger: section,
+                            start: "top center",
+                            toggleActions: "play none none reverse"
+                        }
+                    }
+                );
+            });
+
+            // 3. Footer Reveal (Standard)
+            gsap.from(".footer-cta", {
+                yPercent: -50,
+                opacity: 0,
+                scrollTrigger: {
+                    trigger: ".footer-section",
+                    start: "top 80%",
+                    end: "bottom bottom",
+                    scrub: true
                 }
             });
 
-            // 3. Infinite Marquee
-            gsap.to(".marquee-content", {
-                xPercent: -50,
-                repeat: -1,
-                duration: 40,
-                ease: "linear"
-            });
-
         }, container);
-        return () => ctx.revert();
+
+        // Force refresh for sticky positioning
+        const timer = setTimeout(() => ScrollTrigger.refresh(), 500);
+
+        return () => {
+            ctx.revert();
+            clearTimeout(timer);
+        };
     }, []);
 
     return (
@@ -193,41 +211,44 @@ export default function TechoSolSombraPage() {
                 </div>
             </div>
 
-            {/* --- ANATOMY OF QUALITY (Split View) --- */}
-            <section ref={anatomyRef} className="relative h-screen bg-neutral-900 overflow-hidden">
+            {/* --- MATERIALITY: IMMERSIVE SCROLL --- */}
+            <section ref={anatomyRef} className="relative bg-[#050505]">
                 {MATERIALS.map((mat, i) => (
-                    <div key={mat.id} className="anatomy-section absolute inset-0 flex flex-col md:flex-row opacity-0">
-                        {/* Left: Image Zoom */}
-                        <div className="relative w-full md:w-1/2 h-1/2 md:h-full overflow-hidden">
+                    <div key={mat.id} className="anatomy-section h-screen w-full flex items-center justify-center overflow-hidden sticky top-0">
+                        {/* Background Image */}
+                        <div className="absolute inset-0 z-0">
                             <Image
                                 src={mat.img}
                                 alt={mat.title}
                                 fill
-                                className="anatomy-img object-cover scale-100 transition-transform duration-[2s]"
+                                className="anatomy-img object-cover transition-transform duration-[3s] ease-out scale-110"
                             />
-                            <div className="absolute inset-0 bg-black/20" />
+                            <div className="absolute inset-0 bg-black/40" />
+                            <div className="absolute inset-0 bg-linear-to-t from-[#050505] via-transparent to-transparent" />
                         </div>
 
-                        {/* Right: Glass Content */}
-                        <div className="w-full md:w-1/2 h-1/2 md:h-full relative bg-neutral-900 flex items-center justify-center p-8 md:p-20">
-                            {/* Background Blur Blob */}
-                            <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] rounded-full blur-[100px] opacity-20 ${mat.color.replace('text-', 'bg-')}`} />
-
-                            <div className="anatomy-content relative z-10 w-full max-w-lg">
-                                <span className={`text-sm uppercase tracking-widest mb-4 block font-bold ${mat.color}`}>
+                        {/* Content Card */}
+                        <div className="anatomy-content relative z-10 max-w-6xl w-full px-6 md:px-12 grid md:grid-cols-2 gap-12 items-end">
+                            <div className="md:col-start-1">
+                                <span className={`inline-block px-4 py-2 rounded-full border border-white/20 bg-white/10 backdrop-blur-md text-xs uppercase tracking-widest mb-6 ${mat.color}`}>
                                     Componente 0{i + 1}
                                 </span>
-                                <h2 className="text-5xl md:text-7xl font-serif mb-6 leading-tight">{mat.title}</h2>
-                                <p className="text-xl text-white/80 mb-8 font-light leading-relaxed">
+                                <h2 className="text-6xl md:text-8xl font-serif mb-6 leading-none text-white">
+                                    {mat.title.split(" ")[0]} <br />
+                                    <span className="italic text-white/50">{mat.title.split(" ").slice(1).join(" ")}</span>
+                                </h2>
+                            </div>
+
+                            <div className="md:col-start-2 bg-black/60 backdrop-blur-xl p-8 md:p-12 border border-white/10 rounded-sm">
+                                <h3 className="text-2xl font-serif mb-4 text-white">{mat.subtitle}</h3>
+                                <p className="text-white/70 text-lg leading-relaxed mb-8 font-light">
                                     {mat.desc}
                                 </p>
-
-                                {/* Tech Specs */}
-                                <div className="grid grid-cols-1 gap-4 border-t border-white/10 pt-8">
+                                <div className="space-y-4">
                                     {mat.specs.map((spec, j) => (
-                                        <div key={j} className="flex items-center gap-3 text-sm text-white/60 uppercase tracking-wider">
-                                            <div className={`w-2 h-2 rounded-full ${mat.color.replace('text-', 'bg-')}`} />
-                                            {spec}
+                                        <div key={j} className="flex items-center justify-between border-b border-white/10 pb-2 text-sm text-white/60 uppercase tracking-wider">
+                                            <span>{spec.split(":")[0]}</span>
+                                            <span className="text-white">{spec.split(":")[1]}</span>
                                         </div>
                                     ))}
                                 </div>
@@ -237,41 +258,53 @@ export default function TechoSolSombraPage() {
                 ))}
             </section>
 
-            {/* --- BENEFITS GRID --- */}
-            <section className="py-32 px-6 bg-black border-t border-white/10">
-                <div className="container mx-auto">
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+            {/* --- ENGINEERING: HIGH TECH --- */}
+            <section className="py-32 px-6 md:px-24 bg-[#0a0a0a] border-t border-white/5">
+                <div className="max-w-7xl mx-auto">
+                    <div className="text-center mb-24">
+                        <span className="text-terracota text-xs uppercase tracking-[0.3em] font-bold">Ingeniería</span>
+                        <h2 className="text-4xl md:text-6xl font-serif mt-4 text-white">Rendimiento Superior</h2>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                         {BENEFITS.map((benefit, i) => (
-                            <div key={i} className="text-center group">
-                                <div className="w-20 h-20 mx-auto mb-8 rounded-full bg-white/5 flex items-center justify-center border border-white/10 group-hover:border-terracota/50 group-hover:bg-terracota/10 transition-all duration-500">
-                                    <svg className="w-8 h-8 text-white group-hover:text-terracota transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d={benefit.icon} />
-                                    </svg>
+                            <div key={i} className="group p-8 border border-white/5 bg-white/2 hover:bg-white/5 transition-colors duration-500">
+                                <div className="mb-8 opacity-50 group-hover:opacity-100 transition-opacity text-terracota">
+                                    <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" d={benefit.icon} /></svg>
                                 </div>
-                                <h3 className="text-2xl font-serif mb-4">{benefit.title}</h3>
-                                <p className="text-white/60 leading-relaxed max-w-xs mx-auto">{benefit.desc}</p>
+                                <h3 className="text-2xl font-serif mb-4 text-white">{benefit.title}</h3>
+                                <p className="text-white/50 leading-relaxed">
+                                    {benefit.desc}
+                                </p>
                             </div>
                         ))}
                     </div>
                 </div>
             </section>
 
-            {/* --- INFINITE MARQUEE --- */}
-            <section className="relative py-20 bg-black overflow-hidden border-y border-white/10">
-                <div className="flex w-[200%] marquee-content">
-                    {[1, 2, 3, 4, 1, 2, 3, 4].map((item, i) => (
-                        <div key={i} className="w-[25vw] aspect-[4/5] relative mx-4 shrink-0 grayscale hover:grayscale-0 transition-all duration-500 cursor-pointer group">
-                            <Image
-                                src={`https://images.unsplash.com/photo-${item === 1 ? '1600607687939-ce8a6c25118c' : item === 2 ? '1600566753190-17f0baa2a6c3' : item === 3 ? '1600210492486-724fe5c67fb0' : '1610312278520-bcc19387bcba'}?q=80&w=800&auto=format&fit=crop`}
-                                alt="Project"
-                                fill
-                                className="object-cover rounded-lg"
-                            />
-                            <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                                <span className="text-white uppercase tracking-widest text-sm border border-white px-4 py-2 rounded-full">Ver Proyecto</span>
-                            </div>
+            {/* --- GALLERY: MASONRY --- */}
+            <section className="py-32 bg-[#050505]">
+                <div className="container mx-auto px-6">
+                    <div className="flex justify-between items-end mb-16">
+                        <h2 className="text-4xl md:text-6xl font-serif text-white">Inspiración</h2>
+                        <Link href="/proyectos" className="hidden md:block text-sm uppercase tracking-widest text-white/50 hover:text-white transition-colors">Ver Todo →</Link>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-4 gap-4 h-[80vh]">
+                        <div className="md:col-span-2 md:row-span-2 relative group overflow-hidden">
+                            <Image src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=1200&auto=format&fit=crop" alt="Gallery 1" fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
+                            <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors" />
                         </div>
-                    ))}
+                        <div className="relative group overflow-hidden">
+                            <Image src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?q=80&w=800&auto=format&fit=crop" alt="Gallery 2" fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
+                        </div>
+                        <div className="relative group overflow-hidden">
+                            <Image src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=800&auto=format&fit=crop" alt="Gallery 3" fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
+                        </div>
+                        <div className="md:col-span-2 relative group overflow-hidden">
+                            <Image src="https://images.unsplash.com/photo-1610312278520-bcc19387bcba?q=80&w=1200&auto=format&fit=crop" alt="Gallery 4" fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
+                        </div>
+                    </div>
                 </div>
             </section>
 

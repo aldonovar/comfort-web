@@ -50,7 +50,14 @@ export default function ProcesoPage() {
             });
 
         }, containerRef);
-        return () => ctx.revert();
+
+        // Force refresh for sticky positioning and layout
+        const timer = setTimeout(() => ScrollTrigger.refresh(), 500);
+
+        return () => {
+            ctx.revert();
+            clearTimeout(timer);
+        };
     }, []);
 
     return (
