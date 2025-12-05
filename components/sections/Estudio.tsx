@@ -167,7 +167,7 @@ export default function Estudio() {
 
                 {/* Glass Background for others */}
                 {item.id !== 'enfoque' && item.id !== 'detalle' && (
-                  <div className="absolute inset-0 bg-white/60 dark:bg-white/5 backdrop-blur-md group-hover:bg-white/80 dark:group-hover:bg-white/10 transition-colors duration-500" />
+                  <div className="absolute inset-0 bg-white/90 dark:bg-black/60 backdrop-blur-xl group-hover:bg-white/95 dark:group-hover:bg-black/70 transition-colors duration-500" />
                 )}
 
                 {/* Content */}
