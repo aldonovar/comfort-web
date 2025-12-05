@@ -49,6 +49,7 @@ const services = [
 export default function Servicios() {
   const sectionRef = useRef<HTMLElement>(null);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [activeMobile, setActiveMobile] = useState<number>(0);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -107,17 +108,25 @@ export default function Servicios() {
           </p>
         </div>
 
-        {/* Desktop Accordion / Mobile Carousel */}
-        <div className="services-container flex flex-col md:flex-row gap-3 md:gap-2 h-auto md:h-[70vh] min-h-[500px] max-h-[800px]">
+        {/* Desktop Accordion / Mobile Vertical Accordion */}
+        <div className="services-container flex flex-col md:flex-row gap-2 h-[600px] md:h-[70vh] min-h-[500px] max-h-[800px]">
           {services.map((service, index) => (
             <Link
               key={service.id}
               href={`/servicios/${service.slug}`}
+              onClick={(e) => {
+                // Determine if we are on mobile (simple check)
+                if (window.innerWidth < 768) {
+                  e.preventDefault();
+                  setActiveMobile(index);
+                }
+              }}
               className={`
-                service-card-reveal group relative flex-1 overflow-hidden rounded-xl md:rounded-none md:first:rounded-l-2xl md:last:rounded-r-2xl
+                service-card-reveal group relative overflow-hidden 
+                first:rounded-t-2xl last:rounded-b-2xl md:rounded-none md:first:rounded-l-2xl md:last:rounded-r-2xl
                 transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)]
-                h-[300px] md:h-full
-                ${hoveredIndex === index ? 'md:flex-3' : 'md:flex-1'}
+                ${activeMobile === index ? 'flex-[3]' : 'flex-[1]'} // Mobile Accordion
+                ${hoveredIndex === index ? 'md:flex-[3]' : 'md:flex-[1]'} // Desktop Accordion
                 shadow-[0_30px_60px_rgba(0,0,0,0.3)] ring-1 ring-white/10 hover:ring-white/20
               `}
               onMouseEnter={() => setHoveredIndex(index)}
@@ -172,12 +181,12 @@ export default function Servicios() {
                     {service.title}
                   </h3>
 
-                  {/* Description (Reveals on hover in desktop) */}
+                  {/* Description (Reveals on active state) */}
                   <div className={`
                     overflow-hidden transition-all duration-500 ease-out
-                    max-h-[100px] opacity-100
+                    ${activeMobile === index ? 'max-h-[200px] opacity-100' : 'max-h-0 opacity-0'} 
                     md:max-h-0 md:opacity-0
-                    ${hoveredIndex === index ? 'md:max-h-[100px] md:opacity-100' : ''}
+                    ${hoveredIndex === index ? 'md:max-h-[200px] md:opacity-100' : ''}
                   `}>
                     <p className="text-white/80 text-xs md:text-sm leading-relaxed max-w-md mb-6 transition-colors duration-500">
                       {service.description}
