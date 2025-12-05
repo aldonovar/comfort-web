@@ -102,9 +102,7 @@ export default function Estudio() {
       {/* Background Noise */}
       <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div>
 
-      {/* Vibrant Gradient Orbs */}
-      <div className="absolute top-[-20%] left-[-10%] w-[800px] h-[800px] bg-terracota/10 blur-[120px] rounded-full pointer-events-none mix-blend-screen animate-pulse duration-[10000ms]" />
-      <div className="absolute bottom-[-20%] right-[-10%] w-[600px] h-[600px] bg-orange-500/10 blur-[100px] rounded-full pointer-events-none mix-blend-screen" />
+
 
       <div className="max-w-[1800px] mx-auto px-6 md:px-12 relative z-10">
 
