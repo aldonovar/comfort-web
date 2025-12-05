@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Image from "next/image";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -95,6 +96,17 @@ export default function Proceso() {
       id="proceso"
       className="relative bg-primary text-primary py-24 md:py-32 overflow-hidden transition-colors duration-500"
     >
+      {/* Background Image */}
+      <div className="absolute inset-0 z-0">
+        <Image
+          src="https://images.unsplash.com/photo-1486718448742-163732cd1544?q=80&w=2669&auto=format&fit=crop"
+          alt="Architectural Background"
+          fill
+          className="object-cover opacity-10 dark:opacity-20"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-[var(--bg-primary)] via-transparent to-[var(--bg-primary)]" />
+      </div>
+
       {/* Background Noise */}
       <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div>
 
