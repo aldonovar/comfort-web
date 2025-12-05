@@ -144,7 +144,7 @@ export default function Proyectos() {
                   <img
                     src={project.image}
                     alt={project.title}
-                    className={`absolute inset-0 w-full h-full object-cover ${isMobile ? 'project-image-mobile' : ''} ${!isMobile ? 'opacity-0' : 'opacity-100'}`}
+                    className={`absolute inset-0 w-full h-full object-cover ${isMobile ? 'project-image-mobile' : ''}`}
                   />
                 </div>
 
