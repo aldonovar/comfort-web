@@ -86,7 +86,7 @@ export default function Servicios() {
     <section
       ref={sectionRef}
       id="servicios"
-      className="relative py-20 md:py-24 bg-primary text-primary overflow-hidden transition-colors duration-500"
+      className="relative py-16 md:py-24 bg-primary text-primary overflow-hidden transition-colors duration-500"
     >
       {/* Background Noise Texture */}
       <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div>
@@ -98,7 +98,7 @@ export default function Servicios() {
           <span className="block text-terracota text-xs tracking-[0.3em] uppercase font-bold mb-4">
             Nuestros Servicios
           </span>
-          <h2 className="font-serif text-4xl md:text-6xl leading-[1.1] mb-6 text-white">
+          <h2 className="font-serif text-3xl md:text-6xl leading-[1.1] mb-6 text-white">
             Arquitectura para <br />
             <span className="text-terracota italic transition-colors duration-500">vivir el exterior.</span>
           </h2>
@@ -108,15 +108,15 @@ export default function Servicios() {
         </div>
 
         {/* Desktop Accordion / Mobile Carousel */}
-        <div className="services-container flex flex-col md:flex-row gap-6 md:gap-2 h-auto md:h-[70vh] min-h-[500px] max-h-[800px]">
+        <div className="services-container flex flex-col md:flex-row gap-3 md:gap-2 h-auto md:h-[70vh] min-h-[500px] max-h-[800px]">
           {services.map((service, index) => (
             <Link
               key={service.id}
               href={`/servicios/${service.slug}`}
               className={`
-                service-card-reveal group relative flex-1 overflow-hidden rounded-2xl md:rounded-none md:first:rounded-l-2xl md:last:rounded-r-2xl
+                service-card-reveal group relative flex-1 overflow-hidden rounded-xl md:rounded-none md:first:rounded-l-2xl md:last:rounded-r-2xl
                 transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)]
-                h-[450px] md:h-full
+                h-[300px] md:h-full
                 ${hoveredIndex === index ? 'md:flex-3' : 'md:flex-1'}
                 shadow-[0_30px_60px_rgba(0,0,0,0.3)] ring-1 ring-white/10 hover:ring-white/20
               `}
@@ -157,7 +157,7 @@ export default function Servicios() {
               <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/50 to-transparent transition-colors duration-500" />
 
               {/* Content */}
-              <div className="absolute inset-0 p-8 flex flex-col justify-end">
+              <div className="absolute inset-0 p-6 md:p-8 flex flex-col justify-end">
                 <div className="transform transition-transform duration-500 group-hover:translate-y-0 translate-y-4 md:translate-y-8">
 
                   {/* Tag */}
@@ -168,7 +168,7 @@ export default function Servicios() {
                   </div>
 
                   {/* Title */}
-                  <h3 className="font-serif text-3xl md:text-4xl mb-3 text-white group-hover:text-terracota transition-colors duration-300">
+                  <h3 className="font-serif text-2xl md:text-4xl mb-3 text-white group-hover:text-terracota transition-colors duration-300">
                     {service.title}
                   </h3>
 
@@ -179,7 +179,7 @@ export default function Servicios() {
                     md:max-h-0 md:opacity-0
                     ${hoveredIndex === index ? 'md:max-h-[100px] md:opacity-100' : ''}
                   `}>
-                    <p className="text-white/80 text-sm leading-relaxed max-w-md mb-6 transition-colors duration-500">
+                    <p className="text-white/80 text-xs md:text-sm leading-relaxed max-w-md mb-6 transition-colors duration-500">
                       {service.description}
                     </p>
 
