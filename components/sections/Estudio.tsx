@@ -151,15 +151,15 @@ export default function Estudio() {
                 {/* Background Image (for specific cards) */}
                 {item.id === 'enfoque' && (
                   <div className="absolute inset-0">
-                    <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=2653&auto=format&fit=crop" className="w-full h-full object-cover opacity-60 grayscale group-hover:grayscale-0 transition-all duration-700" alt="" />
-                    <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/40 to-transparent" />
+                    <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=2653&auto=format&fit=crop" className="w-full h-full object-cover transition-all duration-700" alt="" />
+                    <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent" />
                   </div>
                 )}
 
                 {item.id === 'detalle' && (
                   <div className="absolute inset-0">
-                    <img src="https://images.unsplash.com/photo-1556910103-1c02745a30bf?q=80&w=2670&auto=format&fit=crop" className="w-full h-full object-cover opacity-40 grayscale group-hover:grayscale-0 transition-all duration-700" alt="" />
-                    <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/40 to-transparent" />
+                    <img src="https://images.unsplash.com/photo-1556910103-1c02745a30bf?q=80&w=2670&auto=format&fit=crop" className="w-full h-full object-cover transition-all duration-700" alt="" />
+                    <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent" />
                   </div>
                 )}
 
@@ -173,7 +173,7 @@ export default function Estudio() {
                   <div className="flex justify-between items-start">
                     <span className={`
                       px-3 py-1 rounded-full text-[10px] uppercase tracking-widest border transition-colors duration-500
-                      ${(item.id === 'enfoque' || item.id === 'detalle') ? 'border-white/20 bg-white/10 text-white' : 'border-primary/10 bg-primary/5 text-primary/60 group-hover:border-terracota/30 group-hover:text-terracota'}
+                      ${(item.id === 'enfoque' || item.id === 'detalle') ? 'border-white/20 bg-white/10 text-white' : 'border-primary/10 bg-primary/5 text-primary group-hover:border-terracota/30 group-hover:text-terracota'}
                     `}>
                       {item.label}
                     </span>
@@ -187,7 +187,7 @@ export default function Estudio() {
                       {item.stats?.map((stat, i) => (
                         <div key={i}>
                           <span className="block text-3xl md:text-5xl font-serif text-primary mb-2 transition-colors duration-500 group-hover:text-terracota">{stat.value}</span>
-                          <span className="block text-[10px] uppercase tracking-wider text-primary/40 transition-colors duration-500">{stat.label}</span>
+                          <span className="block text-[10px] uppercase tracking-wider text-primary/60 transition-colors duration-500">{stat.label}</span>
                         </div>
                       ))}
                     </div>
@@ -196,7 +196,7 @@ export default function Estudio() {
                       <h3 className={`font-serif text-3xl mb-4 transition-colors duration-300 ${(item.id === 'enfoque' || item.id === 'detalle') ? 'text-white' : 'text-primary group-hover:text-terracota'}`}>
                         {item.title}
                       </h3>
-                      <p className={`text-sm leading-relaxed transition-colors duration-500 ${(item.id === 'enfoque' || item.id === 'detalle') ? 'text-white/80' : 'text-primary/60'}`}>
+                      <p className={`text-sm leading-relaxed transition-colors duration-500 ${(item.id === 'enfoque' || item.id === 'detalle') ? 'text-white/90' : 'text-primary'}`}>
                         {item.text}
                       </p>
                     </div>
