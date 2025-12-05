@@ -113,7 +113,7 @@ const CustomSelect = ({
       </div>
 
       <div className={`
-        absolute left-0 right-0 top-full mt-2 bg-[#F5F5F0] dark:bg-[#111111] border border-primary/10 dark:border-white/10 rounded-xl overflow-hidden z-[100] shadow-[0_10px_40px_rgba(0,0,0,0.1)] dark:shadow-[0_10px_40px_rgba(0,0,0,0.5)] origin-top transition-all duration-300 max-h-60 overflow-y-auto ring-1 ring-black/5 dark:ring-white/5
+        absolute left-0 right-0 top-full mt-2 bg-white dark:bg-zinc-900 border border-primary/10 dark:border-white/10 rounded-xl overflow-hidden z-[100] shadow-[0_10px_40px_rgba(0,0,0,0.1)] dark:shadow-[0_10px_40px_rgba(0,0,0,0.5)] origin-top transition-all duration-300 max-h-60 overflow-y-auto ring-1 ring-black/5 dark:ring-white/5
         ${isOpen ? 'opacity-100 scale-y-100 translate-y-0' : 'opacity-0 scale-y-95 -translate-y-2 pointer-events-none'}
       `}>
         {options.map((opt) => {
@@ -373,128 +373,137 @@ export default function Cotiza() {
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
 
           {/* Left: The Form (Glass Monolith) */}
-          <div className="quote-content bg-white/60 dark:bg-white/5 backdrop-blur-2xl border border-primary/5 dark:border-white/10 rounded-[2rem] p-6 md:p-10 shadow-2xl relative overflow-hidden transition-colors duration-500 max-w-2xl mx-auto w-full">
-            <div className="absolute top-0 right-0 w-64 h-64 bg-terracota/5 dark:bg-terracota/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
+          {/* REFACTORED CONTAINER: Removed overflow-hidden from main wrapper, added inner absolute wrapper for background effects */}
+          <div className="quote-content relative rounded-[2rem] shadow-2xl transition-colors duration-500 max-w-2xl mx-auto w-full">
 
-            <div className="mb-6 flex justify-between items-end">
-              <div>
-                <span className="block text-terracota text-[9px] tracking-[0.4em] uppercase font-bold mb-2">
-                  Concierge
-                </span>
-                <h2 className="font-serif text-3xl md:text-4xl leading-tight text-primary dark:text-white">
-                  Diseñemos tu <br />
-                  <span className="text-terracota italic">próximo escenario.</span>
-                </h2>
-              </div>
+            {/* Background Effects (Clipped) */}
+            <div className="absolute inset-0 rounded-[2rem] overflow-hidden pointer-events-none">
+              <div className="absolute inset-0 bg-white/60 dark:bg-white/5 backdrop-blur-2xl border border-primary/5 dark:border-white/10" />
+              <div className="absolute top-0 right-0 w-64 h-64 bg-terracota/5 dark:bg-terracota/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-6">
-              {/* 01. Proyecto */}
-              <div className="space-y-4">
-                <h3 className="text-[9px] uppercase tracking-widest text-primary/40 dark:text-white/40 font-bold border-b border-primary/10 dark:border-white/10 pb-1">
-                  01. El Proyecto
-                </h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                  <div className="md:col-span-2">
-                    <CustomSelect
-                      label="Tipo de Espacio"
-                      value={projectType}
-                      onChange={setProjectType}
-                      options={Object.keys(SERVICE_IMAGES)}
-                    />
-                  </div>
-                  <CustomInput
-                    label="Área (m²)"
-                    value={area}
-                    onChange={setArea}
-                    placeholder="00"
-                    type="number"
-                  />
-                  <CustomInput
-                    label="Distrito"
-                    value={district}
-                    onChange={setDistrict}
-                    placeholder="Ej. Miraflores"
-                  />
-                  <div className="md:col-span-2">
-                    <CustomSelect
-                      label="Rango de Inversión (USD)"
-                      value={budget}
-                      onChange={(val) => {
-                        setBudget(val);
-                        const code = BUDGET_RANGES.find(b => b.label === val)?.code || "XX";
-                        setBudgetCode(code);
-                      }}
-                      options={BUDGET_RANGES.map(b => ({ label: b.label, value: b.label }))}
-                    />
-                  </div>
+            {/* Content (Not Clipped, allows dropdowns to overflow) */}
+            <div className="relative z-10 p-6 md:p-10">
+              <div className="mb-6 flex justify-between items-end">
+                <div>
+                  <span className="block text-terracota text-[9px] tracking-[0.4em] uppercase font-bold mb-2">
+                    Concierge
+                  </span>
+                  <h2 className="font-serif text-3xl md:text-4xl leading-tight text-primary dark:text-white">
+                    Diseñemos tu <br />
+                    <span className="text-terracota italic">próximo escenario.</span>
+                  </h2>
                 </div>
               </div>
 
-              {/* 02. Datos */}
-              <div className="space-y-4">
-                <h3 className="text-[9px] uppercase tracking-widest text-primary/40 dark:text-white/40 font-bold border-b border-primary/10 dark:border-white/10 pb-1">
-                  02. Tus Datos
-                </h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                  <CustomInput
-                    label="Nombre"
-                    value={name}
-                    onChange={setName}
-                    placeholder="Tu nombre"
-                  />
-                  <CustomInput
-                    label="Empresa"
-                    value={company}
-                    onChange={setCompany}
-                    placeholder="Nombre empresa"
-                    optional
-                  />
-                  <CustomInput
-                    label="Teléfono"
-                    value={phone}
-                    onChange={setPhone}
-                    placeholder="+51..."
-                    type="tel"
-                  />
-                  <CustomInput
-                    label="Email"
-                    value={email}
-                    onChange={setEmail}
-                    placeholder="correo@..."
-                    type="email"
-                  />
+              <form onSubmit={handleSubmit} className="space-y-6">
+                {/* 01. Proyecto */}
+                <div className="space-y-4">
+                  <h3 className="text-[9px] uppercase tracking-widest text-primary/40 dark:text-white/40 font-bold border-b border-primary/10 dark:border-white/10 pb-1">
+                    01. El Proyecto
+                  </h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <div className="md:col-span-2">
+                      <CustomSelect
+                        label="Tipo de Espacio"
+                        value={projectType}
+                        onChange={setProjectType}
+                        options={Object.keys(SERVICE_IMAGES)}
+                      />
+                    </div>
+                    <CustomInput
+                      label="Área (m²)"
+                      value={area}
+                      onChange={setArea}
+                      placeholder="00"
+                      type="number"
+                    />
+                    <CustomInput
+                      label="Distrito"
+                      value={district}
+                      onChange={setDistrict}
+                      placeholder="Ej. Miraflores"
+                    />
+                    <div className="md:col-span-2">
+                      <CustomSelect
+                        label="Rango de Inversión (USD)"
+                        value={budget}
+                        onChange={(val) => {
+                          setBudget(val);
+                          const code = BUDGET_RANGES.find(b => b.label === val)?.code || "XX";
+                          setBudgetCode(code);
+                        }}
+                        options={BUDGET_RANGES.map(b => ({ label: b.label, value: b.label }))}
+                      />
+                    </div>
+                  </div>
                 </div>
-                <div className="group">
-                  <label className="block text-[10px] uppercase tracking-widest text-primary/60 dark:text-white/60 mb-1.5 group-focus-within:text-terracota transition-colors font-medium pl-1">
-                    Notas
-                  </label>
-                  <textarea
-                    value={notes}
-                    onChange={(e) => setNotes(e.target.value)}
-                    placeholder="Detalles adicionales..."
-                    rows={1}
-                    className="w-full bg-primary/5 dark:bg-white/5 hover:bg-primary/10 dark:hover:bg-white/10 rounded-xl p-3 text-sm focus:outline-none focus:ring-1 focus:ring-terracota transition-all duration-300 placeholder-primary/30 dark:placeholder-white/20 resize-none text-primary dark:text-white border border-primary/10 dark:border-white/10 backdrop-blur-sm"
-                  />
-                </div>
-              </div>
 
-              <button
-                type="submit"
-                disabled={!isFormReady || isSubmitting}
-                className={`
-                  group w-full py-4 rounded-xl transition-all duration-500 flex items-center justify-center gap-3 mt-2
-                  ${isFormReady && !isSubmitting
-                    ? 'bg-terracota text-white shadow-lg shadow-terracota/20 hover:shadow-terracota/40 hover:scale-[1.01] cursor-pointer'
-                    : 'bg-primary/5 dark:bg-white/5 text-primary/20 dark:text-white/20 cursor-not-allowed border border-primary/5 dark:border-white/5'}
-                `}
-              >
-                <span className="uppercase tracking-widest text-xs font-bold">
-                  {isSubmitting ? "Procesando..." : "Generar Ticket y Enviar"}
-                </span>
-                {!isSubmitting && <span className="transform group-hover:translate-x-1 transition-transform">→</span>}
-              </button>
-            </form>
+                {/* 02. Datos */}
+                <div className="space-y-4">
+                  <h3 className="text-[9px] uppercase tracking-widest text-primary/40 dark:text-white/40 font-bold border-b border-primary/10 dark:border-white/10 pb-1">
+                    02. Tus Datos
+                  </h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <CustomInput
+                      label="Nombre"
+                      value={name}
+                      onChange={setName}
+                      placeholder="Tu nombre"
+                    />
+                    <CustomInput
+                      label="Empresa"
+                      value={company}
+                      onChange={setCompany}
+                      placeholder="Nombre empresa"
+                      optional
+                    />
+                    <CustomInput
+                      label="Teléfono"
+                      value={phone}
+                      onChange={setPhone}
+                      placeholder="+51..."
+                      type="tel"
+                    />
+                    <CustomInput
+                      label="Email"
+                      value={email}
+                      onChange={setEmail}
+                      placeholder="correo@..."
+                      type="email"
+                    />
+                  </div>
+                  <div className="group">
+                    <label className="block text-[10px] uppercase tracking-widest text-primary/60 dark:text-white/60 mb-1.5 group-focus-within:text-terracota transition-colors font-medium pl-1">
+                      Notas
+                    </label>
+                    <textarea
+                      value={notes}
+                      onChange={(e) => setNotes(e.target.value)}
+                      placeholder="Detalles adicionales..."
+                      rows={1}
+                      className="w-full bg-primary/5 dark:bg-white/5 hover:bg-primary/10 dark:hover:bg-white/10 rounded-xl p-3 text-sm focus:outline-none focus:ring-1 focus:ring-terracota transition-all duration-300 placeholder-primary/30 dark:placeholder-white/20 resize-none text-primary dark:text-white border border-primary/10 dark:border-white/10 backdrop-blur-sm"
+                    />
+                  </div>
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={!isFormReady || isSubmitting}
+                  className={`
+                    group w-full py-4 rounded-xl transition-all duration-500 flex items-center justify-center gap-3 mt-2
+                    ${isFormReady && !isSubmitting
+                      ? 'bg-terracota text-white shadow-lg shadow-terracota/20 hover:shadow-terracota/40 hover:scale-[1.01] cursor-pointer'
+                      : 'bg-primary/5 dark:bg-white/5 text-primary/20 dark:text-white/20 cursor-not-allowed border border-primary/5 dark:border-white/5'}
+                  `}
+                >
+                  <span className="uppercase tracking-widest text-xs font-bold">
+                    {isSubmitting ? "Procesando..." : "Generar Ticket y Enviar"}
+                  </span>
+                  {!isSubmitting && <span className="transform group-hover:translate-x-1 transition-transform">→</span>}
+                </button>
+              </form>
+            </div>
           </div>
 
           {/* Right: The Ticket (Sticky) */}
