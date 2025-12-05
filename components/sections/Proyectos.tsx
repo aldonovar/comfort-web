@@ -57,32 +57,10 @@ const PROJECTS = [
 export default function Proyectos() {
   const sectionRef = useRef<HTMLElement>(null);
   const [hoveredProject, setHoveredProject] = useState<string | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      // Header Reveal
-      gsap.from(".projects-header-reveal", {
-        y: 50,
-        opacity: 0,
-        duration: 1,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top 80%",
-        }
-      });
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, []);
-
-  return (
-    <section
-      ref={sectionRef}
-      id="proyectos"
-
-      className="relative bg-primary text-primary py-16 md:py-32 transition-colors duration-500"
-    >
+  >
       <div className="max-w-[1800px] mx-auto px-6 md:px-12">
 
         {/* Header */}
@@ -111,19 +89,21 @@ export default function Proyectos() {
             >
               <article className="relative w-full h-full rounded-3xl overflow-hidden shadow-[0_30px_60px_rgba(0,0,0,0.3)] ring-1 ring-white/10 bg-transparent group transition-all duration-500">
 
-                {/* WebGL Image Background */}
+                {/* WebGL Image Background - Desktop Only */}
                 <div className="absolute inset-0 w-full h-full">
-                  <View className="w-full h-full absolute inset-0">
-                    <ProjectDistortion
-                      image={project.image}
-                      hovered={hoveredProject === project.id}
-                    />
-                  </View>
-                  {/* Fallback Image - Visible if JS fails or WebGL issues */}
+                  {!isMobile && (
+                    <View className="w-full h-full absolute inset-0">
+                      <ProjectDistortion
+                        image={project.image}
+                        hovered={hoveredProject === project.id}
+                      />
+                    </View>
+                  )}
+                  {/* Fallback/Mobile Image - Visible on mobile or if WebGL fails */}
                   <img
                     src={project.image}
                     alt={project.title}
-                    className="absolute inset-0 w-full h-full object-cover"
+                    className={`absolute inset-0 w-full h-full object-cover ${isMobile ? 'project-image-mobile' : ''} ${!isMobile ? 'opacity-0' : 'opacity-100'}`}
                   />
                 </div>
 
@@ -189,6 +169,6 @@ export default function Proyectos() {
         </div>
 
       </div>
-    </section>
-  );
+  </section >
+);
 }
