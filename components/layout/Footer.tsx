@@ -53,13 +53,13 @@ export default function Footer() {
   }, []);
 
   return (
-    <footer ref={footerRef} className="relative z-50 bg-[#121212] text-white pt-32 pb-24 border-t border-white/5 overflow-hidden">
+    <footer ref={footerRef} className="relative z-50 bg-[#121212] text-white pt-16 pb-12 md:pt-32 md:pb-24 border-t border-white/5 overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div>
 
       <div className="max-w-[1800px] mx-auto px-6 md:px-12 relative z-10">
 
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-16 md:gap-8 mb-24">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8 mb-16 md:mb-24">
 
           {/* Brand Column */}
           <div className="md:col-span-4 space-y-8 footer-reveal">
@@ -71,7 +71,7 @@ export default function Footer() {
               />
               <span className="font-serif text-xl tracking-tight text-white group-hover:text-terracota transition-colors duration-300">COMFORT STUDIO</span>
             </Link>
-            <p className="text-white/50 max-w-sm font-light leading-relaxed transition-colors duration-500">
+            <p className="text-white/50 max-w-sm font-light leading-relaxed transition-colors duration-500 text-balance">
               Transformamos espacios exteriores en experiencias de vida.
               Diseño arquitectónico y ejecución integral en Lima.
             </p>
@@ -89,7 +89,7 @@ export default function Footer() {
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 flex items-center justify-center rounded-full border border-white/10 text-white/60 hover:text-white hover:border-white hover:bg-white/5 transition-all duration-300"
+                  className="w-11 h-11 flex items-center justify-center rounded-full border border-white/10 text-white/60 hover:text-white hover:border-white hover:bg-white/5 transition-all duration-300"
                 >
                   <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path d={social.d} />
@@ -148,11 +148,11 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-center md:justify-between items-center gap-4 text-xs text-white/30 footer-reveal pb-20 md:pb-0 transition-colors duration-500">
+        <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-center md:justify-between items-center gap-6 text-xs text-white/30 footer-reveal pb-8 md:pb-0 transition-colors duration-500">
           <div className="flex flex-col md:flex-row items-center gap-4 md:gap-8">
             <p>© {new Date().getFullYear()} Comfort Studio.</p>
             <div className="hidden md:block w-px h-3 bg-white/20 transition-colors duration-500"></div>
-            <div className="flex gap-6">
+            <div className="flex gap-6 flex-wrap justify-center">
               <Link href="/privacidad" className="hover:text-white transition-colors">Política de Privacidad</Link>
               <Link href="/terminos" className="hover:text-white transition-colors">Términos y Condiciones</Link>
             </div>
@@ -160,7 +160,7 @@ export default function Footer() {
 
           <div className="flex items-center gap-1 uppercase tracking-wider text-[10px]">
             <span>EXPERIENCIA DIGITAL DESARROLLADA POR</span>
-            <a href="https://allyxorb.com" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors font-bold text-white/50 hover:text-white ml-1">
+            <a href="https://allyxorb.com" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors font-bold text-white/50 ml-1">
               ALLYX
             </a>
           </div>
