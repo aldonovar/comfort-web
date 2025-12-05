@@ -93,27 +93,27 @@ const CustomSelect = ({
 
   return (
     <div className={`group relative ${isOpen ? 'z-[60]' : 'z-20'}`} ref={containerRef}>
-      <label className="block text-[10px] uppercase tracking-widest text-madera/80 dark:text-crema/80 mb-1.5 group-focus-within:text-terracota transition-colors font-medium pl-1">
+      <label className="block text-[9px] uppercase tracking-widest text-madera dark:text-crema mb-1 group-focus-within:text-terracota transition-colors font-bold pl-1">
         {label}
       </label>
 
       <div
         onClick={() => setIsOpen(!isOpen)}
         className={`
-          w-full bg-madera/10 dark:bg-crema/10 hover:bg-madera/20 dark:hover:bg-crema/20 rounded-xl px-4 py-2.5 text-sm cursor-pointer flex justify-between items-center transition-all duration-300 border border-madera/20 dark:border-crema/20 backdrop-blur-sm
+          w-full bg-madera/5 dark:bg-crema/5 hover:bg-madera/10 dark:hover:bg-crema/10 rounded-lg px-3 py-2 text-xs md:text-sm cursor-pointer flex justify-between items-center transition-all duration-300 border border-madera/10 dark:border-crema/10 backdrop-blur-sm
           ${isOpen ? 'ring-1 ring-terracota border-terracota/50' : ''}
         `}
       >
-        <span className={`truncate mr-2 ${value ? "text-madera dark:text-crema" : "text-madera/50 dark:text-crema/50"}`}>
+        <span className={`truncate mr-2 ${value ? "text-madera dark:text-crema font-medium" : "text-madera/60 dark:text-crema/60"}`}>
           {displayValue || placeholder}
         </span>
-        <span className={`text-[10px] text-madera/50 dark:text-crema/50 transform transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}>
+        <span className={`text-[9px] text-madera/60 dark:text-crema/60 transform transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}>
           ▼
         </span>
       </div>
 
       <div className={`
-        absolute left-0 right-0 top-full mt-2 bg-white dark:bg-zinc-900 border border-madera/10 dark:border-crema/10 rounded-xl overflow-hidden shadow-[0_10px_40px_rgba(0,0,0,0.1)] dark:shadow-[0_10px_40px_rgba(0,0,0,0.5)] origin-top transition-all duration-300 max-h-60 overflow-y-auto ring-1 ring-black/5 dark:ring-white/5
+        absolute left-0 right-0 top-full mt-1 bg-white dark:bg-zinc-900 border border-madera/10 dark:border-crema/10 rounded-lg overflow-hidden shadow-xl origin-top transition-all duration-300 max-h-52 overflow-y-auto z-[70]
         ${isOpen ? 'opacity-100 scale-y-100 translate-y-0 pointer-events-auto' : 'opacity-0 scale-y-95 -translate-y-2 pointer-events-none'}
       `}>
         {options.map((opt) => {
@@ -127,10 +127,10 @@ const CustomSelect = ({
                 setIsOpen(false);
               }}
               className={`
-                px-4 py-2.5 text-sm cursor-pointer transition-colors border-b border-madera/5 dark:border-madera/5 last:border-0
+                px-3 py-2 text-xs md:text-sm cursor-pointer transition-colors border-b border-madera/5 dark:border-madera/5 last:border-0
                 ${value === optValue
                   ? 'bg-terracota text-white'
-                  : 'text-madera/80 dark:text-crema/80 hover:bg-madera/5 dark:hover:bg-crema/5 hover:text-madera dark:hover:text-crema'}
+                  : 'text-madera hover:bg-madera/5 dark:hover:bg-crema/5 hover:text-madera dark:text-crema'}
               `}
             >
               {optLabel}
@@ -158,15 +158,15 @@ const CustomInput = ({
   optional?: boolean
 }) => (
   <div className="group">
-    <label className="block text-[10px] uppercase tracking-widest text-madera/80 dark:text-crema/80 mb-1.5 group-focus-within:text-terracota transition-colors font-medium pl-1">
-      {label} {optional && <span className="text-madera/40 dark:text-crema/40 normal-case tracking-normal ml-1">(Opcional)</span>}
+    <label className="block text-[9px] uppercase tracking-widest text-madera dark:text-crema mb-1 group-focus-within:text-terracota transition-colors font-bold pl-1">
+      {label} {optional && <span className="text-madera/40 dark:text-crema/40 normal-case tracking-normal ml-1 font-normal">(Opcional)</span>}
     </label>
     <input
       type={type}
       value={value}
       onChange={(e) => onChange(e.target.value)}
       placeholder={placeholder}
-      className="w-full bg-madera/10 dark:bg-crema/10 hover:bg-madera/20 dark:hover:bg-crema/20 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-1 focus:ring-terracota focus:border-terracota/50 transition-all duration-300 placeholder-madera/40 dark:placeholder-crema/40 text-madera dark:text-crema border border-madera/20 dark:border-crema/20 backdrop-blur-sm"
+      className="w-full bg-madera/5 dark:bg-crema/5 hover:bg-madera/10 dark:hover:bg-crema/10 rounded-lg px-3 py-2 text-xs md:text-sm focus:outline-none focus:ring-1 focus:ring-terracota focus:border-terracota/50 transition-all duration-300 placeholder-madera/40 dark:placeholder-crema/40 text-madera dark:text-crema font-medium border border-madera/10 dark:border-crema/10 backdrop-blur-sm"
     />
   </div>
 );
@@ -373,32 +373,31 @@ export default function Cotiza() {
           <div className="quote-content relative rounded-[2rem] shadow-2xl transition-colors duration-500 max-w-2xl mx-auto w-full">
 
             {/* Background Effects (Clipped) */}
-            <div className="absolute inset-0 rounded-[2rem] overflow-hidden pointer-events-none">
-              <div className="absolute inset-0 bg-white/90 dark:bg-black/40 backdrop-blur-3xl border border-madera/10 dark:border-crema/10" />
-              <div className="absolute top-0 right-0 w-64 h-64 bg-terracota/5 dark:bg-terracota/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+            <div className="absolute inset-0 rounded-[1.5rem] md:rounded-[2rem] overflow-hidden pointer-events-none">
+              <div className="absolute inset-0 bg-white/95 dark:bg-black/60 backdrop-blur-3xl border border-madera/5 dark:border-crema/5" />
             </div>
 
             {/* Content (Not Clipped) */}
             <div className="relative z-10 p-5 md:p-8">
-              <div className="mb-4 flex justify-between items-end">
+              <div className="mb-3 md:mb-6 flex justify-between items-end">
                 <div>
-                  <span className="block text-terracota text-[9px] tracking-[0.4em] uppercase font-bold mb-2">
+                  <span className="block text-terracota text-[8px] md:text-[9px] tracking-[0.3em] uppercase font-bold mb-1 md:mb-2">
                     Concierge
                   </span>
-                  <h2 className="font-serif text-2xl md:text-3xl leading-tight text-madera dark:text-crema">
+                  <h2 className="font-serif text-xl md:text-3xl leading-tight text-madera dark:text-crema">
                     Diseñemos tu <br />
                     <span className="text-terracota italic">próximo escenario.</span>
                   </h2>
                 </div>
               </div>
 
-              <form onSubmit={handleSubmit} className="space-y-4">
+              <form onSubmit={handleSubmit} className="space-y-3 md:space-y-5">
                 {/* 01. Proyecto */}
-                <div className="space-y-3">
-                  <h3 className="text-[9px] uppercase tracking-widest text-madera/40 dark:text-crema/40 font-bold border-b border-madera/10 dark:border-crema/10 pb-1">
+                <div className="space-y-2 md:space-y-3">
+                  <h3 className="text-[8px] md:text-[9px] uppercase tracking-widest text-madera/50 dark:text-crema/50 font-bold border-b border-madera/10 dark:border-crema/10 pb-1">
                     01. El Proyecto
                   </h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-3">
                     <div className="md:col-span-2">
                       <CustomSelect
                         label="Tipo de Espacio"
@@ -436,11 +435,11 @@ export default function Cotiza() {
                 </div>
 
                 {/* 02. Datos */}
-                <div className="space-y-3">
-                  <h3 className="text-[9px] uppercase tracking-widest text-madera/40 dark:text-crema/40 font-bold border-b border-madera/10 dark:border-crema/10 pb-1">
+                <div className="space-y-2 md:space-y-3">
+                  <h3 className="text-[8px] md:text-[9px] uppercase tracking-widest text-madera/50 dark:text-crema/50 font-bold border-b border-madera/10 dark:border-crema/10 pb-1">
                     02. Tus Datos
                   </h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-3">
                     <CustomInput
                       label="Nombre"
                       value={name}
@@ -470,7 +469,7 @@ export default function Cotiza() {
                     />
                   </div>
                   <div className="group">
-                    <label className="block text-[10px] uppercase tracking-widest text-madera/80 dark:text-crema/80 mb-1.5 group-focus-within:text-terracota transition-colors font-medium pl-1">
+                    <label className="block text-[9px] uppercase tracking-widest text-madera dark:text-crema mb-1 group-focus-within:text-terracota transition-colors font-bold pl-1">
                       Notas
                     </label>
                     <textarea
@@ -478,7 +477,7 @@ export default function Cotiza() {
                       onChange={(e) => setNotes(e.target.value)}
                       placeholder="Detalles adicionales..."
                       rows={1}
-                      className="w-full bg-madera/10 dark:bg-crema/10 hover:bg-madera/20 dark:hover:bg-crema/20 rounded-xl p-3 text-sm focus:outline-none focus:ring-1 focus:ring-terracota transition-all duration-300 placeholder-madera/40 dark:placeholder-crema/40 resize-none text-madera dark:text-crema border border-madera/20 dark:border-crema/20 backdrop-blur-sm"
+                      className="w-full bg-madera/5 dark:bg-crema/5 hover:bg-madera/10 dark:hover:bg-crema/10 rounded-lg p-2.5 text-xs md:text-sm focus:outline-none focus:ring-1 focus:ring-terracota transition-all duration-300 placeholder-madera/40 dark:placeholder-crema/40 resize-none text-madera dark:text-crema font-medium border border-madera/10 dark:border-crema/10 backdrop-blur-sm"
                     />
                   </div>
                 </div>
@@ -487,7 +486,7 @@ export default function Cotiza() {
                   type="submit"
                   disabled={!isFormReady || isSubmitting}
                   className={`
-                    group w-full py-3.5 rounded-xl transition-all duration-500 flex items-center justify-center gap-3 mt-2
+                    group w-full py-3 md:py-3.5 rounded-lg md:rounded-xl transition-all duration-500 flex items-center justify-center gap-3 mt-2
                     ${isFormReady && !isSubmitting
                       ? 'bg-terracota text-white shadow-lg shadow-terracota/20 hover:shadow-terracota/40 hover:scale-[1.01] cursor-pointer'
                       : 'bg-madera/5 dark:bg-crema/5 text-madera/20 dark:text-crema/20 cursor-not-allowed border border-madera/5 dark:border-crema/5'}
