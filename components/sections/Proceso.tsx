@@ -122,8 +122,8 @@ export default function Proceso() {
               key={step.id}
               className="process-card-reveal relative rounded-3xl overflow-hidden group transition-all duration-500 min-h-[400px] border border-transparent hover:border-terracota/50 hover:shadow-2xl hover:shadow-terracota/10"
             >
-              {/* Glass Background */}
-              <div className="absolute inset-0 bg-primary/5 backdrop-blur-md group-hover:bg-primary/10 transition-colors duration-500" />
+              {/* Glass Background - Improved Visibility */}
+              <div className="absolute inset-0 bg-black/5 dark:bg-white/5 backdrop-blur-md group-hover:bg-terracota/5 transition-colors duration-500" />
 
               {/* Content */}
               <div className="relative z-10 h-full p-8 flex flex-col justify-between">
