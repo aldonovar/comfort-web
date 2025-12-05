@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -55,7 +55,6 @@ const steps = [
 
 export default function Proceso() {
   const sectionRef = useRef<HTMLElement>(null);
-  const [activeStep, setActiveStep] = useState(0);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -71,15 +70,18 @@ export default function Proceso() {
         }
       });
 
-      // Scroll Spy for Steps
-      steps.forEach((step, index) => {
-        ScrollTrigger.create({
-          trigger: `#process-step-${index}`,
-          start: "top center",
-          end: "bottom center",
-          onEnter: () => setActiveStep(index),
-          onEnterBack: () => setActiveStep(index),
-        });
+      // Grid Reveal
+      gsap.from(".process-card-reveal", {
+        y: 50,
+        autoAlpha: 0,
+        duration: 0.8,
+        stagger: 0.1,
+        ease: "power2.out",
+        clearProps: "all",
+        scrollTrigger: {
+          trigger: ".process-grid",
+          start: "top 90%",
+        }
       });
 
     }, sectionRef);
@@ -91,120 +93,80 @@ export default function Proceso() {
     <section
       ref={sectionRef}
       id="proceso"
-      className="relative bg-primary text-primary py-24 md:py-32 border-t border-primary/5 transition-colors duration-500"
+      className="relative bg-primary text-primary py-24 md:py-32 overflow-hidden transition-colors duration-500"
     >
-      <div className="max-w-[1800px] mx-auto px-6 md:px-12">
+      {/* Background Noise */}
+      <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div>
 
-        <div className="grid lg:grid-cols-[1fr_1.5fr] gap-16 lg:gap-24 items-start">
+      {/* Vibrant Gradient Orbs (Matching Estudio) */}
+      <div className="absolute top-[-20%] right-[-10%] w-[800px] h-[800px] bg-terracota/10 blur-[120px] rounded-full pointer-events-none mix-blend-screen animate-pulse duration-10000" />
+      <div className="absolute bottom-[-20%] left-[-10%] w-[600px] h-[600px] bg-orange-500/10 blur-[100px] rounded-full pointer-events-none mix-blend-screen" />
 
-          {/* Sticky Command Center (Left) */}
-          <div className="hidden lg:block sticky top-32 h-auto">
-            <div className="process-header-reveal mb-12">
-              <span className="block text-terracota text-xs tracking-[0.3em] uppercase font-bold mb-4">
-                Metodología
-              </span>
-              <h2 className="font-serif text-4xl leading-[1.1] mb-6">
-                Del caos al <br />
-                <span className="text-primary/40 italic transition-colors duration-500">orden estético.</span>
-              </h2>
-            </div>
+      <div className="max-w-[1800px] mx-auto px-6 md:px-12 relative z-10">
 
-            <div className="relative rounded-3xl bg-primary/5 border border-primary/10 backdrop-blur-xl p-8 overflow-hidden transition-colors duration-500">
-              {/* Dynamic Glow */}
-              <div className="absolute top-0 right-0 w-64 h-64 bg-terracota/20 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2" />
-
-              <div className="relative z-10">
-                <div className="flex items-center justify-between mb-8 border-b border-primary/10 pb-4 transition-colors duration-500">
-                  <span className="text-xs uppercase tracking-[0.2em] text-primary/50 transition-colors duration-500">Fase Actual</span>
-                  <span className="text-2xl font-serif text-terracota">0{activeStep + 1}</span>
-                </div>
-
-                <div className="space-y-8">
-                  <div className="transition-all duration-500">
-                    <h3 className="text-3xl font-serif mb-2 text-primary transition-colors duration-500">{steps[activeStep].title}</h3>
-                    <p className="text-primary/60 text-sm leading-relaxed transition-colors duration-500">
-                      {steps[activeStep].description}
-                    </p>
-                  </div>
-
-                  <div className="grid grid-cols-3 gap-4 pt-4">
-                    <div>
-                      <span className="block text-[10px] uppercase tracking-wider text-primary/40 mb-1 transition-colors duration-500">Foco</span>
-                      <span className="text-sm font-medium text-primary transition-colors duration-500">{steps[activeStep].meta.focus}</span>
-                    </div>
-                    <div>
-                      <span className="block text-[10px] uppercase tracking-wider text-primary/40 mb-1 transition-colors duration-500">Duración</span>
-                      <span className="text-sm font-medium text-primary transition-colors duration-500">{steps[activeStep].meta.duration}</span>
-                    </div>
-                    <div>
-                      <span className="block text-[10px] uppercase tracking-wider text-primary/40 mb-1 transition-colors duration-500">Resultado</span>
-                      <span className="text-sm font-medium text-primary transition-colors duration-500">{steps[activeStep].meta.outcome}</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Scrollable Steps (Right) */}
-          <div className="space-y-24 lg:pt-32">
-            {/* Mobile Header (Visible only on mobile) */}
-            <div className="lg:hidden mb-12">
-              <span className="block text-terracota text-xs tracking-[0.3em] uppercase font-bold mb-4">
-                Metodología
-              </span>
-              <h2 className="font-serif text-4xl leading-[1.1]">
-                Del caos al <br />
-                <span className="text-primary/40 italic transition-colors duration-500">orden estético.</span>
-              </h2>
-            </div>
-
-            {steps.map((step, index) => (
-              <div
-                key={step.id}
-                id={`process-step-${index}`}
-                className={`group transition-all duration-500 ${activeStep === index ? 'opacity-100' : 'opacity-30 lg:opacity-30'}`}
-              >
-                <div className="flex items-start gap-6 md:gap-10">
-                  <div className="flex-shrink-0 pt-2">
-                    <span className={`
-                      flex items-center justify-center w-12 h-12 rounded-full border text-sm font-bold transition-all duration-500
-                      ${activeStep === index ? 'border-terracota text-terracota bg-terracota/10' : 'border-primary/20 text-primary/40'}
-                    `}>
-                      0{index + 1}
-                    </span>
-                    <div className={`w-px h-32 mx-auto my-4 transition-colors duration-500 ${activeStep === index ? 'bg-terracota/50' : 'bg-primary/10'}`} />
-                  </div>
-
-                  <div className="pt-2">
-                    <span className="block text-xs uppercase tracking-[0.2em] text-primary/50 mb-2 transition-colors duration-500">
-                      {step.label}
-                    </span>
-                    <h3 className="text-2xl md:text-4xl font-serif mb-4 group-hover:text-terracota transition-colors text-primary">
-                      {step.title}
-                    </h3>
-                    <p className="text-primary/60 text-base md:text-lg leading-relaxed max-w-xl transition-colors duration-500">
-                      {step.description}
-                    </p>
-
-                    {/* Mobile Meta (Visible only on mobile) */}
-                    <div className="lg:hidden grid grid-cols-3 gap-4 mt-6 pt-6 border-t border-primary/10 transition-colors duration-500">
-                      <div>
-                        <span className="block text-[10px] uppercase tracking-wider text-primary/40 mb-1 transition-colors duration-500">Foco</span>
-                        <span className="text-xs font-medium text-primary transition-colors duration-500">{step.meta.focus}</span>
-                      </div>
-                      <div>
-                        <span className="block text-[10px] uppercase tracking-wider text-primary/40 mb-1 transition-colors duration-500">Duración</span>
-                        <span className="text-xs font-medium text-primary transition-colors duration-500">{step.meta.duration}</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-
+        {/* Header */}
+        <div className="process-header-reveal text-center mb-24">
+          <span className="block text-terracota text-xs tracking-[0.3em] uppercase font-bold mb-6">
+            Metodología
+          </span>
+          <h2 className="font-serif text-5xl md:text-7xl leading-none mb-8">
+            Del caos al <br />
+            <span className="text-terracota italic">orden estético.</span>
+          </h2>
         </div>
+
+        {/* Bento Grid */}
+        <div className="process-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {steps.map((step) => (
+            <div
+              key={step.id}
+              className="process-card-reveal relative rounded-3xl overflow-hidden group transition-all duration-500 min-h-[400px] border border-primary/10 hover:border-terracota/50 hover:shadow-2xl hover:shadow-terracota/10"
+            >
+              {/* Glass Background */}
+              <div className="absolute inset-0 bg-primary/5 backdrop-blur-md group-hover:bg-primary/10 transition-colors duration-500" />
+
+              {/* Content */}
+              <div className="relative z-10 h-full p-8 flex flex-col justify-between">
+
+                {/* Top Label */}
+                <div className="flex justify-between items-start">
+                  <span className="px-3 py-1 rounded-full text-[10px] uppercase tracking-widest border border-primary/10 bg-primary/5 text-primary/60 group-hover:border-terracota/30 group-hover:text-terracota transition-colors duration-500">
+                    {step.label.split(" · ")[1]}
+                  </span>
+                  <span className="text-4xl font-serif text-primary/10 group-hover:text-terracota/20 transition-colors duration-500">
+                    0{step.id}
+                  </span>
+                </div>
+
+                {/* Main Text */}
+                <div className="mt-8 mb-8">
+                  <h3 className="font-serif text-2xl mb-4 text-primary group-hover:text-terracota transition-colors duration-300">
+                    {step.title}
+                  </h3>
+                  <p className="text-sm leading-relaxed text-primary/60 transition-colors duration-500">
+                    {step.description}
+                  </p>
+                </div>
+
+                {/* Meta Data (Bottom) */}
+                <div className="mt-auto pt-6 border-t border-primary/5 group-hover:border-terracota/20 transition-colors duration-500">
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <span className="block text-[9px] uppercase tracking-wider text-primary/40 mb-1">Duración</span>
+                      <span className="text-xs font-medium text-primary">{step.meta.duration}</span>
+                    </div>
+                    <div>
+                      <span className="block text-[9px] uppercase tracking-wider text-primary/40 mb-1">Resultado</span>
+                      <span className="text-xs font-medium text-primary">{step.meta.outcome}</span>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          ))}
+        </div>
+
       </div>
     </section>
   );
