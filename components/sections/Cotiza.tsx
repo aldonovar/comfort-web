@@ -92,7 +92,7 @@ const CustomSelect = ({
     : value;
 
   return (
-    <div className="group relative z-50" ref={containerRef}>
+    <div className={`group relative ${isOpen ? 'z-[60]' : 'z-20'}`} ref={containerRef}>
       <label className="block text-[10px] uppercase tracking-widest text-[#2a2522]/60 dark:text-[#f2f0e9]/60 mb-1.5 group-focus-within:text-[#c16e4d] transition-colors font-medium pl-1">
         {label}
       </label>
@@ -113,8 +113,8 @@ const CustomSelect = ({
       </div>
 
       <div className={`
-        absolute left-0 right-0 top-full mt-2 bg-[#ffffff] dark:bg-[#1a1a1a] border border-[#2a2522]/10 dark:border-[#f2f0e9]/10 rounded-xl overflow-hidden z-[100] shadow-[0_10px_40px_rgba(0,0,0,0.1)] dark:shadow-[0_10px_40px_rgba(0,0,0,0.5)] origin-top transition-all duration-300 max-h-60 overflow-y-auto ring-1 ring-black/5 dark:ring-white/5
-        ${isOpen ? 'opacity-100 scale-y-100 translate-y-0' : 'opacity-0 scale-y-95 -translate-y-2 pointer-events-none'}
+        absolute left-0 right-0 top-full mt-2 bg-[#ffffff] dark:bg-[#1a1a1a] border border-[#2a2522]/10 dark:border-[#f2f0e9]/10 rounded-xl overflow-hidden shadow-[0_10px_40px_rgba(0,0,0,0.1)] dark:shadow-[0_10px_40px_rgba(0,0,0,0.5)] origin-top transition-all duration-300 max-h-60 overflow-y-auto ring-1 ring-black/5 dark:ring-white/5
+        ${isOpen ? 'opacity-100 scale-y-100 translate-y-0 pointer-events-auto' : 'opacity-0 scale-y-95 -translate-y-2 pointer-events-none'}
       `}>
         {options.map((opt) => {
           const optValue = typeof opt === 'string' ? opt : opt.value;
