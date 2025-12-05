@@ -120,6 +120,7 @@ export default function Navbar() {
   const [activeSubItem, setActiveSubItem] = useState<any>(null);
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [mobileExpanded, setMobileExpanded] = useState<string | null>(null);
 
   // Image State
   const [currentImage, setCurrentImage] = useState<string>("");
@@ -394,21 +395,51 @@ export default function Navbar() {
       <div className={`fixed inset-0 z-[90] bg-[var(--bg-primary)] transition-transform duration-700 cubic-bezier(0.76, 0, 0.24, 1) ${mobileOpen ? "translate-x-0" : "translate-x-full"} md:hidden pt-32 px-6`}>
         <div className="flex flex-col h-full">
           <div className="flex flex-col border-t border-[var(--text-primary)]/10">
-            {NAV_ITEMS.map((item, i) => (
-              <Link
-                key={item.id}
-                href={item.href}
-                onClick={() => setMobileOpen(false)}
-                className="group flex items-center justify-between py-6 border-b border-[var(--text-primary)]/10"
-              >
-                <span className="font-sans text-sm font-bold uppercase tracking-[0.25em] text-[var(--text-primary)]/60 group-hover:text-[var(--text-primary)] transition-colors duration-300">
-                  {item.label}
-                </span>
-                <span className="text-[var(--text-primary)] opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
-                  →
-                </span>
-              </Link>
-            ))}
+            {NAV_ITEMS.map((item, i) => {
+              const hasSub = MEGA_CONTENT[item.id];
+              const isExpanded = mobileExpanded === item.id;
+
+              return (
+                <div key={item.id} className="flex flex-col border-b border-[var(--text-primary)]/10">
+                  <div className="flex items-stretch justify-between group">
+                    <Link
+                      href={item.href}
+                      onClick={() => setMobileOpen(false)}
+                      className="flex-1 py-6 font-sans text-sm font-bold uppercase tracking-[0.25em] text-[var(--text-primary)]/60 hover:text-[var(--text-primary)] transition-colors duration-300"
+                    >
+                      {item.label}
+                    </Link>
+
+                    {hasSub ? (
+                      <button
+                        onClick={() => setMobileExpanded(isExpanded ? null : item.id)}
+                        className="pl-8 pr-2 flex items-center justify-center text-[var(--text-primary)]/40 hover:text-[var(--text-primary)] transition-colors border-l border-[var(--text-primary)]/5"
+                      >
+                        <span className={`transform transition-transform duration-300 text-lg ${isExpanded ? "rotate-45" : "rotate-0"}`}>+</span>
+                      </button>
+                    ) : (
+                      <span className="w-[50px] flex items-center justify-center opacity-0 pointer-events-none"></span> // Spacer for alignment
+                    )}
+                  </div>
+
+                  {/* Submenu Accordion */}
+                  <div className={`overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] ${isExpanded ? "max-h-[500px] opacity-100 mb-6" : "max-h-0 opacity-0"}`}>
+                    <div className="flex flex-col pl-4 border-l border-[var(--text-primary)]/10 ml-1 space-y-4 pt-2">
+                      {hasSub?.items.map((sub: any) => (
+                        <Link
+                          key={sub.label}
+                          href={sub.href}
+                          onClick={() => setMobileOpen(false)}
+                          className="font-serif text-lg text-[var(--text-primary)]/80 hover:text-terracota transition-colors block"
+                        >
+                          {sub.label}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
           </div>
 
           <div className="mt-auto pb-12 space-y-8">
