@@ -93,27 +93,27 @@ const CustomSelect = ({
 
   return (
     <div className="group relative z-50" ref={containerRef}>
-      <label className="block text-[10px] uppercase tracking-widest text-white/60 mb-2 group-focus-within:text-terracota transition-colors font-medium pl-1">
+      <label className="block text-[10px] uppercase tracking-widest text-primary/60 dark:text-white/60 mb-1.5 group-focus-within:text-terracota transition-colors font-medium pl-1">
         {label}
       </label>
 
       <div
         onClick={() => setIsOpen(!isOpen)}
         className={`
-          w-full bg-white/5 hover:bg-white/10 rounded-xl px-4 py-3 text-sm md:text-base cursor-pointer flex justify-between items-center transition-all duration-300 border border-white/10 backdrop-blur-sm
+          w-full bg-primary/5 dark:bg-white/5 hover:bg-primary/10 dark:hover:bg-white/10 rounded-xl px-4 py-2.5 text-sm cursor-pointer flex justify-between items-center transition-all duration-300 border border-primary/10 dark:border-white/10 backdrop-blur-sm
           ${isOpen ? 'ring-1 ring-terracota border-terracota/50' : ''}
         `}
       >
-        <span className={`truncate mr-2 ${value ? "text-white" : "text-white/40"}`}>
+        <span className={`truncate mr-2 ${value ? "text-primary dark:text-white" : "text-primary/40 dark:text-white/40"}`}>
           {displayValue || placeholder}
         </span>
-        <span className={`text-[10px] text-white/40 transform transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}>
+        <span className={`text-[10px] text-primary/40 dark:text-white/40 transform transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}>
           ▼
         </span>
       </div>
 
       <div className={`
-        absolute left-0 right-0 top-full mt-2 bg-zinc-900 border border-white/10 rounded-xl overflow-hidden z-[100] shadow-[0_10px_40px_rgba(0,0,0,0.5)] origin-top transition-all duration-300 max-h-60 overflow-y-auto ring-1 ring-white/5
+        absolute left-0 right-0 top-full mt-2 bg-white dark:bg-zinc-900 border border-primary/10 dark:border-white/10 rounded-xl overflow-hidden z-[100] shadow-[0_10px_40px_rgba(0,0,0,0.1)] dark:shadow-[0_10px_40px_rgba(0,0,0,0.5)] origin-top transition-all duration-300 max-h-60 overflow-y-auto ring-1 ring-black/5 dark:ring-white/5
         ${isOpen ? 'opacity-100 scale-y-100 translate-y-0' : 'opacity-0 scale-y-95 -translate-y-2 pointer-events-none'}
       `}>
         {options.map((opt) => {
@@ -127,8 +127,8 @@ const CustomSelect = ({
                 setIsOpen(false);
               }}
               className={`
-                px-4 py-3 text-sm cursor-pointer transition-colors border-b border-white/5 last:border-0
-                ${value === optValue ? 'bg-terracota text-white' : 'text-white/70 hover:bg-white/5 hover:text-white'}
+                px-4 py-2.5 text-sm cursor-pointer transition-colors border-b border-primary/5 dark:border-white/5 last:border-0
+                ${value === optValue ? 'bg-terracota text-white' : 'text-primary/70 dark:text-white/70 hover:bg-primary/5 dark:hover:bg-white/5 hover:text-primary dark:hover:text-white'}
               `}
             >
               {optLabel}
@@ -156,15 +156,15 @@ const CustomInput = ({
   optional?: boolean
 }) => (
   <div className="group">
-    <label className="block text-[10px] uppercase tracking-widest text-white/60 mb-2 group-focus-within:text-terracota transition-colors font-medium pl-1">
-      {label} {optional && <span className="text-white/30 normal-case tracking-normal ml-1">(Opcional)</span>}
+    <label className="block text-[10px] uppercase tracking-widest text-primary/60 dark:text-white/60 mb-1.5 group-focus-within:text-terracota transition-colors font-medium pl-1">
+      {label} {optional && <span className="text-primary/30 dark:text-white/30 normal-case tracking-normal ml-1">(Opcional)</span>}
     </label>
     <input
       type={type}
       value={value}
       onChange={(e) => onChange(e.target.value)}
       placeholder={placeholder}
-      className="w-full bg-white/5 hover:bg-white/10 rounded-xl px-4 py-3 text-sm md:text-base focus:outline-none focus:ring-1 focus:ring-terracota focus:border-terracota/50 transition-all duration-300 placeholder-white/20 text-white border border-white/10 backdrop-blur-sm"
+      className="w-full bg-primary/5 dark:bg-white/5 hover:bg-primary/10 dark:hover:bg-white/10 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-1 focus:ring-terracota focus:border-terracota/50 transition-all duration-300 placeholder-primary/30 dark:placeholder-white/20 text-primary dark:text-white border border-primary/10 dark:border-white/10 backdrop-blur-sm"
     />
   </div>
 );
@@ -324,18 +324,18 @@ export default function Cotiza() {
 
   if (isSuccess) {
     return (
-      <section className="relative bg-black text-white min-h-[80vh] flex items-center justify-center border-t border-white/5">
+      <section className="relative bg-primary dark:bg-black text-primary dark:text-white min-h-[60vh] flex items-center justify-center border-t border-primary/5 dark:border-white/5 transition-colors duration-500">
         <div className="text-center max-w-lg px-6 animate-in fade-in zoom-in-95 duration-700">
           <div className="w-20 h-20 rounded-full bg-terracota/10 flex items-center justify-center mx-auto mb-8">
             <svg className="w-10 h-10 text-terracota" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M5 13l4 4L19 7" /></svg>
           </div>
           <h2 className="font-serif text-4xl md:text-5xl mb-6">Solicitud Enviada</h2>
-          <p className="text-white/60 text-lg mb-10">
+          <p className="text-primary/60 dark:text-white/60 text-lg mb-10">
             Hemos recibido tu ticket correctamente. Se ha abierto WhatsApp para completar el proceso.
           </p>
           <button
             onClick={handleReset}
-            className="group px-8 py-4 rounded-full border border-white/20 hover:border-terracota hover:bg-terracota transition-all duration-300 flex items-center gap-3 mx-auto"
+            className="group px-8 py-4 rounded-full border border-primary/20 dark:border-white/20 hover:border-terracota hover:bg-terracota transition-all duration-300 flex items-center gap-3 mx-auto"
           >
             <span className="uppercase tracking-widest text-xs font-bold">Enviar otra solicitud</span>
             <span className="transform group-hover:translate-x-1 transition-transform">→</span>
@@ -349,7 +349,7 @@ export default function Cotiza() {
     <section
       ref={sectionRef}
       id="cotiza"
-      className="relative bg-black text-white min-h-screen flex items-center py-24 overflow-hidden"
+      className="relative bg-primary dark:bg-black text-primary dark:text-white min-h-screen flex items-center py-12 lg:py-0 overflow-hidden transition-colors duration-500"
     >
       {/* Dynamic Background */}
       <div className="absolute inset-0 transition-opacity duration-1000">
@@ -358,39 +358,41 @@ export default function Cotiza() {
             src={SERVICE_IMAGES[projectType][currentImageIndex]}
             alt="Background"
             fill
-            className="object-cover opacity-30 blur-sm scale-105 transition-transform duration-[10s]"
+            className="object-cover opacity-10 dark:opacity-30 blur-sm scale-105 transition-transform duration-[10s]"
           />
         ) : (
-          <div className="absolute inset-0 bg-zinc-900" />
+          <div className="absolute inset-0 bg-secondary/30 dark:bg-zinc-900" />
         )}
-        <div className="absolute inset-0 bg-gradient-to-b from-black via-black/80 to-black" />
+        <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-primary/20 to-primary/5 dark:from-black dark:via-black/80 dark:to-black" />
         <div className="absolute inset-0 opacity-[0.05] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')] mix-blend-overlay"></div>
       </div>
 
       <div className="max-w-[1600px] mx-auto px-6 md:px-12 w-full relative z-10">
-        <div className="grid lg:grid-cols-[1fr_1fr] gap-12 lg:gap-24 items-start">
+        <div className="grid lg:grid-cols-[1.2fr_0.8fr] gap-8 lg:gap-16 items-center">
 
           {/* Left: The Form (Glass Monolith) */}
-          <div className="quote-content bg-white/5 backdrop-blur-2xl border border-white/10 rounded-[2rem] p-8 md:p-12 shadow-2xl relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-64 h-64 bg-terracota/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
+          <div className="quote-content bg-white/60 dark:bg-white/5 backdrop-blur-2xl border border-primary/5 dark:border-white/10 rounded-[2rem] p-6 md:p-10 shadow-2xl relative overflow-hidden transition-colors duration-500">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-terracota/5 dark:bg-terracota/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
 
-            <div className="mb-10">
-              <span className="block text-terracota text-[10px] tracking-[0.4em] uppercase font-bold mb-4">
-                Concierge
-              </span>
-              <h2 className="font-serif text-4xl md:text-5xl leading-tight text-white">
-                Diseñemos tu <br />
-                <span className="text-terracota italic">próximo escenario.</span>
-              </h2>
+            <div className="mb-6 flex justify-between items-end">
+              <div>
+                <span className="block text-terracota text-[9px] tracking-[0.4em] uppercase font-bold mb-2">
+                  Concierge
+                </span>
+                <h2 className="font-serif text-3xl md:text-4xl leading-tight text-primary dark:text-white">
+                  Diseñemos tu <br />
+                  <span className="text-terracota italic">próximo escenario.</span>
+                </h2>
+              </div>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-8">
+            <form onSubmit={handleSubmit} className="space-y-6">
               {/* 01. Proyecto */}
-              <div className="space-y-6">
-                <h3 className="text-[10px] uppercase tracking-widest text-white/40 font-bold border-b border-white/10 pb-2">
+              <div className="space-y-4">
+                <h3 className="text-[9px] uppercase tracking-widest text-primary/40 dark:text-white/40 font-bold border-b border-primary/10 dark:border-white/10 pb-1">
                   01. El Proyecto
                 </h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                   <div className="md:col-span-2">
                     <CustomSelect
                       label="Tipo de Espacio"
@@ -428,11 +430,11 @@ export default function Cotiza() {
               </div>
 
               {/* 02. Datos */}
-              <div className="space-y-6">
-                <h3 className="text-[10px] uppercase tracking-widest text-white/40 font-bold border-b border-white/10 pb-2">
+              <div className="space-y-4">
+                <h3 className="text-[9px] uppercase tracking-widest text-primary/40 dark:text-white/40 font-bold border-b border-primary/10 dark:border-white/10 pb-1">
                   02. Tus Datos
                 </h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                   <CustomInput
                     label="Nombre"
                     value={name}
@@ -462,15 +464,15 @@ export default function Cotiza() {
                   />
                 </div>
                 <div className="group">
-                  <label className="block text-[10px] uppercase tracking-widest text-white/60 mb-2 group-focus-within:text-terracota transition-colors font-medium pl-1">
+                  <label className="block text-[10px] uppercase tracking-widest text-primary/60 dark:text-white/60 mb-1.5 group-focus-within:text-terracota transition-colors font-medium pl-1">
                     Notas
                   </label>
                   <textarea
                     value={notes}
                     onChange={(e) => setNotes(e.target.value)}
                     placeholder="Detalles adicionales..."
-                    rows={2}
-                    className="w-full bg-white/5 hover:bg-white/10 rounded-xl p-4 text-sm focus:outline-none focus:ring-1 focus:ring-terracota transition-all duration-300 placeholder-white/20 resize-none text-white border border-white/10 backdrop-blur-sm"
+                    rows={1}
+                    className="w-full bg-primary/5 dark:bg-white/5 hover:bg-primary/10 dark:hover:bg-white/10 rounded-xl p-3 text-sm focus:outline-none focus:ring-1 focus:ring-terracota transition-all duration-300 placeholder-primary/30 dark:placeholder-white/20 resize-none text-primary dark:text-white border border-primary/10 dark:border-white/10 backdrop-blur-sm"
                   />
                 </div>
               </div>
@@ -479,10 +481,10 @@ export default function Cotiza() {
                 type="submit"
                 disabled={!isFormReady || isSubmitting}
                 className={`
-                  group w-full py-5 rounded-xl transition-all duration-500 flex items-center justify-center gap-3 mt-4
+                  group w-full py-4 rounded-xl transition-all duration-500 flex items-center justify-center gap-3 mt-2
                   ${isFormReady && !isSubmitting
                     ? 'bg-terracota text-white shadow-lg shadow-terracota/20 hover:shadow-terracota/40 hover:scale-[1.01] cursor-pointer'
-                    : 'bg-white/5 text-white/20 cursor-not-allowed border border-white/5'}
+                    : 'bg-primary/5 dark:bg-white/5 text-primary/20 dark:text-white/20 cursor-not-allowed border border-primary/5 dark:border-white/5'}
                 `}
               >
                 <span className="uppercase tracking-widest text-xs font-bold">
@@ -494,14 +496,14 @@ export default function Cotiza() {
           </div>
 
           {/* Right: The Ticket (Sticky) */}
-          <div className="hidden lg:block sticky top-32">
-            <div className="relative w-full max-w-md mx-auto aspect-[3/4] rounded-[2.5rem] bg-zinc-900 border border-white/10 overflow-hidden shadow-2xl flex flex-col group transition-all duration-500 hover:shadow-[0_30px_60px_rgba(204,88,3,0.15)]">
+          <div className="hidden lg:block sticky top-24">
+            <div className="relative w-full max-w-sm mx-auto aspect-[3/4] rounded-[2rem] bg-white dark:bg-zinc-900 border border-primary/10 dark:border-white/10 overflow-hidden shadow-2xl flex flex-col group transition-all duration-500 hover:shadow-[0_30px_60px_rgba(204,88,3,0.15)]">
 
               {/* Holographic Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent pointer-events-none z-20 mix-blend-overlay" />
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 dark:from-white/5 to-transparent pointer-events-none z-20 mix-blend-overlay" />
 
               {/* Image Area */}
-              <div className="relative h-[60%] overflow-hidden bg-black">
+              <div className="relative h-[55%] overflow-hidden bg-black">
                 {projectType && SERVICE_IMAGES[projectType] ? (
                   <Image
                     src={SERVICE_IMAGES[projectType][currentImageIndex]}
@@ -510,51 +512,51 @@ export default function Cotiza() {
                     className="object-cover transition-transform duration-[2000ms] ease-in-out scale-105"
                   />
                 ) : (
-                  <div className="absolute inset-0 bg-zinc-800 flex items-center justify-center">
-                    <span className="text-white/20 text-xs uppercase tracking-widest">Vista Previa</span>
+                  <div className="absolute inset-0 bg-secondary dark:bg-zinc-800 flex items-center justify-center">
+                    <span className="text-primary/20 dark:text-white/20 text-xs uppercase tracking-widest">Vista Previa</span>
                   </div>
                 )}
-                <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60" />
 
-                <div className="absolute bottom-8 left-8 z-30">
-                  <span className="block text-[10px] uppercase tracking-[0.2em] text-terracota mb-2 font-bold">Ticket #{ticketNumber}</span>
-                  <h3 className="font-serif text-4xl text-white leading-none">
+                <div className="absolute bottom-6 left-6 z-30">
+                  <span className="block text-[9px] uppercase tracking-[0.2em] text-terracota mb-1 font-bold">Ticket #{ticketNumber}</span>
+                  <h3 className="font-serif text-3xl text-white leading-none">
                     {projectType || "Nuevo Proyecto"}
                   </h3>
                 </div>
               </div>
 
               {/* Details Area */}
-              <div className="flex-1 p-8 bg-zinc-900 relative z-10 flex flex-col justify-between border-t border-white/5">
-                <div className="grid grid-cols-2 gap-y-6 gap-x-4">
+              <div className="flex-1 p-6 bg-white dark:bg-zinc-900 relative z-10 flex flex-col justify-between border-t border-primary/5 dark:border-white/5 transition-colors duration-500">
+                <div className="grid grid-cols-2 gap-y-4 gap-x-3">
                   <div>
-                    <span className="block text-[9px] uppercase tracking-widest text-white/40 mb-1 font-medium">Cliente</span>
-                    <p className="text-sm text-white font-medium truncate">{name || "—"}</p>
+                    <span className="block text-[9px] uppercase tracking-widest text-primary/40 dark:text-white/40 mb-0.5 font-medium">Cliente</span>
+                    <p className="text-xs text-primary dark:text-white font-medium truncate">{name || "—"}</p>
                   </div>
                   <div>
-                    <span className="block text-[9px] uppercase tracking-widest text-white/40 mb-1 font-medium">Ubicación</span>
-                    <p className="text-sm text-white font-medium truncate">{district || "—"}</p>
+                    <span className="block text-[9px] uppercase tracking-widest text-primary/40 dark:text-white/40 mb-0.5 font-medium">Ubicación</span>
+                    <p className="text-xs text-primary dark:text-white font-medium truncate">{district || "—"}</p>
                   </div>
                   <div>
-                    <span className="block text-[9px] uppercase tracking-widest text-white/40 mb-1 font-medium">Dimensión</span>
-                    <p className="text-sm text-white font-medium">{area ? `${area} m²` : "—"}</p>
+                    <span className="block text-[9px] uppercase tracking-widest text-primary/40 dark:text-white/40 mb-0.5 font-medium">Dimensión</span>
+                    <p className="text-xs text-primary dark:text-white font-medium">{area ? `${area} m²` : "—"}</p>
                   </div>
                   <div>
-                    <span className="block text-[9px] uppercase tracking-widest text-white/40 mb-1 font-medium">Inversión</span>
-                    <p className="text-sm text-white font-medium truncate">{budgetCode !== "XX" ? budgetCode : "—"}</p>
+                    <span className="block text-[9px] uppercase tracking-widest text-primary/40 dark:text-white/40 mb-0.5 font-medium">Inversión</span>
+                    <p className="text-xs text-primary dark:text-white font-medium truncate">{budgetCode !== "XX" ? budgetCode : "—"}</p>
                   </div>
                 </div>
 
-                <div className="pt-6 flex justify-between items-end border-t border-white/5 mt-6">
+                <div className="pt-4 flex justify-between items-end border-t border-primary/5 dark:border-white/5 mt-4">
                   <div>
-                    <p className="text-[9px] uppercase tracking-widest text-white/40 font-medium">ID de Atención</p>
-                    <p className="font-mono text-[10px] text-white/30 mt-1 tracking-widest">
+                    <p className="text-[9px] uppercase tracking-widest text-primary/40 dark:text-white/40 font-medium">ID de Atención</p>
+                    <p className="font-mono text-[10px] text-primary/30 dark:text-white/30 mt-0.5 tracking-widest">
                       {smartID}
                     </p>
                   </div>
                   <div className="text-right">
-                    <div className="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center ml-auto">
-                      <div className="w-1.5 h-1.5 bg-terracota rounded-full animate-pulse" />
+                    <div className="w-6 h-6 rounded-full border border-primary/10 dark:border-white/10 flex items-center justify-center ml-auto">
+                      <div className="w-1 h-1 bg-terracota rounded-full animate-pulse" />
                     </div>
                   </div>
                 </div>
