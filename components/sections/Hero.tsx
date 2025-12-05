@@ -28,7 +28,7 @@ export default function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLDivElement>(null);
   const cardRef = useRef<HTMLDivElement>(null);
-  const videoRef = useRef<HTMLVideoElement>(null);
+  const bgRef = useRef<HTMLDivElement>(null);
 
   const stampRef = useRef<SVGSVGElement>(null);
 
@@ -83,9 +83,9 @@ export default function Hero() {
       );
     }
 
-    // Parallax Effect for Video Background
-    if (videoRef.current) {
-      gsap.to(videoRef.current, {
+    // Parallax Effect for Background
+    if (bgRef.current) {
+      gsap.to(bgRef.current, {
         yPercent: 30,
         ease: "none",
         scrollTrigger: {
@@ -140,8 +140,8 @@ export default function Hero() {
       className="relative min-h-dvh w-full overflow-hidden bg-primary text-primary flex items-center transition-colors duration-500"
     >
 
-      {/* Background Images Slideshow */}
-      <div className="absolute inset-0 z-0">
+      {/* Background Images Slideshow (Parallax Wrapper) */}
+      <div ref={bgRef} className="absolute inset-0 z-0 will-change-transform scale-110">
         {HERO_IMAGES.map((img, index) => (
           <div
             key={img}
@@ -161,7 +161,7 @@ export default function Hero() {
       </div>
 
       {/* Content Grid */}
-      <div className="relative z-20 h-full max-w-[1800px] mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-12 items-center gap-12 md:gap-20">
+      <div className="relative z-20 h-full max-w-[1800px] mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-12 items-center gap-12 md:gap-20 pt-32 pb-20 md:py-0">
 
         {/* Left: Text Content */}
         <div ref={textRef} className="md:col-span-7 flex flex-col justify-center space-y-8">
@@ -182,27 +182,33 @@ export default function Hero() {
             <Link href="/cotiza" className="group relative px-8 py-4 bg-terracota rounded-full overflow-hidden shadow-lg shadow-terracota/20 hover:shadow-terracota/40 transition-all duration-500 hover:-translate-y-1">
               <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out" />
               <span className="relative z-10 font-bold uppercase tracking-widest text-sm flex items-center gap-2 text-white">
-                Cotizar Proyecto <span className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300">↗</span>
+                Cotizar Proyecto
+                <svg className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                </svg>
               </span>
             </Link>
 
             <Link href="/contacto" className="group relative px-8 py-4 overflow-hidden rounded-full transition-all duration-500 hover:-translate-y-1 bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 hover:border-white/40">
               <span className="relative z-10 font-bold uppercase tracking-widest text-sm flex items-center gap-2 text-white">
-                Agendar Reunión <span className="opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all duration-300">→</span>
+                Agendar Reunión
+                <svg className="w-4 h-4 opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
               </span>
             </Link>
           </div>
         </div>
 
         {/* Right: Stats Card (3D Tilt) */}
-        <div className="hidden md:col-span-5 md:flex justify-end relative perspective-1000">
+        <div className="col-span-1 md:col-span-5 flex justify-center md:justify-end relative perspective-1000 mt-8 md:mt-0">
           <div
             ref={cardRef}
             style={{
               transform: `perspective(1000px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
               transition: "transform 0.1s ease-out"
             }}
-            className="w-[400px] bg-secondary/80 backdrop-blur-xl border border-primary/10 p-10 rounded-3xl shadow-2xl relative overflow-hidden group transition-colors duration-500 ml-auto mr-0"
+            className="w-full max-w-[400px] bg-secondary/80 backdrop-blur-xl border border-primary/10 p-6 md:p-10 rounded-3xl shadow-2xl relative overflow-hidden group transition-colors duration-500"
           >
             {/* Glossy Reflection */}
             <div className="absolute inset-0 bg-linear-to-tr from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
