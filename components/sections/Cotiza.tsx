@@ -100,7 +100,7 @@ const CustomSelect = ({
       <div
         onClick={() => setIsOpen(!isOpen)}
         className={`
-          w-full bg-primary/5 dark:bg-white/5 hover:bg-primary/10 dark:hover:bg-white/10 rounded-xl px-4 py-2.5 text-sm cursor-pointer flex justify-between items-center transition-all duration-300 border border-primary/10 dark:border-white/10 backdrop-blur-sm
+          w-full bg-primary/5 dark:bg-white/5 hover:bg-primary/10 dark:hover:bg-white/10 rounded-xl px-4 py-3 text-sm cursor-pointer flex justify-between items-center transition-all duration-300 border border-primary/10 dark:border-white/10 backdrop-blur-sm
           ${isOpen ? 'ring-1 ring-terracota border-terracota/50' : ''}
         `}
       >
@@ -113,7 +113,7 @@ const CustomSelect = ({
       </div>
 
       <div className={`
-        absolute left-0 right-0 top-full mt-2 bg-white dark:bg-zinc-900 border border-primary/10 dark:border-white/10 rounded-xl overflow-hidden z-[100] shadow-[0_10px_40px_rgba(0,0,0,0.1)] dark:shadow-[0_10px_40px_rgba(0,0,0,0.5)] origin-top transition-all duration-300 max-h-60 overflow-y-auto ring-1 ring-black/5 dark:ring-white/5
+        absolute left-0 right-0 top-full mt-2 bg-[#F5F5F0] dark:bg-[#111111] border border-primary/10 dark:border-white/10 rounded-xl overflow-hidden z-[100] shadow-[0_10px_40px_rgba(0,0,0,0.1)] dark:shadow-[0_10px_40px_rgba(0,0,0,0.5)] origin-top transition-all duration-300 max-h-60 overflow-y-auto ring-1 ring-black/5 dark:ring-white/5
         ${isOpen ? 'opacity-100 scale-y-100 translate-y-0' : 'opacity-0 scale-y-95 -translate-y-2 pointer-events-none'}
       `}>
         {options.map((opt) => {
@@ -127,8 +127,10 @@ const CustomSelect = ({
                 setIsOpen(false);
               }}
               className={`
-                px-4 py-2.5 text-sm cursor-pointer transition-colors border-b border-primary/5 dark:border-white/5 last:border-0
-                ${value === optValue ? 'bg-terracota text-white' : 'text-primary/70 dark:text-white/70 hover:bg-primary/5 dark:hover:bg-white/5 hover:text-primary dark:hover:text-white'}
+                px-4 py-3 text-sm cursor-pointer transition-colors border-b border-primary/5 dark:border-white/5 last:border-0
+                ${value === optValue
+                  ? 'bg-terracota text-white'
+                  : 'text-primary/80 dark:text-white/70 hover:bg-primary/5 dark:hover:bg-white/5 hover:text-primary dark:hover:text-white'}
               `}
             >
               {optLabel}
@@ -164,7 +166,7 @@ const CustomInput = ({
       value={value}
       onChange={(e) => onChange(e.target.value)}
       placeholder={placeholder}
-      className="w-full bg-primary/5 dark:bg-white/5 hover:bg-primary/10 dark:hover:bg-white/10 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-1 focus:ring-terracota focus:border-terracota/50 transition-all duration-300 placeholder-primary/30 dark:placeholder-white/20 text-primary dark:text-white border border-primary/10 dark:border-white/10 backdrop-blur-sm"
+      className="w-full bg-primary/5 dark:bg-white/5 hover:bg-primary/10 dark:hover:bg-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-1 focus:ring-terracota focus:border-terracota/50 transition-all duration-300 placeholder-primary/30 dark:placeholder-white/20 text-primary dark:text-white border border-primary/10 dark:border-white/10 backdrop-blur-sm"
     />
   </div>
 );
@@ -368,10 +370,10 @@ export default function Cotiza() {
       </div>
 
       <div className="max-w-[1600px] mx-auto px-6 md:px-12 w-full relative z-10">
-        <div className="grid lg:grid-cols-[1.2fr_0.8fr] gap-8 lg:gap-16 items-center">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
 
           {/* Left: The Form (Glass Monolith) */}
-          <div className="quote-content bg-white/60 dark:bg-white/5 backdrop-blur-2xl border border-primary/5 dark:border-white/10 rounded-[2rem] p-6 md:p-10 shadow-2xl relative overflow-hidden transition-colors duration-500">
+          <div className="quote-content bg-white/60 dark:bg-white/5 backdrop-blur-2xl border border-primary/5 dark:border-white/10 rounded-[2rem] p-6 md:p-10 shadow-2xl relative overflow-hidden transition-colors duration-500 max-w-2xl mx-auto w-full">
             <div className="absolute top-0 right-0 w-64 h-64 bg-terracota/5 dark:bg-terracota/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
 
             <div className="mb-6 flex justify-between items-end">
@@ -497,7 +499,7 @@ export default function Cotiza() {
 
           {/* Right: The Ticket (Sticky) */}
           <div className="hidden lg:block sticky top-24">
-            <div className="relative w-full max-w-sm mx-auto aspect-[3/4] rounded-[2rem] bg-white dark:bg-zinc-900 border border-primary/10 dark:border-white/10 overflow-hidden shadow-2xl flex flex-col group transition-all duration-500 hover:shadow-[0_30px_60px_rgba(204,88,3,0.15)]">
+            <div className="relative w-full max-w-md mx-auto aspect-[3/4] rounded-[2rem] bg-white dark:bg-zinc-900 border border-primary/10 dark:border-white/10 overflow-hidden shadow-2xl flex flex-col group transition-all duration-500 hover:shadow-[0_30px_60px_rgba(204,88,3,0.15)]">
 
               {/* Holographic Overlay */}
               <div className="absolute inset-0 bg-gradient-to-br from-primary/5 dark:from-white/5 to-transparent pointer-events-none z-20 mix-blend-overlay" />
