@@ -7,7 +7,15 @@ module.exports = {
         "./app/**/*.{js,ts,jsx,tsx,mdx}",
     ],
     theme: {
-        extend: {},
+        extend: {
+            colors: {
+                crema: '#f2f0e9',
+                madera: '#2a2522',
+                terracota: '#c16e4d',
+                olive: '#4a4a38',
+                charcoal: '#1a1a1a',
+            },
+        },
     },
     plugins: [],
 };
