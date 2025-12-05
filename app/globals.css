@@ -50,7 +50,7 @@
 /* Base Styles */
 @layer base {
   body {
-    @apply bg-(--bg-primary) text-(--text-primary) font-sans transition-colors duration-500;
+    @apply bg-(--bg-primary) text-(--text-primary) font-sans transition-colors duration-300;
   }
 
   h1,
