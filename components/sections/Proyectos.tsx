@@ -60,7 +60,48 @@ export default function Proyectos() {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-  >
+    const ctx = gsap.context(() => {
+      // Header Reveal
+      gsap.from(".projects-header-reveal", {
+        y: 50,
+        opacity: 0,
+        duration: 1,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 80%",
+        }
+      });
+
+      // Mobile Parallax / Cinematic Zoom
+      if (isMobile) {
+        gsap.utils.toArray<HTMLElement>(".project-image-mobile").forEach((img) => {
+          gsap.fromTo(img,
+            { scale: 1 },
+            {
+              scale: 1.15,
+              ease: "none",
+              scrollTrigger: {
+                trigger: img.closest("article"),
+                start: "top bottom",
+                end: "bottom top",
+                scrub: true
+              }
+            }
+          );
+        });
+      }
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, [isMobile]);
+
+  return (
+    <section
+      ref={sectionRef}
+      id="proyectos"
+      className="relative bg-primary text-primary py-16 md:py-32 transition-colors duration-500"
+    >
       <div className="max-w-[1800px] mx-auto px-6 md:px-12">
 
         {/* Header */}
@@ -169,6 +210,6 @@ export default function Proyectos() {
         </div>
 
       </div>
-  </section >
-);
+    </section >
+  );
 }
