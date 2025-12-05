@@ -1,7 +1,7 @@
 "use client";
 
 import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useTransition } from "react";
 
 export default function ThemeToggle() {
     const { theme, setTheme } = useTheme();
@@ -11,11 +11,19 @@ export default function ThemeToggle() {
         setMounted(true);
     }, []);
 
+    const [isPending, startTransition] = useTransition();
+
+    const toggleTheme = () => {
+        startTransition(() => {
+            setTheme(theme === "dark" ? "light" : "dark");
+        });
+    };
+
     if (!mounted) return null;
 
     return (
         <button
-            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+            onClick={toggleTheme}
             className="relative w-12 h-6 rounded-full bg-black/10 dark:bg-white/10 border border-black/5 dark:border-white/5 transition-colors duration-300 flex items-center px-1"
             aria-label="Toggle Theme"
         >

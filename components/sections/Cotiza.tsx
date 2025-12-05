@@ -354,6 +354,22 @@ export default function Cotiza() {
     );
   }
 
+  // 3D Tilt Effect
+  const cardRef = useRef<HTMLDivElement>(null);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!cardRef.current) return;
+    const { left, top, width, height } = cardRef.current.getBoundingClientRect();
+    const x = (e.clientX - left - width / 2) / 25;
+    const y = (e.clientY - top - height / 2) / 25;
+    cardRef.current.style.transform = `rotateY(${x}deg) rotateX(${-y}deg) scale(1.02)`;
+  };
+
+  const handleMouseLeave = () => {
+    if (!cardRef.current) return;
+    cardRef.current.style.transform = `rotateY(0deg) rotateX(0deg) scale(1)`;
+  };
+
   return (
     <section
       ref={sectionRef}
@@ -375,7 +391,7 @@ export default function Cotiza() {
         <div className="grid lg:grid-cols-[1fr_1fr] gap-8 lg:gap-16 items-center">
 
           {/* Form Side - NOW WITH CONTAINER */}
-          <div className="quote-content bg-white/90 dark:bg-black/60 backdrop-blur-xl border border-transparent dark:border-white/5 rounded-3xl p-6 md:p-8 shadow-2xl transition-colors duration-500">
+          <div className="quote-content bg-white/80 dark:bg-black/60 backdrop-blur-xl border border-primary/5 dark:border-white/5 rounded-3xl p-6 md:p-8 shadow-2xl transition-colors duration-500 hover:shadow-terracota/5">
             <div className="mb-6 quote-item">
               <span className="block text-terracota text-[9px] tracking-[0.3em] uppercase font-bold mb-2">
                 Concierge
@@ -505,7 +521,10 @@ export default function Cotiza() {
           {/* Ticket Preview Side - Ultra Premium */}
           <div className="flex justify-center items-center quote-content delay-100 h-full mt-8 lg:mt-0 perspective-1000">
             <div
-              className="relative w-full max-w-md aspect-3/4 rounded-[2.5rem] bg-white/5 backdrop-blur-2xl overflow-hidden shadow-2xl flex flex-col group transition-all duration-700 hover:shadow-[0_30px_60px_rgba(0,0,0,0.3)] hover:-translate-y-2 scale-110"
+              ref={cardRef}
+              onMouseMove={handleMouseMove}
+              onMouseLeave={handleMouseLeave}
+              className="relative w-full max-w-md aspect-3/4 rounded-[2.5rem] bg-white/5 backdrop-blur-2xl overflow-hidden shadow-2xl flex flex-col group transition-all duration-100 ease-out hover:shadow-[0_30px_60px_rgba(0,0,0,0.3)]"
               style={{ transformStyle: 'preserve-3d' }}
             >
 
@@ -549,7 +568,7 @@ export default function Cotiza() {
               </div>
 
               {/* Ticket Details */}
-              <div className="flex-1 p-8 bg-white/5 backdrop-blur-xl relative z-10 flex flex-col justify-between transition-colors duration-500">
+              <div className="flex-1 p-8 bg-white/80 dark:bg-white/5 backdrop-blur-xl relative z-10 flex flex-col justify-between transition-colors duration-500">
 
                 {/* Info Grid */}
                 <div className="grid grid-cols-2 gap-y-6 gap-x-4">
