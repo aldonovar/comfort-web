@@ -24,8 +24,8 @@ export default function Estudio() {
             trigger: sectionRef.current,
             pin: true,
             scrub: 1,
-            // Adjust the end value to control the speed of the scroll
-            end: () => "+=" + container!.offsetWidth,
+            // Compact: Faster scroll (2000px instead of container width)
+            end: "+=2000",
             snap: 1 / (sections.length - 1),
             invalidateOnRefresh: true,
           }
@@ -40,10 +40,10 @@ export default function Estudio() {
     <section ref={sectionRef} id="estudio" className="relative bg-black text-white overflow-hidden">
 
       {/* Horizontal Container */}
-      <div ref={containerRef} className="flex flex-col lg:flex-row lg:w-[400vw] h-auto lg:h-screen">
+      <div ref={containerRef} className="flex flex-col lg:flex-row lg:w-[300vw] h-auto lg:h-screen">
 
         {/* PANEL 1: MANIFESTO */}
-        <div className="horizontal-panel w-full lg:w-screen h-screen flex flex-col justify-center items-center bg-primary text-primary relative z-10 shrink-0">
+        <div className="horizontal-panel w-full lg:w-[75vw] h-screen flex flex-col justify-center items-center bg-primary text-primary relative z-10 shrink-0 border-r border-white/5">
           <div className="absolute inset-0 opacity-[0.05] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')] mix-blend-overlay"></div>
 
           <div className="max-w-5xl px-6 text-center relative z-10">
@@ -75,7 +75,7 @@ export default function Estudio() {
         </div>
 
         {/* PANEL 2: ENFOQUE */}
-        <div className="horizontal-panel w-full lg:w-screen h-screen flex flex-col justify-end pb-24 bg-black relative z-20 shrink-0">
+        <div className="horizontal-panel w-full lg:w-[75vw] h-screen flex flex-col justify-end pb-24 bg-black relative z-20 shrink-0 border-r border-white/5">
           <Image
             src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=2653&auto=format&fit=crop"
             alt="Enfoque"
@@ -98,7 +98,7 @@ export default function Estudio() {
         </div>
 
         {/* PANEL 3: OBSESIÓN */}
-        <div className="horizontal-panel w-full lg:w-screen h-screen flex flex-col justify-end pb-24 bg-zinc-900 relative z-30 shrink-0">
+        <div className="horizontal-panel w-full lg:w-[75vw] h-screen flex flex-col justify-end pb-24 bg-zinc-900 relative z-30 shrink-0 border-r border-white/5">
           <Image
             src="https://images.unsplash.com/photo-1556910103-1c02745a30bf?q=80&w=2670&auto=format&fit=crop"
             alt="Obsesión"
@@ -121,7 +121,7 @@ export default function Estudio() {
         </div>
 
         {/* PANEL 4: ROL & STATS */}
-        <div className="horizontal-panel w-full lg:w-screen h-screen flex flex-col justify-center bg-terracota text-white relative z-40 shrink-0">
+        <div className="horizontal-panel w-full lg:w-[75vw] h-screen flex flex-col justify-center bg-terracota text-white relative z-40 shrink-0">
           <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay"></div>
 
           <div className="max-w-[1800px] w-full mx-auto px-6 md:px-12 relative z-10 grid md:grid-cols-2 gap-16 items-center">

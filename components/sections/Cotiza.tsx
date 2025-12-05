@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState, useRef } from "react";
 import { useSearchParams } from "next/navigation";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Image from "next/image";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -50,15 +51,12 @@ const generateSmartID = (
   company: string,
   ticketNum: number
 ) => {
-  // Format: 101TR60JM5KALCOM
-
   const typeCode = type ? type.substring(0, 2).toUpperCase() : "XX";
   const areaCode = area ? area : "00";
   const distCode = district ? district.substring(0, 2).toUpperCase() : "XX";
   const budCode = budgetCode || "XX";
   const nameCode = name ? name.substring(0, 2).toUpperCase() : "XX";
   const compCode = company ? company.substring(0, 3).toUpperCase() : "000";
-
   return `${ticketNum}${typeCode}${areaCode}${distCode}${budCode}${nameCode}${compCode}`.replace(/\s/g, '');
 };
 
@@ -94,28 +92,28 @@ const CustomSelect = ({
     : value;
 
   return (
-    <div className="group relative" ref={containerRef}>
-      <label className="block text-[10px] uppercase tracking-widest text-primary/70 mb-2 group-focus-within:text-terracota transition-colors font-medium pl-1">
+    <div className="group relative z-50" ref={containerRef}>
+      <label className="block text-[10px] uppercase tracking-widest text-white/60 mb-2 group-focus-within:text-terracota transition-colors font-medium pl-1">
         {label}
       </label>
 
       <div
         onClick={() => setIsOpen(!isOpen)}
         className={`
-          w-full bg-primary/5 dark:bg-white/5 hover:bg-primary/10 dark:hover:bg-white/10 rounded-xl px-4 py-3 text-sm md:text-base cursor-pointer flex justify-between items-center transition-all duration-300 border border-transparent
-          ${isOpen ? 'ring-1 ring-terracota' : ''}
+          w-full bg-white/5 hover:bg-white/10 rounded-xl px-4 py-3 text-sm md:text-base cursor-pointer flex justify-between items-center transition-all duration-300 border border-white/10 backdrop-blur-sm
+          ${isOpen ? 'ring-1 ring-terracota border-terracota/50' : ''}
         `}
       >
-        <span className={`truncate mr-2 ${value ? "text-primary" : "text-primary/40"}`}>
+        <span className={`truncate mr-2 ${value ? "text-white" : "text-white/40"}`}>
           {displayValue || placeholder}
         </span>
-        <span className={`text-[10px] text-primary/40 transform transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}>
+        <span className={`text-[10px] text-white/40 transform transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}>
           ▼
         </span>
       </div>
 
       <div className={`
-        absolute left-0 right-0 top-full mt-2 bg-[#1a1a1a] border border-white/10 rounded-xl overflow-hidden z-50 shadow-[0_10px_40px_rgba(0,0,0,0.5)] origin-top transition-all duration-300 max-h-60 overflow-y-auto ring-1 ring-white/5
+        absolute left-0 right-0 top-full mt-2 bg-zinc-900 border border-white/10 rounded-xl overflow-hidden z-[100] shadow-[0_10px_40px_rgba(0,0,0,0.5)] origin-top transition-all duration-300 max-h-60 overflow-y-auto ring-1 ring-white/5
         ${isOpen ? 'opacity-100 scale-y-100 translate-y-0' : 'opacity-0 scale-y-95 -translate-y-2 pointer-events-none'}
       `}>
         {options.map((opt) => {
@@ -158,15 +156,15 @@ const CustomInput = ({
   optional?: boolean
 }) => (
   <div className="group">
-    <label className="block text-[10px] uppercase tracking-widest text-primary/70 mb-2 group-focus-within:text-terracota transition-colors font-medium pl-1">
-      {label} {optional && <span className="text-primary/40 normal-case tracking-normal ml-1">(Opcional)</span>}
+    <label className="block text-[10px] uppercase tracking-widest text-white/60 mb-2 group-focus-within:text-terracota transition-colors font-medium pl-1">
+      {label} {optional && <span className="text-white/30 normal-case tracking-normal ml-1">(Opcional)</span>}
     </label>
     <input
       type={type}
       value={value}
       onChange={(e) => onChange(e.target.value)}
       placeholder={placeholder}
-      className="w-full bg-primary/5 dark:bg-white/5 hover:bg-primary/10 dark:hover:bg-white/10 rounded-xl px-4 py-3 text-sm md:text-base focus:outline-none focus:ring-1 focus:ring-terracota transition-all duration-300 placeholder-primary/30 text-primary dark:text-white border border-transparent"
+      className="w-full bg-white/5 hover:bg-white/10 rounded-xl px-4 py-3 text-sm md:text-base focus:outline-none focus:ring-1 focus:ring-terracota focus:border-terracota/50 transition-all duration-300 placeholder-white/20 text-white border border-white/10 backdrop-blur-sm"
     />
   </div>
 );
@@ -215,7 +213,7 @@ export default function Cotiza() {
     if (!projectType) return;
     const interval = setInterval(() => {
       setCurrentImageIndex(prev => (prev + 1) % (SERVICE_IMAGES[projectType]?.length || 1));
-    }, 5000); // Slower, more cinematic
+    }, 5000);
     return () => clearInterval(interval);
   }, [projectType]);
 
@@ -254,7 +252,6 @@ export default function Cotiza() {
     if (isSubmitting) return;
     setIsSubmitting(true);
 
-    // 1. Prepare Data
     const formData = {
       ticketNumber,
       smartID,
@@ -270,7 +267,6 @@ export default function Cotiza() {
       timestamp: new Date().toISOString()
     };
 
-    // 2. WhatsApp Logic
     const message = `*NUEVA SOLICITUD - TICKET #${ticketNumber}*
               ID: ${smartID}
 
@@ -291,22 +287,17 @@ export default function Cotiza() {
     const waUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
 
     try {
-      // 3. API Call (Simulate Email/Sheet)
       await fetch('/api/quote', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)
       });
 
-      // 4. Update Counter
       const nextTicket = ticketNumber + 1;
       setTicketNumber(nextTicket);
       localStorage.setItem("comfort_ticket_counter", nextTicket.toString());
 
-      // 5. Open WhatsApp
       window.open(waUrl, "_blank");
-
-      // 6. Show Success State
       setIsSuccess(true);
 
     } catch (error) {
@@ -333,18 +324,18 @@ export default function Cotiza() {
 
   if (isSuccess) {
     return (
-      <section className="relative bg-primary text-primary min-h-[80vh] flex items-center justify-center border-t border-primary/5 transition-colors duration-500">
+      <section className="relative bg-black text-white min-h-[80vh] flex items-center justify-center border-t border-white/5">
         <div className="text-center max-w-lg px-6 animate-in fade-in zoom-in-95 duration-700">
           <div className="w-20 h-20 rounded-full bg-terracota/10 flex items-center justify-center mx-auto mb-8">
             <svg className="w-10 h-10 text-terracota" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M5 13l4 4L19 7" /></svg>
           </div>
           <h2 className="font-serif text-4xl md:text-5xl mb-6">Solicitud Enviada</h2>
-          <p className="text-primary/60 text-lg mb-10 transition-colors duration-500">
+          <p className="text-white/60 text-lg mb-10">
             Hemos recibido tu ticket correctamente. Se ha abierto WhatsApp para completar el proceso.
           </p>
           <button
             onClick={handleReset}
-            className="group px-8 py-4 rounded-full border border-primary/20 hover:border-terracota hover:bg-terracota transition-all duration-300 flex items-center gap-3 mx-auto"
+            className="group px-8 py-4 rounded-full border border-white/20 hover:border-terracota hover:bg-terracota transition-all duration-300 flex items-center gap-3 mx-auto"
           >
             <span className="uppercase tracking-widest text-xs font-bold">Enviar otra solicitud</span>
             <span className="transform group-hover:translate-x-1 transition-transform">→</span>
@@ -354,63 +345,52 @@ export default function Cotiza() {
     );
   }
 
-  // 3D Tilt Effect
-  const cardRef = useRef<HTMLDivElement>(null);
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!cardRef.current) return;
-    const { left, top, width, height } = cardRef.current.getBoundingClientRect();
-    const x = (e.clientX - left - width / 2) / 25;
-    const y = (e.clientY - top - height / 2) / 25;
-    cardRef.current.style.transform = `rotateY(${x}deg) rotateX(${-y}deg) scale(1.02)`;
-  };
-
-  const handleMouseLeave = () => {
-    if (!cardRef.current) return;
-    cardRef.current.style.transform = `rotateY(0deg) rotateX(0deg) scale(1)`;
-  };
-
   return (
     <section
       ref={sectionRef}
       id="cotiza"
-      className="relative bg-primary text-primary min-h-screen flex items-center py-4 transition-colors duration-500 overflow-hidden"
+      className="relative bg-black text-white min-h-screen flex items-center py-24 overflow-hidden"
     >
-      {/* Background Ambience & Pattern */}
-      <div className="absolute inset-0 pointer-events-none">
-        {/* Grid Pattern */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
-
-        {/* Orbs */}
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-terracota/5 rounded-full blur-[120px] mix-blend-screen animate-pulse duration-3000" />
-        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[120px] mix-blend-screen" />
+      {/* Dynamic Background */}
+      <div className="absolute inset-0 transition-opacity duration-1000">
+        {projectType && SERVICE_IMAGES[projectType] ? (
+          <Image
+            src={SERVICE_IMAGES[projectType][currentImageIndex]}
+            alt="Background"
+            fill
+            className="object-cover opacity-30 blur-sm scale-105 transition-transform duration-[10s]"
+          />
+        ) : (
+          <div className="absolute inset-0 bg-zinc-900" />
+        )}
+        <div className="absolute inset-0 bg-gradient-to-b from-black via-black/80 to-black" />
+        <div className="absolute inset-0 opacity-[0.05] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')] mix-blend-overlay"></div>
       </div>
 
       <div className="max-w-[1600px] mx-auto px-6 md:px-12 w-full relative z-10">
+        <div className="grid lg:grid-cols-[1fr_1fr] gap-12 lg:gap-24 items-start">
 
-        <div className="grid lg:grid-cols-[1fr_1fr] gap-8 lg:gap-16 items-center">
+          {/* Left: The Form (Glass Monolith) */}
+          <div className="quote-content bg-white/5 backdrop-blur-2xl border border-white/10 rounded-[2rem] p-8 md:p-12 shadow-2xl relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-terracota/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
 
-          {/* Form Side - NOW WITH CONTAINER */}
-          <div className="quote-content bg-white/80 dark:bg-black/60 backdrop-blur-xl border border-primary/5 dark:border-white/5 rounded-3xl p-6 md:p-8 shadow-2xl transition-colors duration-500 hover:shadow-terracota/5">
-            <div className="mb-6 quote-item">
-              <span className="block text-terracota text-[9px] tracking-[0.3em] uppercase font-bold mb-2">
+            <div className="mb-10">
+              <span className="block text-terracota text-[10px] tracking-[0.4em] uppercase font-bold mb-4">
                 Concierge
               </span>
-              <h2 className="font-serif text-3xl md:text-4xl leading-tight text-primary dark:text-white transition-colors duration-500">
+              <h2 className="font-serif text-4xl md:text-5xl leading-tight text-white">
                 Diseñemos tu <br />
-                <span className="text-terracota italic transition-colors duration-500">próximo escenario.</span>
+                <span className="text-terracota italic">próximo escenario.</span>
               </h2>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-4 max-w-xl">
-
+            <form onSubmit={handleSubmit} className="space-y-8">
               {/* 01. Proyecto */}
-              <div className="space-y-3 quote-item">
-                <h3 className="text-[10px] uppercase tracking-widest text-primary/40 font-bold transition-colors duration-500 mb-2 border-b border-primary/10 pb-1">
+              <div className="space-y-6">
+                <h3 className="text-[10px] uppercase tracking-widest text-white/40 font-bold border-b border-white/10 pb-2">
                   01. El Proyecto
                 </h3>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="md:col-span-2">
                     <CustomSelect
                       label="Tipo de Espacio"
@@ -448,12 +428,11 @@ export default function Cotiza() {
               </div>
 
               {/* 02. Datos */}
-              <div className="space-y-3 quote-item">
-                <h3 className="text-[10px] uppercase tracking-widest text-primary/40 font-bold transition-colors duration-500 mb-2 border-b border-primary/10 pb-1">
+              <div className="space-y-6">
+                <h3 className="text-[10px] uppercase tracking-widest text-white/40 font-bold border-b border-white/10 pb-2">
                   02. Tus Datos
                 </h3>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <CustomInput
                     label="Nombre"
                     value={name}
@@ -482,129 +461,103 @@ export default function Cotiza() {
                     type="email"
                   />
                 </div>
-
                 <div className="group">
-                  <label className="block text-[10px] uppercase tracking-widest text-primary/70 mb-1 group-focus-within:text-terracota transition-colors font-medium pl-1">
+                  <label className="block text-[10px] uppercase tracking-widest text-white/60 mb-2 group-focus-within:text-terracota transition-colors font-medium pl-1">
                     Notas
                   </label>
                   <textarea
                     value={notes}
                     onChange={(e) => setNotes(e.target.value)}
                     placeholder="Detalles adicionales..."
-                    rows={1}
-                    className="w-full bg-primary/5 dark:bg-white/5 hover:bg-primary/10 dark:hover:bg-white/10 rounded-xl p-3 text-sm focus:outline-none focus:ring-1 focus:ring-terracota transition-all duration-300 placeholder-primary/30 resize-none text-primary dark:text-white border border-transparent"
+                    rows={2}
+                    className="w-full bg-white/5 hover:bg-white/10 rounded-xl p-4 text-sm focus:outline-none focus:ring-1 focus:ring-terracota transition-all duration-300 placeholder-white/20 resize-none text-white border border-white/10 backdrop-blur-sm"
                   />
                 </div>
               </div>
 
-              <div className="quote-item pt-2">
-                <button
-                  type="submit"
-                  disabled={!isFormReady || isSubmitting}
-                  className={`
-                    group w-full py-4 rounded-xl transition-all duration-500 flex items-center justify-center gap-3
-                    ${isFormReady && !isSubmitting
-                      ? 'bg-terracota text-white shadow-lg shadow-terracota/20 hover:shadow-terracota/40 hover:scale-[1.02] cursor-pointer'
-                      : 'bg-primary/10 text-primary/30 cursor-not-allowed'}
-                  `}
-                >
-                  <span className="uppercase tracking-widest text-xs font-bold">
-                    {isSubmitting ? "Procesando..." : "Generar Ticket y Enviar"}
-                  </span>
-                  {!isSubmitting && <span className="transform group-hover:translate-x-1 transition-transform">→</span>}
-                </button>
-              </div>
-
+              <button
+                type="submit"
+                disabled={!isFormReady || isSubmitting}
+                className={`
+                  group w-full py-5 rounded-xl transition-all duration-500 flex items-center justify-center gap-3 mt-4
+                  ${isFormReady && !isSubmitting
+                    ? 'bg-terracota text-white shadow-lg shadow-terracota/20 hover:shadow-terracota/40 hover:scale-[1.01] cursor-pointer'
+                    : 'bg-white/5 text-white/20 cursor-not-allowed border border-white/5'}
+                `}
+              >
+                <span className="uppercase tracking-widest text-xs font-bold">
+                  {isSubmitting ? "Procesando..." : "Generar Ticket y Enviar"}
+                </span>
+                {!isSubmitting && <span className="transform group-hover:translate-x-1 transition-transform">→</span>}
+              </button>
             </form>
           </div>
 
-          {/* Ticket Preview Side - Ultra Premium */}
-          <div className="flex justify-center items-center quote-content delay-100 h-full mt-8 lg:mt-0 perspective-1000">
-            <div
-              ref={cardRef}
-              onMouseMove={handleMouseMove}
-              onMouseLeave={handleMouseLeave}
-              className="relative w-full max-w-md aspect-3/4 rounded-[2.5rem] bg-white/5 backdrop-blur-2xl overflow-hidden shadow-2xl flex flex-col group transition-all duration-100 ease-out hover:shadow-[0_30px_60px_rgba(0,0,0,0.3)]"
-              style={{ transformStyle: 'preserve-3d' }}
-            >
+          {/* Right: The Ticket (Sticky) */}
+          <div className="hidden lg:block sticky top-32">
+            <div className="relative w-full max-w-md mx-auto aspect-[3/4] rounded-[2.5rem] bg-zinc-900 border border-white/10 overflow-hidden shadow-2xl flex flex-col group transition-all duration-500 hover:shadow-[0_30px_60px_rgba(204,88,3,0.15)]">
 
-              {/* Holographic/Glass Effect Overlay */}
-              <div className="absolute inset-0 bg-linear-to-br from-white/10 to-transparent pointer-events-none z-20 transition-colors duration-500 mix-blend-overlay" />
+              {/* Holographic Overlay */}
+              <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent pointer-events-none z-20 mix-blend-overlay" />
 
-              {/* Image Area - Cinematic Transition */}
-              <div className="relative h-[55%] overflow-hidden bg-black">
-                {projectType && SERVICE_IMAGES[projectType]?.map((img, index) => (
-                  <div
-                    key={img}
-                    className={`
-                      absolute inset-0 transition-all duration-2000 ease-in-out
-                      ${index === currentImageIndex ? 'opacity-100 scale-100' : 'opacity-0 scale-110'}
-                    `}
-                  >
-                    <img src={img} alt="" className="w-full h-full object-cover" />
-                    {/* Dark Overlay for Text Legibility */}
-                    <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/20 to-transparent opacity-100 transition-colors duration-500" />
-                  </div>
-                ))}
-
-                {!projectType && (
-                  <div className="absolute inset-0 bg-secondary transition-colors duration-500">
-                    <div className="w-full h-full bg-[radial-gradient(circle_at_top_right,var(--tw-gradient-stops))] from-primary/5 to-transparent transition-colors duration-500" />
+              {/* Image Area */}
+              <div className="relative h-[60%] overflow-hidden bg-black">
+                {projectType && SERVICE_IMAGES[projectType] ? (
+                  <Image
+                    src={SERVICE_IMAGES[projectType][currentImageIndex]}
+                    alt="Preview"
+                    fill
+                    className="object-cover transition-transform duration-[2000ms] ease-in-out scale-105"
+                  />
+                ) : (
+                  <div className="absolute inset-0 bg-zinc-800 flex items-center justify-center">
+                    <span className="text-white/20 text-xs uppercase tracking-widest">Vista Previa</span>
                   </div>
                 )}
+                <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80" />
 
-                <div className="absolute top-6 left-6 z-30">
-                  <div className="w-8 h-8 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center">
-                    <div className="w-1.5 h-1.5 bg-terracota rounded-full animate-pulse" />
-                  </div>
-                </div>
-
-                <div className="absolute bottom-6 left-6 z-30 drop-shadow-md">
-                  <span className="block text-[9px] uppercase tracking-[0.2em] text-white/80 mb-1">Ticket #{ticketNumber}</span>
-                  <h3 className="font-serif text-3xl text-white leading-none">
+                <div className="absolute bottom-8 left-8 z-30">
+                  <span className="block text-[10px] uppercase tracking-[0.2em] text-terracota mb-2 font-bold">Ticket #{ticketNumber}</span>
+                  <h3 className="font-serif text-4xl text-white leading-none">
                     {projectType || "Nuevo Proyecto"}
                   </h3>
                 </div>
               </div>
 
-              {/* Ticket Details */}
-              <div className="flex-1 p-8 bg-white/80 dark:bg-white/5 backdrop-blur-xl relative z-10 flex flex-col justify-between transition-colors duration-500">
-
-                {/* Info Grid */}
+              {/* Details Area */}
+              <div className="flex-1 p-8 bg-zinc-900 relative z-10 flex flex-col justify-between border-t border-white/5">
                 <div className="grid grid-cols-2 gap-y-6 gap-x-4">
                   <div>
-                    <span className="block text-[9px] uppercase tracking-widest text-primary/40 mb-1 font-medium">Cliente</span>
-                    <p className="text-sm text-primary font-medium truncate">{name || "—"}</p>
-                    <p className="text-[10px] text-primary/40 truncate">{company || "Particular"}</p>
+                    <span className="block text-[9px] uppercase tracking-widest text-white/40 mb-1 font-medium">Cliente</span>
+                    <p className="text-sm text-white font-medium truncate">{name || "—"}</p>
                   </div>
                   <div>
-                    <span className="block text-[9px] uppercase tracking-widest text-primary/40 mb-1 font-medium">Ubicación</span>
-                    <p className="text-sm text-primary font-medium truncate">{district || "—"}</p>
+                    <span className="block text-[9px] uppercase tracking-widest text-white/40 mb-1 font-medium">Ubicación</span>
+                    <p className="text-sm text-white font-medium truncate">{district || "—"}</p>
                   </div>
                   <div>
-                    <span className="block text-[9px] uppercase tracking-widest text-primary/40 mb-1 font-medium">Dimensión</span>
-                    <p className="text-sm text-primary font-medium">{area ? `${area} m²` : "—"}</p>
+                    <span className="block text-[9px] uppercase tracking-widest text-white/40 mb-1 font-medium">Dimensión</span>
+                    <p className="text-sm text-white font-medium">{area ? `${area} m²` : "—"}</p>
                   </div>
                   <div>
-                    <span className="block text-[9px] uppercase tracking-widest text-primary/40 mb-1 font-medium">Inversión</span>
-                    <p className="text-sm text-primary font-medium truncate">{budgetCode !== "XX" ? budgetCode : "—"}</p>
+                    <span className="block text-[9px] uppercase tracking-widest text-white/40 mb-1 font-medium">Inversión</span>
+                    <p className="text-sm text-white font-medium truncate">{budgetCode !== "XX" ? budgetCode : "—"}</p>
                   </div>
                 </div>
 
-                {/* Footer with Stealth ID */}
-                <div className="pt-6 flex justify-between items-end">
+                <div className="pt-6 flex justify-between items-end border-t border-white/5 mt-6">
                   <div>
-                    <p className="text-[9px] uppercase tracking-widest text-primary/40 font-medium">ID de Atención</p>
-                    <p className="font-mono text-[10px] text-primary/30 mt-1 tracking-widest select-all hover:text-terracota transition-colors cursor-help" title="Código interno de seguimiento">
+                    <p className="text-[9px] uppercase tracking-widest text-white/40 font-medium">ID de Atención</p>
+                    <p className="font-mono text-[10px] text-white/30 mt-1 tracking-widest">
                       {smartID}
                     </p>
                   </div>
                   <div className="text-right">
-                    <p className="text-[9px] uppercase tracking-widest text-primary/40 font-medium">Fecha</p>
-                    <p className="text-[10px] text-primary/40 mt-1">{new Date().toLocaleDateString()}</p>
+                    <div className="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center ml-auto">
+                      <div className="w-1.5 h-1.5 bg-terracota rounded-full animate-pulse" />
+                    </div>
                   </div>
                 </div>
-
               </div>
             </div>
           </div>
