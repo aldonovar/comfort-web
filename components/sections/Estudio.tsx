@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Image from "next/image";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -87,6 +88,17 @@ export default function Estudio() {
       id="estudio"
       className="relative bg-primary text-primary py-24 md:py-32 overflow-hidden transition-colors duration-500"
     >
+      {/* Background Image */}
+      <div className="absolute inset-0 z-0">
+        <Image
+          src="https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2669&auto=format&fit=crop"
+          alt="Studio Background"
+          fill
+          className="object-cover opacity-10 dark:opacity-20"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-[var(--bg-primary)] via-transparent to-[var(--bg-primary)]" />
+      </div>
+
       {/* Background Noise */}
       <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div>
 
@@ -135,7 +147,7 @@ export default function Estudio() {
                   studio-card-reveal relative rounded-3xl overflow-hidden group transition-all duration-500
                   ${item.colSpan}
                   min-h-[300px] md:min-h-[350px]
-                  border border-primary/10 hover:border-terracota/50 hover:shadow-2xl hover:shadow-terracota/10
+                  border border-transparent hover:border-terracota/50 hover:shadow-2xl hover:shadow-terracota/10
                 `}
               >
                 {/* Background Image (for specific cards) */}
@@ -155,7 +167,7 @@ export default function Estudio() {
 
                 {/* Glass Background for others */}
                 {item.id !== 'enfoque' && item.id !== 'detalle' && (
-                  <div className="absolute inset-0 bg-primary/5 backdrop-blur-md group-hover:bg-primary/10 transition-colors duration-500" />
+                  <div className="absolute inset-0 bg-white/60 dark:bg-white/5 backdrop-blur-md group-hover:bg-white/80 dark:group-hover:bg-white/10 transition-colors duration-500" />
                 )}
 
                 {/* Content */}
