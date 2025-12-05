@@ -125,8 +125,8 @@ export default function Servicios() {
                 service-card-reveal group relative overflow-hidden 
                 first:rounded-t-2xl last:rounded-b-2xl md:rounded-none md:first:rounded-l-2xl md:last:rounded-r-2xl
                 transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)]
-                ${activeMobile === index ? 'flex-[3]' : 'flex-[1]'} // Mobile Accordion
-                ${hoveredIndex === index ? 'md:flex-[3]' : 'md:flex-[1]'} // Desktop Accordion
+                ${activeMobile === index ? 'flex-3' : 'flex-1'} // Mobile Accordion
+                ${hoveredIndex === index ? 'md:flex-3' : 'md:flex-1'} // Desktop Accordion
                 shadow-[0_30px_60px_rgba(0,0,0,0.3)] ring-1 ring-white/10 hover:ring-white/20
               `}
               onMouseEnter={() => setHoveredIndex(index)}
