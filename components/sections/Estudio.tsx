@@ -165,7 +165,7 @@ export default function Estudio() {
 
                 {/* Glass Background for others - Solid/Blur Effect */}
                 {item.id !== 'enfoque' && item.id !== 'detalle' && (
-                  <div className="absolute inset-0 bg-white/95 dark:bg-black/95 backdrop-blur-3xl group-hover:bg-white dark:group-hover:bg-black transition-all duration-500" />
+                  <div className="absolute inset-0 bg-secondary/95 dark:bg-secondary/95 backdrop-blur-3xl group-hover:bg-secondary dark:group-hover:bg-secondary transition-all duration-500" />
                 )}
 
                 {/* Content */}
