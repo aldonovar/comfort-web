@@ -271,7 +271,7 @@ export default function Navbar() {
                 >
                   {item.label}
                   <span className={`absolute bottom-2 left-0 w-full h-px bg-terracota transition-transform duration-500 origin-left ease-out ${activeMega === item.id ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"}`} />
-                  <span className={`absolute inset-0 bg-terracota/20 blur-xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 scale-150 pointer-events-none will-change-[opacity,transform]`} />
+                  <span className={`absolute inset-0 bg-terracota/20 blur-xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 scale-150 pointer-events-none`} />
                 </Link>
               </div>
             ))}
@@ -281,7 +281,7 @@ export default function Navbar() {
           <div className="hidden md:flex items-center gap-6">
             <ThemeToggle />
             <div className="flex flex-col items-end">
-              <span className="text-[0.6rem] text-primary/60 uppercase tracking-widest mb-1">Atención</span>
+              <span className={`text-[0.6rem] uppercase tracking-widest mb-1 transition-colors duration-300 ${scrolled || activeMega ? "text-primary/60" : "text-white/60"}`}>Atención</span>
               <a
                 href="https://wa.me/51936230958"
                 target="_blank"

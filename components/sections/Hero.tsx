@@ -31,30 +31,12 @@ export default function Hero() {
   const bgRef = useRef<HTMLDivElement>(null);
   const stampRef = useRef<SVGSVGElement>(null);
 
-  // GSAP QuickTo Refs for high-performance animation
-  const xTo = useRef<gsap.QuickToFunc | null>(null);
-  const yTo = useRef<gsap.QuickToFunc | null>(null);
-
   // Rotating Tag State
   const [currentTagIndex, setCurrentTagIndex] = useState(0);
   const [isTagVisible, setIsTagVisible] = useState(true);
 
   // Background Slideshow State
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-
-  useEffect(() => {
-    // Setup GSAP QuickTo for the tilt effect
-    if (cardRef.current) {
-      xTo.current = gsap.quickTo(cardRef.current, "rotationX", { duration: 0.2, ease: "power3.out" });
-      yTo.current = gsap.quickTo(cardRef.current, "rotationY", { duration: 0.2, ease: "power3.out" });
-    }
-
-    // Cleanup
-    return () => {
-      xTo.current = null;
-      yTo.current = null;
-    };
-  }, []);
 
   useEffect(() => {
     // Background Slideshow Interval
@@ -123,39 +105,67 @@ export default function Hero() {
 
   }, []);
 
-  // Global 3D Tilt Logic - OPTIMIZED: No State Updates
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!containerRef.current || !xTo.current || !yTo.current) return;
+  // Performance Optimized Tilt Logic (Vanilla JS + rAF)
+  // This avoids React State and guarantees 60fps performance without input delay
+  useEffect(() => {
+    if (!containerRef.current || !cardRef.current) return;
 
-    const rect = containerRef.current.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
+    const container = containerRef.current;
+    const card = cardRef.current;
 
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
+    let bounds = container.getBoundingClientRect();
+    let mouseX = 0;
+    let mouseY = 0;
+    let rafId: number;
 
-    // Calculate tilt based on distance from center of the SECTION, not just the card
-    // Invert X/Y for natural feel
-    const rotateX = ((y - centerY) / centerY) * -5; // Reduced intensity for global effect
-    const rotateY = ((x - centerX) / centerX) * 5;
+    const onResize = () => {
+      bounds = container.getBoundingClientRect();
+    };
+    window.addEventListener('resize', onResize);
 
-    // Direct GSAP update - bypass React render cycle
-    xTo.current(rotateX);
-    yTo.current(rotateY);
-  };
+    const onMouseMove = (e: MouseEvent) => {
+      mouseX = e.clientX - bounds.left;
+      mouseY = e.clientY - bounds.top;
 
-  const handleMouseLeave = () => {
-    if (xTo.current && yTo.current) {
-      xTo.current(0);
-      yTo.current(0);
-    }
-  };
+      // Request update
+      if (!rafId) {
+        rafId = requestAnimationFrame(updateCard);
+      }
+    };
+
+    const updateCard = () => {
+      // Calculate tilt logic relative to the container center
+      const centerX = bounds.width / 2;
+      const centerY = bounds.height / 2;
+
+      // Invert X/Y for natural feel
+      const rotateX = ((mouseY - centerY) / centerY) * -5; // Max 5deg tilt
+      const rotateY = ((mouseX - centerX) / centerX) * 5;
+
+      // Apply transform directly to DOM element
+      card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+
+      rafId = 0; // Reset
+    };
+
+    const onMouseLeave = () => {
+      card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg)`;
+    };
+
+    container.addEventListener('mousemove', onMouseMove);
+    container.addEventListener('mouseleave', onMouseLeave);
+
+    return () => {
+      window.removeEventListener('resize', onResize);
+      container.removeEventListener('mousemove', onMouseMove);
+      container.removeEventListener('mouseleave', onMouseLeave);
+      if (rafId) cancelAnimationFrame(rafId);
+    };
+  }, []);
 
   return (
     <section
       ref={containerRef}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
       className="relative min-h-[100dvh] w-full overflow-hidden bg-primary text-primary flex items-center transition-colors duration-500"
     >
 
@@ -223,7 +233,7 @@ export default function Hero() {
         <div className="col-span-1 md:col-span-5 flex justify-center md:justify-end relative perspective-1000 mt-8 md:mt-0">
           <div
             ref={cardRef}
-            className="w-full max-w-[400px] bg-secondary/80 backdrop-blur-xl border border-primary/10 p-6 md:p-10 rounded-3xl shadow-2xl relative overflow-hidden group transition-colors duration-500 will-change-transform"
+            className="w-full max-w-[400px] bg-secondary/80 backdrop-blur-xl border border-primary/10 p-6 md:p-10 rounded-3xl shadow-2xl relative overflow-hidden group transition-transform duration-100 ease-out will-change-transform"
           >
             {/* Glossy Reflection */}
             <div className="absolute inset-0 bg-linear-to-tr from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
