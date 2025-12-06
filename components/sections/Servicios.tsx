@@ -15,7 +15,7 @@ const services = [
     subtitle: "Control de Luz y Clima",
     description: "Estructuras que doman el sol y la lluvia sin perder la conexión con el cielo.",
     image: "https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=2700&auto=format&fit=crop",
-    video: "https://cdn.coverr.co/videos/coverr-sunlight-through-trees-in-forest-4467/1080p.mp4" // Placeholder nature video
+    video: "https://cdn.coverr.co/videos/coverr-sunlight-through-trees-in-forest-4467/1080p.mp4"
   },
   {
     id: "diseno-ejecucion-terraza",
@@ -24,7 +24,7 @@ const services = [
     subtitle: "Proyecto de Terraza",
     description: "Desde el primer trazo hasta la última luz. Un solo equipo, una visión unificada.",
     image: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=2574&auto=format&fit=crop",
-    video: "https://cdn.coverr.co/videos/coverr-modern-architecture-with-pool-5686/1080p.mp4" // Placeholder architecture video
+    video: "https://cdn.coverr.co/videos/coverr-modern-architecture-with-pool-5686/1080p.mp4"
   },
   {
     id: "estacion-parrilla",
@@ -33,7 +33,7 @@ const services = [
     subtitle: "Estación de Parrilla",
     description: "El corazón de la reunión. Fuego, sabor y diseño para el chef anfitrión.",
     image: "https://images.unsplash.com/photo-1556910103-1c02745a30bf?q=80&w=2670&auto=format&fit=crop",
-    video: "https://cdn.coverr.co/videos/coverr-grilling-meat-on-barbecue-4462/1080p.mp4" // Placeholder BBQ video
+    video: "https://cdn.coverr.co/videos/coverr-grilling-meat-on-barbecue-4462/1080p.mp4"
   },
   {
     id: "otros-proyectos",
@@ -42,7 +42,7 @@ const services = [
     subtitle: "Proyectos Especiales",
     description: "Fogateros, lounges, decks. Soluciones únicas para espacios que desafían lo estándar.",
     image: "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?q=80&w=2670&auto=format&fit=crop",
-    video: "https://cdn.coverr.co/videos/coverr-fire-pit-in-the-evening-4465/1080p.mp4" // Placeholder firepit video
+    video: "https://cdn.coverr.co/videos/coverr-fire-pit-in-the-evening-4465/1080p.mp4"
   },
 ];
 
@@ -103,12 +103,110 @@ export default function Servicios() {
             Arquitectura para <br />
             <span className="text-terracota italic transition-colors duration-500">vivir el exterior.</span>
           </h2>
+          <p className="text-primary/60 text-lg font-light leading-relaxed max-w-lg transition-colors duration-500">
+            No vendemos productos, creamos atmósferas. Un sistema integral de diseño y ejecución para transformar tu terraza.
+          </p>
         </div>
-      </Link>
-          ))}
-    </div>
 
-      </div >
-    </section >
+        {/* Desktop Accordion / Mobile Vertical Accordion */}
+        {/* Compact Layout: 500px Mobile, 550px Desktop */}
+        <div className="services-container flex flex-col md:flex-row gap-2 h-[500px] md:h-[550px] min-h-[400px] max-h-[700px]">
+          {services.map((service, index) => (
+            <Link
+              key={service.id}
+              href={`/servicios/${service.slug}`}
+              onClick={(e) => {
+                // Determine if we are on mobile (simple check)
+                if (window.innerWidth < 768) {
+                  e.preventDefault();
+                  setActiveMobile(index);
+                }
+              }}
+              className={`
+                service-card-reveal group relative overflow-hidden 
+                first:rounded-t-2xl last:rounded-b-2xl md:rounded-none md:first:rounded-l-2xl md:last:rounded-r-2xl
+                transition-[flex-grow,flex-shrink] duration-800 ease-[cubic-bezier(0.25,1,0.5,1)]
+                ${activeMobile === index ? 'flex-3' : 'flex-1'} // Mobile Accordion
+                ${hoveredIndex === index ? 'md:flex-3' : 'md:flex-1'} // Desktop Accordion
+                shadow-[0_30px_60px_rgba(0,0,0,0.3)] ring-1 ring-white/10 hover:ring-white/20
+                will-change-[flex-grow]
+              `}
+              onMouseEnter={() => setHoveredIndex(index)}
+              onMouseLeave={() => setHoveredIndex(null)}
+            >
+              {/* Background Image */}
+              <div className="absolute inset-0">
+                <img
+                  src={service.id === 'estacion-parrilla' ? "https://images.unsplash.com/photo-1529310399831-ed472b81d589?q=80&w=2574&auto=format&fit=crop" : service.image}
+                  alt={service.title}
+                  className="w-full h-full object-cover transition-transform duration-[1.2s] ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:scale-110 opacity-80 group-hover:opacity-60"
+                />
+              </div>
+
+              {/* Background Video (Desktop Only - Reveals on Hover) */}
+              <div className={`absolute inset-0 hidden md:block transition-opacity duration-800 ease-out ${hoveredIndex === index ? 'opacity-100' : 'opacity-0'}`}>
+                <video
+                  src={service.video}
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  className="w-full h-full object-cover opacity-60"
+                />
+              </div>
+
+              {/* Mobile Video/Image Fallback */}
+              <div className="absolute inset-0 md:hidden">
+                <img
+                  src={service.image}
+                  alt={service.title}
+                  className="w-full h-full object-cover opacity-60"
+                />
+              </div>
+
+              {/* Gradient Overlay */}
+              <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/50 to-transparent transition-colors duration-500" />
+
+              {/* Content */}
+              <div className="absolute inset-0 p-6 md:p-8 flex flex-col justify-end">
+                <div className="transform transition-transform duration-800 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:translate-y-0 translate-y-4 md:translate-y-8">
+
+                  {/* Tag */}
+                  <div className="mb-4 overflow-hidden">
+                    <span className="inline-block px-3 py-1 rounded-full border border-white/20 bg-white/10 backdrop-blur-md text-[10px] tracking-[0.2em] uppercase text-white transition-colors duration-500">
+                      {service.subtitle}
+                    </span>
+                  </div>
+
+                  {/* Title */}
+                  <h3 className="font-serif text-2xl md:text-3xl lg:text-4xl mb-3 text-white group-hover:text-terracota transition-colors duration-500">
+                    {service.title}
+                  </h3>
+
+                  {/* Description (Reveals on active state) */}
+                  <div className={`
+                    overflow-hidden transition-all duration-800 ease-[cubic-bezier(0.25,1,0.5,1)] delay-75
+                    ${activeMobile === index ? 'max-h-[200px] opacity-100' : 'max-h-0 opacity-0'} 
+                    md:max-h-0 md:opacity-0
+                    ${hoveredIndex === index ? 'md:max-h-[200px] md:opacity-100' : ''}
+                  `}>
+                    <p className="text-white/80 text-xs md:text-sm leading-relaxed max-w-md mb-6 transition-colors duration-500 delay-150">
+                      {service.description}
+                    </p>
+
+                    <div className="flex items-center gap-2 text-xs font-bold tracking-widest uppercase text-white transition-colors duration-500 delay-200">
+                      <span>Explorar</span>
+                      <span className="transform group-hover:translate-x-1 transition-transform duration-500">→</span>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </Link>
+          ))}
+        </div>
+
+      </div>
+    </section>
   );
 }
