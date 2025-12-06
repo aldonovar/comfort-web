@@ -125,10 +125,11 @@ export default function Servicios() {
               className={`
                 service-card-reveal group relative overflow-hidden 
                 first:rounded-t-2xl last:rounded-b-2xl md:rounded-none md:first:rounded-l-2xl md:last:rounded-r-2xl
-                transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)]
-                ${activeMobile === index ? 'flex-3' : 'flex-1'} // Mobile Accordion
-                ${hoveredIndex === index ? 'md:flex-3' : 'md:flex-1'} // Desktop Accordion
+                transition-[flex-grow,flex-shrink] duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)]
+                ${activeMobile === index ? 'flex-[3]' : 'flex-[1]'} // Mobile Accordion
+                ${hoveredIndex === index ? 'md:flex-[3]' : 'md:flex-[1]'} // Desktop Accordion
                 shadow-[0_30px_60px_rgba(0,0,0,0.3)] ring-1 ring-white/10 hover:ring-white/20
+                will-change-[flex-grow]
               `}
               onMouseEnter={() => setHoveredIndex(index)}
               onMouseLeave={() => setHoveredIndex(null)}
@@ -138,12 +139,12 @@ export default function Servicios() {
                 <img
                   src={service.id === 'estacion-parrilla' ? "https://images.unsplash.com/photo-1529310399831-ed472b81d589?q=80&w=2574&auto=format&fit=crop" : service.image}
                   alt={service.title}
-                  className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 opacity-80 group-hover:opacity-60"
+                  className="w-full h-full object-cover transition-transform duration-[1.5s] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-110 opacity-80 group-hover:opacity-60"
                 />
               </div>
 
               {/* Background Video (Desktop Only - Reveals on Hover) */}
-              <div className={`absolute inset-0 hidden md:block transition-opacity duration-700 ${hoveredIndex === index ? 'opacity-100' : 'opacity-0'}`}>
+              <div className={`absolute inset-0 hidden md:block transition-opacity duration-1000 ease-out ${hoveredIndex === index ? 'opacity-100' : 'opacity-0'}`}>
                 <video
                   src={service.video}
                   autoPlay
@@ -168,7 +169,7 @@ export default function Servicios() {
 
               {/* Content */}
               <div className="absolute inset-0 p-6 md:p-8 flex flex-col justify-end">
-                <div className="transform transition-transform duration-500 group-hover:translate-y-0 translate-y-4 md:translate-y-8">
+                <div className="transform transition-transform duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-y-0 translate-y-4 md:translate-y-8">
 
                   {/* Tag */}
                   <div className="mb-4 overflow-hidden">
@@ -178,24 +179,24 @@ export default function Servicios() {
                   </div>
 
                   {/* Title */}
-                  <h3 className="font-serif text-2xl md:text-4xl mb-3 text-white group-hover:text-terracota transition-colors duration-300">
+                  <h3 className="font-serif text-2xl md:text-4xl mb-3 text-white group-hover:text-terracota transition-colors duration-500">
                     {service.title}
                   </h3>
 
                   {/* Description (Reveals on active state) */}
                   <div className={`
-                    overflow-hidden transition-all duration-500 ease-out
+                    overflow-hidden transition-all duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] delay-100
                     ${activeMobile === index ? 'max-h-[200px] opacity-100' : 'max-h-0 opacity-0'} 
                     md:max-h-0 md:opacity-0
                     ${hoveredIndex === index ? 'md:max-h-[200px] md:opacity-100' : ''}
                   `}>
-                    <p className="text-white/80 text-xs md:text-sm leading-relaxed max-w-md mb-6 transition-colors duration-500">
+                    <p className="text-white/80 text-xs md:text-sm leading-relaxed max-w-md mb-6 transition-colors duration-500 delay-200">
                       {service.description}
                     </p>
 
-                    <div className="flex items-center gap-2 text-xs font-bold tracking-widest uppercase text-white transition-colors duration-500">
+                    <div className="flex items-center gap-2 text-xs font-bold tracking-widest uppercase text-white transition-colors duration-500 delay-300">
                       <span>Explorar</span>
-                      <span className="transform group-hover:translate-x-1 transition-transform duration-300">→</span>
+                      <span className="transform group-hover:translate-x-1 transition-transform duration-500">→</span>
                     </div>
                   </div>
 
