@@ -252,8 +252,8 @@ export default function Navbar() {
         ref={headerRef}
         onMouseLeave={handleMouseLeave}
         className={`fixed top-0 left-0 right-0 z-100 transition-all duration-700 will-change-transform ${scrolled || activeMega || mobileOpen || pathname === '/cotiza'
-          ? "bg-(--bg-primary) py-4 border-b border-(--text-primary)/5 shadow-sm"
-          : "bg-gradient-to-b from-black/60 to-transparent py-8 border-b border-transparent"
+            ? "bg-(--bg-primary) py-4 border-b border-(--text-primary)/5 shadow-sm"
+            : "bg-gradient-to-b from-black/60 to-transparent py-8 border-b border-transparent"
           }`}
       >
 
