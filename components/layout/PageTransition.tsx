@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 export default function PageTransition({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -14,7 +15,10 @@ export default function PageTransition({ children }: { children: React.ReactNode
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({
         onStart: () => setIsAnimating(true),
-        onComplete: () => setIsAnimating(false)
+        onComplete: () => {
+          setIsAnimating(false);
+          ScrollTrigger.refresh();
+        }
       });
 
       // Curtain Wipe Effect

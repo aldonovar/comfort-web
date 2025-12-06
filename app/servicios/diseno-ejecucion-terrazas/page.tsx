@@ -114,12 +114,9 @@ export default function TerrazasPage() {
 
         }, container);
 
-        // Force refresh for sticky positioning
-        const timer = setTimeout(() => ScrollTrigger.refresh(), 500);
 
         return () => {
             ctx.revert();
-            clearTimeout(timer);
         };
     }, []);
 

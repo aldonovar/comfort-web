@@ -156,12 +156,9 @@ export default function TechoSolSombraPage() {
 
         }, container);
 
-        // Force refresh for sticky positioning
-        const timer = setTimeout(() => ScrollTrigger.refresh(), 500);
 
         return () => {
             ctx.revert();
-            clearTimeout(timer);
         };
     }, []);
 
