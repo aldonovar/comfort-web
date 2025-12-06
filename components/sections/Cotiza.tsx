@@ -352,7 +352,7 @@ export default function Cotiza() {
     <section
       ref={sectionRef}
       id="cotiza"
-      className="relative bg-(--bg-primary) text-(--text-primary) min-h-screen flex items-center py-12 lg:py-0 overflow-hidden transition-colors duration-500"
+      className="relative bg-(--bg-primary) text-(--text-primary) min-h-screen flex flex-col justify-center pt-32 pb-12 lg:pt-32 lg:pb-0 overflow-hidden transition-colors duration-500"
     >
       {/* Dynamic Background */}
       <div className="absolute inset-0 transition-opacity duration-1000">

@@ -251,7 +251,7 @@ export default function Navbar() {
       <header
         ref={headerRef}
         onMouseLeave={handleMouseLeave}
-        className={`fixed top-0 left-0 right-0 z-100 transition-all duration-700 will-change-transform ${scrolled || activeMega || mobileOpen
+        className={`fixed top-0 left-0 right-0 z-100 transition-all duration-700 will-change-transform ${scrolled || activeMega || mobileOpen || pathname === '/cotiza'
           ? "bg-(--bg-primary) py-4 border-b border-(--text-primary)/5 shadow-sm"
           : "bg-transparent py-8 border-b border-transparent"
           }`}
