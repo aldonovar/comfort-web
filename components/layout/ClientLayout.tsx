@@ -11,12 +11,15 @@ import FloatingCTA from "../ui/FloatingCTA";
 import { Analytics } from "@vercel/analytics/react";
 import { ThemeProvider } from "../providers/ThemeProvider";
 
+import GSAPIntegration from "../providers/GSAPIntegration";
+
 const Scene = dynamic(() => import("../canvas/Scene"), { ssr: false });
 
 export default function ClientLayout({ children }: { children: React.ReactNode }) {
     return (
         <ReactLenis root options={{ lerp: 0.1, duration: 1.5, smoothWheel: true }}>
             <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+                <GSAPIntegration />
                 <Preloader />
                 <Navbar />
                 <FloatingCTA />
