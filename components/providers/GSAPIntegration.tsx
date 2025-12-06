@@ -4,11 +4,13 @@ import { useEffect, useLayoutEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useLenis } from "@studio-freight/react-lenis";
+import { usePathname } from "next/navigation";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function GSAPIntegration() {
     const lenis = useLenis();
+    const pathname = usePathname();
 
     // 1. Sync Lenis scroll with ScrollTrigger
     useEffect(() => {
@@ -36,7 +38,7 @@ export default function GSAPIntegration() {
     // We use useLayoutEffect to ensure this runs before paint if possible
     useLayoutEffect(() => {
         ScrollTrigger.refresh();
-    }, [lenis]);
+    }, [lenis, pathname]);
 
     return null;
 }
