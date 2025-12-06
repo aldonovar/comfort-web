@@ -233,7 +233,7 @@ export default function Hero() {
         <div className="col-span-1 md:col-span-5 flex justify-center md:justify-end relative perspective-1000 mt-8 md:mt-0">
           <div
             ref={cardRef}
-            className="w-full max-w-[400px] bg-secondary/80 backdrop-blur-xl border border-primary/10 p-6 md:p-10 rounded-3xl shadow-2xl relative overflow-hidden group transition-transform duration-100 ease-out will-change-transform"
+            className="w-full max-w-[400px] bg-black/40 backdrop-blur-xl border border-white/10 p-6 md:p-10 rounded-3xl shadow-2xl relative overflow-hidden group transition-transform duration-100 ease-out will-change-transform"
           >
             {/* Glossy Reflection */}
             <div className="absolute inset-0 bg-linear-to-tr from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
@@ -245,19 +245,19 @@ export default function Hero() {
               </span>
             </div>
 
-            <h3 className="font-serif text-3xl leading-tight mb-8 text-primary transition-colors duration-500">
+            <h3 className="font-serif text-3xl leading-tight mb-8 text-white transition-colors duration-500">
               De la idea al espacio real: <br />
-              <span className="italic text-primary/60">terrazas que venden confianza.</span>
+              <span className="italic text-white/80">terrazas que venden confianza.</span>
             </h3>
 
-            <div className="grid grid-cols-2 gap-8 border-t border-primary/10 pt-8">
+            <div className="grid grid-cols-2 gap-8 border-t border-white/10 pt-8">
               <div>
-                <span className="block text-4xl font-bold mb-1 text-primary">80+</span>
-                <span className="text-xs text-primary/40 uppercase tracking-wider">Terrazas <br />Construidas</span>
+                <span className="block text-4xl font-bold mb-1 text-white">80+</span>
+                <span className="text-xs text-white/60 uppercase tracking-wider">Terrazas <br />Construidas</span>
               </div>
               <div>
-                <span className="block text-4xl font-bold mb-1 text-primary">12 <span className="text-lg font-normal">años</span></span>
-                <span className="text-xs text-primary/40 uppercase tracking-wider">Experiencia <br />Diseñando exteriores</span>
+                <span className="block text-4xl font-bold mb-1 text-white">12 <span className="text-lg font-normal">años</span></span>
+                <span className="text-xs text-white/60 uppercase tracking-wider">Experiencia <br />Diseñando exteriores</span>
               </div>
             </div>
 
