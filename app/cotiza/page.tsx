@@ -20,7 +20,7 @@ export default function CotizaPage() {
           </section>
         }
       >
-        <Cotiza />
+        <Cotiza isPage={true} />
       </Suspense>
     </main>
   );

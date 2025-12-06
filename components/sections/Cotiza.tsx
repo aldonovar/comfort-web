@@ -171,7 +171,7 @@ const CustomInput = ({
   </div>
 );
 
-export default function Cotiza() {
+export default function Cotiza({ isPage = false }: { isPage?: boolean }) {
   const searchParams = useSearchParams();
   const sectionRef = useRef<HTMLElement>(null);
 
@@ -352,7 +352,9 @@ export default function Cotiza() {
     <section
       ref={sectionRef}
       id="cotiza"
-      className="relative bg-(--bg-primary) text-(--text-primary) min-h-screen flex flex-col justify-center pt-32 pb-12 lg:pt-32 lg:pb-0 overflow-hidden transition-colors duration-500"
+      className={`relative bg-(--bg-primary) text-(--text-primary) min-h-screen flex flex-col justify-center overflow-hidden transition-colors duration-500
+        ${isPage ? 'pt-32 pb-12 lg:pt-32 lg:pb-0' : 'py-16 md:py-24'}
+      `}
     >
       {/* Dynamic Background */}
       <div className="absolute inset-0 transition-opacity duration-1000">
