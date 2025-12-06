@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -21,136 +21,151 @@ export default function ContactoFull() {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        // Placeholder for actual submission logic
         console.log("Form Submitted", formData);
         alert("Gracias. Nos pondremos en contacto pronto.");
     };
 
     return (
-        <section className="relative min-h-screen pt-32 pb-20 px-6 md:px-12 bg-primary text-primary overflow-hidden">
+        <section className="relative min-h-screen pt-32 pb-20 px-6 md:px-12 bg-[var(--bg-primary)] text-[var(--text-primary)] transition-colors duration-500 overflow-hidden">
 
-            {/* Background Decor */}
-            <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-terracota/5 rounded-full blur-[120px] pointer-events-none" />
-            <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-blue-500/5 rounded-full blur-[120px] pointer-events-none" />
+            {/* Background Decor (Subtle & Organic) */}
+            <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-terracota/5 rounded-full blur-[150px] pointer-events-none" />
+            <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-[var(--text-primary)]/5 rounded-full blur-[150px] pointer-events-none" />
             <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03] mix-blend-overlay pointer-events-none" />
 
-            <div className="max-w-[1400px] mx-auto relative z-10 grid lg:grid-cols-2 gap-12 lg:gap-24 items-start">
+            <div className="max-w-[1400px] mx-auto relative z-10">
 
-                {/* Left Column: Info */}
-                <div className="flex flex-col justify-center h-full">
-                    <span className="text-terracota text-xs tracking-[0.3em] uppercase font-bold mb-6">Concierge</span>
-                    <h1 className="font-serif text-5xl md:text-7xl leading-tight mb-8">
-                        Inicia tu <br />
-                        <span className="text-terracota italic">transformación.</span>
+                {/* Header - Editorial Style */}
+                <div className="mb-24 md:mb-32">
+                    <span className="block text-terracota text-xs tracking-[0.3em] uppercase font-bold mb-6">Contacto</span>
+                    <h1 className="font-serif text-6xl md:text-8xl leading-[0.9] tracking-tight">
+                        Hablemos de <br />
+                        <span className="text-terracota italic opacity-80">vuestra visión.</span>
                     </h1>
-                    <p className="text-lg text-primary/70 leading-relaxed mb-12 max-w-md">
-                        Cada proyecto comienza con una conversación. Cuéntanos tu visión y nosotros diseñaremos el camino para hacerla realidad.
-                    </p>
+                </div>
 
-                    <div className="space-y-8">
+                <div className="grid lg:grid-cols-12 gap-16 lg:gap-24 items-start">
+
+                    {/* Left Column: Info (Minimalist sidebar) */}
+                    <div className="lg:col-span-4 space-y-12 lg:sticky lg:top-32">
                         <div>
-                            <h3 className="font-serif text-xl mb-2">Visítanos</h3>
-                            <p className="text-sm text-primary/60 leading-relaxed">
-                                Av. La Mar 1234, Oficina 501 <br />
-                                Miraflores, Lima - Perú
+                            <p className="text-lg text-[var(--text-primary)]/70 leading-relaxed font-light">
+                                Estamos listos para escuchar. Cada gran proyecto comienza con un simple "hola".
                             </p>
                         </div>
 
-                        <div>
-                            <h3 className="font-serif text-xl mb-2">Contacto Directo</h3>
-                            <div className="flex flex-col gap-2 text-sm text-primary/60">
-                                <a href="mailto:contacto@comfortstudioperu.com" className="hover:text-terracota transition-colors">contacto@comfortstudioperu.com</a>
-                                <a href="tel:+51936230958" className="hover:text-terracota transition-colors">+51 936 230 958</a>
+                        <div className="space-y-8 border-t border-[var(--text-primary)]/10 pt-8">
+                            <div>
+                                <h3 className="text-xs uppercase tracking-widest font-bold mb-4 opacity-50">Estudio</h3>
+                                <p className="text-sm leading-relaxed">
+                                    Av. La Mar 1234, Of. 501 <br />
+                                    Miraflores, Lima
+                                </p>
                             </div>
-                        </div>
 
-                        <div className="pt-8">
-                            <a
-                                href="https://wa.me/51936230958"
-                                target="_blank"
-                                className="inline-flex items-center gap-3 text-sm font-bold uppercase tracking-widest text-terracota hover:text-primary transition-colors"
-                            >
-                                <span>Chatear en WhatsApp</span>
-                                <span>→</span>
-                            </a>
+                            <div>
+                                <h3 className="text-xs uppercase tracking-widest font-bold mb-4 opacity-50">Directo</h3>
+                                <div className="flex flex-col gap-2 text-sm font-medium">
+                                    <a href="mailto:contacto@comfortstudioperu.com" className="hover:text-terracota transition-colors">contacto@comfortstudioperu.com</a>
+                                    <a href="tel:+51936230958" className="hover:text-terracota transition-colors">+51 936 230 958</a>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h3 className="text-xs uppercase tracking-widest font-bold mb-4 opacity-50">Social</h3>
+                                <div className="flex gap-4 text-sm">
+                                    <a href="#" className="hover:text-terracota transition-colors underline decoration-transparent hover:decoration-terracota underline-offset-4">Instagram</a>
+                                    <a href="#" className="hover:text-terracota transition-colors underline decoration-transparent hover:decoration-terracota underline-offset-4">LinkedIn</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                {/* Right Column: Form */}
-                <div className="bg-white/5 dark:bg-white/5 border border-primary/10 rounded-3xl p-8 md:p-12 backdrop-blur-sm">
-                    <form onSubmit={handleSubmit} className="space-y-6">
+                    {/* Right Column: Open Form (No Container) */}
+                    <div className="lg:col-span-8">
+                        <form onSubmit={handleSubmit} className="space-y-12">
 
-                        <div className="grid md:grid-cols-2 gap-6">
-                            <div className="space-y-2">
-                                <label className="text-xs uppercase tracking-widest text-primary/60">Nombre</label>
+                            <div className="grid md:grid-cols-2 gap-12">
+                                <div className="group space-y-4">
+                                    <label className="text-xs uppercase tracking-widest font-bold opacity-50 group-focus-within:opacity-100 group-focus-within:text-terracota transition-all">Nombre</label>
+                                    <input
+                                        type="text"
+                                        name="name"
+                                        placeholder="Tu nombre completo"
+                                        required
+                                        className="w-full bg-transparent border-b border-[var(--text-primary)]/20 py-4 text-xl md:text-2xl placeholder:text-[var(--text-primary)]/20 focus:border-terracota outline-none transition-colors"
+                                        onChange={handleChange}
+                                    />
+                                </div>
+                                <div className="group space-y-4">
+                                    <label className="text-xs uppercase tracking-widest font-bold opacity-50 group-focus-within:opacity-100 group-focus-within:text-terracota transition-all">Teléfono</label>
+                                    <input
+                                        type="tel"
+                                        name="phone"
+                                        placeholder="+51..."
+                                        required
+                                        className="w-full bg-transparent border-b border-[var(--text-primary)]/20 py-4 text-xl md:text-2xl placeholder:text-[var(--text-primary)]/20 focus:border-terracota outline-none transition-colors"
+                                        onChange={handleChange}
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="group space-y-4">
+                                <label className="text-xs uppercase tracking-widest font-bold opacity-50 group-focus-within:opacity-100 group-focus-within:text-terracota transition-all">Email</label>
                                 <input
-                                    type="text"
-                                    name="name"
+                                    type="email"
+                                    name="email"
+                                    placeholder="correo@ejemplo.com"
                                     required
-                                    className="w-full bg-transparent border-b border-primary/20 py-3 text-primary focus:border-terracota outline-none transition-colors"
+                                    className="w-full bg-transparent border-b border-[var(--text-primary)]/20 py-4 text-xl md:text-2xl placeholder:text-[var(--text-primary)]/20 focus:border-terracota outline-none transition-colors"
                                     onChange={handleChange}
                                 />
                             </div>
-                            <div className="space-y-2">
-                                <label className="text-xs uppercase tracking-widest text-primary/60">Teléfono</label>
-                                <input
-                                    type="tel"
-                                    name="phone"
-                                    required
-                                    className="w-full bg-transparent border-b border-primary/20 py-3 text-primary focus:border-terracota outline-none transition-colors"
-                                    onChange={handleChange}
-                                />
+
+                            <div className="group space-y-4">
+                                <label className="text-xs uppercase tracking-widest font-bold opacity-50 group-focus-within:opacity-100 group-focus-within:text-terracota transition-all">Interés</label>
+                                <div className="relative">
+                                    <select
+                                        name="interest"
+                                        className="w-full bg-transparent border-b border-[var(--text-primary)]/20 py-4 text-xl md:text-2xl text-[var(--text-primary)] focus:border-terracota outline-none transition-colors appearance-none cursor-pointer"
+                                        onChange={handleChange}
+                                    >
+                                        <option value="Proyecto Integral" className="bg-[var(--bg-primary)]">Proyecto Integral de Terraza</option>
+                                        <option value="Techo Sol y Sombra" className="bg-[var(--bg-primary)]">Techo Sol y Sombra</option>
+                                        <option value="Estación de Parrilla" className="bg-[var(--bg-primary)]">Estación de Parrilla</option>
+                                        <option value="Otro" className="bg-[var(--bg-primary)]">Otro</option>
+                                    </select>
+                                    <span className="absolute right-0 top-1/2 -translate-y-1/2 pointer-events-none opacity-50">↓</span>
+                                </div>
                             </div>
-                        </div>
 
-                        <div className="space-y-2">
-                            <label className="text-xs uppercase tracking-widest text-primary/60">Email</label>
-                            <input
-                                type="email"
-                                name="email"
-                                required
-                                className="w-full bg-transparent border-b border-primary/20 py-3 text-primary focus:border-terracota outline-none transition-colors"
-                                onChange={handleChange}
-                            />
-                        </div>
+                            <div className="group space-y-4">
+                                <label className="text-xs uppercase tracking-widest font-bold opacity-50 group-focus-within:opacity-100 group-focus-within:text-terracota transition-all">Mensaje</label>
+                                <textarea
+                                    name="message"
+                                    rows={2}
+                                    placeholder="Cuéntanos brevemente sobre tu espacio..."
+                                    className="w-full bg-transparent border-b border-[var(--text-primary)]/20 py-4 text-xl md:text-2xl placeholder:text-[var(--text-primary)]/20 focus:border-terracota outline-none transition-colors resize-none"
+                                    onChange={handleChange}
+                                ></textarea>
+                            </div>
 
-                        <div className="space-y-2">
-                            <label className="text-xs uppercase tracking-widest text-primary/60">Interés</label>
-                            <select
-                                name="interest"
-                                className="w-full bg-transparent border-b border-primary/20 py-3 text-primary focus:border-terracota outline-none transition-colors appearance-none"
-                                onChange={handleChange}
-                            >
-                                <option value="Proyecto Integral">Proyecto Integral de Terraza</option>
-                                <option value="Techo Sol y Sombra">Techo Sol y Sombra</option>
-                                <option value="Estación de Parrilla">Estación de Parrilla</option>
-                                <option value="Otro">Otro</option>
-                            </select>
-                        </div>
+                            <div className="pt-8">
+                                <button
+                                    type="submit"
+                                    className="group inline-flex items-center gap-4 text-lg font-serif italic text-[var(--text-primary)] hover:text-terracota transition-colors duration-300"
+                                >
+                                    <span className="w-16 h-16 rounded-full border border-[var(--text-primary)]/20 group-hover:border-terracota flex items-center justify-center transition-colors">
+                                        <span className="text-xl">→</span>
+                                    </span>
+                                    <span>Enviar Solicitud</span>
+                                </button>
+                            </div>
 
-                        <div className="space-y-2">
-                            <label className="text-xs uppercase tracking-widest text-primary/60">Mensaje</label>
-                            <textarea
-                                name="message"
-                                rows={4}
-                                className="w-full bg-transparent border-b border-primary/20 py-3 text-primary focus:border-terracota outline-none transition-colors resize-none"
-                                onChange={handleChange}
-                            ></textarea>
-                        </div>
+                        </form>
+                    </div>
 
-                        <div className="pt-6">
-                            <button
-                                type="submit"
-                                className="w-full bg-terracota text-white py-4 rounded-full text-xs uppercase tracking-[0.2em] font-bold hover:bg-primary hover:text-white transition-colors duration-300"
-                            >
-                                Enviar Solicitud
-                            </button>
-                        </div>
-
-                    </form>
                 </div>
-
             </div>
         </section>
     );
