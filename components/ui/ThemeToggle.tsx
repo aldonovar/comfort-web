@@ -24,7 +24,7 @@ export default function ThemeToggle() {
     return (
         <button
             onClick={toggleTheme}
-            className="relative w-12 h-6 rounded-full bg-black/10 dark:bg-white/10 border border-black/5 dark:border-white/5 transition-colors duration-300 flex items-center px-1"
+            className="relative w-12 h-6 rounded-full bg-black/20 dark:bg-white/10 border border-black/20 dark:border-white/5 transition-all duration-300 flex items-center px-1"
             aria-label="Toggle Theme"
         >
             <div
