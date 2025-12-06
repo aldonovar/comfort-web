@@ -6,11 +6,11 @@ import gsap from "gsap";
 export default function Preloader() {
   const [isMounted, setIsMounted] = useState(true);
   const containerRef = useRef<HTMLDivElement>(null);
-  const counterRef = useRef<HTMLDivElement>(null);
-  const quoteRef = useRef<HTMLDivElement>(null);
+  const lineRef = useRef<HTMLDivElement>(null);
+  const textRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // 1. Check Session Storage
+    // 1. Session Check
     const hasVisited = sessionStorage.getItem("hasVisited");
 
     if (hasVisited) {
@@ -27,47 +27,37 @@ export default function Preloader() {
           setIsMounted(false);
           sessionStorage.setItem("hasVisited", "true");
           document.body.style.overflow = "";
-          // Trigger a custom event to signal the app is ready (optional, good for syncing other anims)
-          window.dispatchEvent(new Event("preloaderComplete"));
         }
       });
 
-      // --- ANIMATION SEQUENCE ---
+      // --- ANIMATION: Minimalist & Fast ---
 
-      // A. Counter 0 -> 100
-      tl.to({}, {
-        duration: 1.5,
-        onUpdate: function () {
-          if (counterRef.current) {
-            const val = Math.round(this.progress() * 100);
-            counterRef.current.innerText = val < 10 ? `0${val}` : `${val}`;
-          }
-        },
-        ease: "power3.inOut"
-      });
+      // A. Initial State
+      gsap.set(containerRef.current, { opacity: 1 });
+      gsap.set(textRef.current, { opacity: 0, y: 10 });
+      gsap.set(lineRef.current, { scaleX: 0, transformOrigin: "left center" });
 
-      // B. Reveal Quote (Simultaneous with counter)
-      tl.from(quoteRef.current, {
-        opacity: 0,
-        y: 20,
-        duration: 1,
+      // B. Reveal Brand (Fast)
+      tl.to(textRef.current, {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
         ease: "power2.out"
-      }, "<0.2");
-
-      // C. Fade Out Elements
-      tl.to([counterRef.current, quoteRef.current], {
-        opacity: 0,
-        y: -20,
-        duration: 0.5,
-        delay: 0.2,
-        ease: "power2.in"
       });
 
-      // D. Curtain Up (The Big Reveal)
-      tl.to(containerRef.current, {
-        yPercent: -100,
+      // C. Progress Line (The "Loading" feel)
+      tl.to(lineRef.current, {
+        scaleX: 1,
         duration: 1.2,
-        ease: "power4.inOut"
+        ease: "expo.inOut"
+      }, "<");
+
+      // D. Elegant Exit (Simple Fade)
+      // No movement, just dissolve. Matches "Design not pretension"
+      tl.to(containerRef.current, {
+        opacity: 0,
+        duration: 0.8,
+        ease: "power2.inOut"
       }, "+=0.1");
 
     }, containerRef);
@@ -80,31 +70,28 @@ export default function Preloader() {
   return (
     <div
       ref={containerRef}
-      className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[#050505] text-white"
+      className="fixed inset-0 z-[9999] flex items-center justify-center bg-[#050505] text-white will-change-opacity"
     >
-      {/* Cinematic Noise Overlay */}
-      <div className="absolute inset-0 opacity-[0.07] bg-[url('https://grainy-gradients.vercel.app/noise.svg')] pointer-events-none mix-blend-overlay" />
+      <div className="relative w-full max-w-xs flex flex-col items-center gap-6 p-6">
 
-      {/* Counter */}
-      <div className="absolute bottom-12 right-12 overflow-hidden">
-        <span
-          ref={counterRef}
-          className="block font-sans text-[12vw] md:text-[8vw] leading-none font-bold text-terracota/20 tracking-tighter"
-        >
-          00
-        </span>
-      </div>
-
-      {/* Center Content */}
-      <div className="relative z-10 flex flex-col items-center text-center px-6">
-        <div ref={quoteRef} className="space-y-4">
-          <p className="text-xs uppercase tracking-[0.5em] text-white/40">
-            Comfort Studio
-          </p>
-          <h1 className="font-serif text-3xl md:text-5xl italic text-white/90">
-            "El silencio se diseña."
+        {/* Brand */}
+        <div ref={textRef} className="text-center opacity-0">
+          <h1 className="font-serif text-3xl md:text-4xl tracking-widest text-white/90">
+            COMFORT
           </h1>
+          <p className="text-[10px] uppercase tracking-[0.6em] text-terracota mt-2">
+            STUDIO
+          </p>
         </div>
+
+        {/* Progress Line */}
+        <div className="w-full h-[1px] bg-white/10 overflow-hidden mt-4">
+          <div
+            ref={lineRef}
+            className="w-full h-full bg-white/80"
+          />
+        </div>
+
       </div>
     </div>
   );
