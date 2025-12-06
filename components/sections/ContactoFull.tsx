@@ -83,21 +83,15 @@ export default function ContactoFull() {
                                 </a>
                             </div>
 
-                            {/* Estudio */}
-                            <div className="space-y-2">
-                                <h3 className="text-[10px] uppercase tracking-widest font-bold opacity-50">Estudio</h3>
-                                <p className="text-xs leading-relaxed opacity-80">
-                                    Av. La Mar 1234, Of. 501 <br />
-                                    Miraflores, Lima
-                                </p>
-                            </div>
+
 
                             {/* Social */}
                             <div className="space-y-2">
                                 <h3 className="text-[10px] uppercase tracking-widest font-bold opacity-50">Social</h3>
                                 <div className="flex gap-4 text-xs font-medium">
-                                    <a href="https://instagram.com" target="_blank" className="hover:text-terracota transition-colors">Instagram</a>
-                                    <a href="https://linkedin.com" target="_blank" className="hover:text-terracota transition-colors">LinkedIn</a>
+                                    <a href="https://www.instagram.com/comfortstudiop/" target="_blank" className="hover:text-terracota transition-colors">Instagram</a>
+                                    <a href="https://www.facebook.com/comfortstudioperu" target="_blank" className="hover:text-terracota transition-colors">Facebook</a>
+                                    <a href="https://www.tiktok.com/@comfortstudio7" target="_blank" className="hover:text-terracota transition-colors">TikTok</a>
                                 </div>
                             </div>
 
