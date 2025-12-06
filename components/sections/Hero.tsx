@@ -29,11 +29,11 @@ export default function Hero() {
   const textRef = useRef<HTMLDivElement>(null);
   const cardRef = useRef<HTMLDivElement>(null);
   const bgRef = useRef<HTMLDivElement>(null);
-
   const stampRef = useRef<SVGSVGElement>(null);
 
-  // Tilt State
-  const [tilt, setTilt] = useState({ x: 0, y: 0 });
+  // GSAP QuickTo Refs for high-performance animation
+  const xTo = useRef<gsap.QuickToFunc | null>(null);
+  const yTo = useRef<gsap.QuickToFunc | null>(null);
 
   // Rotating Tag State
   const [currentTagIndex, setCurrentTagIndex] = useState(0);
@@ -41,6 +41,20 @@ export default function Hero() {
 
   // Background Slideshow State
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  useEffect(() => {
+    // Setup GSAP QuickTo for the tilt effect
+    if (cardRef.current) {
+      xTo.current = gsap.quickTo(cardRef.current, "rotationX", { duration: 0.2, ease: "power3.out" });
+      yTo.current = gsap.quickTo(cardRef.current, "rotationY", { duration: 0.2, ease: "power3.out" });
+    }
+
+    // Cleanup
+    return () => {
+      xTo.current = null;
+      yTo.current = null;
+    };
+  }, []);
 
   useEffect(() => {
     // Background Slideshow Interval
@@ -109,9 +123,9 @@ export default function Hero() {
 
   }, []);
 
-  // Global 3D Tilt Logic
+  // Global 3D Tilt Logic - OPTIMIZED: No State Updates
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!containerRef.current) return;
+    if (!containerRef.current || !xTo.current || !yTo.current) return;
 
     const rect = containerRef.current.getBoundingClientRect();
     const x = e.clientX - rect.left;
@@ -125,11 +139,16 @@ export default function Hero() {
     const rotateX = ((y - centerY) / centerY) * -5; // Reduced intensity for global effect
     const rotateY = ((x - centerX) / centerX) * 5;
 
-    setTilt({ x: rotateX, y: rotateY });
+    // Direct GSAP update - bypass React render cycle
+    xTo.current(rotateX);
+    yTo.current(rotateY);
   };
 
   const handleMouseLeave = () => {
-    setTilt({ x: 0, y: 0 });
+    if (xTo.current && yTo.current) {
+      xTo.current(0);
+      yTo.current(0);
+    }
   };
 
   return (
@@ -204,11 +223,7 @@ export default function Hero() {
         <div className="col-span-1 md:col-span-5 flex justify-center md:justify-end relative perspective-1000 mt-8 md:mt-0">
           <div
             ref={cardRef}
-            style={{
-              transform: `perspective(1000px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
-              transition: "transform 0.1s ease-out"
-            }}
-            className="w-full max-w-[400px] bg-secondary/80 backdrop-blur-xl border border-primary/10 p-6 md:p-10 rounded-3xl shadow-2xl relative overflow-hidden group transition-colors duration-500"
+            className="w-full max-w-[400px] bg-secondary/80 backdrop-blur-xl border border-primary/10 p-6 md:p-10 rounded-3xl shadow-2xl relative overflow-hidden group transition-colors duration-500 will-change-transform"
           >
             {/* Glossy Reflection */}
             <div className="absolute inset-0 bg-linear-to-tr from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />

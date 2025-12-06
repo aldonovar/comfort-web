@@ -240,8 +240,8 @@ export default function Navbar() {
         ref={headerRef}
         onMouseLeave={handleMouseLeave}
         className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-700 ${scrolled || activeMega || mobileOpen || pathname === '/cotiza'
-            ? "bg-[var(--bg-primary)] py-4 border-b border-[var(--text-primary)]/5 shadow-sm"
-            : "bg-gradient-to-b from-black/60 to-transparent py-8 border-b border-transparent"
+          ? "bg-[var(--bg-primary)] py-4 border-b border-[var(--text-primary)]/5 shadow-sm"
+          : "bg-gradient-to-b from-black/60 to-transparent py-8 border-b border-transparent"
           }`}
       >
         <div className="max-w-[1800px] mx-auto px-6 md:px-12 flex items-center justify-between relative z-50">
@@ -271,7 +271,7 @@ export default function Navbar() {
                 >
                   {item.label}
                   <span className={`absolute bottom-2 left-0 w-full h-px bg-terracota transition-transform duration-500 origin-left ease-out ${activeMega === item.id ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"}`} />
-                  <span className={`absolute inset-0 bg-terracota/20 blur-xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 scale-150 pointer-events-none`} />
+                  <span className={`absolute inset-0 bg-terracota/20 blur-xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 scale-150 pointer-events-none will-change-[opacity,transform]`} />
                 </Link>
               </div>
             ))}
