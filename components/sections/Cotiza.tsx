@@ -130,7 +130,7 @@ const CustomSelect = ({
                 px-3 py-2 text-xs md:text-sm cursor-pointer transition-colors border-b border-madera/5 dark:border-madera/5 last:border-0
                 ${value === optValue
                   ? 'bg-terracota text-white'
-                  : 'text-madera hover:bg-madera/5 dark:hover:bg-crema/5 hover:text-madera dark:text-crema'}
+                  : 'text-madera hover:bg-madera/5 dark:hover:bg-crema/5 hover:text-madera dark:text-crema dark:hover:text-crema'}
               `}
             >
               {optLabel}
