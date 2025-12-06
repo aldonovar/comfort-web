@@ -61,7 +61,7 @@ export default function ProcesoPage() {
     }, []);
 
     return (
-        <main ref={containerRef} className="bg-crema min-h-screen text-madera pt-32 pb-24">
+        <main ref={containerRef} className="bg-[var(--bg-primary)] min-h-screen text-[var(--text-primary)] pt-32 pb-24">
             <div className="max-w-4xl mx-auto px-6">
                 <div className="text-center mb-24">
                     <span className="block text-terracota text-xs tracking-[0.3em] uppercase font-bold mb-6">
@@ -74,7 +74,7 @@ export default function ProcesoPage() {
 
                 <div className="space-y-24 relative">
                     {/* Central Line */}
-                    <div className="absolute left-0 md:left-1/2 top-0 bottom-0 w-px bg-madera/10 hidden md:block" />
+                    <div className="absolute left-0 md:left-1/2 top-0 bottom-0 w-px bg-[var(--text-primary)]/10 hidden md:block" />
 
                     {STEPS.map((step, i) => (
                         <div key={i} className={`process-step flex flex-col md:flex-row gap-8 md:gap-24 items-center ${i % 2 === 0 ? 'md:text-right' : 'md:flex-row-reverse md:text-left'}`}>
@@ -82,7 +82,7 @@ export default function ProcesoPage() {
                             <div className="flex-1 w-full">
                                 <span className="text-6xl font-serif text-terracota/20 font-bold block mb-4">{step.num}</span>
                                 <h3 className="text-3xl font-serif mb-4">{step.title}</h3>
-                                <p className="text-madera/70 leading-relaxed">{step.desc}</p>
+                                <p className="text-[var(--text-primary)]/70 leading-relaxed">{step.desc}</p>
                             </div>
 
                             <div className="flex-1 hidden md:block" /> {/* Spacer */}

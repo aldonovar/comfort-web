@@ -34,20 +34,20 @@ export default function EstiloPage() {
     }, []);
 
     return (
-        <main ref={containerRef} className="bg-crema min-h-screen text-madera pt-32 pb-24">
+        <main ref={containerRef} className="bg-[var(--bg-primary)] min-h-screen text-[var(--text-primary)] pt-32 pb-24">
             <div className="max-w-5xl mx-auto px-6">
                 <span className="block text-terracota text-xs tracking-[0.3em] uppercase font-bold mb-6">
                     Nuestra Firma
                 </span>
                 <h1 className="font-serif text-6xl md:text-8xl mb-12 reveal-text">
-                    Minimalismo <br /> <span className="italic text-madera/50">Cálido</span>
+                    Minimalismo <br /> <span className="italic text-[var(--text-primary)]/50">Cálido</span>
                 </h1>
 
                 <div className="grid md:grid-cols-2 gap-12 items-start mb-24">
                     <p className="text-lg leading-relaxed reveal-text">
                         Creemos en la arquitectura que no grita, sino que susurra. Espacios limpios, líneas puras, pero imbuidos de la calidez de los materiales naturales.
                     </p>
-                    <p className="text-lg leading-relaxed reveal-text text-madera/70">
+                    <p className="text-lg leading-relaxed reveal-text text-[var(--text-primary)]/70">
                         La madera, la piedra y la luz son nuestros pinceles. Buscamos el equilibrio perfecto entre la sofisticación moderna y la comodidad atemporal.
                     </p>
                 </div>

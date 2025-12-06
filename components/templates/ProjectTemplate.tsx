@@ -52,7 +52,7 @@ export default function ProjectTemplate({ title, location, year, description, ma
     }, []);
 
     return (
-        <div ref={containerRef} className="bg-[#050505] min-h-screen text-white pt-32 pb-20">
+        <div ref={containerRef} className="bg-[var(--bg-primary)] min-h-screen text-[var(--text-primary)] pt-32 pb-20">
             <div className="max-w-[1600px] mx-auto px-6 md:px-12">
 
                 {/* Header */}
@@ -60,15 +60,15 @@ export default function ProjectTemplate({ title, location, year, description, ma
                     <div className="lg:col-span-8">
                         <div className="flex items-center gap-4 mb-6 project-reveal">
                             <span className="text-terracota text-xs tracking-[0.2em] uppercase font-bold">{location}</span>
-                            <span className="w-1 h-1 bg-white/30 rounded-full" />
-                            <span className="text-white/50 text-xs tracking-[0.2em] uppercase">{year}</span>
+                            <span className="w-1 h-1 bg-[var(--text-primary)]/30 rounded-full" />
+                            <span className="text-[var(--text-primary)]/50 text-xs tracking-[0.2em] uppercase">{year}</span>
                         </div>
                         <h1 className="font-serif text-6xl md:text-8xl leading-none project-reveal">
                             {title}
                         </h1>
                     </div>
                     <div className="lg:col-span-4 project-reveal">
-                        <p className="text-white/60 text-lg leading-relaxed">
+                        <p className="text-[var(--text-primary)]/60 text-lg leading-relaxed">
                             {description}
                         </p>
                     </div>
@@ -100,8 +100,8 @@ export default function ProjectTemplate({ title, location, year, description, ma
                 </div>
 
                 {/* Next Project CTA */}
-                <div className="mt-32 text-center border-t border-white/10 pt-20">
-                    <p className="text-white/40 text-sm tracking-widest uppercase mb-4">Siguiente Proyecto</p>
+                <div className="mt-32 text-center border-t border-[var(--text-primary)]/10 pt-20">
+                    <p className="text-[var(--text-primary)]/40 text-sm tracking-widest uppercase mb-4">Siguiente Proyecto</p>
                     <a href="/proyectos" className="font-serif text-5xl md:text-7xl hover:text-terracota transition-colors duration-300">
                         Ver Todos →
                     </a>

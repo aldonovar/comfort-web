@@ -124,7 +124,7 @@ export default function TerrazasPage() {
     }, []);
 
     return (
-        <div ref={container} className="bg-[#050505] text-white overflow-hidden">
+        <div ref={container} className="bg-[var(--bg-primary)] text-[var(--text-primary)] overflow-hidden">
 
             {/* --- HERO SECTION (Architectural Layout) --- */}
             <section ref={heroRef} className="relative h-screen w-full px-6 md:px-12 pt-32 pb-12 flex flex-col justify-between">
@@ -136,7 +136,7 @@ export default function TerrazasPage() {
                         className="object-cover opacity-30 grayscale-30"
                         priority
                     />
-                    <div className="absolute inset-0 bg-linear-to-b from-[#050505]/80 via-transparent to-[#050505]" />
+                    <div className="absolute inset-0 bg-linear-to-b from-[var(--bg-primary)]/80 via-transparent to-[var(--bg-primary)]" />
                 </div>
 
                 <div className="relative z-10 max-w-4xl">
@@ -145,18 +145,18 @@ export default function TerrazasPage() {
                     </p>
                     <h1 className="font-serif text-6xl md:text-9xl leading-[0.85] tracking-tight">
                         <div className="overflow-hidden"><span className="hero-title-line block">DISEÑO</span></div>
-                        <div className="overflow-hidden"><span className="hero-title-line block text-white/40 italic">DE TERRAZAS</span></div>
+                        <div className="overflow-hidden"><span className="hero-title-line block text-[var(--text-primary)]/40 italic">DE TERRAZAS</span></div>
                         <div className="overflow-hidden"><span className="hero-title-line block">& EJECUCIÓN</span></div>
                     </h1>
                 </div>
 
                 <div className="relative z-10 flex justify-end items-end">
                     <div className="hero-meta max-w-sm text-right">
-                        <p className="text-white/60 text-lg leading-relaxed">
+                        <p className="text-[var(--text-primary)]/60 text-lg leading-relaxed">
                             Transformamos azoteas y patios en oasis privados. Arquitectura exterior pensada desde el concepto hasta el último detalle.
                         </p>
-                        <div className="mt-8 w-full h-px bg-white/20" />
-                        <div className="mt-4 flex justify-end gap-8 text-xs uppercase tracking-widest text-white/40">
+                        <div className="mt-8 w-full h-px bg-[var(--text-primary)]/20" />
+                        <div className="mt-4 flex justify-end gap-8 text-xs uppercase tracking-widest text-[var(--text-primary)]/40">
                             <span>Lima, Perú</span>
                             <span>Est. 2024</span>
                         </div>
@@ -165,20 +165,20 @@ export default function TerrazasPage() {
             </section>
 
             {/* --- STICKY SIDE-BY-SIDE CONCEPT --- */}
-            <section ref={conceptRef} className="relative flex flex-col md:flex-row bg-[#0a0a0a]">
+            <section ref={conceptRef} className="relative flex flex-col md:flex-row bg-[var(--bg-secondary)]">
                 {/* Left: Sticky Text */}
                 <div className="concept-text-col w-full md:w-1/2 h-screen sticky top-0 flex items-center px-6 md:px-24 z-10">
                     <div className="max-w-xl">
                         <span className="text-terracota text-xs uppercase tracking-[0.3em] mb-6 block">Filosofía</span>
                         <h2 className="font-serif text-4xl md:text-6xl mb-8 leading-tight">
-                            Más que un espacio, <br /> <span className="text-white/40 italic">un estilo de vida.</span>
+                            Más que un espacio, <br /> <span className="text-[var(--text-primary)]/40 italic">un estilo de vida.</span>
                         </h2>
-                        <p className="text-white/60 text-lg leading-relaxed mb-12">
+                        <p className="text-[var(--text-primary)]/60 text-lg leading-relaxed mb-12">
                             No solo diseñamos terrazas; creamos extensiones de tu hogar que invitan a la calma y la celebración. Integramos materiales nobles, vegetación y luz para construir atmósferas únicas.
                         </p>
-                        <ul className="space-y-4 border-t border-white/10 pt-8">
+                        <ul className="space-y-4 border-t border-[var(--text-primary)]/10 pt-8">
                             {["Diseño 3D Fotorrealista", "Selección de Materiales", "Paisajismo Integrado"].map((item, i) => (
-                                <li key={i} className="flex items-center gap-4 text-sm uppercase tracking-widest text-white/80">
+                                <li key={i} className="flex items-center gap-4 text-sm uppercase tracking-widest text-[var(--text-primary)]/80">
                                     <span className="w-1.5 h-1.5 bg-terracota rounded-full" />
                                     {item}
                                 </li>
@@ -190,7 +190,7 @@ export default function TerrazasPage() {
                 {/* Right: Scrolling Images */}
                 <div className="w-full md:w-1/2 relative z-0">
                     {CONCEPT_IMAGES.map((src, i) => (
-                        <div key={i} className="concept-image h-screen w-full relative sticky top-0 border-l border-white/5">
+                        <div key={i} className="concept-image h-screen w-full relative sticky top-0 border-l border-[var(--text-primary)]/5">
                             <Image
                                 src={src}
                                 alt={`Concepto ${i + 1}`}
@@ -204,7 +204,7 @@ export default function TerrazasPage() {
             </section>
 
             {/* --- PARALLAX GRID GALLERY --- */}
-            <section ref={galleryRef} className="relative py-32 px-6 md:px-12 bg-[#050505] overflow-hidden">
+            <section ref={galleryRef} className="relative py-32 px-6 md:px-12 bg-[var(--bg-primary)] overflow-hidden">
                 <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-24">
                     {/* Column 1 - Moves Up */}
                     <div className="gallery-col-1 flex flex-col gap-12 md:gap-24 pt-24">
@@ -218,17 +218,17 @@ export default function TerrazasPage() {
                                 />
                             </div>
                         ))}
-                        <div className="p-8 border border-white/10 bg-[#0a0a0a]">
+                        <div className="p-8 border border-[var(--text-primary)]/10 bg-[var(--bg-secondary)]">
                             <h3 className="font-serif text-3xl mb-4">Detalles que importan</h3>
-                            <p className="text-white/50">Cada textura, cada sombra y cada planta es seleccionada con propósito.</p>
+                            <p className="text-[var(--text-primary)]/50">Cada textura, cada sombra y cada planta es seleccionada con propósito.</p>
                         </div>
                     </div>
 
                     {/* Column 2 - Moves Down */}
                     <div className="gallery-col-2 flex flex-col gap-12 md:gap-24">
-                        <div className="p-8 border border-white/10 bg-[#0a0a0a] text-right">
+                        <div className="p-8 border border-[var(--text-primary)]/10 bg-[var(--bg-secondary)] text-right">
                             <h3 className="font-serif text-3xl mb-4">Ejecución Impecable</h3>
-                            <p className="text-white/50">Supervisión constante para asegurar que el diseño se haga realidad.</p>
+                            <p className="text-[var(--text-primary)]/50">Supervisión constante para asegurar que el diseño se haga realidad.</p>
                         </div>
                         {GALLERY_IMAGES.slice(2, 4).map((src, i) => (
                             <div key={i} className="relative aspect-[3/4] w-full overflow-hidden rounded-sm">
@@ -245,7 +245,7 @@ export default function TerrazasPage() {
             </section>
 
             {/* --- DETAILS LIST --- */}
-            <section className="py-24 px-6 md:px-24 bg-[#0a0a0a] border-t border-white/5">
+            <section className="py-24 px-6 md:px-24 bg-[var(--bg-secondary)] border-t border-[var(--text-primary)]/5">
                 <div className="max-w-5xl mx-auto">
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-12">
                         {[

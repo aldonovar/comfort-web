@@ -52,7 +52,7 @@ export default function EquipoPage() {
     }, []);
 
     return (
-        <main ref={containerRef} className="bg-black min-h-screen text-white pt-32 pb-24">
+        <main ref={containerRef} className="bg-[var(--bg-primary)] min-h-screen text-[var(--text-primary)] pt-32 pb-24">
             <div className="max-w-6xl mx-auto px-6">
                 <div className="text-center mb-24">
                     <span className="block text-terracota text-xs tracking-[0.3em] uppercase font-bold mb-6">
@@ -61,7 +61,7 @@ export default function EquipoPage() {
                     <h1 className="font-serif text-6xl md:text-8xl mb-8">
                         El Equipo
                     </h1>
-                    <p className="text-white/60 max-w-2xl mx-auto">
+                    <p className="text-[var(--text-primary)]/60 max-w-2xl mx-auto">
                         Un colectivo de apasionados por el detalle. Cada proyecto es el resultado de la colaboración entre arquitectos, diseñadores y artesanos.
                     </p>
                 </div>
