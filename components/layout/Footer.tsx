@@ -148,7 +148,7 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-center md:justify-between items-center gap-6 text-xs text-white/30 footer-reveal pb-8 md:pb-0 transition-colors duration-500">
+        <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-center md:justify-between items-center gap-6 text-xs text-white/30 footer-reveal pb-12 md:pb-0 transition-colors duration-500">
           <div className="flex flex-col md:flex-row items-center gap-4 md:gap-8">
             <p>© {new Date().getFullYear()} Comfort Studio.</p>
             <div className="hidden md:block w-px h-3 bg-white/20 transition-colors duration-500"></div>

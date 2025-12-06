@@ -109,7 +109,8 @@ export default function Servicios() {
         </div>
 
         {/* Desktop Accordion / Mobile Vertical Accordion */}
-        <div className="services-container flex flex-col md:flex-row gap-2 h-[600px] md:h-[70vh] min-h-[500px] max-h-[800px]">
+        {/* Mobile: 100dvh for stability. Center content. */}
+        <div className="services-container flex flex-col md:flex-row gap-2 h-[100dvh] md:h-[70vh] min-h-[600px] max-h-[900px]">
           {services.map((service, index) => (
             <Link
               key={service.id}

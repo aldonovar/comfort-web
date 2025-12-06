@@ -137,7 +137,7 @@ export default function Hero() {
       ref={containerRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="relative min-h-dvh w-full overflow-hidden bg-primary text-primary flex items-center transition-colors duration-500"
+      className="relative min-h-[100dvh] w-full overflow-hidden bg-primary text-primary flex items-center transition-colors duration-500"
     >
 
       {/* Background Images Slideshow (Parallax Wrapper) */}
@@ -167,7 +167,7 @@ export default function Hero() {
         <div ref={textRef} className="md:col-span-7 flex flex-col justify-center space-y-8">
           <div className="w-20 h-px bg-terracota mb-4" />
 
-          <h1 className="font-serif text-5xl md:text-8xl leading-[1.1] md:leading-[0.9] tracking-tight text-white">
+          <h1 className="font-serif text-5xl md:text-8xl leading-[1.1] md:leading-[0.9] tracking-tight text-white mb-6 md:mb-0">
             Terrazas que se <br />
             <span className="italic text-terracota">sienten hogar</span> <br />
             desde el inicio.
