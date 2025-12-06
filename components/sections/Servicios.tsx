@@ -99,11 +99,11 @@ export default function Servicios() {
           <span className="block text-terracota text-xs tracking-[0.3em] uppercase font-bold mb-4">
             Nuestros Servicios
           </span>
-          <h2 className="font-serif text-3xl md:text-6xl leading-[1.1] mb-6 text-white">
+          <h2 className="font-serif text-3xl md:text-6xl leading-[1.1] mb-6 text-primary">
             Arquitectura para <br />
             <span className="text-terracota italic transition-colors duration-500">vivir el exterior.</span>
           </h2>
-          <p className="text-primary/60 text-lg font-light leading-relaxed max-w-lg transition-colors duration-500">
+          <p className="text-primary/80 text-lg font-light leading-relaxed max-w-lg transition-colors duration-500">
             No vendemos productos, creamos atmósferas. Un sistema integral de diseño y ejecución para transformar tu terraza.
           </p>
         </div>
