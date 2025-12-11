@@ -309,9 +309,9 @@ export default function Navbar() {
                 onClick={() => setMobileOpen(!mobileOpen)}
                 className="relative z-50 w-10 h-10 flex flex-col justify-center gap-1.5"
               >
-                <span className={`w-full h-px bg-current transition-all ${mobileOpen ? "rotate-45 translate-y-2" : ""} ${scrolled || activeMega || mobileOpen ? "text-[var(--text-primary)]" : "text-white"}`} />
-                <span className={`w-full h-px bg-current transition-all ${mobileOpen ? "opacity-0" : ""} ${scrolled || activeMega || mobileOpen ? "text-[var(--text-primary)]" : "text-white"}`} />
-                <span className={`w-full h-px bg-current transition-all ${mobileOpen ? "-rotate-45 -translate-y-2" : ""} ${scrolled || activeMega || mobileOpen ? "text-[var(--text-primary)]" : "text-white"}`} />
+                <span className={`w-full h-px transition-all duration-300 ${mobileOpen ? "rotate-45 translate-y-2" : ""} ${scrolled || activeMega || mobileOpen ? "bg-[var(--text-primary)]" : "bg-white"}`} />
+                <span className={`w-full h-px transition-all duration-300 ${mobileOpen ? "opacity-0" : ""} ${scrolled || activeMega || mobileOpen ? "bg-[var(--text-primary)]" : "bg-white"}`} />
+                <span className={`w-full h-px transition-all duration-300 ${mobileOpen ? "-rotate-45 -translate-y-2" : ""} ${scrolled || activeMega || mobileOpen ? "bg-[var(--text-primary)]" : "bg-white"}`} />
               </button>
             </div>
           </div>
