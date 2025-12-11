@@ -302,17 +302,19 @@ export default function Navbar() {
               </span>
             </Link>
 
-            {/* Mobile Toggle */}
-            <div className="md:hidden flex items-center gap-4">
+            {/* Mobile Toggle - Force Visibility */}
+            <div className="md:hidden flex items-center gap-4 relative z-[999]">
               <ThemeToggle />
               <button
                 onClick={() => setMobileOpen(!mobileOpen)}
-                className="relative z-[102] w-12 h-12 flex flex-col justify-center items-center gap-1.5 p-2"
-                aria-label="Menu"
+                className="relative w-12 h-12 flex flex-col justify-center items-center gap-1.5 p-2 bg-transparent select-none"
+                aria-label="Toggle Menu"
+                style={{ WebkitTapHighlightColor: 'transparent' }}
               >
-                <span className={`w-8 h-[2px] transition-all duration-300 ${mobileOpen ? "rotate-45 translate-y-2.5" : ""} ${scrolled || activeMega || mobileOpen ? "bg-[var(--text-primary)]" : "bg-white"}`} />
-                <span className={`w-8 h-[2px] transition-all duration-300 ${mobileOpen ? "opacity-0" : ""} ${scrolled || activeMega || mobileOpen ? "bg-[var(--text-primary)]" : "bg-white"}`} />
-                <span className={`w-8 h-[2px] transition-all duration-300 ${mobileOpen ? "-rotate-45 -translate-y-2.5" : ""} ${scrolled || activeMega || mobileOpen ? "bg-[var(--text-primary)]" : "bg-white"}`} />
+                {/* Lines - Forcing explicit colors to handle iPhone rendering quirks */}
+                <span className={`w-8 h-[2px] rounded-full transition-all duration-300 ${mobileOpen ? "rotate-45 translate-y-2.5 bg-terracota" : ""} ${!mobileOpen && !scrolled ? "bg-white" : "bg-madera dark:bg-crema"}`} />
+                <span className={`w-8 h-[2px] rounded-full transition-all duration-300 ${mobileOpen ? "opacity-0" : ""} ${!mobileOpen && !scrolled ? "bg-white" : "bg-madera dark:bg-crema"}`} />
+                <span className={`w-8 h-[2px] rounded-full transition-all duration-300 ${mobileOpen ? "-rotate-45 -translate-y-2.5 bg-terracota" : ""} ${!mobileOpen && !scrolled ? "bg-white" : "bg-madera dark:bg-crema"}`} />
               </button>
             </div>
           </div>

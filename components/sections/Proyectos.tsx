@@ -135,7 +135,7 @@ export default function Proyectos() {
           {PROJECTS.map((project, index) => (
             <div
               key={project.id}
-              className="sticky top-20 md:top-32 min-h-[45vh] md:h-[80vh] w-full"
+              className="relative md:sticky top-0 md:top-32 w-full aspect-[4/5] md:aspect-auto md:min-h-[45vh] md:h-[80vh] mb-8 md:mb-0"
               style={{ zIndex: index + 1 }}
               onMouseEnter={() => setHoveredProject(project.id)}
               onMouseLeave={() => setHoveredProject(null)}
