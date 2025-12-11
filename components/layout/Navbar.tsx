@@ -262,7 +262,7 @@ export default function Navbar() {
           </Link>
 
           {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-12 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+          <nav className="hidden xl:flex items-center gap-12 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
             {NAV_ITEMS.map((item) => (
               <div key={item.id} className="relative group" onMouseEnter={() => handleMouseEnter(item.id)}>
                 <Link
@@ -278,7 +278,7 @@ export default function Navbar() {
           </nav>
 
           {/* Right Side (Desktop Only) */}
-          <div className="hidden md:flex items-center gap-6">
+          <div className="hidden xl:flex items-center gap-6">
             <ThemeToggle />
             <div className="flex flex-col items-end mr-2">
               <span className={`text-[0.6rem] uppercase tracking-widest mb-1 transition-colors duration-300 ${scrolled || activeMega ? "text-primary/60" : "text-white/60"}`}>Atención</span>
@@ -304,7 +304,7 @@ export default function Navbar() {
           </div>
 
           {/* Mobile Toggle - Force Visibility - SVG Replacement */}
-          <div className="md:hidden flex items-center gap-4 relative z-[999]">
+          <div className="xl:hidden flex items-center gap-4 relative z-[999]">
             <ThemeToggle />
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
@@ -401,7 +401,7 @@ export default function Navbar() {
       </header>
 
       {/* --- MOBILE MENU OVERLAY --- */}
-      <div className={`fixed inset-0 z-[998] bg-[var(--bg-primary)] transition-transform duration-700 cubic-bezier(0.76, 0, 0.24, 1) ${mobileOpen ? "translate-x-0" : "translate-x-full"} md:hidden pt-32 px-6`}>
+      <div className={`fixed inset-0 z-[998] bg-[var(--bg-primary)] transition-transform duration-700 cubic-bezier(0.76, 0, 0.24, 1) ${mobileOpen ? "translate-x-0" : "translate-x-full"} xl:hidden pt-32 px-6`}>
         <div className="flex flex-col h-full">
           <div className="flex flex-col border-t border-[var(--text-primary)]/10">
             {NAV_ITEMS.map((item) => {
