@@ -109,8 +109,8 @@ export default function Servicios() {
         </div>
 
         {/* Desktop Accordion / Mobile Vertical Accordion */}
-        {/* Compact Layout: 500px Mobile, 550px Desktop */}
-        <div className="services-container flex flex-col md:flex-row gap-2 h-[500px] md:h-[550px] min-h-[400px] max-h-[700px]">
+        {/* Compact Layout: Mobile needs height for vertical stacking */}
+        <div className="services-container flex flex-col md:flex-row gap-2 h-[85vh] min-h-[600px] md:h-[550px] md:min-h-0 max-h-[900px] md:max-h-[700px]">
           {services.map((service, index) => (
             <Link
               key={service.id}
@@ -125,11 +125,12 @@ export default function Servicios() {
               className={`
                 service-card-reveal group relative overflow-hidden 
                 first:rounded-t-2xl last:rounded-b-2xl md:rounded-none md:first:rounded-l-2xl md:last:rounded-r-2xl
-                transition-[flex-grow,flex-shrink] duration-800 ease-[cubic-bezier(0.25,1,0.5,1)]
-                ${activeMobile === index ? 'flex-3' : 'flex-1'} // Mobile Accordion
-                ${hoveredIndex === index ? 'md:flex-3' : 'md:flex-1'} // Desktop Accordion
-                shadow-[0_30px_60px_rgba(0,0,0,0.3)] ring-1 ring-white/10 hover:ring-white/20
-                will-change-[flex-grow]
+                transition-[flex-grow,filter] duration-700 ease-[cubic-bezier(0.25,1,0.5,1)]
+                ${activeMobile === index ? 'flex-[12] md:flex-[3]' : 'flex-1 md:flex-1'} // Optimized Mobile Ratio
+                ${hoveredIndex === index ? 'md:flex-[3]' : ''} // Desktop Hover
+                shadow-2xl md:shadow-[0_30px_60px_rgba(0,0,0,0.3)] 
+                ring-1 ring-white/10 ${activeMobile === index ? 'ring-white/20' : ''} md:hover:ring-white/20
+                will-change-[flex-grow] transform-gpu
               `}
               onMouseEnter={() => setHoveredIndex(index)}
               onMouseLeave={() => setHoveredIndex(null)}
@@ -168,35 +169,42 @@ export default function Servicios() {
               <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/50 to-transparent transition-colors duration-500" />
 
               {/* Content */}
-              <div className="absolute inset-0 p-6 md:p-8 flex flex-col justify-end">
-                <div className="transform transition-transform duration-800 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:translate-y-0 translate-y-4 md:translate-y-8">
+              <div className="absolute inset-0 p-5 md:p-8 flex flex-col justify-end">
+                <div className={`
+                    transform transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)]
+                    ${activeMobile === index ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-70'} md:translate-y-8 md:opacity-100 md:group-hover:translate-y-0
+                  `}>
 
                   {/* Tag */}
-                  <div className="mb-4 overflow-hidden">
-                    <span className="inline-block px-3 py-1 rounded-full border border-white/20 bg-white/10 backdrop-blur-md text-[10px] tracking-[0.2em] uppercase text-white transition-colors duration-500">
+                  <div className={`mb-2 md:mb-4 overflow-hidden transition-opacity duration-500 ${activeMobile === index ? 'opacity-100' : 'opacity-0 md:opacity-100'}`}>
+                    <span className="inline-block px-2 py-1 md:px-3 rounded-full border border-white/20 bg-white/10 backdrop-blur-md text-[9px] md:text-[10px] tracking-[0.2em] uppercase text-white">
                       {service.subtitle}
                     </span>
                   </div>
 
                   {/* Title */}
-                  <h3 className="font-serif text-2xl md:text-3xl lg:text-4xl mb-3 text-white group-hover:text-terracota transition-colors duration-500">
+                  <h3 className={`
+                      font-serif text-xl md:text-3xl lg:text-4xl mb-2 md:mb-3 text-white 
+                      ${activeMobile === index ? 'text-terracota' : ''} 
+                      md:group-hover:text-terracota transition-colors duration-500
+                    `}>
                     {service.title}
                   </h3>
 
                   {/* Description (Reveals on active state) */}
                   <div className={`
-                    overflow-hidden transition-all duration-800 ease-[cubic-bezier(0.25,1,0.5,1)] delay-75
-                    ${activeMobile === index ? 'max-h-[200px] opacity-100' : 'max-h-0 opacity-0'} 
+                    overflow-hidden transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)]
+                    ${activeMobile === index ? 'max-h-[200px] opacity-100 mt-2' : 'max-h-0 opacity-0 mt-0'} 
                     md:max-h-0 md:opacity-0
                     ${hoveredIndex === index ? 'md:max-h-[200px] md:opacity-100' : ''}
                   `}>
-                    <p className="text-white/80 text-xs md:text-sm leading-relaxed max-w-md mb-6 transition-colors duration-500 delay-150">
+                    <p className="text-white/80 text-xs md:text-sm leading-relaxed max-w-md mb-4 md:mb-6">
                       {service.description}
                     </p>
 
-                    <div className="flex items-center gap-2 text-xs font-bold tracking-widest uppercase text-white transition-colors duration-500 delay-200">
+                    <div className="flex items-center gap-2 text-[10px] md:text-xs font-bold tracking-widest uppercase text-white">
                       <span>Explorar</span>
-                      <span className="transform group-hover:translate-x-1 transition-transform duration-500">→</span>
+                      <span className="transform md:group-hover:translate-x-1 transition-transform duration-500">→</span>
                     </div>
                   </div>
 
