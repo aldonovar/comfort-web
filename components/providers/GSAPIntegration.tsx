@@ -19,18 +19,14 @@ export default function GSAPIntegration() {
         // Update ScrollTrigger on Lenis scroll
         lenis.on("scroll", ScrollTrigger.update);
 
-        // Sync GSAP ticker with Lenis raf
-        gsap.ticker.add((time) => {
-            lenis.raf(time * 1000);
-        });
+        // NOTE: We do NOT manually tick lenis.raf here because ReactLenis handles the RAF loop automatically.
+        // Adding it here causes double-updates and "jumping" scroll behavior.
 
         // Turn off GSAP's default lag smoothing to avoid jumps during heavy load/scroll
         gsap.ticker.lagSmoothing(0);
 
         return () => {
-            gsap.ticker.remove((time) => {
-                lenis.raf(time * 1000);
-            });
+            // Cleanup if needed
         };
     }, [lenis]);
 

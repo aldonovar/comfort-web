@@ -302,19 +302,43 @@ export default function Navbar() {
               </span>
             </Link>
 
-            {/* Mobile Toggle - Force Visibility */}
+            {/* Mobile Toggle - Force Visibility - SVG Replacement */}
             <div className="md:hidden flex items-center gap-4 relative z-[999]">
               <ThemeToggle />
               <button
                 onClick={() => setMobileOpen(!mobileOpen)}
-                className="relative w-12 h-12 flex flex-col justify-center items-center gap-1.5 p-2 bg-transparent select-none"
+                className={`relative w-12 h-12 flex justify-center items-center p-2 transition-colors duration-300 ${!mobileOpen && !scrolled ? "text-white" : "text-[var(--text-primary)]"}`}
                 aria-label="Toggle Menu"
                 style={{ WebkitTapHighlightColor: 'transparent' }}
               >
-                {/* Lines - Forcing explicit colors to handle iPhone rendering quirks */}
-                <span className={`w-8 h-[2px] rounded-full transition-all duration-300 ${mobileOpen ? "rotate-45 translate-y-2.5 bg-terracota" : ""} ${!mobileOpen && !scrolled ? "bg-white" : "bg-madera dark:bg-crema"}`} />
-                <span className={`w-8 h-[2px] rounded-full transition-all duration-300 ${mobileOpen ? "opacity-0" : ""} ${!mobileOpen && !scrolled ? "bg-white" : "bg-madera dark:bg-crema"}`} />
-                <span className={`w-8 h-[2px] rounded-full transition-all duration-300 ${mobileOpen ? "-rotate-45 -translate-y-2.5 bg-terracota" : ""} ${!mobileOpen && !scrolled ? "bg-white" : "bg-madera dark:bg-crema"}`} />
+                <div className="relative w-8 h-8">
+                  {/* Menu Icon (3 lines) */}
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    className={`absolute inset-0 w-full h-full transition-all duration-300 transform ${mobileOpen ? "opacity-0 rotate-90 scale-50" : "opacity-100 rotate-0 scale-100"}`}
+                  >
+                    <line x1="3" y1="6" x2="21" y2="6" />
+                    <line x1="3" y1="12" x2="21" y2="12" />
+                    <line x1="3" y1="18" x2="21" y2="18" />
+                  </svg>
+
+                  {/* Close Icon (X) */}
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    className={`absolute inset-0 w-full h-full transition-all duration-300 transform ${mobileOpen ? "opacity-100 rotate-0 scale-100" : "opacity-0 -rotate-90 scale-50"}`}
+                  >
+                    <line x1="18" y1="6" x2="6" y2="18" />
+                    <line x1="6" y1="6" x2="18" y2="18" />
+                  </svg>
+                </div>
               </button>
             </div>
           </div>
