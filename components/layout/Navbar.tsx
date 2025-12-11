@@ -307,11 +307,12 @@ export default function Navbar() {
               <ThemeToggle />
               <button
                 onClick={() => setMobileOpen(!mobileOpen)}
-                className="relative z-50 w-10 h-10 flex flex-col justify-center gap-1.5"
+                className="relative z-[102] w-12 h-12 flex flex-col justify-center items-center gap-1.5 p-2"
+                aria-label="Menu"
               >
-                <span className={`w-full h-px transition-all duration-300 ${mobileOpen ? "rotate-45 translate-y-2" : ""} ${scrolled || activeMega || mobileOpen ? "bg-[var(--text-primary)]" : "bg-white"}`} />
-                <span className={`w-full h-px transition-all duration-300 ${mobileOpen ? "opacity-0" : ""} ${scrolled || activeMega || mobileOpen ? "bg-[var(--text-primary)]" : "bg-white"}`} />
-                <span className={`w-full h-px transition-all duration-300 ${mobileOpen ? "-rotate-45 -translate-y-2" : ""} ${scrolled || activeMega || mobileOpen ? "bg-[var(--text-primary)]" : "bg-white"}`} />
+                <span className={`w-8 h-[2px] transition-all duration-300 ${mobileOpen ? "rotate-45 translate-y-2.5" : ""} ${scrolled || activeMega || mobileOpen ? "bg-[var(--text-primary)]" : "bg-white"}`} />
+                <span className={`w-8 h-[2px] transition-all duration-300 ${mobileOpen ? "opacity-0" : ""} ${scrolled || activeMega || mobileOpen ? "bg-[var(--text-primary)]" : "bg-white"}`} />
+                <span className={`w-8 h-[2px] transition-all duration-300 ${mobileOpen ? "-rotate-45 -translate-y-2.5" : ""} ${scrolled || activeMega || mobileOpen ? "bg-[var(--text-primary)]" : "bg-white"}`} />
               </button>
             </div>
           </div>

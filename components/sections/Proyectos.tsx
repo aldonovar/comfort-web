@@ -143,22 +143,22 @@ export default function Proyectos() {
               <article className="relative w-full h-full rounded-3xl overflow-hidden shadow-[0_30px_60px_rgba(0,0,0,0.3)] ring-1 ring-white/10 bg-transparent group transition-all duration-500">
 
                 {/* WebGL Image Background - Desktop Only */}
-                <div className="absolute inset-0 w-full h-full">
-                  {!isMobile && (
-                    <View className="w-full h-full absolute inset-0">
-                      <ProjectDistortion
-                        image={project.image}
-                        hovered={hoveredProject === project.id}
-                      />
-                    </View>
-                  )}
-                  {/* Fallback/Mobile Image - Visible on mobile or if WebGL fails */}
-                  <img
-                    src={project.image}
-                    alt={project.title}
-                    className={`absolute inset-0 w-full h-full object-cover ${isMobile ? 'project-image-mobile' : ''}`}
-                  />
+                {/* CSS-based visibility: hidden on mobile regardless of JS state */}
+                <div className="absolute inset-0 w-full h-full hidden md:block">
+                  <View className="w-full h-full absolute inset-0">
+                    <ProjectDistortion
+                      image={project.image}
+                      hovered={hoveredProject === project.id}
+                    />
+                  </View>
                 </div>
+
+                {/* Fallback/Mobile Image - Always rendered, z-0 */}
+                <img
+                  src={project.image}
+                  alt={project.title}
+                  className="absolute inset-0 w-full h-full object-cover md:hidden"
+                />
 
                 {/* Gradient Overlay - Needs to be on top of canvas */}
                 <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/50 to-transparent pointer-events-none transition-colors duration-500" />
