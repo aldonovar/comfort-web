@@ -9,15 +9,19 @@ export default function PageTransition({ children }: { children: React.ReactNode
   const pathname = usePathname();
   const overlayRef = useRef<HTMLDivElement>(null);
   const [isAnimating, setIsAnimating] = useState(false);
+  const isMounted = useRef(true);
 
   useEffect(() => {
+    isMounted.current = true;
     // Trigger animation on route change
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({
         onStart: () => setIsAnimating(true),
         onComplete: () => {
+          if (!isMounted.current) return;
           setIsAnimating(false);
-          ScrollTrigger.refresh();
+          // Defer refresh to ensure DOM is ready and avoid layout thrashing
+          requestAnimationFrame(() => ScrollTrigger.refresh());
         }
       });
 
@@ -45,10 +49,11 @@ export default function PageTransition({ children }: { children: React.ReactNode
         overlayRef.current.style.transform = "scaleY(0)";
         overlayRef.current.style.pointerEvents = "none";
       }
-      setIsAnimating(false);
+      if (isMounted.current) setIsAnimating(false);
     }, 2000);
 
     return () => {
+      isMounted.current = false;
       ctx.revert();
       clearTimeout(safetyTimer);
     };

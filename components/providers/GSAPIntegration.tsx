@@ -26,7 +26,8 @@ export default function GSAPIntegration() {
         gsap.ticker.lagSmoothing(0);
 
         return () => {
-            // Cleanup if needed
+            // Cleanup: Remove listener to prevent memory leaks and errors on unmount
+            lenis.off("scroll", ScrollTrigger.update);
         };
     }, [lenis]);
 
