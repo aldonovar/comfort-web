@@ -277,7 +277,7 @@ export default function Navbar() {
             ))}
           </nav>
 
-          {/* Right Side */}
+          {/* Right Side (Desktop Only) */}
           <div className="hidden md:flex items-center gap-6">
             <ThemeToggle />
             <div className="flex flex-col items-end mr-2">
@@ -301,46 +301,46 @@ export default function Navbar() {
                 Cotizar <span className="group-hover:translate-x-1 transition-transform duration-300">→</span>
               </span>
             </Link>
+          </div>
 
-            {/* Mobile Toggle - Force Visibility - SVG Replacement */}
-            <div className="md:hidden flex items-center gap-4 relative z-[999]">
-              <ThemeToggle />
-              <button
-                onClick={() => setMobileOpen(!mobileOpen)}
-                className={`relative w-12 h-12 flex justify-center items-center p-2 transition-colors duration-300 ${!mobileOpen && !scrolled ? "text-white" : "text-[var(--text-primary)]"}`}
-                aria-label="Toggle Menu"
-                style={{ WebkitTapHighlightColor: 'transparent' }}
-              >
-                <div className="relative w-8 h-8">
-                  {/* Menu Icon (3 lines) */}
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2.5"
-                    strokeLinecap="round"
-                    className={`absolute inset-0 w-full h-full transition-all duration-300 transform ${mobileOpen ? "opacity-0 rotate-90 scale-50" : "opacity-100 rotate-0 scale-100"}`}
-                  >
-                    <line x1="3" y1="6" x2="21" y2="6" />
-                    <line x1="3" y1="12" x2="21" y2="12" />
-                    <line x1="3" y1="18" x2="21" y2="18" />
-                  </svg>
+          {/* Mobile Toggle - Force Visibility - SVG Replacement */}
+          <div className="md:hidden flex items-center gap-4 relative z-[999]">
+            <ThemeToggle />
+            <button
+              onClick={() => setMobileOpen(!mobileOpen)}
+              className={`relative w-12 h-12 flex justify-center items-center p-2 transition-colors duration-300 ${!mobileOpen && !scrolled ? "text-white" : "text-[var(--text-primary)]"}`}
+              aria-label="Toggle Menu"
+              style={{ WebkitTapHighlightColor: 'transparent' }}
+            >
+              <div className="relative w-8 h-8">
+                {/* Menu Icon (3 lines) */}
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  className={`absolute inset-0 w-full h-full transition-all duration-300 transform ${mobileOpen ? "opacity-0 rotate-90 scale-50" : "opacity-100 rotate-0 scale-100"}`}
+                >
+                  <line x1="3" y1="6" x2="21" y2="6" />
+                  <line x1="3" y1="12" x2="21" y2="12" />
+                  <line x1="3" y1="18" x2="21" y2="18" />
+                </svg>
 
-                  {/* Close Icon (X) */}
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2.5"
-                    strokeLinecap="round"
-                    className={`absolute inset-0 w-full h-full transition-all duration-300 transform ${mobileOpen ? "opacity-100 rotate-0 scale-100" : "opacity-0 -rotate-90 scale-50"}`}
-                  >
-                    <line x1="18" y1="6" x2="6" y2="18" />
-                    <line x1="6" y1="6" x2="18" y2="18" />
-                  </svg>
-                </div>
-              </button>
-            </div>
+                {/* Close Icon (X) */}
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  className={`absolute inset-0 w-full h-full transition-all duration-300 transform ${mobileOpen ? "opacity-100 rotate-0 scale-100" : "opacity-0 -rotate-90 scale-50"}`}
+                >
+                  <line x1="18" y1="6" x2="6" y2="18" />
+                  <line x1="6" y1="6" x2="18" y2="18" />
+                </svg>
+              </div>
+            </button>
           </div>
 
           {/* --- MEGA MENU --- */}
