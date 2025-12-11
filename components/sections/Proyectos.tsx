@@ -144,7 +144,7 @@ export default function Proyectos() {
 
                 {/* WebGL Image Background - Desktop Only */}
                 {/* CSS-based visibility: hidden on mobile regardless of JS state */}
-                <div className="absolute inset-0 w-full h-full hidden md:block">
+                <div className="absolute inset-0 w-full h-full hidden md:block z-10">
                   <View className="w-full h-full absolute inset-0">
                     <ProjectDistortion
                       image={project.image}
@@ -153,11 +153,11 @@ export default function Proyectos() {
                   </View>
                 </div>
 
-                {/* Fallback/Mobile Image - Always rendered, z-0 */}
+                {/* Fallback/Mobile Image - Always rendered as base layer */}
                 <img
                   src={project.image}
                   alt={project.title}
-                  className="absolute inset-0 w-full h-full object-cover md:hidden"
+                  className="absolute inset-0 w-full h-full object-cover z-0"
                 />
 
                 {/* Gradient Overlay - Needs to be on top of canvas */}
