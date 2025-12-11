@@ -317,7 +317,7 @@ export default function Navbar() {
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"
-                    strokeWidth="2"
+                    strokeWidth="2.5"
                     strokeLinecap="round"
                     className={`absolute inset-0 w-full h-full transition-all duration-300 transform ${mobileOpen ? "opacity-0 rotate-90 scale-50" : "opacity-100 rotate-0 scale-100"}`}
                   >
@@ -331,7 +331,7 @@ export default function Navbar() {
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"
-                    strokeWidth="2"
+                    strokeWidth="2.5"
                     strokeLinecap="round"
                     className={`absolute inset-0 w-full h-full transition-all duration-300 transform ${mobileOpen ? "opacity-100 rotate-0 scale-100" : "opacity-0 -rotate-90 scale-50"}`}
                   >
@@ -348,6 +348,7 @@ export default function Navbar() {
             ref={megaRef}
             className="absolute top-full left-0 w-full bg-[var(--bg-primary)] border-t border-[var(--text-primary)]/5 overflow-hidden shadow-2xl h-0 opacity-0"
           >
+            {/* Mega content... (unchanged) */}
             {activeMega && MEGA_CONTENT[activeMega] && (
               <div className="relative w-full h-[50vh] flex max-w-[1800px] mx-auto">
 
@@ -400,7 +401,7 @@ export default function Navbar() {
       </header>
 
       {/* --- MOBILE MENU OVERLAY --- */}
-      <div className={`fixed inset-0 z-90 bg-[var(--bg-primary)] transition-transform duration-700 cubic-bezier(0.76, 0, 0.24, 1) ${mobileOpen ? "translate-x-0" : "translate-x-full"} md:hidden pt-32 px-6`}>
+      <div className={`fixed inset-0 z-[998] bg-[var(--bg-primary)] transition-transform duration-700 cubic-bezier(0.76, 0, 0.24, 1) ${mobileOpen ? "translate-x-0" : "translate-x-full"} md:hidden pt-32 px-6`}>
         <div className="flex flex-col h-full">
           <div className="flex flex-col border-t border-[var(--text-primary)]/10">
             {NAV_ITEMS.map((item) => {
