@@ -23,6 +23,15 @@
     mix-blend-mode: overlay;
     pointer-events: none;
   }
+
+  /* Fix for undefined Tailwind classes used in components */
+  .bg-primary {
+    background-color: var(--bg-primary);
+  }
+
+  .text-primary {
+    color: var(--text-primary);
+  }
 }
 
 /* CSS Variables for Theming */
@@ -50,7 +59,7 @@
 /* Base Styles */
 @layer base {
   body {
-    @apply bg-(--bg-primary) text-(--text-primary) font-sans;
+    @apply bg-(--bg-primary) text-(--text-primary) font-sans overflow-x-hidden;
   }
 
   h1,

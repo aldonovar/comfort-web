@@ -1,6 +1,6 @@
 "use client";
 
-
+import { ReactLenis } from "@studio-freight/react-lenis";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import PageTransition from "./PageTransition";
