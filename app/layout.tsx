@@ -1,6 +1,7 @@
 import "./globals.css";
 import ClientLayout from "../components/layout/ClientLayout";
 import { Metadata } from "next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 export const metadata: Metadata = {
   title: "Comfort Studio | Arquitectura de Terrazas",
@@ -19,6 +20,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <ClientLayout>
           {children}
         </ClientLayout>
+        <SpeedInsights />
       </body>
     </html>
   );
