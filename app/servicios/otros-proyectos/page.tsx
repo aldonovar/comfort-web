@@ -30,6 +30,9 @@ export default function OtrosProyectosPage() {
     const processRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
+        // Initial setup to avoid FOUC
+        gsap.set(".process-step", { opacity: 0, y: 50 });
+
         const ctx = gsap.context(() => {
             // 1. Hero Floating Elements
             gsap.to(".hero-floater", {
@@ -59,16 +62,17 @@ export default function OtrosProyectosPage() {
             });
 
             // 3. Card Process Reveal
+            // Use fromTo to be explicit about start/end states
             const steps = gsap.utils.toArray(".process-step");
-            gsap.from(steps, {
-                y: 50,
-                opacity: 0,
+            gsap.to(steps, {
+                y: 0,
+                opacity: 1,
                 stagger: 0.2,
                 duration: 1,
                 ease: "power3.out",
                 scrollTrigger: {
                     trigger: processRef.current,
-                    start: "top center",
+                    start: "top 80%", // Trigger earlier
                     end: "bottom center",
                     toggleActions: "play none none reverse"
                 }
