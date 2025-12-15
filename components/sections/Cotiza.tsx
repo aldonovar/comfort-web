@@ -276,13 +276,7 @@ Me gustaría cotizar un proyecto de *${projectType}*.
 • Inversión Estimada: ${budget || "A definir"}
 
 📝 *Notas Adicionales:*
-${notes || "Sin detalles adicionales."}
-
--------------------------------------
-🔒 *Información Interna para el Estudio:*
-• ID: ${smartID}
-• Empresa: ${company || "Particular"}
-• Ticket: #${ticketNumber}`;
+${notes || "Sin detalles adicionales."}`;
     const waUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
 
     try {
