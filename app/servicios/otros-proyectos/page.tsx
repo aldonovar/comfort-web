@@ -18,9 +18,9 @@ const MASONRY_IMAGES = [
 ];
 
 const PROCESS_STEPS = [
-    { title: "Idea", desc: "Todo empieza con un boceto, una referencia o un sueño." },
-    { title: "Diseño", desc: "Traducimos lo abstracto en planos, vistas y materiales tangibles." },
-    { title: "Realidad", desc: "Ejecución precisa para que el resultado supere la imaginación." },
+    { title: "Escuchar", desc: "Entendemos tus necesidades específicas más allá de lo estándar." },
+    { title: "Adaptar", desc: "Ajustamos nuestros recursos y experiencia a tu requerimiento." },
+    { title: "Ejecutar", desc: "Implementación con la misma calidad que nuestros proyectos principales." },
 ];
 
 export default function OtrosProyectosPage() {
@@ -100,7 +100,7 @@ export default function OtrosProyectosPage() {
     return (
         <div ref={container} className="bg-[#050505] text-white overflow-hidden">
 
-            {/* --- HERO SECTION (Abstract Minimalist) --- */}
+            {/* --- HERO SECTION --- */}
             <section ref={heroRef} className="relative h-screen w-full flex items-center justify-center overflow-hidden bg-[#050505]">
                 <div className="absolute inset-0 z-0 opacity-20">
                     <div className="hero-floater absolute top-1/4 left-1/4 w-64 h-64 bg-terracota rounded-full blur-[100px]" />
@@ -109,13 +109,13 @@ export default function OtrosProyectosPage() {
 
                 <div className="relative z-10 text-center px-6 mix-blend-difference">
                     <p className="text-sm tracking-[0.5em] uppercase font-bold mb-8 text-white/60">
-                        Sin Límites
+                        Versatilidad & Alcance
                     </p>
-                    <h1 className="font-serif text-[12vw] leading-none tracking-tighter text-white">
-                        A MEDIDA
+                    <h1 className="font-serif text-[10vw] leading-none tracking-tighter text-white">
+                        OTROS <br /> SERVICIOS
                     </h1>
                     <p className="text-xl md:text-2xl text-white/50 mt-8 max-w-2xl mx-auto font-light">
-                        Cuando tu visión no cabe en un catálogo, <br /> nosotros la construimos.
+                        Soluciones que complementan tu experiencia <br /> al aire libre.
                     </p>
                 </div>
             </section>
@@ -125,19 +125,20 @@ export default function OtrosProyectosPage() {
                 <div className="max-w-7xl mx-auto relative">
                     <div className="absolute top-0 left-0 z-10 mb-24">
                         <h2 className="font-serif text-4xl md:text-6xl leading-tight">
-                            El arte de lo <br /> <span className="text-terracota italic">imposible</span>.
+                            Servicios <br /> <span className="text-terracota italic">Complementarios</span>
                         </h2>
                     </div>
 
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-8 md:gap-16 pt-48">
                         {MASONRY_IMAGES.map((item, i) => (
-                            <div key={i} className={`masonry-img relative aspect-[3/4] w-full rounded-lg overflow-hidden ${i % 2 === 0 ? 'mt-0' : 'mt-24'}`}>
+                            <div key={i} className={`masonry-img relative aspect-[3/4] w-full rounded-lg overflow-hidden group ${i % 2 === 0 ? 'mt-0' : 'mt-24'}`}>
                                 <Image
                                     src={item.src}
-                                    alt={`Bespoke ${i}`}
+                                    alt={`Complementary Service ${i}`}
                                     fill
-                                    className="object-cover grayscale hover:grayscale-0 transition-all duration-700"
+                                    className="object-cover transition-all duration-1000 group-hover:scale-110 group-hover:brightness-110"
                                 />
+                                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-500" />
                             </div>
                         ))}
                     </div>
@@ -162,10 +163,10 @@ export default function OtrosProyectosPage() {
             {/* --- DETAILS LIST --- */}
             <section className="py-32 px-6 md:px-24 bg-[#0a0a0a] border-t border-white/5">
                 <div className="max-w-4xl mx-auto text-center">
-                    <p className="text-xs uppercase tracking-[0.3em] text-white/40 mb-12">Alcance</p>
+                    <p className="text-xs uppercase tracking-[0.3em] text-white/40 mb-12">Gama de Servicios</p>
                     <div className="flex flex-wrap justify-center gap-4 md:gap-8">
-                        {["Piscinas", "Jacuzzis", "Jardines Verticales", "Remodelaciones", "Mobiliario Custom", "Domótica"].map((tag, i) => (
-                            <span key={i} className="px-6 py-3 rounded-full border border-white/10 text-lg hover:bg-white hover:text-black transition-colors cursor-default">
+                        {["Paisajismo", "Piscinas & Jacuzzis", "Mobiliario Custom", "Iluminación Escénica", "Mantenimiento", "Consultoría"].map((tag, i) => (
+                            <span key={i} className="px-6 py-3 rounded-full border border-white/10 text-lg hover:bg-terracota hover:text-white hover:border-terracota transition-all duration-300 cursor-default">
                                 {tag}
                             </span>
                         ))}
@@ -179,13 +180,13 @@ export default function OtrosProyectosPage() {
 
                 <div className="footer-cta text-center relative z-10 px-6">
                     <h2 className="font-serif text-5xl md:text-8xl mb-12 leading-tight">
-                        ¿Tienes una idea <br /> única?
+                        ¿Buscas algo <br /> más?
                     </h2>
                     <Link
-                        href="/cotiza?tipo=Proyecto%20A%20Medida"
+                        href="/cotiza?tipo=Otro%20tipo%20de%20proyecto%20al%20aire%20libre"
                         className="inline-flex items-center gap-4 px-12 py-6 bg-black text-white rounded-full text-lg uppercase tracking-widest hover:scale-105 transition-transform duration-300"
                     >
-                        <span>Hablemos</span>
+                        <span>Cuéntanos tu idea</span>
                         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
                     </Link>
                 </div>
