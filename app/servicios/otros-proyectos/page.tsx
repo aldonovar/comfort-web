@@ -145,16 +145,24 @@ export default function OtrosProyectosPage() {
                 </div>
             </section>
 
-            {/* --- CIRCULAR PROCESS --- */}
+            {/* --- ARCHITECTURAL PROCESS CARDS --- */}
             <section ref={processRef} className="relative py-48 px-6 md:px-12 bg-[#050505] flex flex-col items-center justify-center">
-                <div className="max-w-5xl w-full grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
+                <div className="max-w-7xl w-full grid grid-cols-1 md:grid-cols-3 gap-8">
                     {PROCESS_STEPS.map((step, i) => (
-                        <div key={i} className="process-step flex flex-col items-center">
-                            <div className="w-32 h-32 rounded-full border border-white/10 flex items-center justify-center mb-8 bg-[#0a0a0a]">
-                                <span className="font-serif text-4xl text-terracota">{i + 1}</span>
+                        <div key={i} className="process-step group relative p-12 border border-white/5 bg-white/[0.02] backdrop-blur-sm hover:bg-white/[0.05] hover:border-terracota/30 transition-all duration-500 overflow-hidden">
+                            {/* Large Background Number */}
+                            <span className="absolute -right-4 -bottom-8 font-serif text-[12rem] leading-none text-white/[0.03] group-hover:text-terracota/[0.05] transition-colors duration-500 select-none pointer-events-none">
+                                {i + 1}
+                            </span>
+
+                            <div className="relative z-10">
+                                <span className="text-terracota text-sm font-bold tracking-[0.2em] mb-6 block">FASE 0{i + 1}</span>
+                                <h3 className="text-3xl font-serif text-white mb-6 group-hover:translate-x-2 transition-transform duration-300">{step.title}</h3>
+                                <div className="w-12 h-px bg-white/20 mb-6 group-hover:w-24 group-hover:bg-terracota transition-all duration-500" />
+                                <p className="text-white/60 font-light leading-relaxed max-w-xs group-hover:text-white/80 transition-colors">
+                                    {step.desc}
+                                </p>
                             </div>
-                            <h3 className="text-2xl font-serif mb-4">{step.title}</h3>
-                            <p className="text-white/50 max-w-xs">{step.desc}</p>
                         </div>
                     ))}
                 </div>
