@@ -90,29 +90,7 @@ const MEGA_CONTENT: any = {
       }
     ]
   },
-  contacto: {
-    defaultImage: "https://images.unsplash.com/photo-1423666639041-f56000c27a9a?q=80&w=1920&auto=format&fit=crop",
-    items: [
-      {
-        label: "Agendar Cita",
-        href: "/contacto",
-        image: "https://images.unsplash.com/photo-1423666639041-f56000c27a9a?q=80&w=1920&auto=format&fit=crop",
-        desc: "Reserva una reunión con nuestro equipo."
-      },
-      {
-        label: "WhatsApp",
-        href: "https://wa.me/51936230958",
-        image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1920&auto=format&fit=crop",
-        desc: "Chat directo: +51 936 230 958"
-      },
-      {
-        label: "Ubicación",
-        href: "/contacto#mapa",
-        image: "https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?q=80&w=1920&auto=format&fit=crop",
-        desc: "Visítanos en nuestras oficinas en Lima."
-      }
-    ]
-  }
+
 };
 
 export default function Navbar() {

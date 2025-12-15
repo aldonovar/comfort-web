@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -48,12 +49,25 @@ ${formData.message || "Quisiera más información."}`;
     return (
         <section className="relative h-screen min-h-[800px] flex items-center bg-[var(--bg-primary)] text-[var(--text-primary)] transition-colors duration-500 overflow-hidden">
 
+            {/* Background Image with Blur */}
+            <div className="absolute inset-0 z-0 select-none overflow-hidden">
+                <Image
+                    src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?q=80&w=2670&auto=format&fit=crop"
+                    alt="Luxury Terrace Background"
+                    fill
+                    className="object-cover opacity-50 dark:opacity-40 blur-lg scale-105"
+                    priority
+                />
+                <div className="absolute inset-0 bg-gradient-to-b from-[var(--bg-primary)]/80 via-[var(--bg-primary)]/40 to-[var(--bg-primary)]/80 mix-blend-overlay" />
+                <div className="absolute inset-0 bg-[var(--bg-primary)]/20" />
+            </div>
+
             {/* Background Decor */}
             <div className="absolute top-[-20%] right-[-10%] w-[800px] h-[800px] bg-terracota/5 rounded-full blur-[150px] pointer-events-none" />
             <div className="absolute bottom-[-20%] left-[-10%] w-[800px] h-[800px] bg-[var(--text-primary)]/5 rounded-full blur-[150px] pointer-events-none" />
-            <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03] mix-blend-overlay pointer-events-none" />
+            <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03] mix-blend-overlay pointer-events-none z-10" />
 
-            <div className="max-w-[1600px] mx-auto px-6 md:px-12 w-full relative z-10">
+            <div className="max-w-[1600px] mx-auto px-6 md:px-12 w-full relative z-20">
                 <div className="grid lg:grid-cols-12 gap-12 lg:gap-24 items-center">
 
                     {/* Left Column: Header + Info (Compact) */}
