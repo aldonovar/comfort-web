@@ -267,23 +267,22 @@ export default function Cotiza({ isPage = false }: { isPage?: boolean }) {
       timestamp: new Date().toISOString()
     };
 
-    const message = `*NUEVA SOLICITUD - TICKET #${ticketNumber}*
-              ID: ${smartID}
+    const message = `Hola Comfort Studio, mi nombre es *${name}*.
+Me gustaría cotizar un proyecto de *${projectType}*.
 
-              *PROYECTO*
-              • Tipo: ${projectType}
-              • Área: ${area} m²
-              • Zona: ${district}
-              • Inversión: ${budget || "No especificado"}
+📍 *Detalles del Espacio:*
+• Ubicación: ${district}
+• Área: ${area} m²
+• Inversión Estimada: ${budget || "A definir"}
 
-              *CLIENTE*
-              • Nombre: ${name}
-              • Empresa: ${company || "N/A"}
-              • Contacto: ${phone} / ${email}
+📝 *Notas Adicionales:*
+${notes || "Sin detalles adicionales."}
 
-              *NOTAS*
-              ${notes || "Sin notas adicionales"}
-              `;
+-------------------------------------
+🔒 *Información Interna para el Estudio:*
+• ID: ${smartID}
+• Empresa: ${company || "Particular"}
+• Ticket: #${ticketNumber}`;
     const waUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
 
     try {
