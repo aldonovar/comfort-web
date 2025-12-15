@@ -21,8 +21,28 @@ export default function ContactoFull() {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        console.log("Form Submitted", formData);
-        alert("Gracias. Nos pondremos en contacto pronto.");
+
+        // 1. Construct the WhatsApp message
+        const waNumber = "51936230958";
+        const text = `*HOLA COMFORT STUDIO* 👋
+Me interesa: *${formData.interest}*
+
+*MIS DATOS:*
+👤 Nombre: ${formData.name}
+📱 Teléfono: ${formData.phone}
+📧 Email: ${formData.email}
+
+*DETALLES:*
+${formData.message || "Quisiera más información."}`;
+
+        // 2. Build the URL
+        const url = `https://wa.me/${waNumber}?text=${encodeURIComponent(text)}`;
+
+        // 3. Open in new tab
+        window.open(url, "_blank");
+
+        // 4. Optional: Reset form or show small feedback (non-intrusive)
+        // For now, we just redirect as requested.
     };
 
     return (
