@@ -10,27 +10,27 @@ gsap.registerPlugin(ScrollTrigger);
 
 const FEATURES = [
     {
-        title: "El Fuego",
-        desc: "Dominamos la técnica. Parrillas a carbón, gas o híbridas integradas con precisión milimétrica.",
+        title: "Funcionalidad",
+        desc: "Diseñamos flujos de trabajo eficientes. Zonas de frío, preparación, cocción y servicio perfectamente integradas.",
         img: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=1920&auto=format&fit=crop"
     },
     {
-        title: "El Humo",
-        desc: "Sistemas de extracción silenciosos y eficientes que mantienen el ambiente limpio sin perder la esencia.",
-        img: "https://images.unsplash.com/photo-1594040226829-7f251ab46d80?q=80&w=1920&auto=format&fit=crop"
+        title: "Materialidad",
+        desc: "Seleccionamos piedras naturales, aceros de grado marino y maderas tratadas para resistir el clima costero.",
+        img: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1920&auto=format&fit=crop"
     },
     {
-        title: "La Piedra",
-        desc: "Mesadas de granito, cuarzo o dekton resistentes al calor, manchas y la intemperie.",
-        img: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1920&auto=format&fit=crop"
+        title: "Equipamiento",
+        desc: "Integramos las mejores marcas de Kamados, parrillas argentinas y hornos de pizza para un rendimiento profesional.",
+        img: "https://images.unsplash.com/photo-1594040226829-7f251ab46d80?q=80&w=1920&auto=format&fit=crop"
     }
 ];
 
 const EQUIPMENT = [
-    { name: "Kamado", img: "https://images.unsplash.com/photo-1544982503-9f984c14501a?q=80&w=800&auto=format&fit=crop" },
-    { name: "Parrilla Argent", img: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=800&auto=format&fit=crop" },
-    { name: "Horno Pizza", img: "https://images.unsplash.com/photo-1590947132387-155cc02f3212?q=80&w=800&auto=format&fit=crop" },
-    { name: "Caja China", img: "https://images.unsplash.com/photo-1528605248644-14dd04022da1?q=80&w=800&auto=format&fit=crop" },
+    { name: "Kamado Joe", img: "https://images.unsplash.com/photo-1544982503-9f984c14501a?q=80&w=800&auto=format&fit=crop" },
+    { name: "Parrilla Inox", img: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=800&auto=format&fit=crop" },
+    { name: "Horno Leña", img: "https://images.unsplash.com/photo-1590947132387-155cc02f3212?q=80&w=800&auto=format&fit=crop" },
+    { name: "Frigobar", img: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=800&auto=format&fit=crop" },
 ];
 
 export default function ParrillaPage() {
@@ -41,7 +41,7 @@ export default function ParrillaPage() {
 
     useLayoutEffect(() => {
         const ctx = gsap.context(() => {
-            // 1. Hero "Smoke" Reveal
+            // 1. Hero Reveal
             const tl = gsap.timeline();
             tl.from(".hero-title", {
                 filter: "blur(20px)",
@@ -118,27 +118,26 @@ export default function ParrillaPage() {
     return (
         <div ref={container} className="bg-[#0a0a0a] text-white overflow-hidden">
 
-            {/* --- HERO SECTION (Cinematic Smoke) --- */}
+            {/* --- HERO SECTION --- */}
             <section ref={heroRef} className="relative h-screen w-full flex items-center justify-center overflow-hidden">
                 <div className="absolute inset-0 z-0">
                     <Image
-                        src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=1920&auto=format&fit=crop"
-                        alt="Estación de Parrilla"
+                        src="https://images.unsplash.com/photo-1529310399831-ed472b81d589?q=80&w=2574&auto=format&fit=crop"
+                        alt="Estación de Parrilla de Lujo"
                         fill
-                        className="object-cover opacity-40 grayscale-30"
+                        className="object-cover opacity-50"
                         priority
                     />
                     <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-transparent to-[#0a0a0a]" />
-                    {/* Animated Smoke Overlay (CSS or Video could be used here, using CSS gradient for now) */}
-                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_transparent_0%,_#0a0a0a_100%)] opacity-80" />
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,#0a0a0a_100%)] opacity-80" />
                 </div>
 
                 <div className="relative z-10 text-center px-6">
                     <p className="hero-subtitle text-terracota text-sm tracking-[0.5em] uppercase font-bold mb-8">
-                        Gastronomía Social
+                        Diseño & Equipamiento
                     </p>
-                    <h1 className="hero-title font-serif text-6xl md:text-9xl tracking-tight text-white mix-blend-overlay">
-                        FUEGO & <br /> BRASA
+                    <h1 className="hero-title font-serif text-5xl md:text-8xl tracking-tight text-white mix-blend-overlay">
+                        ESTACIÓN DE <br /> PARRILLA
                     </h1>
                 </div>
 
@@ -152,7 +151,7 @@ export default function ParrillaPage() {
             <div ref={featuresRef} className="py-24 space-y-32">
                 {FEATURES.map((feature, i) => (
                     <section key={i} className={`feature-section relative flex flex-col md:flex-row items-center ${i % 2 === 1 ? 'md:flex-row-reverse' : ''}`}>
-                        <div className="w-full md:w-1/2 h-[80vh] relative px-6 md:px-12">
+                        <div className="w-full md:w-1/2 h-[60vh] md:h-[80vh] relative px-6 md:px-12">
                             <div className="feature-img absolute inset-6 md:inset-12 overflow-hidden" style={{ clipPath: "inset(0% 100% 0% 0%)" }}>
                                 <Image
                                     src={feature.img}
@@ -165,8 +164,8 @@ export default function ParrillaPage() {
                         <div className="w-full md:w-1/2 px-6 md:px-24 py-12">
                             <div className="feature-text opacity-0 translate-y-10">
                                 <span className="text-terracota text-xs uppercase tracking-[0.3em] mb-4 block">0{i + 1}</span>
-                                <h2 className="font-serif text-5xl mb-6">{feature.title}</h2>
-                                <p className="text-white/60 text-xl leading-relaxed max-w-md">
+                                <h2 className="font-serif text-4xl md:text-5xl mb-6">{feature.title}</h2>
+                                <p className="text-white/60 text-lg md:text-xl leading-relaxed max-w-md">
                                     {feature.desc}
                                 </p>
                             </div>
@@ -178,13 +177,13 @@ export default function ParrillaPage() {
             {/* --- EQUIPMENT SLIDER --- */}
             <section ref={equipmentRef} className="relative h-screen bg-[#050505] flex flex-col justify-center overflow-hidden">
                 <div className="absolute top-12 left-12 z-20">
-                    <span className="text-xs uppercase tracking-[0.3em] text-white/40 border-b border-white/10 pb-2">Equipamiento</span>
+                    <span className="text-xs uppercase tracking-[0.3em] text-white/40 border-b border-white/10 pb-2">Equipamiento Premium</span>
                 </div>
 
                 <div className="equipment-track flex gap-12 px-[10vw] items-center">
-                    <div className="flex-shrink-0 w-[30vw] md:w-[20vw] pr-12">
+                    <div className="flex-shrink-0 w-[80vw] md:w-[25vw] pr-12">
                         <h3 className="font-serif text-4xl md:text-6xl leading-tight">
-                            Herramientas <br /> de <span className="text-terracota italic">Chef</span>
+                            El Corazón <br /> de tu <span className="text-terracota italic">Terraza</span>
                         </h3>
                     </div>
                     {EQUIPMENT.map((item, i) => (
@@ -208,11 +207,11 @@ export default function ParrillaPage() {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-white/10 border border-white/10">
                     {[
                         { label: "Espacio Mínimo", val: "6 m²" },
-                        { label: "Instalación", val: "Gas / Carbón" },
-                        { label: "Tiempo", val: "3 - 8 Semanas" },
-                        { label: "Materiales", val: "Acero 304 / Piedra" },
-                        { label: "Iluminación", val: "Escénica / Trabajo" },
-                        { label: "Garantía", val: "1 Año Total" },
+                        { label: "Materiales", val: "Granito / Acero 304" },
+                        { label: "Tiempo de Entrega", val: "4 - 6 Semanas" },
+                        { label: "Garantía", val: "1 - 5 Años" },
+                        { label: "Equipamiento", val: "Standard / Premium" },
+                        { label: "Cobertura", val: "Lima y Playas" },
                     ].map((item, i) => (
                         <div key={i} className="bg-[#0a0a0a] p-12 hover:bg-[#050505] transition-colors group">
                             <span className="block text-xs uppercase tracking-widest text-white/40 mb-4 group-hover:text-terracota transition-colors">{item.label}</span>
@@ -228,13 +227,13 @@ export default function ParrillaPage() {
 
                 <div className="footer-cta text-center relative z-10 px-6">
                     <h2 className="font-serif text-5xl md:text-8xl mb-12 leading-tight">
-                        ¿Listo para encender <br /> el fuego?
+                        Eleva tu nivel <br /> culinario.
                     </h2>
                     <Link
                         href="/cotiza?tipo=Proyecto%20Estación%20de%20Parrilla"
                         className="inline-flex items-center gap-4 px-12 py-6 bg-black text-white rounded-full text-lg uppercase tracking-widest hover:scale-105 transition-transform duration-300"
                     >
-                        <span>Cotizar Ahora</span>
+                        <span>Cotizar Estación</span>
                         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
                     </Link>
                 </div>
