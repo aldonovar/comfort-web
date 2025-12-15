@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useLayoutEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import gsap from "gsap";
@@ -67,7 +67,7 @@ export default function TechoSolSombraPage() {
     const heroPinRef = useRef<HTMLDivElement>(null);
     const anatomyRef = useRef<HTMLDivElement>(null);
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         const ctx = gsap.context(() => {
 
             // 1. HERO: "Perfect Scroll" Day-to-Night Transition

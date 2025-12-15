@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useLayoutEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import gsap from "gsap";
@@ -39,7 +39,7 @@ export default function ParrillaPage() {
     const featuresRef = useRef<HTMLDivElement>(null);
     const equipmentRef = useRef<HTMLDivElement>(null);
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         const ctx = gsap.context(() => {
             // 1. Hero "Smoke" Reveal
             const tl = gsap.timeline();
