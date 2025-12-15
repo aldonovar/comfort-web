@@ -11,25 +11,23 @@ gsap.registerPlugin(ScrollTrigger);
 const WHATSAPP_NUMBER = "51936230958";
 
 // --- DATA ---
+// --- DATA ---
 const SERVICE_IMAGES: Record<string, string[]> = {
-  "Terraza Residencial": [
+  "Techo sol y sombra": [
     "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2700&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?q=80&w=2700&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=2574&auto=format&fit=crop"
+    "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?q=80&w=2700&auto=format&fit=crop"
   ],
-  "Rooftop Corporativo": [
+  "Diseño y ejecución de proyecto de terraza": [
     "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=2653&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2301&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1497366811353-6870744d04b2?q=80&w=2301&auto=format&fit=crop"
+    "https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2301&auto=format&fit=crop"
   ],
-  "Casa de Playa": [
-    "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=2670&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1600596542815-3ad196bb4a7f?q=80&w=2675&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1570129477492-45c003edd2be?q=80&w=2670&auto=format&fit=crop"
+  "Proyecto Estación de parrilla": [
+    "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?q=80&w=2670&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1556910602-38f53e68e15d?q=80&w=2574&auto=format&fit=crop"
   ],
-  "Otro": [
-    "https://images.unsplash.com/photo-1600585154526-990dced4db0d?q=80&w=2700&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=2700&auto=format&fit=crop"
+  "Otro tipo de proyecto al aire libre": [
+    "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=2700&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1600596542815-3ad196bb4a7f?q=80&w=2675&auto=format&fit=crop"
   ]
 };
 
@@ -357,14 +355,16 @@ export default function Cotiza({ isPage = false }: { isPage?: boolean }) {
       `}
     >
       {/* Dynamic Background */}
+      {/* Dynamic Background */}
       <div className="absolute inset-0 transition-opacity duration-1000">
         <Image
           src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2700&auto=format&fit=crop"
           alt="Background"
           fill
-          className="object-cover opacity-5 dark:opacity-20 blur-sm scale-105"
+          className="object-cover opacity-50 dark:opacity-40 blur-lg scale-105"
         />
-        <div className="absolute inset-0 bg-linear-to-b from-(--bg-primary)/80 via-(--bg-primary)/90 to-(--bg-primary)/80" />
+        <div className="absolute inset-0 bg-linear-to-b from-(--bg-primary)/80 via-(--bg-primary)/40 to-(--bg-primary)/80 mix-blend-overlay" />
+        <div className="absolute inset-0 bg-(--bg-primary)/20" />
         <div className="absolute inset-0 opacity-[0.05] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')] mix-blend-overlay"></div>
       </div>
 
@@ -376,7 +376,7 @@ export default function Cotiza({ isPage = false }: { isPage?: boolean }) {
 
             {/* Background Effects (Clipped) */}
             <div className="absolute inset-0 rounded-[1.5rem] md:rounded-[2rem] overflow-hidden pointer-events-none">
-              <div className="absolute inset-0 bg-white/95 dark:bg-black/60 backdrop-blur-3xl border border-madera/5 dark:border-crema/5" />
+              <div className="absolute inset-0 bg-white/40 dark:bg-black/40 backdrop-blur-xl border border-white/20 dark:border-white/10 shadow-2xl" />
             </div>
 
             {/* Content (Not Clipped) */}
@@ -495,7 +495,7 @@ export default function Cotiza({ isPage = false }: { isPage?: boolean }) {
                   `}
                 >
                   <span className="uppercase tracking-widest text-xs font-bold">
-                    {isSubmitting ? "Procesando..." : "Generar Ticket y Enviar"}
+                    {isSubmitting ? "Procesando..." : "Solicitar Cotización"}
                   </span>
                   {!isSubmitting && <span className="transform group-hover:translate-x-1 transition-transform">→</span>}
                 </button>
@@ -505,7 +505,7 @@ export default function Cotiza({ isPage = false }: { isPage?: boolean }) {
 
           {/* Right: The Ticket (Sticky) */}
           <div className="hidden lg:block sticky top-24">
-            <div className="relative w-full max-w-md mx-auto aspect-[3/4] rounded-[2rem] !bg-white dark:!bg-zinc-900 border border-madera/10 dark:border-crema/10 overflow-hidden shadow-2xl flex flex-col group transition-all duration-500 hover:shadow-[0_30px_60px_rgba(204,88,3,0.15)]">
+            <div className="relative w-full max-w-md mx-auto aspect-[3/4] rounded-[2rem] bg-white dark:bg-[#080808] border border-madera/10 dark:border-white/10 overflow-hidden shadow-2xl flex flex-col group transition-all duration-500 hover:shadow-[0_30px_60px_rgba(204,88,3,0.15)]">
 
               {/* Holographic Overlay */}
               <div className="absolute inset-0 bg-linear-to-br from-white/5 to-transparent pointer-events-none z-20 mix-blend-overlay" />
@@ -520,7 +520,7 @@ export default function Cotiza({ isPage = false }: { isPage?: boolean }) {
                     className="object-cover transition-transform duration-2000 ease-in-out scale-105"
                   />
                 ) : (
-                  <div className="absolute inset-0 bg-white dark:bg-zinc-800 flex items-center justify-center">
+                  <div className="absolute inset-0 bg-white dark:bg-zinc-900 flex items-center justify-center">
                     <span className="text-madera/20 dark:text-crema/20 text-xs uppercase tracking-widest">Vista Previa</span>
                   </div>
                 )}
@@ -535,7 +535,7 @@ export default function Cotiza({ isPage = false }: { isPage?: boolean }) {
               </div>
 
               {/* Details Area */}
-              <div className="flex-1 p-6 bg-white dark:bg-zinc-900 relative z-10 flex flex-col justify-between border-t border-madera/5 dark:border-crema/5 transition-colors duration-500">
+              <div className="flex-1 p-6 bg-white dark:bg-[#080808] relative z-10 flex flex-col justify-between border-t border-madera/5 dark:border-white/5 transition-colors duration-500">
                 <div className="grid grid-cols-2 gap-y-4 gap-x-3">
                   <div>
                     <span className="block text-[9px] uppercase tracking-widest text-madera/40 dark:text-crema/40 mb-0.5 font-medium">Cliente</span>
