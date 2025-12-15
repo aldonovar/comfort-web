@@ -58,14 +58,14 @@ export default function OtrosProyectosPage() {
                 });
             });
 
-            // 3. Circular Process Reveal
+            // 3. Card Process Reveal
             const steps = gsap.utils.toArray(".process-step");
             gsap.from(steps, {
+                y: 50,
                 opacity: 0,
-                scale: 0.5,
-                rotation: -45,
-                stagger: 0.3,
+                stagger: 0.2,
                 duration: 1,
+                ease: "power3.out",
                 scrollTrigger: {
                     trigger: processRef.current,
                     start: "top center",
@@ -146,8 +146,19 @@ export default function OtrosProyectosPage() {
             </section>
 
             {/* --- ARCHITECTURAL PROCESS CARDS --- */}
-            <section ref={processRef} className="relative py-48 px-6 md:px-12 bg-[#050505] flex flex-col items-center justify-center">
-                <div className="max-w-7xl w-full grid grid-cols-1 md:grid-cols-3 gap-8">
+            <section ref={processRef} className="relative py-48 px-6 md:px-12 flex flex-col items-center justify-center overflow-hidden">
+                {/* Background Image with Blur */}
+                <div className="absolute inset-0 z-0">
+                    <Image
+                        src="https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=2500&auto=format&fit=crop"
+                        alt="Process Background"
+                        fill
+                        className="object-cover opacity-30 blur-xl scale-110"
+                    />
+                    <div className="absolute inset-0 bg-[#050505]/80" />
+                </div>
+
+                <div className="relative z-10 max-w-7xl w-full grid grid-cols-1 md:grid-cols-3 gap-8">
                     {PROCESS_STEPS.map((step, i) => (
                         <div key={i} className="process-step group relative p-12 border border-white/5 bg-white/[0.02] backdrop-blur-sm hover:bg-white/[0.05] hover:border-terracota/30 transition-all duration-500 overflow-hidden">
                             {/* Large Background Number */}
