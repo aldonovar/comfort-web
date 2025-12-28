@@ -229,14 +229,12 @@ export default function Navbar() {
             <Image
               src="/comfort-logo-light.png"
               alt="Comfort Studio"
-              width={50}
-              height={50}
-              className="h-12 w-auto object-contain transition-transform duration-500 group-hover:scale-105"
+              width={60}
+              height={60}
+              className="h-14 w-auto object-contain transition-transform duration-500 group-hover:scale-105"
               priority
             />
-            <span className={`font-serif text-xl tracking-tight transition-colors duration-500 ${activeMega || scrolled || mobileOpen ? "text-[var(--text-primary)]" : "text-white"}`}>
-              COMFORT STUDIO
-            </span>
+            {/* Text removed as requested */}
           </Link>
 
           {/* Desktop Nav */}
@@ -248,8 +246,8 @@ export default function Navbar() {
                   className={`text-[0.7rem] font-bold uppercase tracking-[0.25em] py-4 block transition-colors duration-500 ${activeMega === item.id || scrolled ? "text-[var(--text-primary)]" : "text-white/80 hover:text-white"}`}
                 >
                   {item.label}
-                  <span className={`absolute bottom-2 left-0 w-full h-px bg-terracota transition-transform duration-500 origin-left ease-out ${activeMega === item.id ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"}`} />
-                  <span className={`absolute inset-0 bg-terracota/20 blur-xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 scale-150 pointer-events-none`} />
+                  <span className={`absolute bottom-2 left-0 w-full h-px bg-terracota transition-transform duration-500 origin-left cubic-bezier(0.4, 0, 0.2, 1) ${activeMega === item.id ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"}`} />
+                  <span className={`absolute inset-0 bg-terracota/20 blur-2xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700 scale-150 pointer-events-none`} />
                 </Link>
               </div>
             ))}
@@ -271,12 +269,12 @@ export default function Navbar() {
               </a>
             </div>
             <Link href="/cotiza" className={`
-              relative px-8 py-3 rounded-full overflow-hidden transition-all duration-500 group
+              relative px-8 py-3 rounded-full overflow-hidden transition-all duration-700 group
               ${scrolled || activeMega ? "bg-[var(--text-primary)] text-[var(--bg-primary)] border border-[var(--text-primary)]/10" : "bg-white/10 text-white backdrop-blur-sm border border-white/20"}
             `}>
-              <span className="absolute inset-0 w-full h-full bg-terracota scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left ease-out" />
+              <span className="absolute inset-0 w-full h-full bg-terracota scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left cubic-bezier(0.4, 0, 0.2, 1)" />
               <span className="relative z-10 text-[0.7rem] font-bold uppercase tracking-[0.2em] flex items-center gap-2 group-hover:text-white transition-colors duration-300">
-                Cotizar <span className="group-hover:translate-x-1 transition-transform duration-300">→</span>
+                Cotizar <span className="group-hover:translate-x-1 transition-transform duration-300 ease-out">→</span>
               </span>
             </Link>
           </div>
