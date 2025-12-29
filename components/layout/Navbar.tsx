@@ -229,9 +229,10 @@ export default function Navbar() {
             <Image
               src="/comfort-logo-light.png"
               alt="Comfort Studio"
-              width={60}
-              height={60}
-              className="h-14 w-auto object-contain transition-transform duration-500 group-hover:scale-105"
+              width={160}
+              height={160}
+              className={`w-auto object-contain transition-all duration-500 group-hover:scale-105 ${scrolled ? "h-14 md:h-16" : "h-16 md:h-24"
+                }`}
               priority
             />
             {/* Text removed as requested */}
