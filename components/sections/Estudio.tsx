@@ -170,9 +170,9 @@ export default function Estudio() {
                 Coordinamos permisos, proveedores y tiempos. Tú disfrutas, nosotros resolvemos.
               </p>
 
-              <Link href="/nosotros" className="panel-anim group relative inline-flex px-8 py-4 bg-white text-terracota rounded-full overflow-hidden transition-all duration-300 hover:shadow-xl hover:scale-105 active:scale-95">
+              <Link href="/estudio" className="panel-anim group relative inline-flex px-8 py-4 bg-white text-terracota rounded-full overflow-hidden transition-all duration-300 hover:shadow-xl hover:scale-105 active:scale-95">
                 <span className="relative z-10 flex items-center gap-3 text-xs font-bold uppercase tracking-widest">
-                  Conocer al equipo
+                  Ver Estudio
                   <span className="transform group-hover:translate-x-1 transition-transform">→</span>
                 </span>
               </Link>

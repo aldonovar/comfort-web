@@ -17,14 +17,7 @@ const SECTIONS = [
         image: "https://images.unsplash.com/photo-1497366811353-6870744d04b2?q=80&w=1920&auto=format&fit=crop",
         href: "/estudio/estilo"
     },
-    {
-        id: "equipo",
-        title: "Equipo",
-        subtitle: "Mentes Creativas",
-        desc: "Arquitectos, diseñadores y artesanos unidos por una visión.",
-        image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1920&auto=format&fit=crop",
-        href: "/estudio/equipo"
-    },
+
     {
         id: "proceso",
         title: "Proceso",

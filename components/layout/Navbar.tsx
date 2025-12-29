@@ -76,12 +76,7 @@ const MEGA_CONTENT: any = {
         image: "https://images.unsplash.com/photo-1497366811353-6870744d04b2?q=80&w=1920&auto=format&fit=crop",
         desc: "Nuestra firma visual y conceptual."
       },
-      {
-        label: "Equipo",
-        href: "/estudio/equipo",
-        image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1920&auto=format&fit=crop",
-        desc: "Conoce a los arquitectos detrás de cada proyecto."
-      },
+
       {
         label: "Proceso",
         href: "/estudio/proceso",
