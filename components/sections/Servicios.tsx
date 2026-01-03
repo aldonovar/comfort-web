@@ -87,7 +87,7 @@ export default function Servicios() {
     <section
       ref={sectionRef}
       id="servicios"
-      className="relative py-16 md:py-24 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-[#1a1a1a] via-[#050505] to-[#000000] text-primary overflow-hidden transition-colors duration-500"
+      className="relative py-16 md:py-24 bg-[radial-gradient(ellipse_at_top,var(--tw-gradient-stops))] from-[#333333] via-[#0a0a0a] to-black text-primary overflow-hidden transition-colors duration-500"
     >
       {/* Background Noise Texture */}
       <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div>
