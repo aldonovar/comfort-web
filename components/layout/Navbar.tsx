@@ -8,6 +8,7 @@ import gsap from "gsap";
 import ThemeToggle from "../ui/ThemeToggle";
 
 const NAV_ITEMS = [
+  { id: "inicio", label: "Inicio", href: "/" },
   { id: "servicios", label: "Servicios", href: "/servicios" },
   { id: "proyectos", label: "Proyectos", href: "/proyectos" },
   { id: "estudio", label: "Estudio", href: "/estudio" },
