@@ -32,7 +32,7 @@ const services = [
     title: "Outdoor Kitchen",
     subtitle: "Estación de Parrilla",
     description: "El corazón de la reunión. Fuego, sabor y diseño para el chef anfitrión.",
-    image: "/services/service-3.jpg",
+    image: "/services/service-3.png",
     video: "https://cdn.coverr.co/videos/coverr-grilling-meat-on-barbecue-4462/1080p.mp4"
   },
   {
