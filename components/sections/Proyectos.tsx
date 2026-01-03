@@ -13,7 +13,6 @@ gsap.registerPlugin(ScrollTrigger);
 
 const PROJECTS = [
   {
-  {
     id: "terraza-el-polo",
     title: "Terraza El Polo",
     location: "El Polo, Lima",
