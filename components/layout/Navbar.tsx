@@ -46,26 +46,32 @@ const MEGA_CONTENT: any = {
     ]
   },
   proyectos: {
-    defaultImage: "https://images.unsplash.com/photo-1600607687644-c7171b42498b?q=80&w=1920&auto=format&fit=crop",
+    defaultImage: "/projects/project-1.png",
     items: [
       {
-        label: "Casa Miraflores",
-        href: "/proyectos/miraflores",
-        image: "https://images.unsplash.com/photo-1600607687644-c7171b42498b?q=80&w=1920&auto=format&fit=crop",
-        desc: "Reforma integral de azotea frente al mar."
+        label: "Terraza El Polo",
+        href: "/proyectos/el-polo",
+        image: "/projects/project-1.png",
+        desc: "Elegancia y confort en El Polo."
       },
       {
-        label: "Loft Barranco",
-        href: "/proyectos/barranco",
-        image: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=1920&auto=format&fit=crop",
-        desc: "Minimalismo cálido en espacio histórico."
+        label: "Techo con Luz LED",
+        href: "/proyectos/techo-led",
+        image: "/projects/project-2.png",
+        desc: "Atmósfera nocturna sofisticada."
       },
       {
-        label: "Oficinas San Isidro",
-        href: "/proyectos/san-isidro",
-        image: "https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1920&auto=format&fit=crop",
-        desc: "Terraza ejecutiva de alto tránsito."
+        label: "Luminaria Cálida",
+        href: "/proyectos/luminaria-calida",
+        image: "/projects/project-1.png",
+        desc: "Espacios acogedores y cálidos."
       },
+      {
+        label: "Damero Sol y Sombra",
+        href: "/proyectos/damero",
+        image: "/projects/project-2.png",
+        desc: "Diseño único de luces y sombras."
+      }
     ]
   },
   estudio: {

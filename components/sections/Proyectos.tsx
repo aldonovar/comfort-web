@@ -13,43 +13,43 @@ gsap.registerPlugin(ScrollTrigger);
 
 const PROJECTS = [
   {
-    id: "azotea-barranco",
-    title: "Azotea Social",
-    location: "Barranco, Lima",
-    surface: "48 m²",
-    tags: ["Rooftop", "Social", "Barra"],
-    description: "Un refugio urbano en las alturas. Diseñado para la noche, la conversación y la desconexión total.",
-    image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=2653&auto=format&fit=crop",
+    id: "terraza-el-polo",
+    title: "Terraza El Polo",
+    location: "El Polo, Lima",
+    surface: "65 m²",
+    tags: ["Residencial", "Luxury", "Outdoor"],
+    description: "Un espacio diseñado para la elegancia y el confort, donde cada detalle respira exclusividad.",
+    image: "/projects/project-1.png",
     color: "#1a1a1a"
   },
   {
-    id: "terraza-miraflores",
-    title: "Oasis Compacto",
+    id: "techo-luz-led",
+    title: "Techo con Luz LED",
     location: "Miraflores, Lima",
-    surface: "22 m²",
-    tags: ["Residencial", "Intimo", "Luz"],
-    description: "Maximizando cada centímetro. Un espacio pequeño que se siente infinito gracias a la luz y la materialidad.",
-    image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2700&auto=format&fit=crop",
+    surface: "40 m²",
+    tags: ["Tecnología", "Ambiente", "Diseño"],
+    description: "Iluminación integrada que transforma la atmósfera al caer la noche. Funcionalidad y estética en armonía.",
+    image: "/projects/project-2.png",
     color: "#1f1f1f"
   },
   {
-    id: "rooftop-san-isidro",
-    title: "Skyline Corporativo",
+    id: "proyecto-luminaria-calida",
+    title: "Luminaria Cálida",
     location: "San Isidro, Lima",
-    surface: "95 m²",
-    tags: ["Oficina", "Lounge", "Vistas"],
-    description: "Donde los negocios encuentran la calma. Un rooftop corporativo que redefine el 'break' laboral.",
-    image: "https://images.unsplash.com/photo-1600573472591-ee6b68d14c68?q=80&w=2700&auto=format&fit=crop",
+    surface: "55 m²",
+    tags: ["Calidez", "Hogar", "Estilo"],
+    description: "La luz como protagonista. Creando espacios acogedores que invitan a quedarse.",
+    image: "/projects/project-1.png", // Fallback reuse
     color: "#1a1a1a"
   },
   {
-    id: "patio-la-molina",
-    title: "Patio Familiar",
+    id: "damero-blanco-sol-sombra",
+    title: "Damero Sol y Sombra",
     location: "La Molina, Lima",
-    surface: "60 m²",
-    tags: ["Familia", "Juego", "Parrilla"],
-    description: "El corazón de la casa se mueve al exterior. Un espacio versátil para crecer, jugar y celebrar.",
-    image: "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?q=80&w=2700&auto=format&fit=crop",
+    surface: "120 m²",
+    tags: ["Arquitectura", "Sombra", "Patrones"],
+    description: "Juegos de luces y sombras a través de un diseño de damero blanco. Estética pura y funcional.",
+    image: "/projects/project-2.png", // Fallback reuse
     color: "#1f1f1f"
   }
 ];
