@@ -19,7 +19,7 @@ const PROJECTS = [
     surface: "65 m²",
     tags: ["Residencial", "Luxury", "Outdoor"],
     description: "Un espacio diseñado para la elegancia y el confort, donde cada detalle respira exclusividad.",
-    image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=2653&auto=format&fit=crop",
+    image: "/projects/project-1.jpg",
     color: "#1a1a1a"
   },
   {
@@ -29,7 +29,7 @@ const PROJECTS = [
     surface: "40 m²",
     tags: ["Tecnología", "Ambiente", "Diseño"],
     description: "Iluminación integrada que transforma la atmósfera al caer la noche. Funcionalidad y estética en armonía.",
-    image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2700&auto=format&fit=crop",
+    image: "/projects/project-2.jpg",
     color: "#1f1f1f"
   },
   {
@@ -39,7 +39,7 @@ const PROJECTS = [
     surface: "55 m²",
     tags: ["Calidez", "Hogar", "Estilo"],
     description: "La luz como protagonista. Creando espacios acogedores que invitan a quedarse.",
-    image: "https://images.unsplash.com/photo-1600573472591-ee6b68d14c68?q=80&w=2700&auto=format&fit=crop",
+    image: "/projects/project-3.png",
     color: "#1a1a1a"
   },
   {
@@ -49,7 +49,7 @@ const PROJECTS = [
     surface: "120 m²",
     tags: ["Arquitectura", "Sombra", "Patrones"],
     description: "Juegos de luces y sombras a través de un diseño de damero blanco. Estética pura y funcional.",
-    image: "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?q=80&w=2700&auto=format&fit=crop",
+    image: "/projects/project-1.jpg", // Fallback reuse until 4th image
     color: "#1f1f1f"
   }
 ];
