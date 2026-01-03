@@ -138,7 +138,7 @@ export default function Servicios() {
               {/* Background Image */}
               <div className="absolute inset-0">
                 <img
-                  src={service.id === 'estacion-parrilla' ? "https://images.unsplash.com/photo-1529310399831-ed472b81d589?q=80&w=2574&auto=format&fit=crop" : service.image}
+                  src={service.image}
                   alt={service.title}
                   className="w-full h-full object-cover transition-transform duration-[1.2s] ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:scale-110 opacity-80 group-hover:opacity-60"
                 />
