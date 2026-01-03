@@ -46,30 +46,30 @@ const MEGA_CONTENT: any = {
     ]
   },
   proyectos: {
-    defaultImage: "/projects/project-1.png",
+    defaultImage: "https://images.unsplash.com/photo-1600607687644-c7171b42498b?q=80&w=1920&auto=format&fit=crop",
     items: [
       {
         label: "Terraza El Polo",
         href: "/proyectos/el-polo",
-        image: "/projects/project-1.png",
+        image: "https://images.unsplash.com/photo-1600607687644-c7171b42498b?q=80&w=1920&auto=format&fit=crop",
         desc: "Elegancia y confort en El Polo."
       },
       {
         label: "Techo con Luz LED",
         href: "/proyectos/techo-led",
-        image: "/projects/project-2.png",
+        image: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=1920&auto=format&fit=crop",
         desc: "Atmósfera nocturna sofisticada."
       },
       {
         label: "Luminaria Cálida",
         href: "/proyectos/luminaria-calida",
-        image: "/projects/project-1.png",
+        image: "https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1920&auto=format&fit=crop",
         desc: "Espacios acogedores y cálidos."
       },
       {
         label: "Damero Sol y Sombra",
         href: "/proyectos/damero",
-        image: "/projects/project-2.png",
+        image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1920&auto=format&fit=crop",
         desc: "Diseño único de luces y sombras."
       }
     ]

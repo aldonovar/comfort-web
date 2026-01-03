@@ -13,13 +13,14 @@ gsap.registerPlugin(ScrollTrigger);
 
 const PROJECTS = [
   {
+  {
     id: "terraza-el-polo",
     title: "Terraza El Polo",
     location: "El Polo, Lima",
     surface: "65 m²",
     tags: ["Residencial", "Luxury", "Outdoor"],
     description: "Un espacio diseñado para la elegancia y el confort, donde cada detalle respira exclusividad.",
-    image: "/projects/project-1.png",
+    image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=2653&auto=format&fit=crop",
     color: "#1a1a1a"
   },
   {
@@ -29,7 +30,7 @@ const PROJECTS = [
     surface: "40 m²",
     tags: ["Tecnología", "Ambiente", "Diseño"],
     description: "Iluminación integrada que transforma la atmósfera al caer la noche. Funcionalidad y estética en armonía.",
-    image: "/projects/project-2.png",
+    image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2700&auto=format&fit=crop",
     color: "#1f1f1f"
   },
   {
@@ -39,7 +40,7 @@ const PROJECTS = [
     surface: "55 m²",
     tags: ["Calidez", "Hogar", "Estilo"],
     description: "La luz como protagonista. Creando espacios acogedores que invitan a quedarse.",
-    image: "/projects/project-1.png", // Fallback reuse
+    image: "https://images.unsplash.com/photo-1600573472591-ee6b68d14c68?q=80&w=2700&auto=format&fit=crop",
     color: "#1a1a1a"
   },
   {
@@ -49,7 +50,7 @@ const PROJECTS = [
     surface: "120 m²",
     tags: ["Arquitectura", "Sombra", "Patrones"],
     description: "Juegos de luces y sombras a través de un diseño de damero blanco. Estética pura y funcional.",
-    image: "/projects/project-2.png", // Fallback reuse
+    image: "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?q=80&w=2700&auto=format&fit=crop",
     color: "#1f1f1f"
   }
 ];
