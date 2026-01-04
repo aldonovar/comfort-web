@@ -17,30 +17,30 @@ const NAV_ITEMS = [
 
 const MEGA_CONTENT: any = {
   servicios: {
-    defaultImage: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1920&auto=format&fit=crop",
+    defaultImage: "/services/service-1.jpg",
     items: [
       {
         label: "Techo sol y sombra",
         href: "/servicios/techo-sol-y-sombra",
-        image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1920&auto=format&fit=crop",
+        image: "/services/service-1.jpg",
         desc: "Estructuras que combinan luz y protección."
       },
       {
         label: "Diseño y ejecución de proyecto de terraza",
         href: "/servicios/diseno-ejecucion-terrazas",
-        image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=1920&auto=format&fit=crop",
+        image: "/services/service-2.jpg",
         desc: "Transformación integral de espacios exteriores."
       },
       {
         label: "Proyecto Estación de parrilla",
         href: "/servicios/estacion-parrilla",
-        image: "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?q=80&w=1920&auto=format&fit=crop",
+        image: "/services/service-3.png",
         desc: "El corazón de tu terraza, diseñado para compartir."
       },
       {
         label: "Otro tipo de proyecto al aire libre",
         href: "/servicios/otros-proyectos",
-        image: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=1920&auto=format&fit=crop",
+        image: "/services/service-4.jpg",
         desc: "Paisajismo, piscinas y zonas de relax."
       }
     ]
