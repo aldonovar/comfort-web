@@ -11,7 +11,6 @@ gsap.registerPlugin(ScrollTrigger);
 const WHATSAPP_NUMBER = "51936230958";
 
 // --- DATA ---
-// --- DATA ---
 const SERVICE_IMAGES: Record<string, string[]> = {
   "Techo sol y sombra": [
     "/cotiza/techo-1.jpg",
@@ -355,8 +354,6 @@ ${notes || "Sin detalles adicionales."}`;
         ${isPage ? 'pt-32 pb-12 lg:pt-32 lg:pb-0' : 'py-16 md:py-24'}
       `}
     >
-      {/* Dynamic Background */}
-      {/* Dynamic Background */}
       <div className="absolute inset-0 transition-opacity duration-1000">
         <Image
           src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2700&auto=format&fit=crop"
@@ -536,3 +533,55 @@ ${notes || "Sin detalles adicionales."}`;
                   </div>
                 )}
                 <div className="absolute inset-0 bg-linear-to-t from-black via-transparent to-transparent opacity-60 z-20" />
+
+                <div className="absolute bottom-6 left-6 z-30">
+                  <span className="block text-[9px] uppercase tracking-[0.2em] text-[#c16e4d] mb-1 font-bold">Ticket #{ticketNumber}</span>
+                  <h3 className="font-serif text-3xl text-white leading-none">
+                    {projectType || "Nuevo Proyecto"}
+                  </h3>
+                </div>
+              </div>
+
+              {/* Details Area */}
+              <div className="flex-1 p-6 bg-white dark:bg-[#080808] relative z-10 flex flex-col justify-between border-t border-madera/5 dark:border-white/5 transition-colors duration-500">
+                <div className="grid grid-cols-2 gap-y-4 gap-x-3">
+                  <div>
+                    <span className="block text-[9px] uppercase tracking-widest text-madera/40 dark:text-crema/40 mb-0.5 font-medium">Cliente</span>
+                    <p className="text-xs text-madera dark:text-crema font-medium truncate">{name || "—"}</p>
+                  </div>
+                  <div>
+                    <span className="block text-[9px] uppercase tracking-widest text-madera/40 dark:text-crema/40 mb-0.5 font-medium">Ubicación</span>
+                    <p className="text-xs text-madera dark:text-crema font-medium truncate">{district || "—"}</p>
+                  </div>
+                  <div>
+                    <span className="block text-[9px] uppercase tracking-widest text-madera/40 dark:text-crema/40 mb-0.5 font-medium">Dimensión</span>
+                    <p className="text-xs text-madera dark:text-crema font-medium">{area ? `${area} m²` : "—"}</p>
+                  </div>
+                  <div>
+                    <span className="block text-[9px] uppercase tracking-widest text-madera/40 dark:text-crema/40 mb-0.5 font-medium">Inversión</span>
+                    <p className="text-xs text-madera dark:text-crema font-medium truncate">{budgetCode !== "XX" ? budgetCode : "—"}</p>
+                  </div>
+                </div>
+
+                <div className="pt-4 flex justify-between items-end border-t border-madera/5 dark:border-crema/5 mt-4">
+                  <div>
+                    <p className="text-[9px] uppercase tracking-widest text-madera/40 dark:text-crema/40 font-medium">ID de Atención</p>
+                    <p className="font-mono text-[10px] text-madera/30 dark:text-crema/30 mt-0.5 tracking-widest">
+                      {smartID}
+                    </p>
+                  </div>
+                  <div className="text-right">
+                    <div className="w-6 h-6 rounded-full border border-madera/10 dark:border-crema/10 flex items-center justify-center ml-auto">
+                      <div className="w-1 h-1 bg-[#c16e4d] rounded-full animate-pulse" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  );
+}
