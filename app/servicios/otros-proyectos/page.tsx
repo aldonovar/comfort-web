@@ -8,13 +8,13 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const MASONRY_IMAGES = [
-    { src: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=800&auto=format&fit=crop", speed: 0.5 },
-    { src: "https://images.unsplash.com/photo-1510627489930-0c1b0bfb6785?q=80&w=800&auto=format&fit=crop", speed: 1.2 },
-    { src: "https://images.unsplash.com/photo-1611269154421-4e27233ac5c7?q=80&w=800&auto=format&fit=crop", speed: 0.8 },
-    { src: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=800&auto=format&fit=crop", speed: 1.5 },
-    { src: "https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?q=80&w=800&auto=format&fit=crop", speed: 0.6 },
-    { src: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=800&auto=format&fit=crop", speed: 1.0 },
+const GALLERY_ITEMS = [
+    { src: "/services/otros/item-1.mp4", speed: 0.5, type: "video" },
+    { src: "/services/otros/item-2.mp4", speed: 1.2, type: "video" },
+    { src: "/services/otros/item-3.mp4", speed: 0.8, type: "video" },
+    { src: "/services/otros/item-4.mp4", speed: 1.5, type: "video" },
+    { src: "/services/otros/item-5.mp4", speed: 0.6, type: "video" },
+    { src: "/services/otros/item-6.mp4", speed: 1.0, type: "video" },
 ];
 
 const PROCESS_STEPS = [
@@ -46,11 +46,11 @@ export default function OtrosProyectosPage() {
             });
 
             // 2. Masonry Scroll
-            const images = gsap.utils.toArray(".masonry-img");
-            images.forEach((img: any, i) => {
-                const speed = MASONRY_IMAGES[i].speed;
-                gsap.to(img, {
-                    y: -200 * speed,
+            const mediaItems = gsap.utils.toArray(".masonry-media");
+            mediaItems.forEach((media: any, i) => {
+                const speed = GALLERY_ITEMS[i].speed;
+                gsap.to(media, {
+                    y: -150 * speed, // Slightly reduced for smoother video motion
                     ease: "none",
                     scrollTrigger: {
                         trigger: masonryRef.current,
@@ -134,13 +134,15 @@ export default function OtrosProyectosPage() {
                     </div>
 
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-8 md:gap-16 pt-48">
-                        {MASONRY_IMAGES.map((item, i) => (
-                            <div key={i} className={`masonry-img relative aspect-[3/4] w-full rounded-lg overflow-hidden group ${i % 2 === 0 ? 'mt-0' : 'mt-24'}`}>
-                                <Image
+                        {GALLERY_ITEMS.map((item, i) => (
+                            <div key={i} className={`relative aspect-[3/4] w-full rounded-lg overflow-hidden group border border-white/5 ${i % 2 === 0 ? 'mt-0' : 'mt-24'}`}>
+                                <video
                                     src={item.src}
-                                    alt={`Complementary Service ${i}`}
-                                    fill
-                                    className="object-cover transition-all duration-1000 group-hover:scale-110 group-hover:brightness-110"
+                                    autoPlay
+                                    muted
+                                    loop
+                                    playsInline
+                                    className="masonry-media w-full h-[120%] object-cover absolute top-[-10%] transition-transform duration-1000 group-hover:scale-105"
                                 />
                                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-500" />
                             </div>
