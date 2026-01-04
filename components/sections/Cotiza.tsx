@@ -16,22 +16,26 @@ const SERVICE_IMAGES: Record<string, string[]> = {
   "Techo sol y sombra": [
     "/cotiza/techo-1.jpg",
     "/cotiza/techo-2.jpg",
-    "/cotiza/techo-3.jpg"
+    "/cotiza/techo-3.jpg",
+    "/cotiza/techo-4.jpg"
   ],
   "Diseño y ejecución de proyecto de terraza": [
     "/cotiza/terraza-1.jpg",
     "/cotiza/terraza-2.jpg",
-    "/cotiza/terraza-3.jpg"
+    "/cotiza/terraza-3.jpg",
+    "/cotiza/terraza-4.jpg"
   ],
   "Proyecto Estación de parrilla": [
     "/cotiza/parrilla-1.jpg",
     "/cotiza/parrilla-2.jpg",
-    "/cotiza/parrilla-3.jpg"
+    "/cotiza/parrilla-3.jpg",
+    "/cotiza/parrilla-4.jpg"
   ],
   "Otro tipo de proyecto al aire libre": [
     "/cotiza/otros-1.jpg",
     "/cotiza/otros-2.jpg",
-    "/cotiza/otros-3.jpg"
+    "/cotiza/otros-3.jpg",
+    "/cotiza/otros-4.jpg"
   ]
 };
 
@@ -94,7 +98,7 @@ const CustomSelect = ({
     : value;
 
   return (
-    <div className={`group relative ${isOpen ? 'z-[60]' : 'z-20'}`} ref={containerRef}>
+    <div className={`group relative ${isOpen ? 'z-60' : 'z-20'}`} ref={containerRef}>
       <label className="block text-[9px] uppercase tracking-widest text-madera dark:text-crema mb-1 group-focus-within:text-terracota transition-colors font-bold pl-1">
         {label}
       </label>
@@ -115,7 +119,7 @@ const CustomSelect = ({
       </div>
 
       <div className={`
-        absolute left-0 right-0 top-full mt-1 bg-white dark:bg-zinc-900 border border-madera/10 dark:border-crema/10 rounded-lg overflow-hidden shadow-xl origin-top transition-all duration-300 max-h-52 overflow-y-auto z-[70]
+        absolute left-0 right-0 top-full mt-1 bg-white dark:bg-zinc-900 border border-madera/10 dark:border-crema/10 rounded-lg overflow-hidden shadow-xl origin-top transition-all duration-300 max-h-52 overflow-y-auto z-70
         ${isOpen ? 'opacity-100 scale-y-100 translate-y-0 pointer-events-auto' : 'opacity-0 scale-y-95 -translate-y-2 pointer-events-none'}
       `}>
         {options.map((opt) => {
@@ -217,7 +221,7 @@ export default function Cotiza({ isPage = false }: { isPage?: boolean }) {
     if (!projectType) return;
     const interval = setInterval(() => {
       setCurrentImageIndex(prev => (prev + 1) % (SERVICE_IMAGES[projectType]?.length || 1));
-    }, 5000);
+    }, 3000);
     return () => clearInterval(interval);
   }, [projectType]);
 
@@ -369,10 +373,10 @@ ${notes || "Sin detalles adicionales."}`;
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
 
           {/* Left: The Form (Glass Monolith) */}
-          <div className="quote-content relative rounded-[2rem] shadow-2xl transition-colors duration-500 max-w-2xl mx-auto w-full">
+          <div className="quote-content relative rounded-4xl shadow-2xl transition-colors duration-500 max-w-2xl mx-auto w-full">
 
             {/* Background Effects (Clipped) */}
-            <div className="absolute inset-0 rounded-[1.5rem] md:rounded-[2rem] overflow-hidden pointer-events-none">
+            <div className="absolute inset-0 rounded-3xl md:rounded-4xl overflow-hidden pointer-events-none">
               <div className="absolute inset-0 bg-white/40 dark:bg-black/40 backdrop-blur-xl border border-white/20 dark:border-white/10 shadow-2xl" />
             </div>
 
@@ -502,7 +506,7 @@ ${notes || "Sin detalles adicionales."}`;
 
           {/* Right: The Ticket (Sticky) */}
           <div className="hidden lg:block sticky top-24">
-            <div className="relative w-full max-w-md mx-auto aspect-[3/4] rounded-[2rem] bg-white dark:bg-[#080808] border border-madera/10 dark:border-white/10 overflow-hidden shadow-2xl flex flex-col group transition-all duration-500 hover:shadow-[0_30px_60px_rgba(204,88,3,0.15)]">
+            <div className="relative w-full max-w-md mx-auto aspect-[3/4] rounded-4xl bg-white dark:bg-[#080808] border border-madera/10 dark:border-white/10 overflow-hidden shadow-2xl flex flex-col group transition-all duration-500 hover:shadow-[0_30px_60px_rgba(204,88,3,0.15)]">
 
               {/* Holographic Overlay */}
               <div className="absolute inset-0 bg-linear-to-br from-white/5 to-transparent pointer-events-none z-20 mix-blend-overlay" />
@@ -510,67 +514,25 @@ ${notes || "Sin detalles adicionales."}`;
               {/* Image Area */}
               <div className="relative h-[55%] overflow-hidden bg-black">
                 {projectType && SERVICE_IMAGES[projectType] ? (
-                  <Image
-                    src={SERVICE_IMAGES[projectType][currentImageIndex]}
-                    alt="Preview"
-                    fill
-                    className="object-cover transition-transform duration-2000 ease-in-out scale-105"
-                  />
+                  <>
+                    {SERVICE_IMAGES[projectType].map((imgSrc, index) => (
+                      <div
+                        key={imgSrc}
+                        className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${index === currentImageIndex ? 'opacity-100 z-10' : 'opacity-0 z-0'
+                          }`}
+                      >
+                        <Image
+                          src={imgSrc}
+                          alt={`${projectType} preview ${index + 1}`}
+                          fill
+                          className="object-cover scale-105"
+                        />
+                      </div>
+                    ))}
+                  </>
                 ) : (
                   <div className="absolute inset-0 bg-white dark:bg-zinc-900 flex items-center justify-center">
                     <span className="text-madera/20 dark:text-crema/20 text-xs uppercase tracking-widest">Vista Previa</span>
                   </div>
                 )}
-                <div className="absolute inset-0 bg-linear-to-t from-black via-transparent to-transparent opacity-60" />
-
-                <div className="absolute bottom-6 left-6 z-30">
-                  <span className="block text-[9px] uppercase tracking-[0.2em] text-[#c16e4d] mb-1 font-bold">Ticket #{ticketNumber}</span>
-                  <h3 className="font-serif text-3xl text-white leading-none">
-                    {projectType || "Nuevo Proyecto"}
-                  </h3>
-                </div>
-              </div>
-
-              {/* Details Area */}
-              <div className="flex-1 p-6 bg-white dark:bg-[#080808] relative z-10 flex flex-col justify-between border-t border-madera/5 dark:border-white/5 transition-colors duration-500">
-                <div className="grid grid-cols-2 gap-y-4 gap-x-3">
-                  <div>
-                    <span className="block text-[9px] uppercase tracking-widest text-madera/40 dark:text-crema/40 mb-0.5 font-medium">Cliente</span>
-                    <p className="text-xs text-madera dark:text-crema font-medium truncate">{name || "—"}</p>
-                  </div>
-                  <div>
-                    <span className="block text-[9px] uppercase tracking-widest text-madera/40 dark:text-crema/40 mb-0.5 font-medium">Ubicación</span>
-                    <p className="text-xs text-madera dark:text-crema font-medium truncate">{district || "—"}</p>
-                  </div>
-                  <div>
-                    <span className="block text-[9px] uppercase tracking-widest text-madera/40 dark:text-crema/40 mb-0.5 font-medium">Dimensión</span>
-                    <p className="text-xs text-madera dark:text-crema font-medium">{area ? `${area} m²` : "—"}</p>
-                  </div>
-                  <div>
-                    <span className="block text-[9px] uppercase tracking-widest text-madera/40 dark:text-crema/40 mb-0.5 font-medium">Inversión</span>
-                    <p className="text-xs text-madera dark:text-crema font-medium truncate">{budgetCode !== "XX" ? budgetCode : "—"}</p>
-                  </div>
-                </div>
-
-                <div className="pt-4 flex justify-between items-end border-t border-madera/5 dark:border-crema/5 mt-4">
-                  <div>
-                    <p className="text-[9px] uppercase tracking-widest text-madera/40 dark:text-crema/40 font-medium">ID de Atención</p>
-                    <p className="font-mono text-[10px] text-madera/30 dark:text-crema/30 mt-0.5 tracking-widest">
-                      {smartID}
-                    </p>
-                  </div>
-                  <div className="text-right">
-                    <div className="w-6 h-6 rounded-full border border-madera/10 dark:border-crema/10 flex items-center justify-center ml-auto">
-                      <div className="w-1 h-1 bg-[#c16e4d] rounded-full animate-pulse" />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </section>
-  );
-}
+                <div className="absolute inset-0 bg-linear-to-t from-black via-transparent to-transparent opacity-60 z-20" />
