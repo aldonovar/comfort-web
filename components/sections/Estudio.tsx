@@ -76,7 +76,7 @@ export default function Estudio() {
 
         {/* --- PANEL 1: MANIFESTO --- */}
         {/* REMOVED 'panel-anim' from main elements to fix Black Screen bug on scroll back */}
-        <div className="horizontal-panel w-screen h-[100dvh] flex flex-col justify-center items-center bg-primary text-primary relative z-10 shrink-0 border-r border-white/5">
+        <div className="horizontal-panel w-screen h-[100dvh] flex flex-col justify-center items-center bg-[#050505] text-white relative z-10 shrink-0 border-r border-white/5">
           <div className="absolute inset-0 opacity-[0.05] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')] mix-blend-overlay"></div>
 
           <div className="max-w-5xl px-8 md:px-6 text-center relative z-10 flex flex-col items-center">
@@ -89,14 +89,14 @@ export default function Estudio() {
               <span className="w-8 lg:w-12 h-px bg-terracota"></span>
             </div>
 
-            <h2 className="font-serif text-4xl md:text-8xl lg:text-9xl leading-[1.1] md:leading-[0.9] mb-6 lg:mb-12">
+            <h2 className="font-serif text-4xl md:text-8xl lg:text-9xl leading-[1.1] md:leading-[0.9] mb-6 lg:mb-12 text-white">
               No hacemos <br />
               <span className="text-terracota italic">terrazas.</span>
             </h2>
 
-            <p className="text-lg md:text-3xl text-primary/60 max-w-sm md:max-w-2xl mx-auto leading-relaxed text-balance">
+            <p className="text-lg md:text-3xl text-gray-400 max-w-sm md:max-w-2xl mx-auto leading-relaxed text-balance">
               Creamos escenarios donde la vida sucede. <br className="hidden md:block" />
-              <span className="text-primary font-medium">Comfort Studio</span> es la obsesión por lo que no se ve.
+              <span className="text-white font-medium">Comfort Studio</span> es la obsesión por lo que no se ve.
             </p>
 
             <div className="mt-8 md:mt-12 animate-pulse panel-anim">
@@ -108,15 +108,15 @@ export default function Estudio() {
         </div>
 
         {/* --- PANEL 2: ENFOQUE --- */}
-        <div className="horizontal-panel w-screen h-[100dvh] flex flex-col justify-center md:justify-end pb-0 md:pb-24 bg-black relative z-20 shrink-0 border-r border-white/5 overflow-hidden group">
+        <div className="horizontal-panel w-screen h-[100dvh] flex flex-col justify-center md:justify-end pb-0 md:pb-24 bg-[#050505] relative z-20 shrink-0 border-r border-white/5 overflow-hidden group">
           <Image
-            src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=2653&auto=format&fit=crop"
+            src="/studio/studio-1.png"
             alt="Enfoque"
             fill
-            className="object-cover opacity-50 md:opacity-60"
+            className="object-cover opacity-60"
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-black/20 md:via-black/50 md:to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/60 to-transparent" />
 
           <div className="max-w-[1800px] w-full mx-auto px-8 md:px-12 relative z-10 text-center md:text-left">
             <span className="panel-anim inline-block px-3 py-1.5 lg:px-4 lg:py-2 mb-4 lg:mb-6 rounded-full text-[10px] lg:text-xs uppercase tracking-widest border border-white/30 bg-white/10 text-white backdrop-blur-md">
@@ -125,21 +125,21 @@ export default function Estudio() {
             <h3 className="panel-anim font-serif text-3xl md:text-7xl mb-4 lg:mb-6 text-white leading-tight">
               Extensión, <br className="md:hidden" /> <span className="text-white/50 italic">no anexo.</span>
             </h3>
-            <p className="panel-anim text-base md:text-2xl text-white/80 max-w-sm md:max-w-2xl mx-auto md:mx-0 leading-relaxed text-balance">
+            <p className="panel-anim text-base md:text-2xl text-gray-300 max-w-sm md:max-w-2xl mx-auto md:mx-0 leading-relaxed text-balance">
               La terraza no es un satélite. Es la continuación lógica de tu sala, tu comedor y tu vida.
             </p>
           </div>
         </div>
 
         {/* --- PANEL 3: OBSESIÓN --- */}
-        <div className="horizontal-panel w-screen h-[100dvh] flex flex-col justify-center md:justify-end pb-0 md:pb-24 bg-zinc-900 relative z-30 shrink-0 border-r border-white/5 overflow-hidden group">
+        <div className="horizontal-panel w-screen h-[100dvh] flex flex-col justify-center md:justify-end pb-0 md:pb-24 bg-[#050505] relative z-30 shrink-0 border-r border-white/5 overflow-hidden group">
           <Image
-            src="https://images.unsplash.com/photo-1556910103-1c02745a30bf?q=80&w=2670&auto=format&fit=crop"
+            src="/studio/studio-2.png"
             alt="Obsesión"
             fill
-            className="object-cover opacity-50 md:opacity-60"
+            className="object-cover opacity-60"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-black/20 md:via-black/50 md:to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/60 to-transparent" />
 
           <div className="max-w-[1800px] w-full mx-auto px-8 md:px-12 relative z-10 text-center md:text-left">
             <span className="panel-anim inline-block px-3 py-1.5 lg:px-4 lg:py-2 mb-4 lg:mb-6 rounded-full text-[10px] lg:text-xs uppercase tracking-widest border border-white/30 bg-white/10 text-white backdrop-blur-md">
@@ -148,7 +148,7 @@ export default function Estudio() {
             <h3 className="panel-anim font-serif text-3xl md:text-7xl mb-4 lg:mb-6 text-white leading-tight">
               El detalle <br className="md:hidden" /> <span className="text-white/50 italic">invisible.</span>
             </h3>
-            <p className="panel-anim text-base md:text-2xl text-white/80 max-w-sm md:max-w-2xl mx-auto md:mx-0 leading-relaxed text-balance">
+            <p className="panel-anim text-base md:text-2xl text-gray-300 max-w-sm md:max-w-2xl mx-auto md:mx-0 leading-relaxed text-balance">
               La temperatura de la luz, la textura del piso descalzo. Lo que no se ve, pero se siente.
             </p>
           </div>
