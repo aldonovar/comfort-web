@@ -532,11 +532,11 @@ ${notes || "Sin detalles adicionales."}`;
                     <span className="text-madera/20 dark:text-crema/20 text-xs uppercase tracking-widest">Vista Previa</span>
                   </div>
                 )}
-                <div className="absolute inset-0 bg-linear-to-t from-black via-transparent to-transparent opacity-60 z-20" />
+                <div className="absolute inset-0 bg-linear-to-t from-black via-black/40 to-transparent opacity-90 z-20" />
 
                 <div className="absolute bottom-6 left-6 z-30">
-                  <span className="block text-[9px] uppercase tracking-[0.2em] text-[#c16e4d] mb-1 font-bold">Ticket #{ticketNumber}</span>
-                  <h3 className="font-serif text-3xl text-white leading-none">
+                  <span className="block text-[9px] uppercase tracking-[0.2em] text-white/90 mb-1 font-bold drop-shadow-sm">Ticket #{ticketNumber}</span>
+                  <h3 className="font-serif text-3xl text-white leading-none drop-shadow-md">
                     {projectType || "Nuevo Proyecto"}
                   </h3>
                 </div>
