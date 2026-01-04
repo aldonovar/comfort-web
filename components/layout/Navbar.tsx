@@ -63,13 +63,13 @@ const MEGA_CONTENT: any = {
       {
         label: "Luminaria Cálida",
         href: "/proyectos/luminaria-calida",
-        image: "/projects/project-3.png",
+        image: "/projects/project-3.jpg",
         desc: "Espacios acogedores y cálidos."
       },
       {
         label: "Damero Sol y Sombra",
         href: "/proyectos/damero",
-        image: "/projects/project-1.jpg",
+        image: "/projects/project-4.jpg",
         desc: "Diseño único de luces y sombras."
       }
     ]

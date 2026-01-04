@@ -39,7 +39,7 @@ const PROJECTS = [
     surface: "55 m²",
     tags: ["Calidez", "Hogar", "Estilo"],
     description: "La luz como protagonista. Creando espacios acogedores que invitan a quedarse.",
-    image: "/projects/project-3.png",
+    image: "/projects/project-3.jpg",
     color: "#1a1a1a"
   },
   {
@@ -49,7 +49,7 @@ const PROJECTS = [
     surface: "120 m²",
     tags: ["Arquitectura", "Sombra", "Patrones"],
     description: "Juegos de luces y sombras a través de un diseño de damero blanco. Estética pura y funcional.",
-    image: "/projects/project-1.jpg", // Fallback reuse until 4th image
+    image: "/projects/project-4.jpg",
     color: "#1f1f1f"
   }
 ];
