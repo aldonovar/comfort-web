@@ -14,20 +14,24 @@ const WHATSAPP_NUMBER = "51936230958";
 // --- DATA ---
 const SERVICE_IMAGES: Record<string, string[]> = {
   "Techo sol y sombra": [
-    "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2700&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?q=80&w=2700&auto=format&fit=crop"
+    "/cotiza/techo-1.jpg",
+    "/cotiza/techo-2.jpg",
+    "/cotiza/techo-3.jpg"
   ],
   "Diseño y ejecución de proyecto de terraza": [
-    "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=2653&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2301&auto=format&fit=crop"
+    "/cotiza/terraza-1.jpg",
+    "/cotiza/terraza-2.jpg",
+    "/cotiza/terraza-3.jpg"
   ],
   "Proyecto Estación de parrilla": [
-    "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?q=80&w=2670&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1556910602-38f53e68e15d?q=80&w=2574&auto=format&fit=crop"
+    "/cotiza/parrilla-1.jpg",
+    "/cotiza/parrilla-2.jpg",
+    "/cotiza/parrilla-3.jpg"
   ],
   "Otro tipo de proyecto al aire libre": [
-    "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=2700&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1600596542815-3ad196bb4a7f?q=80&w=2675&auto=format&fit=crop"
+    "/cotiza/otros-1.jpg",
+    "/cotiza/otros-2.jpg",
+    "/cotiza/otros-3.jpg"
   ]
 };
 
