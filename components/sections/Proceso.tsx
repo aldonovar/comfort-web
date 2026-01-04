@@ -96,22 +96,22 @@ export default function Proceso() {
       id="proceso"
       className="relative bg-[#050505] text-white py-16 md:py-32 overflow-hidden transition-colors duration-500"
     >
-      {/* Background Image - Darkened significantly */}
+      {/* Background Image - Balanced visibility */}
       <div className="absolute inset-0 z-0">
         <Image
           src="https://images.unsplash.com/photo-1486718448742-163732cd1544?q=80&w=2669&auto=format&fit=crop"
           alt="Architectural Background"
           fill
-          className="object-cover opacity-[0.15]"
+          className="object-cover opacity-40 mix-blend-overlay"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#050505] via-[#050505]/80 to-[#050505]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a] via-[#0a0a0a]/60 to-[#0a0a0a]" />
       </div>
 
       {/* Background Noise used to add texture */}
       <div className="absolute inset-0 opacity-[0.05] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div>
 
       {/* Vibrant Gradient Orbs - Adjusted for subtlety/premium feel */}
-      <div className="absolute top-[-20%] right-[-10%] w-[800px] h-[800px] bg-terracota/5 blur-[120px] rounded-full pointer-events-none mix-blend-screen animate-pulse duration-10000" />
+      <div className="absolute top-[-20%] right-[-10%] w-[800px] h-[800px] bg-terracota/10 blur-[120px] rounded-full pointer-events-none mix-blend-screen animate-pulse duration-10000" />
 
       <div className="max-w-[1800px] mx-auto px-6 md:px-12 relative z-10">
 
@@ -133,8 +133,8 @@ export default function Proceso() {
               key={step.id}
               className="process-card-reveal relative rounded-3xl overflow-hidden group transition-all duration-500 min-h-[280px] md:min-h-[400px] border border-white/5 hover:border-terracota/50 hover:shadow-2xl hover:shadow-terracota/10"
             >
-              {/* Glass Background - Darker and richer */}
-              <div className="absolute inset-0 bg-[#0a0a0a]/80 backdrop-blur-xl group-hover:bg-[#151515] transition-colors duration-500" />
+              {/* Glass Background - Lighter for visibility */}
+              <div className="absolute inset-0 bg-[#0a0a0a]/40 backdrop-blur-md group-hover:bg-[#151515]/60 transition-colors duration-500" />
 
               {/* Content */}
               <div className="relative z-10 h-full p-6 md:p-8 flex flex-col justify-between">
