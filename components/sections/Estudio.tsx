@@ -110,7 +110,7 @@ export default function Estudio() {
         {/* --- PANEL 2: ENFOQUE --- */}
         <div className="horizontal-panel w-screen h-[100dvh] flex flex-col justify-center md:justify-end pb-0 md:pb-24 bg-[#050505] relative z-20 shrink-0 border-r border-white/5 overflow-hidden group">
           <Image
-            src="/studio/studio-1.png"
+            src="/studio/studio-1.jpg"
             alt="Enfoque"
             fill
             className="object-cover opacity-60"
@@ -134,7 +134,7 @@ export default function Estudio() {
         {/* --- PANEL 3: OBSESIÓN --- */}
         <div className="horizontal-panel w-screen h-[100dvh] flex flex-col justify-center md:justify-end pb-0 md:pb-24 bg-[#050505] relative z-30 shrink-0 border-r border-white/5 overflow-hidden group">
           <Image
-            src="/studio/studio-2.png"
+            src="/studio/studio-2.jpg"
             alt="Obsesión"
             fill
             className="object-cover opacity-60"
