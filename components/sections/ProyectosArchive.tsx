@@ -16,7 +16,7 @@ const PROJECTS = [
         surface: "48 m²",
         tags: ["Rooftop", "Social", "Barra"],
         description: "Un refugio urbano en las alturas. Diseñado para la noche, la conversación y la desconexión total.",
-        image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=2653&auto=format&fit=crop",
+        image: "/projects/project-1.jpg",
         slug: "barranco"
     },
     {
@@ -26,7 +26,7 @@ const PROJECTS = [
         surface: "22 m²",
         tags: ["Residencial", "Intimo", "Luz"],
         description: "Maximizando cada centímetro. Un espacio pequeño que se siente infinito gracias a la luz y la materialidad.",
-        image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2700&auto=format&fit=crop",
+        image: "/projects/project-2.jpg",
         slug: "miraflores"
     },
     {
@@ -36,7 +36,7 @@ const PROJECTS = [
         surface: "95 m²",
         tags: ["Oficina", "Lounge", "Vistas"],
         description: "Donde los negocios encuentran la calma. Un rooftop corporativo que redefine el 'break' laboral.",
-        image: "https://images.unsplash.com/photo-1600573472591-ee6b68d14c68?q=80&w=2700&auto=format&fit=crop",
+        image: "/projects/project-3.jpg",
         slug: "san-isidro"
     },
     {
@@ -46,7 +46,7 @@ const PROJECTS = [
         surface: "60 m²",
         tags: ["Familia", "Juego", "Parrilla"],
         description: "El corazón de la casa se mueve al exterior. Un espacio versátil para crecer, jugar y celebrar.",
-        image: "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?q=80&w=2700&auto=format&fit=crop",
+        image: "/projects/project-4.jpg",
         slug: "la-molina"
     }
 ];
@@ -103,7 +103,7 @@ export default function ProyectosArchive() {
     }, []);
 
     return (
-        <section ref={containerRef} className="bg-primary min-h-screen py-32 px-6 md:px-12 transition-colors duration-500">
+        <section ref={containerRef} className="bg-primary min-h-screen pt-48 pb-32 px-6 md:px-12 transition-colors duration-500">
 
             <div className="max-w-[1800px] mx-auto">
 
