@@ -130,14 +130,14 @@ export default function ParrillaPage() {
                         className="object-cover w-full h-full opacity-60"
                     />
                     <div className="absolute inset-0 bg-linear-to-b from-black/80 via-transparent to-[var(--bg-primary)]" />
-                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,var(--bg-primary)_100%)] opacity-80" />
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,var(--bg-primary)_100%)] opacity-40 dark:opacity-80" />
                 </div>
 
                 <div className="relative z-10 text-center px-6">
                     <p className="hero-subtitle text-terracota text-sm tracking-[0.5em] uppercase font-bold mb-8">
                         Diseño & Equipamiento
                     </p>
-                    <h1 className="hero-title font-serif text-5xl md:text-8xl tracking-tight text-white mix-blend-overlay">
+                    <h1 className="hero-title font-serif text-5xl md:text-8xl tracking-tight text-white drop-shadow-lg">
                         ESTACIÓN DE <br /> PARRILLA
                     </h1>
                 </div>

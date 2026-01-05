@@ -111,14 +111,14 @@ export default function OtrosProyectosPage() {
                     <div className="hero-floater absolute bottom-1/4 right-1/4 w-96 h-96 bg-white rounded-full blur-[120px]" />
                 </div>
 
-                <div className="relative z-10 text-center px-6 mix-blend-difference">
-                    <p className="text-sm tracking-[0.5em] uppercase font-bold mb-8 text-[var(--text-primary)]/60">
+                <div className="relative z-10 text-center px-6">
+                    <p className="text-sm tracking-[0.5em] uppercase font-bold mb-8 text-[var(--text-primary)]">
                         Versatilidad & Alcance
                     </p>
                     <h1 className="font-serif text-[10vw] leading-none tracking-tighter text-[var(--text-primary)]">
                         OTROS <br /> SERVICIOS
                     </h1>
-                    <p className="text-xl md:text-2xl text-[var(--text-primary)]/50 mt-8 max-w-2xl mx-auto font-light">
+                    <p className="text-xl md:text-2xl text-[var(--text-primary)]/80 mt-8 max-w-2xl mx-auto font-light">
                         Soluciones que complementan tu experiencia <br /> al aire libre.
                     </p>
                 </div>
@@ -176,7 +176,7 @@ export default function OtrosProyectosPage() {
                                 <span className="text-terracota text-sm font-bold tracking-[0.2em] mb-6 block">FASE 0{i + 1}</span>
                                 <h3 className="text-3xl font-serif text-[var(--text-primary)] mb-6 group-hover:translate-x-2 transition-transform duration-300">{step.title}</h3>
                                 <div className="w-12 h-px bg-[var(--text-primary)]/20 mb-6 group-hover:w-24 group-hover:bg-terracota transition-all duration-500" />
-                                <p className="text-[var(--text-primary)]/60 font-light leading-relaxed max-w-xs group-hover:text-[var(--text-primary)]/80 transition-colors">
+                                <p className="text-[var(--text-primary)]/80 font-light leading-relaxed max-w-xs group-hover:text-[var(--text-primary)] transition-colors">
                                     {step.desc}
                                 </p>
                             </div>
@@ -188,7 +188,7 @@ export default function OtrosProyectosPage() {
             {/* --- DETAILS LIST --- */}
             <section className="py-32 px-6 md:px-24 bg-[var(--bg-primary)] border-t border-[var(--text-primary)]/5">
                 <div className="max-w-4xl mx-auto text-center">
-                    <p className="text-xs uppercase tracking-[0.3em] text-[var(--text-primary)]/40 mb-12">Gama de Servicios</p>
+                    <p className="text-xs uppercase tracking-[0.3em] text-[var(--text-primary)]/70 mb-12">Gama de Servicios</p>
                     <div className="flex flex-wrap justify-center gap-4 md:gap-8">
                         {["Paisajismo", "Pintura", "Mobiliario Custom", "Iluminación Escénica", "Mantenimiento", "Consultoría"].map((tag, i) => (
                             <span key={i} className="px-6 py-3 rounded-full border border-[var(--text-primary)]/10 text-lg hover:bg-terracota hover:text-white hover:border-terracota transition-all duration-300 cursor-default">
