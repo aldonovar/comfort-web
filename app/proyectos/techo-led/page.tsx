@@ -65,11 +65,11 @@ export default function TechoLedPage() {
                         priority
                     />
                     <div className="absolute inset-0 bg-black/40" />
-                    <div className="absolute inset-0 bg-linear-to-t from-[var(--bg-primary)] via-transparent to-transparent" />
+                    <div className="absolute inset-0 bg-linear-to-t from-black/90 via-transparent to-transparent" />
                 </div>
 
                 <div className="absolute bottom-0 left-0 w-full p-6 md:p-24 flex flex-col items-start justify-end z-10">
-                    <span className="text-terracota text-xs md:text-sm tracking-[0.4em] uppercase font-bold mb-6 block animate-fade-in">
+                    <span className="text-white/90 text-xs md:text-sm tracking-[0.4em] uppercase font-bold mb-6 block animate-fade-in drop-shadow-md">
                         Tecnología · Ambiente
                     </span>
                     <h1 className="font-serif text-6xl md:text-9xl text-[var(--text-primary)] mix-blend-difference text-white mb-2 animate-fade-in delay-100">

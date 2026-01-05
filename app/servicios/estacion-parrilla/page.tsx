@@ -135,7 +135,7 @@ export default function ParrillaPage() {
                 </div>
 
                 <div className="relative z-10 text-center px-6">
-                    <p className="hero-subtitle text-terracota text-sm tracking-[0.5em] uppercase font-bold mb-8">
+                    <p className="hero-subtitle text-white/90 text-sm tracking-[0.5em] uppercase font-bold mb-8 drop-shadow-md">
                         Diseño & Equipamiento
                     </p>
                     <h1 className="hero-title font-serif text-5xl md:text-8xl tracking-tight text-white drop-shadow-lg">
