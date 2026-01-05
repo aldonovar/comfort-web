@@ -350,7 +350,7 @@ export default function Navbar() {
                       onMouseEnter={() => setActiveSubItem(sub)}
                       className="mega-link group flex items-center justify-between py-4 border-b border-[var(--text-primary)]/5 hover:border-[var(--text-primary)]/20 transition-colors"
                     >
-                      <span className="font-serif text-2xl text-[var(--text-primary)]/50 group-hover:text-[var(--text-primary)] transition-colors duration-500">
+                      <span className="font-serif text-2xl text-[var(--text-primary)]/80 group-hover:text-[var(--text-primary)] transition-colors duration-500">
                         {sub.label}
                       </span>
                       <span className="opacity-0 group-hover:opacity-100 -translate-x-4 group-hover:translate-x-0 transition-all duration-500 text-terracota">
@@ -402,7 +402,7 @@ export default function Navbar() {
                     <Link
                       href={item.href}
                       onClick={() => setMobileOpen(false)}
-                      className="flex-1 py-6 font-sans text-sm font-bold uppercase tracking-[0.25em] text-[var(--text-primary)]/60 hover:text-[var(--text-primary)] transition-colors duration-300"
+                      className="flex-1 py-6 font-sans text-sm font-bold uppercase tracking-[0.25em] text-[var(--text-primary)] hover:text-terracota transition-colors duration-300"
                     >
                       {item.label}
                     </Link>
@@ -427,7 +427,7 @@ export default function Navbar() {
                           key={sub.label}
                           href={sub.href}
                           onClick={() => setMobileOpen(false)}
-                          className="font-serif text-lg text-[var(--text-primary)]/80 hover:text-terracota transition-colors block"
+                          className="font-serif text-lg text-[var(--text-primary)] hover:text-terracota transition-colors block"
                         >
                           {sub.label}
                         </Link>
