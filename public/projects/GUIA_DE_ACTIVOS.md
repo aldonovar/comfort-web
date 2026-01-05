@@ -40,6 +40,16 @@ Si deseas reemplazar la imagen Hero por un video en loop.
 - **Audio**: Muted (Sin audio).
 - **Peso Máximo**: `5MB - 8MB` (CRÍTICO para la carga rápida).
 
+## Requerimientos Específicos por Proyecto
+
+### Terraza El Polo
+**Ubicación**: `/public/projects/el-polo/`
+1. **Video Reel**: `reel.mp4` (Video horizontal 16:9)
+2. **Galería**: 8 imágenes nombradas `gallery-1.jpg` a `gallery-8.jpg`.
+   - Mezcla de horizontales y verticales.
+   - El código adapta el tamaño automáticamente.
+
+
 ## Herramientas Recomendadas
 - **Conversión a WebP**: [Squoosh.app](https://squoosh.app/) (Google) o Photoshop Plugin.
 - **Compresión de Video**: Handbrake.

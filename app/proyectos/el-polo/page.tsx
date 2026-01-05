@@ -12,11 +12,23 @@ const NEXT_PROJECT = {
     label: "Siguiente Proyecto",
     title: "Techo con Luz LED",
     href: "/proyectos/techo-led",
-    image: "/projects/project-2.jpg" // Using local placeholder reference, will need actual asset or Unsplash
+    image: "/projects/project-2.jpg"
 };
+
+const GALLERY_ITEMS = [
+    { src: "/projects/el-polo/gallery-1.jpg", alt: "Vista General Parrilla", aspect: "aspect-video" },
+    { src: "/projects/el-polo/gallery-2.jpg", alt: "Detalle Materiales", aspect: "aspect-3/4" },
+    { src: "/projects/el-polo/gallery-3.jpg", alt: "Iluminación Nocturna", aspect: "aspect-square" },
+    { src: "/projects/el-polo/gallery-4.jpg", alt: "Zona de Estar", aspect: "aspect-4/5" },
+    { src: "/projects/el-polo/gallery-5.jpg", alt: "Detalle Granito", aspect: "aspect-square" },
+    { src: "/projects/el-polo/gallery-6.jpg", alt: "Perspectiva Lateral", aspect: "aspect-video" },
+    { src: "/projects/el-polo/gallery-7.jpg", alt: "Ambiente General", aspect: "aspect-3/4" },
+    { src: "/projects/el-polo/gallery-8.jpg", alt: "Detalle Techo", aspect: "aspect-video" },
+];
 
 export default function ElPoloPage() {
     const containerRef = useRef<HTMLDivElement>(null);
+    const videoRef = useRef<HTMLVideoElement>(null);
 
     useEffect(() => {
         const ctx = gsap.context(() => {
@@ -44,6 +56,18 @@ export default function ElPoloPage() {
                 }
             });
 
+            // Video Scale
+            gsap.from(".video-reel", {
+                scale: 0.9,
+                opacity: 0,
+                duration: 1.5,
+                ease: "power2.out",
+                scrollTrigger: {
+                    trigger: ".video-section",
+                    start: "top 70%"
+                }
+            });
+
             // Gallery Stagger
             ScrollTrigger.batch(".gallery-item", {
                 onEnter: batch => gsap.to(batch, { opacity: 1, y: 0, stagger: 0.15, overwrite: true }),
@@ -62,7 +86,7 @@ export default function ElPoloPage() {
             <section className="project-hero relative h-[85vh] overflow-hidden">
                 <div className="absolute inset-0">
                     <Image
-                        src="/projects/project-1.jpg" // Ensure this exists or use Unsplash
+                        src="/projects/project-1.jpg" // Fallback to main project image until hero.jpg is uploaded
                         alt="Terraza El Polo Hero"
                         fill
                         className="project-hero-bg object-cover"
@@ -85,24 +109,6 @@ export default function ElPoloPage() {
                 </div>
             </section>
 
-            {/* --- INFO BAR (Hidden until data is confirmed) ---
-            <div className="border-b border-[var(--text-primary)]/10">
-                <div className="max-w-[1800px] mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 px-6 md:px-24 py-12">
-                    {[
-                        { label: "Cliente", val: "Privado" },
-                        { label: "Superficie", val: "65 m²" },
-                        { label: "Año", val: "2024" },
-                        { label: "Servicio", val: "Diseño Integral & Ejecución" },
-                    ].map((item, i) => (
-                        <div key={i}>
-                            <span className="block text-xs uppercase text-terracota tracking-widest mb-2">{item.label}</span>
-                            <span className="block text-lg font-serif text-[var(--text-primary)]">{item.val}</span>
-                        </div>
-                    ))}
-                </div>
-            </div>
-            --- */}
-
             {/* --- NARRATIVE --- */}
             <section className="content-section py-24 md:py-32 px-6 md:px-24">
                 <div className="max-w-4xl mx-auto space-y-12 text-center md:text-left">
@@ -111,36 +117,50 @@ export default function ElPoloPage() {
                     </h2>
                     <div className="reveal-text w-12 h-1 bg-terracota mx-auto md:mx-0" />
                     <p className="reveal-text text-lg md:text-xl text-[var(--text-primary)]/70 leading-relaxed font-light">
-                        El desafío principal fue integrar una zona de parrilla de alto rendimiento con un área social elegante, sin sacrificar la amplitud visual. Utilizamos una paleta de materiales nobles —granito negro, madera Cumarú y estructuras de acero negro— para crear un lenguaje visual coherente que fluye naturalmente entre el interior y el exterior.
-                    </p>
-                    <p className="reveal-text text-lg md:text-xl text-[var(--text-primary)]/70 leading-relaxed font-light">
-                        La iluminación juega un rol crucial, con sistemas dimeables que permiten transformar la atmósfera de una tarde soleada de BBQ a un lounge nocturno íntimo y sofisticado.
+                        El desafío principal fue integrar una zona de parrilla de alto rendimiento con un área social elegante, sin sacrificar la amplitud visual. Utilizamos una paleta de materiales nobles —granito negro, madera Cumarú y estructuras de acero negro— para crear un lenguaje visual coherente.
                     </p>
                 </div>
             </section>
 
-            {/* --- GALLERY --- */}
-            <section className="py-12 px-6 md:px-12">
-                <div className="max-w-[1800px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="gallery-item opacity-0 translate-y-12">
-                        <div className="relative aspect-4/5 md:aspect-square overflow-hidden rounded-sm group">
-                            <Image src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1200" alt="Detalle 1" fill className="object-cover transition-transform duration-1000 group-hover:scale-105" />
-                        </div>
+            {/* --- VIDEO REEL --- */}
+            <section className="video-section py-12 px-0 md:px-12">
+                <div className="video-reel w-full h-[60vh] md:h-[80vh] relative overflow-hidden rounded-sm bg-black">
+                    <video
+                        ref={videoRef}
+                        className="w-full h-full object-cover opacity-90"
+                        autoPlay
+                        muted
+                        loop
+                        src="/projects/el-polo/reel.mp4"
+                        playsInline
+                    />
+                    <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                        <span className="text-white/50 tracking-widest text-sm uppercase">Experiencia Inmersiva</span>
                     </div>
-                    <div className="gallery-item opacity-0 translate-y-12 md:mt-24">
-                        <div className="relative aspect-4/5 md:aspect-video overflow-hidden rounded-sm group">
-                            <Image src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=1200" alt="Detalle 2" fill className="object-cover transition-transform duration-1000 group-hover:scale-105" />
-                        </div>
+                </div>
+            </section>
+
+            {/* --- EXPANDED GALLERY --- */}
+            <section className="py-24 px-6 md:px-12 bg-[#080808]"> {/* Slightly darker bg for gallery */}
+                <div className="max-w-[1800px] mx-auto">
+                    <div className="mb-16 text-center">
+                        <span className="text-terracota text-xs tracking-widest uppercase block mb-4">Detalles & Atmósfera</span>
+                        <h3 className="font-serif text-3xl md:text-5xl text-[var(--text-primary)]">Galería del Proyecto</h3>
                     </div>
-                    <div className="gallery-item opacity-0 translate-y-12">
-                        <div className="relative aspect-video overflow-hidden rounded-sm group">
-                            <Image src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=1200" alt="Detalle 3" fill className="object-cover transition-transform duration-1000 group-hover:scale-105" />
-                        </div>
-                    </div>
-                    <div className="gallery-item opacity-0 translate-y-12 md:-mt-24">
-                        <div className="relative aspect-3/4 overflow-hidden rounded-sm group">
-                            <Image src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=1200" alt="Detalle 4" fill className="object-cover transition-transform duration-1000 group-hover:scale-105" />
-                        </div>
+
+                    <div className="columns-1 md:columns-2 lg:columns-3 gap-6 space-y-6">
+                        {GALLERY_ITEMS.map((item, index) => (
+                            <div key={index} className={`gallery-item break-inside-avoid relative ${item.aspect} overflow-hidden rounded-sm group bg-neutral-900`}>
+                                <Image
+                                    src={item.src}
+                                    alt={item.alt}
+                                    fill
+                                    className="object-cover transition-transform duration-1000 group-hover:scale-105 opacity-80 group-hover:opacity-100"
+                                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                />
+                                <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500" />
+                            </div>
+                        ))}
                     </div>
                 </div>
             </section>
