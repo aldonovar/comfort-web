@@ -129,9 +129,9 @@ export default function ParrillaPage() {
                         playsInline
                         className="object-cover w-full h-full opacity-100"
                     />
-                    <div className="absolute inset-0 bg-linear-to-b from-black/60 via-transparent to-[var(--bg-primary)]" />
-                    {/* Reduced opacity of radial overlay to prevent "washed out" look */}
-                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,var(--bg-primary)_100%)] opacity-20 dark:opacity-60" />
+                    <div className="absolute inset-0 bg-linear-to-b from-black/80 via-transparent to-[var(--bg-primary)]" />
+                    {/* Dark tint to fix washed-out look and improve text contrast */}
+                    <div className="absolute inset-0 bg-black/30" />
                 </div>
 
                 <div className="relative z-10 text-center px-6">
