@@ -204,7 +204,7 @@ export default function TerrazasPage() {
     }, []);
 
     return (
-        <div ref={container} className="bg-[var(--bg-primary)] text-[var(--text-primary)] overflow-hidden">
+        <div ref={container} className="bg-(--bg-primary) text-(--text-primary) overflow-hidden">
 
             {/* --- HERO SECTION (Architectural Layout) --- */}
             <section ref={heroRef} className="relative h-screen w-full px-6 md:px-12 pt-40 md:pt-48 pb-12 flex flex-col justify-center">
@@ -249,7 +249,7 @@ export default function TerrazasPage() {
             </section>
 
             {/* --- STICKY SIDE-BY-SIDE CONCEPT --- */}
-            <section ref={conceptRef} className="relative flex flex-col md:flex-row bg-[var(--bg-secondary)]">
+            <section ref={conceptRef} className="relative flex flex-col md:flex-row bg-(--bg-secondary)">
                 {/* Left: Sticky Text Container */}
                 <div className="concept-text-col w-full md:w-1/2 h-screen sticky top-0 flex items-center px-6 md:px-24 z-10 overflow-hidden">
                     <div className="relative w-full h-full flex items-center">
@@ -259,7 +259,7 @@ export default function TerrazasPage() {
                                 <h2 className="font-serif text-4xl md:text-6xl mb-8 leading-tight">
                                     {item.title}
                                 </h2>
-                                <p className="text-[var(--text-primary)]/70 text-lg md:text-xl leading-relaxed max-w-lg">
+                                <p className="text-(--text-primary)/70 text-lg md:text-xl leading-relaxed max-w-lg">
                                     {item.text}
                                 </p>
                             </div>
@@ -270,7 +270,7 @@ export default function TerrazasPage() {
                 {/* Right: Scrolling Images */}
                 <div className="w-full md:w-1/2 relative z-0">
                     {CONCEPT_IMAGES.map((item, i) => (
-                        <div key={i} className="concept-image h-screen w-full relative sticky top-0 border-l border-[var(--text-primary)]/5">
+                        <div key={i} className="concept-image h-screen w-full relative sticky top-0 border-l border-(--text-primary)/5">
                             <Image
                                 src={item.src}
                                 alt={item.alt}
@@ -284,19 +284,19 @@ export default function TerrazasPage() {
             </section>
 
             {/* --- PARALLAX GRID GALLERY --- */}
-            <section ref={galleryRef} className="relative py-32 px-6 md:px-12 bg-[var(--bg-primary)] overflow-hidden">
+            <section ref={galleryRef} className="relative py-32 px-6 md:px-12 bg-(--bg-primary) overflow-hidden">
                 <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-24">
                     {/* Column 1 - Moves Up */}
                     <div className="gallery-col-1 flex flex-col gap-12 md:gap-24 pt-24">
                         {GALLERY_IMAGES.slice(0, 2).map((item, i) => (
-                            <div key={i} className="relative aspect-[3/4] w-full overflow-hidden rounded-sm group">
+                            <div key={i} className="relative aspect-3/4 w-full overflow-hidden rounded-sm group">
                                 <Image
                                     src={item.src}
                                     alt={item.alt}
                                     fill
                                     className="object-cover hover:scale-105 transition-transform duration-700"
                                 />
-                                <div className="absolute bottom-0 left-0 w-full p-8 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                                <div className="absolute bottom-0 left-0 w-full p-8 bg-linear-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                                     <h4 className="text-white font-serif text-2xl">{item.title}</h4>
                                     <p className="text-white/60 text-sm">{item.desc}</p>
                                 </div>
