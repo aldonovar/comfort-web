@@ -17,11 +17,11 @@ const NEXT_PROJECT = {
 };
 
 const GALLERY_ITEMS = [
-    { src: "/projects/techo-led/gallery-1.jpg", alt: "Vista Nocturna General", aspect: "aspect-video", type: "image" },
-    { src: "/projects/techo-led/gallery-2.jpg", alt: "Detalle Perfilería LED", aspect: "aspect-square", type: "image" },
-    { src: "", alt: "Quote", aspect: "aspect-square", type: "text", content: "La iluminación no solo permite ver, transforma cómo sentimos el espacio." },
-    { src: "/projects/techo-led/gallery-3.jpg", alt: "Ambiente con Luz Cálida", aspect: "aspect-3/4", type: "image" },
-    { src: "/projects/techo-led/gallery-4.jpg", alt: "Integración Arquitectónica", aspect: "aspect-video", type: "image" },
+    { src: "/projects/techo-led/gallery-1.png", alt: "Vista Nocturna - Fotografía Real", aspect: "aspect-video", type: "image" },
+    { src: "/projects/techo-led/gallery-2.png", alt: "Detalle Iluminación - Fotografía Real", aspect: "aspect-3/4", type: "image" },
+    { src: "", alt: "Quote", aspect: "aspect-square", type: "text", content: "La luz define la arquitectura tanto como el material mismo." },
+    { src: "/projects/techo-led/gallery-3.jpg", alt: "Plano de Distribución 1", aspect: "aspect-square", type: "image" },
+    { src: "/projects/techo-led/gallery-4.jpg", alt: "Plano de Detalles Teka", aspect: "aspect-video", type: "image" },
 ];
 
 export default function TechoLedPage() {
