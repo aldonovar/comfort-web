@@ -73,10 +73,15 @@ export default function TerrazasPage() {
     const galleryRef = useRef<HTMLDivElement>(null);
 
     const [currentDescIndex, setCurrentDescIndex] = useState(0);
+    const [isAnimating, setIsAnimating] = useState(false);
 
     useEffect(() => {
         const interval = setInterval(() => {
-            setCurrentDescIndex((prev) => (prev + 1) % HERO_DESCRIPTIONS.length);
+            setIsAnimating(true);
+            setTimeout(() => {
+                setCurrentDescIndex((prev) => (prev + 1) % HERO_DESCRIPTIONS.length);
+                setIsAnimating(false);
+            }, 500);
         }, 7000);
         return () => clearInterval(interval);
     }, []);
@@ -202,7 +207,7 @@ export default function TerrazasPage() {
         <div ref={container} className="bg-[var(--bg-primary)] text-[var(--text-primary)] overflow-hidden">
 
             {/* --- HERO SECTION (Architectural Layout) --- */}
-            <section ref={heroRef} className="relative h-screen w-full px-6 md:px-12 pt-48 md:pt-64 pb-12 flex flex-col justify-between">
+            <section ref={heroRef} className="relative h-screen w-full px-6 md:px-12 pt-40 md:pt-48 pb-12 flex flex-col justify-center">
                 <div className="absolute inset-0 z-0">
                     <Image
                         src="/services/service-2.jpg"
@@ -214,23 +219,23 @@ export default function TerrazasPage() {
                     <div className="absolute inset-0 bg-linear-to-b from-black/80 via-black/40 to-black/90" />
                 </div>
 
-                <div className="relative z-10 max-w-5xl">
-                    <div className="overflow-hidden mb-6">
-                        <p className="hero-meta text-terracota text-sm md:text-base tracking-[0.5em] uppercase font-bold translate-y-full">
+                <div className="relative z-10 max-w-6xl mt-20">
+                    <div className="mb-6">
+                        <p className="hero-meta text-terracota text-sm md:text-base tracking-[0.3em] uppercase font-bold">
                             Proyecto Integral
                         </p>
                     </div>
-                    <h1 className="font-serif text-6xl md:text-9xl leading-[0.85] tracking-tight text-white mix-blend-difference">
-                        <div className="overflow-hidden"><span className="hero-title-line block">DISEÑO</span></div>
-                        <div className="overflow-hidden"><span className="hero-title-line block text-white/50">DE TERRAZAS</span></div>
-                        <div className="overflow-hidden"><span className="hero-title-line block">& EJECUCIÓN</span></div>
+                    <h1 className="font-serif italic text-6xl md:text-9xl leading-none tracking-tight text-white mix-blend-difference">
+                        <span className="block">DISEÑO</span>
+                        <span className="block text-white/50">DE TERRAZAS</span>
+                        <span className="block">& EJECUCIÓN</span>
                     </h1>
                 </div>
 
-                <div className="relative z-10 flex justify-end items-end">
-                    <div className="hero-meta max-w-md text-right">
-                        <div className="h-24 md:h-32 flex items-end justify-end">
-                            <p key={currentDescIndex} className="text-white/80 text-lg md:text-xl leading-relaxed animate-fade-in">
+                <div className="relative z-10 flex justify-end items-end mt-auto">
+                    <div className="hero-meta max-w-xl text-right">
+                        <div className="h-32 flex items-end justify-end">
+                            <p className={`text-white/90 text-xl md:text-2xl leading-relaxed transition-opacity duration-500 ease-in-out ${isAnimating ? 'opacity-0' : 'opacity-100'}`}>
                                 {HERO_DESCRIPTIONS[currentDescIndex]}
                             </p>
                         </div>
