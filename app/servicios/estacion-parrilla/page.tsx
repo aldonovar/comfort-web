@@ -11,26 +11,26 @@ gsap.registerPlugin(ScrollTrigger);
 const FEATURES = [
     {
         title: "Funcionalidad",
-        desc: "Diseñamos flujos de trabajo eficientes. Zonas de frío, preparación, cocción y servicio perfectamente integradas.",
-        img: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=1920&auto=format&fit=crop"
+        desc: "Diseño funcional de cocina exterior optimizando el triángulo de trabajo entre preparación, cocción y servicio. Ergonomía perfecta para el chef anfitrión.",
+        img: "/services/parrilla/feature-1.jpg"
     },
     {
         title: "Materialidad",
-        desc: "Seleccionamos piedras naturales, aceros de grado marino y maderas tratadas para resistir el clima costero.",
-        img: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1920&auto=format&fit=crop"
+        desc: "Acabados premium para exteriores: combinación de piedra natural y acero inoxidable grado marino resistente a la corrosión y rayos UV.",
+        img: "/services/parrilla/feature-2.jpg"
     },
     {
         title: "Equipamiento",
-        desc: "Integramos las mejores marcas de Kamados, parrillas argentinas y hornos de pizza para un rendimiento profesional.",
-        img: "https://images.unsplash.com/photo-1594040226829-7f251ab46d80?q=80&w=1920&auto=format&fit=crop"
+        desc: "Parrillas profesionales con control de temperatura de precisión y sistemas de ventilación avanzados para cocción ahumada y grill.",
+        img: "/services/parrilla/feature-3.jpg"
     }
 ];
 
 const EQUIPMENT = [
-    { name: "Kamado Joe", img: "https://images.unsplash.com/photo-1544982503-9f984c14501a?q=80&w=800&auto=format&fit=crop" },
-    { name: "Parrilla Inox", img: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=800&auto=format&fit=crop" },
-    { name: "Horno Leña", img: "https://images.unsplash.com/photo-1590947132387-155cc02f3212?q=80&w=800&auto=format&fit=crop" },
-    { name: "Frigobar", img: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=800&auto=format&fit=crop" },
+    { name: "Kamado Joe", img: "/services/parrilla/equipment-1.jpg" },
+    { name: "Parrilla Inox", img: "/services/parrilla/equipment-2.jpg" },
+    { name: "Horno Leña", img: "/services/parrilla/equipment-3.jpg" },
+    { name: "Frigobar", img: "/services/parrilla/equipment-4.jpg" },
 ];
 
 export default function ParrillaPage() {
@@ -121,12 +121,13 @@ export default function ParrillaPage() {
             {/* --- HERO SECTION --- */}
             <section ref={heroRef} className="relative h-screen w-full flex items-center justify-center overflow-hidden">
                 <div className="absolute inset-0 z-0">
-                    <Image
-                        src="https://images.unsplash.com/photo-1529310399831-ed472b81d589?q=80&w=2574&auto=format&fit=crop"
-                        alt="Estación de Parrilla de Lujo"
-                        fill
-                        className="object-cover opacity-50"
-                        priority
+                    <video
+                        src="/services/parrilla/hero-main.mp4"
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                        className="object-cover w-full h-full opacity-60"
                     />
                     <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-transparent to-[#0a0a0a]" />
                     <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,#0a0a0a_100%)] opacity-80" />
