@@ -9,13 +9,13 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 const HERO_DESCRIPTIONS = [
-    "Incrementa el valor de tu inmueble recuperando metros cuadrados en desuso.",
-    "Gestión integral: Diseñamos, construimos y equipamos tu terraza de inicio a fin.",
+    "Valoriza tu propiedad habilitando nuevos espacios de vida.",
+    "Trato directo y ejecución simplificada de tu proyecto de terraza.",
     "Especialistas en techos sol y sombra, zonas de parrilla y paisajismo urbano.",
-    "Materiales de grado arquitectónico seleccionados para resistir el clima de Lima.",
-    "Transformamos azoteas vacías en áreas sociales funcionales para toda la familia.",
-    "Propuestas de diseño fotorrealistas para que visualices tu inversión con exactitud.",
-    "Ejecución de obra limpia, ordenada y con tiempos de entrega garantizados."
+    "Materiales seleccionados para máxima durabilidad y estética superior.",
+    "Transformamos azoteas vacías en áreas sociales funcionales.",
+    "Visualiza tu terraza con propuestas de diseño 3D antes de construir.",
+    "Construcción rápida, limpia y ordenada sin complicaciones."
 ];
 
 const CONCEPT_IMAGES = [
@@ -338,9 +338,9 @@ export default function TerrazasPage() {
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-12">
                         {[
                             { label: "Rango", val: "15 m² - 150 m²" },
-                            { label: "Tiempo", val: "6 - 12 Semanas" },
-                            { label: "Gestión", val: "Llave en Mano" },
-                            { label: "Garantía", val: "1 Año" },
+                            { label: "Tiempo", val: "3 - 5 Semanas" },
+                            { label: "Gestión", val: "Trato Directo" },
+                            { label: "Diseño", val: "A Medida" },
                         ].map((item, i) => (
                             <div key={i} className="text-center">
                                 <span className="block text-xs uppercase tracking-widest text-terracota mb-2">{item.label}</span>
