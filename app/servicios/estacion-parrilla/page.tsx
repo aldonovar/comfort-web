@@ -205,14 +205,12 @@ export default function ParrillaPage() {
 
             {/* --- DETAILS GRID --- */}
             <section className="py-32 px-6 md:px-24 bg-[#0a0a0a]">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-white/10 border border-white/10">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-white/10 border border-white/10">
                     {[
                         { label: "Espacio Mínimo", val: "6 m²" },
                         { label: "Materiales", val: "Granito / Acero 304" },
-                        { label: "Tiempo de Entrega", val: "4 - 6 Semanas" },
-                        { label: "Garantía", val: "1 - 5 Años" },
-                        { label: "Equipamiento", val: "Standard / Premium" },
-                        { label: "Cobertura", val: "Lima y Playas" },
+                        { label: "Tiempo de Entrega", val: "Menor" },
+                        { label: "Equipamiento", val: "A Consultar" },
                     ].map((item, i) => (
                         <div key={i} className="bg-[#0a0a0a] p-12 hover:bg-[#050505] transition-colors group">
                             <span className="block text-xs uppercase tracking-widest text-white/40 mb-4 group-hover:text-terracota transition-colors">{item.label}</span>
