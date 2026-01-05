@@ -127,10 +127,11 @@ export default function ParrillaPage() {
                         muted
                         loop
                         playsInline
-                        className="object-cover w-full h-full opacity-60"
+                        className="object-cover w-full h-full opacity-100"
                     />
-                    <div className="absolute inset-0 bg-linear-to-b from-black/80 via-transparent to-[var(--bg-primary)]" />
-                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,var(--bg-primary)_100%)] opacity-40 dark:opacity-80" />
+                    <div className="absolute inset-0 bg-linear-to-b from-black/60 via-transparent to-[var(--bg-primary)]" />
+                    {/* Reduced opacity of radial overlay to prevent "washed out" look */}
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,var(--bg-primary)_100%)] opacity-20 dark:opacity-60" />
                 </div>
 
                 <div className="relative z-10 text-center px-6">
@@ -158,7 +159,7 @@ export default function ParrillaPage() {
                                     src={feature.img}
                                     alt={feature.title}
                                     fill
-                                    className="object-cover grayscale hover:grayscale-0 transition-all duration-700"
+                                    className="object-cover transition-all duration-700 hover:scale-105 hover:brightness-110"
                                 />
                             </div>
                         </div>
@@ -193,7 +194,7 @@ export default function ParrillaPage() {
                                 src={item.img}
                                 alt={item.name}
                                 fill
-                                className="object-cover opacity-60 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700"
+                                className="object-cover opacity-100 group-hover:scale-110 transition-all duration-700"
                             />
                             <div className="absolute bottom-0 left-0 w-full p-8 bg-linear-to-t from-black to-transparent">
                                 <p className="font-serif text-2xl text-white">{item.name}</p>

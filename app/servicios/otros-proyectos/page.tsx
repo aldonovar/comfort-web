@@ -166,16 +166,16 @@ export default function OtrosProyectosPage() {
 
                 <div className="relative z-10 max-w-7xl w-full grid grid-cols-1 md:grid-cols-3 gap-8">
                     {PROCESS_STEPS.map((step, i) => (
-                        <div key={i} className="process-step group relative p-12 border border-[var(--text-primary)]/5 bg-[var(--text-primary)]/2 backdrop-blur-sm hover:bg-[var(--text-primary)]/5 hover:border-terracota/30 transition-all duration-500 overflow-hidden">
+                        <div key={i} className="process-step group relative p-12 border border-[var(--text-primary)]/10 bg-[var(--bg-secondary)] shadow-md hover:shadow-xl hover:-translate-y-2 hover:border-terracota transition-all duration-500 overflow-hidden">
                             {/* Large Background Number */}
-                            <span className="absolute -right-4 -bottom-8 font-serif text-[12rem] leading-none text-[var(--text-primary)]/3 group-hover:text-terracota/5 transition-colors duration-500 select-none pointer-events-none">
+                            <span className="absolute -right-4 -bottom-8 font-serif text-[12rem] leading-none text-[var(--text-primary)]/5 group-hover:text-terracota/10 transition-colors duration-500 select-none pointer-events-none">
                                 {i + 1}
                             </span>
 
                             <div className="relative z-10">
                                 <span className="text-terracota text-sm font-bold tracking-[0.2em] mb-6 block">FASE 0{i + 1}</span>
                                 <h3 className="text-3xl font-serif text-[var(--text-primary)] mb-6 group-hover:translate-x-2 transition-transform duration-300">{step.title}</h3>
-                                <div className="w-12 h-px bg-[var(--text-primary)]/20 mb-6 group-hover:w-24 group-hover:bg-terracota transition-all duration-500" />
+                                <div className="w-12 h-0.5 bg-terracota mb-6 group-hover:w-24 transition-all duration-500" />
                                 <p className="text-[var(--text-primary)]/80 font-light leading-relaxed max-w-xs group-hover:text-[var(--text-primary)] transition-colors">
                                     {step.desc}
                                 </p>

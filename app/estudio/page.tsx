@@ -80,7 +80,7 @@ export default function EstudioPage() {
                         src="https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1920&auto=format&fit=crop"
                         alt="Studio Background"
                         fill
-                        className="object-cover opacity-30"
+                        className="object-cover opacity-70"
                     />
                     <div className="absolute inset-0 bg-linear-to-b from-black/80 via-transparent to-[var(--bg-primary)]" />
                 </div>
@@ -106,28 +106,29 @@ export default function EstudioPage() {
                         <Link
                             key={section.id}
                             href={section.href}
-                            className="studio-section-card group relative h-[60vh] overflow-hidden rounded-sm block"
+                            className="studio-section-card group relative h-[60vh] overflow-hidden rounded-sm block shadow-lg hover:shadow-2xl transition-shadow duration-500"
                         >
                             <Image
                                 src={section.image}
                                 alt={section.title}
                                 fill
-                                className="object-cover transition-transform duration-700 group-hover:scale-105 opacity-60 group-hover:opacity-40"
+                                className="object-cover transition-transform duration-700 group-hover:scale-105"
                             />
-                            <div className="absolute inset-0 bg-[var(--text-primary)]/10 group-hover:bg-[var(--text-primary)]/20 transition-colors duration-500" />
+                            {/* Dark Gradient Overlay for Contrast */}
+                            <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/40 to-transparent opacity-80 group-hover:opacity-95 transition-opacity duration-500" />
 
                             <div className="absolute inset-0 p-8 flex flex-col justify-end items-start">
                                 <span className="text-terracota text-xs tracking-[0.2em] uppercase font-bold mb-2 opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500">
                                     {section.subtitle}
                                 </span>
-                                <h2 className="font-serif text-4xl md:text-5xl mb-4 group-hover:text-terracota transition-colors duration-300">
+                                <h2 className="font-serif text-4xl md:text-5xl mb-4 text-white group-hover:text-terracota transition-colors duration-300">
                                     {section.title}
                                 </h2>
-                                <p className="text-[var(--text-primary)]/70 text-sm max-w-xs opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500 delay-100">
+                                <p className="text-white/80 text-sm max-w-xs opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500 delay-100 font-light">
                                     {section.desc}
                                 </p>
 
-                                <div className="mt-8 w-12 h-12 rounded-full border border-[var(--text-primary)]/30 flex items-center justify-center group-hover:bg-terracota group-hover:border-terracota transition-all duration-300">
+                                <div className="mt-8 w-12 h-12 rounded-full border border-white/30 text-white flex items-center justify-center group-hover:bg-terracota group-hover:border-terracota transition-all duration-300">
                                     <span className="text-xl">→</span>
                                 </div>
                             </div>
