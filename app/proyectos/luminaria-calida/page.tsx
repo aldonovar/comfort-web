@@ -10,16 +10,33 @@ gsap.registerPlugin(ScrollTrigger);
 
 const NEXT_PROJECT = {
     label: "Siguiente Proyecto",
-    title: "Damero Sol y Sombra",
+    title: "Damero Sol & Sombra",
     href: "/proyectos/damero",
-    image: "/projects/project-4.jpg"
+    image: "/projects/project-4.jpg" // Placeholder until specific project-4 is set
 };
+
+const GALLERY_ITEMS = [
+    { src: "/projects/luminaria-calida/gallery-1.jpg", alt: "Detalle Vertical", aspect: "aspect-[9/16]", span: "md:row-span-2" },
+    { src: "/projects/luminaria-calida/gallery-2.jpg", alt: "Ambiente General", aspect: "aspect-[3/4]", span: "md:row-span-1" },
+    { src: "/projects/luminaria-calida/gallery-3.jpg", alt: "Iluminación Cenital", aspect: "aspect-[3/4]", span: "md:row-span-1" },
+    { src: "/projects/luminaria-calida/gallery-4.jpg", alt: "Perspectiva Alta", aspect: "aspect-[9/16]", span: "md:row-span-2" },
+    { src: "/projects/luminaria-calida/gallery-5.jpg", alt: "Detalle Material", aspect: "aspect-square", span: "md:row-span-1" },
+    { src: "quote", type: "text", content: "La calidez de la luz transforma la madera en un elemento vivo.", aspect: "aspect-square", span: "md:row-span-1" },
+    { src: "/projects/luminaria-calida/gallery-6.jpg", alt: "Vista Nocturna", aspect: "aspect-[3/4]", span: "md:row-span-1" },
+    { src: "/projects/luminaria-calida/gallery-7.jpg", alt: "Detalle Constructivo", aspect: "aspect-[9/16]", span: "md:row-span-2" },
+    { src: "/projects/luminaria-calida/gallery-8.jpg", alt: "Ambiente Deck", aspect: "aspect-[3/4]", span: "md:row-span-1" },
+    { src: "/projects/luminaria-calida/gallery-9.jpg", alt: "Iluminación Focal", aspect: "aspect-[3/4]", span: "md:row-span-1" },
+    { src: "/projects/luminaria-calida/gallery-10.jpg", alt: "Vista General", aspect: "aspect-video", span: "md:col-span-2" }, // Landscape break
+    { src: "/projects/luminaria-calida/gallery-11.jpg", alt: "Detalle Sutil", aspect: "aspect-[3/4]", span: "md:row-span-1" },
+    { src: "/projects/luminaria-calida/gallery-12.jpg", alt: "Cierre Visual", aspect: "aspect-[9/16]", span: "md:row-span-2" },
+];
 
 export default function LuminariaCalidaPage() {
     const containerRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         const ctx = gsap.context(() => {
+            // Hero Parallax
             gsap.to(".project-hero-bg", {
                 yPercent: 30,
                 ease: "none",
@@ -31,6 +48,7 @@ export default function LuminariaCalidaPage() {
                 }
             });
 
+            // Text Reveal
             gsap.from(".reveal-text", {
                 y: 50,
                 opacity: 0,
@@ -42,12 +60,14 @@ export default function LuminariaCalidaPage() {
                 }
             });
 
+            // Gallery Stagger
             ScrollTrigger.batch(".gallery-item", {
-                onEnter: batch => gsap.to(batch, { opacity: 1, y: 0, stagger: 0.15, overwrite: true }),
-                start: "top 85%"
+                onEnter: batch => gsap.to(batch, { opacity: 1, y: 0, stagger: 0.1, overwrite: true }),
+                start: "top 90%"
             });
 
         }, containerRef);
+
         return () => ctx.revert();
     }, []);
 
@@ -58,85 +78,77 @@ export default function LuminariaCalidaPage() {
             <section className="project-hero relative h-[85vh] overflow-hidden">
                 <div className="absolute inset-0">
                     <Image
-                        src="/projects/project-3.jpg"
+                        src="/projects/luminaria-calida/hero.jpg"
                         alt="Luminaria Cálida Hero"
                         fill
                         className="project-hero-bg object-cover"
                         priority
                     />
-                    <div className="absolute inset-0 bg-black/30" />
+                    <div className="absolute inset-0 bg-black/40" />
                     <div className="absolute inset-0 bg-linear-to-t from-black/90 via-transparent to-transparent" />
                 </div>
 
                 <div className="absolute bottom-0 left-0 w-full p-6 md:p-24 flex flex-col items-start justify-end z-10">
                     <span className="text-white/90 text-xs md:text-sm tracking-[0.4em] uppercase font-bold mb-6 block animate-fade-in drop-shadow-md">
-                        Calidez · Hogar
+                        Residencial · Lighting
                     </span>
                     <h1 className="font-serif text-6xl md:text-9xl text-[var(--text-primary)] mix-blend-difference text-white mb-2 animate-fade-in delay-100">
                         Luminaria Cálida
                     </h1>
                     <p className="text-white/80 text-xl font-light tracking-wide animate-fade-in delay-200">
-                        San Isidro, Lima
+                        La Molina, Lima
                     </p>
                 </div>
             </section>
-
-            {/* --- INFO BAR (Hidden until data is confirmed) ---
-            <div className="border-b border-[var(--text-primary)]/10">
-                <div className="max-w-[1800px] mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 px-6 md:px-24 py-12">
-                    {[
-                        { label: "Cliente", val: "Residencia M." },
-                        { label: "Superficie", val: "55 m²" },
-                        { label: "Año", val: "2023" },
-                        { label: "Servicio", val: "Diseño de Iluminación" },
-                    ].map((item, i) => (
-                        <div key={i}>
-                            <span className="block text-xs uppercase text-terracota tracking-widest mb-2">{item.label}</span>
-                            <span className="block text-lg font-serif text-[var(--text-primary)]">{item.val}</span>
-                        </div>
-                    ))}
-                </div>
-            </div>
-            --- */}
 
             {/* --- NARRATIVE --- */}
             <section className="content-section py-24 md:py-32 px-6 md:px-24">
                 <div className="max-w-4xl mx-auto space-y-12 text-center md:text-left">
                     <h2 className="reveal-text font-serif text-4xl md:text-6xl text-[var(--text-primary)] leading-tight">
-                        La luz no solo ilumina, <br /> la luz abraza.
+                        Atmósferas que cobran vida <br /> al caer la noche.
                     </h2>
                     <div className="reveal-text w-12 h-1 bg-terracota mx-auto md:mx-0" />
                     <p className="reveal-text text-lg md:text-xl text-[var(--text-primary)]/70 leading-relaxed font-light">
-                        En San Isidro, redefinimos el concepto de terraza nocturna. Nos alejamos de la iluminación fría y funcional para abogar por temperaturas de color bajas (2700K) y fuentes de luz indirectas.
-                    </p>
-                    <p className="reveal-text text-lg md:text-xl text-[var(--text-primary)]/70 leading-relaxed font-light">
-                        Apliques estratégicos, tiras LED ocultas en la vegetación y lámparas colgantes de tejido natural crean capas de profundidad visual, haciendo que el espacio se sienta íntimo y expandido a la vez.
+                        Más allá de la estructura, este proyecto explora cómo la luz esculpe el espacio. Utilizando temperaturas de color cálidas (2700K) y luminarias estratégicamente ocultas, logramos que la terraza mantenga su acogedora intimidad incluso en la oscuridad total.
                     </p>
                 </div>
             </section>
 
-            {/* --- GALLERY --- */}
-            <section className="py-12 px-6 md:px-12">
-                <div className="max-w-[1800px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="gallery-item opacity-0 translate-y-12">
-                        <div className="relative aspect-4/5 overflow-hidden rounded-sm group">
-                            <Image src="https://images.unsplash.com/photo-1567675765510-b384666f77ab?q=80&w=1200" alt="Detalle Cálido" fill className="object-cover transition-transform duration-1000 group-hover:scale-105" />
-                        </div>
+            {/* --- CREATIVE GALLERY (Bento/Masonry) --- */}
+            <section className="py-24 px-4 md:px-12 bg-[#080808]">
+                <div className="max-w-[1600px] mx-auto">
+                    <div className="mb-20 text-center">
+                        <span className="text-terracota text-xs tracking-widest uppercase block mb-4">Experiencia Visual</span>
+                        <h3 className="font-serif text-3xl md:text-5xl text-[var(--text-primary)]">Galería de Detalles</h3>
                     </div>
-                    <div className="gallery-item opacity-0 translate-y-12 md:mt-24">
-                        <div className="relative aspect-square overflow-hidden rounded-sm group">
-                            <Image src="https://images.unsplash.com/photo-1543335728-6d2c4b07c8ca?q=80&w=1200" alt="Ambiente Sala" fill className="object-cover transition-transform duration-1000 group-hover:scale-105" />
-                        </div>
-                    </div>
-                    <div className="gallery-item opacity-0 translate-y-12">
-                        <div className="relative aspect-video overflow-hidden rounded-sm group">
-                            <Image src="https://images.unsplash.com/photo-1513161455079-7dc1de15ef3e?q=80&w=1200" alt="Mobiliario" fill className="object-cover transition-transform duration-1000 group-hover:scale-105" />
-                        </div>
-                    </div>
-                    <div className="gallery-item opacity-0 translate-y-12 md:-mt-24">
-                        <div className="relative aspect-3/4 overflow-hidden rounded-sm group">
-                            <Image src="https://images.unsplash.com/photo-1505691938895-1cd58fb3cb3b?q=80&w=1200" alt="Anochecer" fill className="object-cover transition-transform duration-1000 group-hover:scale-105" />
-                        </div>
+
+                    {/* Grid Layout that respects verticality */}
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 auto-rows-[300px] md:auto-rows-[400px]">
+                        {GALLERY_ITEMS.map((item, index) => (
+                            <div
+                                key={index}
+                                className={`gallery-item relative overflow-hidden rounded-sm group bg-neutral-900 ${item.span || ""}`}
+                            >
+                                {item.type === "text" ? (
+                                    <div className="absolute inset-0 flex items-center justify-center p-8 bg-[#111] text-center border border-white/5 h-full">
+                                        <p className="font-serif text-xl md:text-2xl text-white/80 italic leading-relaxed">
+                                            &ldquo;{item.content}&rdquo;
+                                        </p>
+                                    </div>
+                                ) : (
+                                    <>
+                                        <Image
+                                            src={item.src}
+                                            alt={item.alt || "Project Image"}
+                                            fill
+                                            className="object-cover transition-transform duration-1000 group-hover:scale-105 opacity-80 group-hover:opacity-100"
+                                            sizes="(max-width: 768px) 100vw, 33vw"
+                                        />
+                                        <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500 pointer-events-none" />
+                                    </>
+                                )}
+                            </div>
+                        ))}
                     </div>
                 </div>
             </section>

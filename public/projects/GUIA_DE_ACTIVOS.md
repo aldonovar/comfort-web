@@ -54,6 +54,13 @@ Si deseas reemplazar la imagen Hero por un video en loop.
 1. **Hero**: `hero.jpg` (1920x1080px).
 2. **Galería**: 4 imágenes nombradas `gallery-1.jpg` a `gallery-4.jpg`.
 
+### Luminaria Cálida
+**Ubicación**: `/public/projects/luminaria-calida/`
+1. **Hero**: `hero.jpg` (1920x1080px).
+2. **Galería**: 12 imágenes nombradas `gallery-1.jpg` a `gallery-12.jpg`.
+   - **Nota**: Este diseño prioriza **fotos verticales** (tipo celular).
+
+
 
 
 ## Herramientas Recomendadas
