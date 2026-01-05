@@ -10,15 +10,15 @@ gsap.registerPlugin(ScrollTrigger);
 
 const CONCEPT_IMAGES = [
     {
-        src: "/services/terrazas/concept-1.jpg",
+        src: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=1920&auto=format&fit=crop",
         alt: "Proceso de diseño de terrazas personalizado: desde renderizado 3D fotorrealista hasta la selección de materiales premium como piedra natural y maderas tropicales."
     },
     {
-        src: "/services/terrazas/concept-2.jpg",
+        src: "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?q=80&w=1920&auto=format&fit=crop",
         alt: "Construcción de terrazas con acabados de alta gama: integración de jardineras de concreto, pisos de porcelanato y carpintería de precisión."
     },
     {
-        src: "/services/terrazas/concept-3.jpg",
+        src: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=1920&auto=format&fit=crop",
         alt: "Creación de ambientes exteriores acogedores y sofisticados ('outdoor living') diseñados para el entretenimiento y el relax."
     }
 ];
@@ -156,7 +156,7 @@ export default function TerrazasPage() {
             <section ref={heroRef} className="relative h-screen w-full px-6 md:px-12 pt-32 pb-12 flex flex-col justify-between">
                 <div className="absolute inset-0 z-0">
                     <Image
-                        src="/services/terrazas/hero-main.jpg"
+                        src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=1920&auto=format&fit=crop"
                         alt="Diseño de terrazas de lujo en azoteas (rooftops) con pérgolas y paisajismo"
                         fill
                         className="object-cover opacity-30 grayscale-30"
