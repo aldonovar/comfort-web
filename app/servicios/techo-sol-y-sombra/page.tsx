@@ -41,19 +41,19 @@ const MATERIALS = [
 const HERO_SCENES = [
     {
         id: "day",
-        label: "Proyecto: Casa de Playa - Asia",
+        label: "Luz Controlada & Sombra",
         img: "/services/techo/hero-1.jpg",
         description: "Perspectiva cenital de terraza moderna bajo sol intenso. El techo sol y sombra proyecta un patrón geométrico de sombras nítidas sobre el suelo de travertino, demostrando la eficacia del filtrado de luz sin sacrificar la luminosidad natural. Integración orgánica con el cielo azul y vegetación perimetral."
     },
     {
         id: "sunset",
-        label: "Proyecto: Penthouse - Miraflores",
+        label: "Atmósfera & Calidez",
         img: "/services/techo/hero-2.jpg",
         description: "Atmósfera de hora dorada capturada en terraza penthouse. La luz rasante del atardecer incendia los tonos rojizos de la madera Huayruro, creando un contraste dramático con los tonos fríos del horizonte urbano. El policarbonato difumina el sol poniente convirtiéndolo en un resplandor ámbar envolvente."
     },
     {
         id: "night",
-        label: "Proyecto: Terraza - San Isidro",
+        label: "Experiencia Nocturna",
         img: "/services/techo/hero-3.jpg",
         description: "Composición nocturna de alta gama ('Blue Hour'). La estructura se transforma en una escultura lumínica mediante iluminación LED integrada en las vigas. El espacio irradia calidez y sofisticación frente a la oscuridad exterior, destacando el diseño de iluminación escénica y el mobiliario de autor."
     }
