@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import SeamlessVideo from "@/components/ui/SeamlessVideo";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -15,11 +16,20 @@ const NEXT_PROJECT = {
     image: "/projects/project-3.jpg"
 };
 
+const GALLERY_ITEMS = [
+    { src: "/projects/techo-led/gallery-1.jpg", alt: "Vista Nocturna General", aspect: "aspect-video", type: "image" },
+    { src: "/projects/techo-led/gallery-2.jpg", alt: "Detalle Perfilería LED", aspect: "aspect-square", type: "image" },
+    { src: "", alt: "Quote", aspect: "aspect-square", type: "text", content: "La iluminación no solo permite ver, transforma cómo sentimos el espacio." },
+    { src: "/projects/techo-led/gallery-3.jpg", alt: "Ambiente con Luz Cálida", aspect: "aspect-3/4", type: "image" },
+    { src: "/projects/techo-led/gallery-4.jpg", alt: "Integración Arquitectónica", aspect: "aspect-video", type: "image" },
+];
+
 export default function TechoLedPage() {
     const containerRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         const ctx = gsap.context(() => {
+            // Hero Parallax
             gsap.to(".project-hero-bg", {
                 yPercent: 30,
                 ease: "none",
@@ -31,6 +41,7 @@ export default function TechoLedPage() {
                 }
             });
 
+            // Text Reveal
             gsap.from(".reveal-text", {
                 y: 50,
                 opacity: 0,
@@ -42,12 +53,14 @@ export default function TechoLedPage() {
                 }
             });
 
+            // Gallery Stagger
             ScrollTrigger.batch(".gallery-item", {
                 onEnter: batch => gsap.to(batch, { opacity: 1, y: 0, stagger: 0.15, overwrite: true }),
                 start: "top 85%"
             });
 
         }, containerRef);
+
         return () => ctx.revert();
     }, []);
 
@@ -58,86 +71,71 @@ export default function TechoLedPage() {
             <section className="project-hero relative h-[85vh] overflow-hidden">
                 <div className="absolute inset-0">
                     <Image
-                        src="/projects/project-2.jpg"
-                        alt="Techo con Luz LED Hero"
+                        src="/projects/techo-led/hero.jpg"
+                        alt="Techo LED Hero"
                         fill
                         className="project-hero-bg object-cover"
                         priority
                     />
-                    <div className="absolute inset-0 bg-black/40" />
+                    <div className="absolute inset-0 bg-black/30" />
                     <div className="absolute inset-0 bg-linear-to-t from-black/90 via-transparent to-transparent" />
                 </div>
 
                 <div className="absolute bottom-0 left-0 w-full p-6 md:p-24 flex flex-col items-start justify-end z-10">
                     <span className="text-white/90 text-xs md:text-sm tracking-[0.4em] uppercase font-bold mb-6 block animate-fade-in drop-shadow-md">
-                        Tecnología · Ambiente
+                        Residencial · Modern
                     </span>
                     <h1 className="font-serif text-6xl md:text-9xl text-[var(--text-primary)] mix-blend-difference text-white mb-2 animate-fade-in delay-100">
                         Techo Luz LED
                     </h1>
                     <p className="text-white/80 text-xl font-light tracking-wide animate-fade-in delay-200">
-                        Miraflores, Lima
+                        San Borja, Lima
                     </p>
                 </div>
             </section>
-
-            {/* --- INFO BAR (Hidden until data is confirmed) ---
-            <div className="border-b border-[var(--text-primary)]/10">
-                <div className="max-w-[1800px] mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 px-6 md:px-24 py-12">
-                    {[
-                        { label: "Cliente", val: "Familia R." },
-                        { label: "Superficie", val: "40 m²" },
-                        { label: "Año", val: "2023" },
-                        { label: "Servicio", val: "Iluminación & Estructura" },
-                    ].map((item, i) => (
-                        <div key={i}>
-                            <span className="block text-xs uppercase text-terracota tracking-widest mb-2">{item.label}</span>
-                            <span className="block text-lg font-serif text-[var(--text-primary)]">{item.val}</span>
-                        </div>
-                    ))}
-                </div>
-            </div>
-            --- */}
 
             {/* --- NARRATIVE --- */}
             <section className="content-section py-24 md:py-32 px-6 md:px-24">
                 <div className="max-w-4xl mx-auto space-y-12 text-center md:text-left">
                     <h2 className="reveal-text font-serif text-4xl md:text-6xl text-[var(--text-primary)] leading-tight">
-                        La noche transforma el espacio. <br /> Tecnología invisible, impacto visible.
+                        Innovación lumínica <br /> integrada a la estructura.
                     </h2>
                     <div className="reveal-text w-12 h-1 bg-terracota mx-auto md:mx-0" />
                     <p className="reveal-text text-lg md:text-xl text-[var(--text-primary)]/70 leading-relaxed font-light">
-                        En este penthouse miraflorino, el objetivo era extender el uso de la terraza más allá del atardecer. Diseñamos una cobertura sol y sombra motorizada con un sistema de iluminación LED integrado en las vigas, totalmente invisible cuando está apagado.
-                    </p>
-                    <p className="reveal-text text-lg md:text-xl text-[var(--text-primary)]/70 leading-relaxed font-light">
-                        El resultado es un ambiente camaleónico: funcional y luminoso para el día, dramático y teatral para la noche, todo controlado desde el smartphone del cliente.
+                        Este proyecto se centró en la fusión de tecnología y calidez. Incorporamos perfiles LED regulables directamente en la viguería Sol y Sombra, permitiendo a los propietarios transitar de una iluminación funcional a una atmósfera íntima con un solo toque.
                     </p>
                 </div>
             </section>
 
-            {/* --- GALLERY --- */}
-            <section className="py-12 px-6 md:px-12">
-                <div className="max-w-[1800px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {/* Unsplash placeholders with architectural/lighting mood */}
-                    <div className="gallery-item opacity-0 translate-y-12">
-                        <div className="relative aspect-square overflow-hidden rounded-sm group">
-                            <Image src="https://images.unsplash.com/photo-1540932296774-7097e9d6da9a?q=80&w=1200" alt="Detalle Iluminación" fill className="object-cover transition-transform duration-1000 group-hover:scale-105" />
-                        </div>
+            {/* --- GALLERY (Compact) --- */}
+            <section className="py-24 px-6 md:px-12 bg-[#080808]">
+                <div className="max-w-[1400px] mx-auto">
+                    <div className="mb-16 text-center">
+                        <span className="text-terracota text-xs tracking-widest uppercase block mb-4">Detalles Técnicos</span>
+                        <h3 className="font-serif text-3xl md:text-5xl text-[var(--text-primary)]">Galería Selecta</h3>
                     </div>
-                    <div className="gallery-item opacity-0 translate-y-12 md:mt-24">
-                        <div className="relative aspect-video overflow-hidden rounded-sm group">
-                            <Image src="https://images.unsplash.com/photo-1565814329452-e1efa11c5b89?q=80&w=1200" alt="Ambiente Nocturno" fill className="object-cover transition-transform duration-1000 group-hover:scale-105" />
-                        </div>
-                    </div>
-                    <div className="gallery-item opacity-0 translate-y-12">
-                        <div className="relative aspect-video overflow-hidden rounded-sm group">
-                            <Image src="https://images.unsplash.com/photo-1517581177697-a06a193d58d9?q=80&w=1200" alt="Estructura" fill className="object-cover transition-transform duration-1000 group-hover:scale-105" />
-                        </div>
-                    </div>
-                    <div className="gallery-item opacity-0 translate-y-12 md:-mt-24">
-                        <div className="relative aspect-3/4 overflow-hidden rounded-sm group">
-                            <Image src="https://images.unsplash.com/photo-1595846519845-68e298c2edd8?q=80&w=1200" alt="Detalle Viga" fill className="object-cover transition-transform duration-1000 group-hover:scale-105" />
-                        </div>
+
+                    <div className="columns-1 md:columns-2 gap-6 space-y-6">
+                        {GALLERY_ITEMS.map((item, index) => (
+                            <div key={index} className={`gallery-item break-inside-avoid relative ${item.aspect} overflow-hidden rounded-sm group bg-neutral-900 group`}>
+                                {item.type === "text" ? (
+                                    <div className="absolute inset-0 flex items-center justify-center p-8 bg-[#111] text-center border border-white/5">
+                                        <p className="font-serif text-2xl md:text-3xl text-white/80 italic leading-relaxed">
+                                            &ldquo;{item.content}&rdquo;
+                                        </p>
+                                    </div>
+                                ) : (
+                                    <Image
+                                        src={item.src}
+                                        alt={item.alt}
+                                        fill
+                                        className="object-cover transition-transform duration-1000 group-hover:scale-105 opacity-80 group-hover:opacity-100"
+                                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                    />
+                                )}
+                                {item.type !== "text" && <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500 pointer-events-none" />}
+                            </div>
+                        ))}
                     </div>
                 </div>
             </section>

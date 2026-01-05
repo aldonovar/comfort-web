@@ -49,6 +49,12 @@ Si deseas reemplazar la imagen Hero por un video en loop.
    - Mezcla de horizontales y verticales.
    - El código adapta el tamaño automáticamente.
 
+### Techo con Luz LED
+**Ubicación**: `/public/projects/techo-led/`
+1. **Hero**: `hero.jpg` (1920x1080px).
+2. **Galería**: 4 imágenes nombradas `gallery-1.jpg` a `gallery-4.jpg`.
+
+
 
 ## Herramientas Recomendadas
 - **Conversión a WebP**: [Squoosh.app](https://squoosh.app/) (Google) o Photoshop Plugin.
