@@ -9,13 +9,13 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 const HERO_DESCRIPTIONS = [
-    "Tu refugio privado en medio del caos urbano.",
-    "Arquitectura que conecta tu hogar con el cielo.",
-    "Donde la estética se encuentra con la funcionalidad exterior.",
-    "Diseñamos experiencias, no solo metros cuadrados.",
-    "Materiales nobles que resisten el tiempo y las tendencias.",
-    "El escenario perfecto para tus mejores recuerdos.",
-    "Eleva tu calidad de vida sin salir de casa."
+    "Incrementa el valor de tu inmueble recuperando metros cuadrados en desuso.",
+    "Gestión integral: Diseñamos, construimos y equipamos tu terraza de inicio a fin.",
+    "Especialistas en techos sol y sombra, zonas de parrilla y paisajismo urbano.",
+    "Materiales de grado arquitectónico seleccionados para resistir el clima de Lima.",
+    "Transformamos azoteas vacías en áreas sociales funcionales para toda la familia.",
+    "Propuestas de diseño fotorrealistas para que visualices tu inversión con exactitud.",
+    "Ejecución de obra limpia, ordenada y con tiempos de entrega garantizados."
 ];
 
 const CONCEPT_IMAGES = [
