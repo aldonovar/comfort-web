@@ -56,7 +56,7 @@ export default function ProcesoPage() {
     }, []);
 
     return (
-        <main ref={containerRef} className="bg-[var(--bg-primary)] min-h-screen text-[var(--text-primary)] pt-32 pb-24">
+        <main ref={containerRef} className="bg-[var(--bg-primary)] min-h-screen text-[var(--text-primary)] pt-48 pb-24">
 
             <div className="max-w-6xl mx-auto px-6 md:px-12">
 
