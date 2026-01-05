@@ -1,12 +1,22 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
+
+const HERO_DESCRIPTIONS = [
+    "Tu refugio privado en medio del caos urbano.",
+    "Arquitectura que conecta tu hogar con el cielo.",
+    "Donde la estética se encuentra con la funcionalidad exterior.",
+    "Diseñamos experiencias, no solo metros cuadrados.",
+    "Materiales nobles que resisten el tiempo y las tendencias.",
+    "El escenario perfecto para tus mejores recuerdos.",
+    "Eleva tu calidad de vida sin salir de casa."
+];
 
 const CONCEPT_IMAGES = [
     {
@@ -61,6 +71,15 @@ export default function TerrazasPage() {
     const heroRef = useRef<HTMLDivElement>(null);
     const conceptRef = useRef<HTMLDivElement>(null);
     const galleryRef = useRef<HTMLDivElement>(null);
+
+    const [currentDescIndex, setCurrentDescIndex] = useState(0);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setCurrentDescIndex((prev) => (prev + 1) % HERO_DESCRIPTIONS.length);
+        }, 7000);
+        return () => clearInterval(interval);
+    }, []);
 
     useEffect(() => {
         const ctx = gsap.context(() => {
@@ -183,36 +202,40 @@ export default function TerrazasPage() {
         <div ref={container} className="bg-[var(--bg-primary)] text-[var(--text-primary)] overflow-hidden">
 
             {/* --- HERO SECTION (Architectural Layout) --- */}
-            <section ref={heroRef} className="relative h-screen w-full px-6 md:px-12 pt-32 pb-12 flex flex-col justify-between">
+            <section ref={heroRef} className="relative h-screen w-full px-6 md:px-12 pt-48 md:pt-64 pb-12 flex flex-col justify-between">
                 <div className="absolute inset-0 z-0">
                     <Image
-                        src="/services/terrazas/hero-main.jpg"
+                        src="/services/service-2.jpg"
                         alt="Diseño de terrazas de lujo en azoteas (rooftops) con pérgolas y paisajismo"
                         fill
-                        className="object-cover opacity-30 grayscale-30"
+                        className="object-cover opacity-80"
                         priority
                     />
-                    <div className="absolute inset-0 bg-linear-to-b from-[var(--bg-primary)]/80 via-transparent to-[var(--bg-primary)]" />
+                    <div className="absolute inset-0 bg-linear-to-b from-black/80 via-black/40 to-black/90" />
                 </div>
 
-                <div className="relative z-10 max-w-4xl">
-                    <p className="hero-meta text-terracota text-xs md:text-sm tracking-[0.5em] uppercase font-bold mb-6">
-                        Proyecto Integral
-                    </p>
-                    <h1 className="font-serif text-6xl md:text-9xl leading-[0.85] tracking-tight">
+                <div className="relative z-10 max-w-5xl">
+                    <div className="overflow-hidden mb-6">
+                        <p className="hero-meta text-terracota text-sm md:text-base tracking-[0.5em] uppercase font-bold translate-y-full">
+                            Proyecto Integral
+                        </p>
+                    </div>
+                    <h1 className="font-serif text-6xl md:text-9xl leading-[0.85] tracking-tight text-white mix-blend-difference">
                         <div className="overflow-hidden"><span className="hero-title-line block">DISEÑO</span></div>
-                        <div className="overflow-hidden"><span className="hero-title-line block text-[var(--text-primary)]/40 italic">DE TERRAZAS</span></div>
+                        <div className="overflow-hidden"><span className="hero-title-line block text-white/50">DE TERRAZAS</span></div>
                         <div className="overflow-hidden"><span className="hero-title-line block">& EJECUCIÓN</span></div>
                     </h1>
                 </div>
 
                 <div className="relative z-10 flex justify-end items-end">
-                    <div className="hero-meta max-w-sm text-right">
-                        <p className="text-[var(--text-primary)]/60 text-lg leading-relaxed">
-                            Transformamos azoteas y patios en oasis privados. Arquitectura exterior pensada desde el concepto hasta el último detalle.
-                        </p>
-                        <div className="mt-8 w-full h-px bg-[var(--text-primary)]/20" />
-                        <div className="mt-4 flex justify-end gap-8 text-xs uppercase tracking-widest text-[var(--text-primary)]/40">
+                    <div className="hero-meta max-w-md text-right">
+                        <div className="h-24 md:h-32 flex items-end justify-end">
+                            <p key={currentDescIndex} className="text-white/80 text-lg md:text-xl leading-relaxed animate-fade-in">
+                                {HERO_DESCRIPTIONS[currentDescIndex]}
+                            </p>
+                        </div>
+                        <div className="mt-8 w-full h-px bg-white/20" />
+                        <div className="mt-4 flex justify-end gap-8 text-xs uppercase tracking-widest text-white/40">
                             <span>Lima, Perú</span>
                             <span>Est. 2024</span>
                         </div>
