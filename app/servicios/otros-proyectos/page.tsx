@@ -190,7 +190,7 @@ export default function OtrosProyectosPage() {
                 <div className="max-w-4xl mx-auto text-center">
                     <p className="text-xs uppercase tracking-[0.3em] text-white/40 mb-12">Gama de Servicios</p>
                     <div className="flex flex-wrap justify-center gap-4 md:gap-8">
-                        {["Paisajismo", "Piscinas & Jacuzzis", "Mobiliario Custom", "Iluminación Escénica", "Mantenimiento", "Consultoría"].map((tag, i) => (
+                        {["Paisajismo", "Pintura", "Mobiliario Custom", "Iluminación Escénica", "Mantenimiento", "Consultoría"].map((tag, i) => (
                             <span key={i} className="px-6 py-3 rounded-full border border-white/10 text-lg hover:bg-terracota hover:text-white hover:border-terracota transition-all duration-300 cursor-default">
                                 {tag}
                             </span>

@@ -226,7 +226,7 @@ export default function ParrillaPage() {
 
                 <div className="footer-cta text-center relative z-10 px-6">
                     <h2 className="font-serif text-5xl md:text-8xl mb-12 leading-tight">
-                        Eleva tu nivel <br /> culinario.
+                        Tu pasión merece <br /> el mejor escenario.
                     </h2>
                     <Link
                         href="/cotiza?tipo=Proyecto%20Estación%20de%20Parrilla"
