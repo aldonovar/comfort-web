@@ -94,7 +94,7 @@ export default function Proceso() {
     <section
       ref={sectionRef}
       id="proceso"
-      className="relative bg-[#050505] text-white py-16 md:py-32 overflow-hidden transition-colors duration-500"
+      className="relative bg-[var(--bg-primary)] text-[var(--text-primary)] py-16 md:py-32 overflow-hidden transition-colors duration-500"
     >
       {/* Background Image - Balanced visibility */}
       <div className="absolute inset-0 z-0">
@@ -104,7 +104,7 @@ export default function Proceso() {
           fill
           className="object-cover opacity-40 mix-blend-overlay"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a] via-[#0a0a0a]/60 to-[#0a0a0a]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[var(--bg-primary)] via-[var(--bg-primary)]/60 to-[var(--bg-primary)]" />
       </div>
 
       {/* Background Noise used to add texture */}
@@ -120,7 +120,7 @@ export default function Proceso() {
           <span className="block text-terracota text-xs tracking-[0.3em] uppercase font-bold mb-6">
             Metodología
           </span>
-          <h2 className="font-serif text-3xl md:text-7xl leading-none mb-8 text-white">
+          <h2 className="font-serif text-3xl md:text-7xl leading-none mb-8 text-[var(--text-primary)]">
             Del caos al <br />
             <span className="text-terracota italic">orden estético.</span>
           </h2>
@@ -131,44 +131,44 @@ export default function Proceso() {
           {steps.map((step) => (
             <div
               key={step.id}
-              className="process-card-reveal relative rounded-3xl overflow-hidden group transition-all duration-500 min-h-[280px] md:min-h-[400px] border border-white/5 hover:border-terracota/50 hover:shadow-2xl hover:shadow-terracota/10"
+              className="process-card-reveal relative rounded-3xl overflow-hidden group transition-all duration-500 min-h-[280px] md:min-h-[400px] border border-[var(--text-primary)]/5 hover:border-terracota/50 hover:shadow-2xl hover:shadow-terracota/10"
             >
               {/* Glass Background - Lighter for visibility */}
-              <div className="absolute inset-0 bg-[#0a0a0a]/40 backdrop-blur-md group-hover:bg-[#151515]/60 transition-colors duration-500" />
+              <div className="absolute inset-0 bg-[var(--bg-secondary)]/40 backdrop-blur-md group-hover:bg-[var(--bg-secondary)]/60 transition-colors duration-500" />
 
               {/* Content */}
               <div className="relative z-10 h-full p-6 md:p-8 flex flex-col justify-between">
 
                 {/* Top Label */}
                 <div className="flex justify-between items-start">
-                  <span className="px-3 py-1 rounded-full text-[10px] uppercase tracking-widest border border-white/10 bg-white/5 text-white/70 group-hover:border-terracota/30 group-hover:text-terracota transition-colors duration-500">
+                  <span className="px-3 py-1 rounded-full text-[10px] uppercase tracking-widest border border-[var(--text-primary)]/10 bg-[var(--text-primary)]/5 text-[var(--text-primary)]/70 group-hover:border-terracota/30 group-hover:text-terracota transition-colors duration-500">
                     {step.label.split(" · ")[1]}
                   </span>
-                  <span className="text-4xl font-serif text-white/5 group-hover:text-terracota/20 transition-colors duration-500">
+                  <span className="text-4xl font-serif text-[var(--text-primary)]/5 group-hover:text-terracota/20 transition-colors duration-500">
                     0{step.id}
                   </span>
                 </div>
 
                 {/* Main Text */}
                 <div className="mt-6 mb-6 md:mt-8 md:mb-8">
-                  <h3 className="font-serif text-xl md:text-2xl mb-4 text-white group-hover:text-terracota transition-colors duration-300">
+                  <h3 className="font-serif text-xl md:text-2xl mb-4 text-[var(--text-primary)] group-hover:text-terracota transition-colors duration-300">
                     {step.title}
                   </h3>
-                  <p className="text-sm leading-relaxed text-gray-400 group-hover:text-gray-300 transition-colors duration-500">
+                  <p className="text-sm leading-relaxed text-[var(--text-primary)]/60 group-hover:text-[var(--text-primary)]/80 transition-colors duration-500">
                     {step.description}
                   </p>
                 </div>
 
                 {/* Meta Data (Bottom) */}
-                <div className="mt-auto pt-6 border-t border-white/5 group-hover:border-terracota/20 transition-colors duration-500">
+                <div className="mt-auto pt-6 border-t border-[var(--text-primary)]/5 group-hover:border-terracota/20 transition-colors duration-500">
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <span className="block text-[9px] uppercase tracking-wider text-gray-500 mb-1">Duración</span>
-                      <span className="text-xs font-medium text-white">{step.meta.duration}</span>
+                      <span className="block text-[9px] uppercase tracking-wider text-[var(--text-primary)]/50 mb-1">Duración</span>
+                      <span className="text-xs font-medium text-[var(--text-primary)]">{step.meta.duration}</span>
                     </div>
                     <div>
-                      <span className="block text-[9px] uppercase tracking-wider text-gray-500 mb-1">Resultado</span>
-                      <span className="text-xs font-medium text-white">{step.meta.outcome}</span>
+                      <span className="block text-[9px] uppercase tracking-wider text-[var(--text-primary)]/50 mb-1">Resultado</span>
+                      <span className="text-xs font-medium text-[var(--text-primary)]">{step.meta.outcome}</span>
                     </div>
                   </div>
                 </div>

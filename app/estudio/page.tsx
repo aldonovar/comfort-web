@@ -71,7 +71,7 @@ export default function EstudioPage() {
     }, []);
 
     return (
-        <main ref={containerRef} className="bg-black min-h-screen text-white">
+        <main ref={containerRef} className="bg-[var(--bg-primary)] min-h-screen text-[var(--text-primary)]">
 
             {/* Hero */}
             <section className="relative h-[70vh] flex items-center justify-center overflow-hidden">
@@ -82,7 +82,7 @@ export default function EstudioPage() {
                         fill
                         className="object-cover opacity-30"
                     />
-                    <div className="absolute inset-0 bg-linear-to-b from-black/80 via-transparent to-black" />
+                    <div className="absolute inset-0 bg-linear-to-b from-black/80 via-transparent to-[var(--bg-primary)]" />
                 </div>
 
                 <div className="relative z-10 text-center px-6 studio-hero-text">
@@ -92,7 +92,7 @@ export default function EstudioPage() {
                     <h1 className="font-serif text-6xl md:text-8xl mb-8">
                         El Estudio
                     </h1>
-                    <p className="text-white/60 text-lg md:text-xl max-w-2xl mx-auto font-light leading-relaxed">
+                    <p className="text-[var(--text-primary)]/60 text-lg md:text-xl max-w-2xl mx-auto font-light leading-relaxed">
                         Más que arquitectura, creamos atmósferas. Un laboratorio de diseño donde la luz, el material y el espacio convergen.
                     </p>
                 </div>
@@ -114,7 +114,7 @@ export default function EstudioPage() {
                                 fill
                                 className="object-cover transition-transform duration-700 group-hover:scale-105 opacity-60 group-hover:opacity-40"
                             />
-                            <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-500" />
+                            <div className="absolute inset-0 bg-[var(--text-primary)]/10 group-hover:bg-[var(--text-primary)]/20 transition-colors duration-500" />
 
                             <div className="absolute inset-0 p-8 flex flex-col justify-end items-start">
                                 <span className="text-terracota text-xs tracking-[0.2em] uppercase font-bold mb-2 opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500">
@@ -123,11 +123,11 @@ export default function EstudioPage() {
                                 <h2 className="font-serif text-4xl md:text-5xl mb-4 group-hover:text-terracota transition-colors duration-300">
                                     {section.title}
                                 </h2>
-                                <p className="text-white/70 text-sm max-w-xs opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500 delay-100">
+                                <p className="text-[var(--text-primary)]/70 text-sm max-w-xs opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500 delay-100">
                                     {section.desc}
                                 </p>
 
-                                <div className="mt-8 w-12 h-12 rounded-full border border-white/30 flex items-center justify-center group-hover:bg-terracota group-hover:border-terracota transition-all duration-300">
+                                <div className="mt-8 w-12 h-12 rounded-full border border-[var(--text-primary)]/30 flex items-center justify-center group-hover:bg-terracota group-hover:border-terracota transition-all duration-300">
                                     <span className="text-xl">→</span>
                                 </div>
                             </div>

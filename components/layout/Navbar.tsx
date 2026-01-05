@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import gsap from "gsap";
+import { useTheme } from "next-themes";
 import ThemeToggle from "../ui/ThemeToggle";
 
 const NAV_ITEMS = [
@@ -96,6 +97,7 @@ const MEGA_CONTENT: any = {
 };
 
 export default function Navbar() {
+  const { theme } = useTheme();
   const [activeMega, setActiveMega] = useState<string | null>(null);
   const [activeSubItem, setActiveSubItem] = useState<any>(null);
   const [scrolled, setScrolled] = useState(false);
@@ -105,6 +107,7 @@ export default function Navbar() {
   // Image State
   const [currentImage, setCurrentImage] = useState<string>("");
   const [isAnimating, setIsAnimating] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   const headerRef = useRef<HTMLElement>(null);
   const megaRef = useRef<HTMLDivElement>(null);
@@ -113,6 +116,7 @@ export default function Navbar() {
   const pathname = usePathname();
 
   useEffect(() => {
+    setMounted(true);
     let ticking = false;
     const onScroll = () => {
       if (!ticking) {
@@ -214,12 +218,18 @@ export default function Navbar() {
     setActiveMega(null);
   };
 
+  // Determine Logo Source
+  const isSolidHeader = scrolled || activeMega || pathname === '/cotiza';
+  const logoSrc = mounted && isSolidHeader && theme === 'light'
+    ? "/comfort-logo-dark.png"
+    : "/comfort-logo-light.png";
+
   return (
     <>
       <header
         ref={headerRef}
         onMouseLeave={handleMouseLeave}
-        className={`fixed top-0 left-0 right-0 transition-all duration-700 ${mobileOpen ? "z-[1000]" : "z-[100]"} ${scrolled || activeMega || pathname === '/cotiza'
+        className={`fixed top-0 left-0 right-0 transition-all duration-700 ${mobileOpen ? "z-[1000]" : "z-[100]"} ${isSolidHeader
           ? "bg-[var(--bg-primary)] py-4 border-b border-[var(--text-primary)]/5 shadow-sm"
           : "bg-gradient-to-b from-black/60 to-transparent py-8 border-b border-transparent"
           }`}
@@ -229,7 +239,7 @@ export default function Navbar() {
           {/* Logo */}
           <Link href="/" className="group relative z-50 flex items-center gap-3">
             <Image
-              src="/comfort-logo-light.png"
+              src={logoSrc}
               alt="Comfort Studio"
               width={160}
               height={160}
@@ -237,7 +247,6 @@ export default function Navbar() {
                 }`}
               priority
             />
-            {/* Text removed as requested */}
           </Link>
 
           {/* Desktop Nav */}

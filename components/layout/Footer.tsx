@@ -53,7 +53,7 @@ export default function Footer() {
   }, []);
 
   return (
-    <footer ref={footerRef} className="relative z-50 bg-[#121212] dark:bg-[#121212] bg-[var(--bg-secondary)] text-[var(--text-primary)] pt-16 pb-12 md:pt-32 md:pb-24 border-t border-[var(--text-primary)]/5 overflow-hidden transition-colors duration-500">
+    <footer ref={footerRef} className="relative z-50 bg-[var(--bg-secondary)] text-[var(--text-primary)] pt-16 pb-12 md:pt-32 md:pb-24 border-t border-[var(--text-primary)]/5 overflow-hidden transition-colors duration-500">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div>
 

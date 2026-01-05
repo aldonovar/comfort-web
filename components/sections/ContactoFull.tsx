@@ -78,7 +78,7 @@ ${formData.message || "Quisiera más información."}`;
                             <span className="block text-terracota text-[10px] tracking-[0.4em] uppercase font-bold mb-4">Contacto</span>
                             <h1 className="font-serif text-5xl md:text-7xl leading-[0.95] tracking-tight mb-6">
                                 Hablemos de <br />
-                                <span className="text-terracota italic opacity-90">vuestra visión.</span>
+                                <span className="text-terracota italic opacity-90">tu visión.</span>
                             </h1>
                             <p className="text-sm md:text-base text-[var(--text-primary)]/70 leading-relaxed font-light max-w-md">
                                 Cada gran proyecto comienza con un simple "hola". Estamos listos para escuchar.

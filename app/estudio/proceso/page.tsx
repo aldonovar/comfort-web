@@ -58,8 +58,18 @@ export default function ProcesoPage() {
     }, []);
 
     return (
-        <main ref={containerRef} className="bg-[var(--bg-primary)] min-h-screen text-[var(--text-primary)] pt-32 pb-24">
-            <div className="max-w-4xl mx-auto px-6">
+    return (
+        <main ref={containerRef} className="relative bg-[var(--bg-primary)] min-h-screen text-[var(--text-primary)] pt-48 pb-24 overflow-hidden">
+
+            {/* Background Ambience */}
+            <div className="absolute inset-0 -z-10">
+                <div className="absolute inset-0 bg-linear-to-b from-[var(--bg-primary)] via-[var(--bg-secondary)] to-[var(--bg-primary)] opacity-50" />
+                <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03] mix-blend-overlay" />
+                <div className="absolute top-0 right-0 w-[80vw] h-[80vw] md:w-[600px] md:h-[600px] bg-terracota/5 rounded-full blur-[120px] mix-blend-multiply dark:mix-blend-screen animate-pulse duration-10000" />
+                <div className="absolute bottom-0 left-0 w-[60vw] h-[60vw] md:w-[500px] md:h-[500px] bg-[var(--text-primary)]/5 rounded-full blur-[100px]" />
+            </div>
+
+            <div className="max-w-4xl mx-auto px-6 relative z-10">
                 <div className="text-center mb-24">
                     <span className="block text-terracota text-xs tracking-[0.3em] uppercase font-bold mb-6">
                         Metodología
@@ -76,7 +86,7 @@ export default function ProcesoPage() {
                     {STEPS.map((step, i) => (
                         <div key={i} className={`process-step flex flex-col md:flex-row gap-8 md:gap-24 items-center ${i % 2 === 0 ? 'md:text-right' : 'md:flex-row-reverse md:text-left'}`}>
 
-                            <div className="flex-1 w-full">
+                            <div className="flex-1 w-full p-8 md:p-0 rounded-2xl md:rounded-none bg-[var(--bg-secondary)]/50 md:bg-transparent backdrop-blur-sm md:backdrop-blur-none border border-[var(--text-primary)]/5 md:border-none">
                                 <span className="text-6xl font-serif text-terracota/20 font-bold block mb-4">{step.num}</span>
                                 <h3 className="text-3xl font-serif mb-4">{step.title}</h3>
                                 <p className="text-[var(--text-primary)]/70 leading-relaxed">{step.desc}</p>

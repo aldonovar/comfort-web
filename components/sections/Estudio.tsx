@@ -66,7 +66,7 @@ export default function Estudio() {
   }, []);
 
   return (
-    <section ref={sectionRef} id="estudio" className="relative bg-black text-white overflow-hidden">
+    <section ref={sectionRef} id="estudio" className="relative bg-[var(--bg-primary)] text-[var(--text-primary)] overflow-hidden">
 
       {/* 
         Container: Always Horizontal row, h-[100dvh] for mobile browser address bar stability.
@@ -76,7 +76,7 @@ export default function Estudio() {
 
         {/* --- PANEL 1: MANIFESTO --- */}
         {/* REMOVED 'panel-anim' from main elements to fix Black Screen bug on scroll back */}
-        <div className="horizontal-panel w-screen h-[100dvh] flex flex-col justify-center items-center bg-[#050505] text-white relative z-10 shrink-0 border-r border-white/5">
+        <div className="horizontal-panel w-screen h-[100dvh] flex flex-col justify-center items-center bg-[var(--bg-secondary)] text-[var(--text-primary)] relative z-10 shrink-0 border-r border-[var(--text-primary)]/5">
           <div className="absolute inset-0 opacity-[0.05] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')] mix-blend-overlay"></div>
 
           <div className="max-w-5xl px-8 md:px-6 text-center relative z-10 flex flex-col items-center">
@@ -89,14 +89,14 @@ export default function Estudio() {
               <span className="w-8 lg:w-12 h-px bg-terracota"></span>
             </div>
 
-            <h2 className="font-serif text-4xl md:text-8xl lg:text-9xl leading-[1.1] md:leading-[0.9] mb-6 lg:mb-12 text-white">
+            <h2 className="font-serif text-4xl md:text-8xl lg:text-9xl leading-[1.1] md:leading-[0.9] mb-6 lg:mb-12 text-[var(--text-primary)]">
               No hacemos <br />
               <span className="text-terracota italic">terrazas.</span>
             </h2>
 
-            <p className="text-lg md:text-3xl text-gray-400 max-w-sm md:max-w-2xl mx-auto leading-relaxed text-balance">
+            <p className="text-lg md:text-3xl text-[var(--text-primary)]/60 max-w-sm md:max-w-2xl mx-auto leading-relaxed text-balance">
               Creamos escenarios donde la vida sucede. <br className="hidden md:block" />
-              <span className="text-white font-medium">Comfort Studio</span> es la obsesión por lo que no se ve.
+              <span className="text-[var(--text-primary)] font-medium">Comfort Studio</span> es la obsesión por lo que no se ve.
             </p>
 
             <div className="mt-8 md:mt-12 animate-pulse panel-anim">
@@ -108,7 +108,7 @@ export default function Estudio() {
         </div>
 
         {/* --- PANEL 2: ENFOQUE --- */}
-        <div className="horizontal-panel w-screen h-[100dvh] flex flex-col justify-center md:justify-end pb-0 md:pb-24 bg-[#050505] relative z-20 shrink-0 border-r border-white/5 overflow-hidden group">
+        <div className="horizontal-panel w-screen h-[100dvh] flex flex-col justify-center md:justify-end pb-0 md:pb-24 bg-[var(--bg-secondary)] relative z-20 shrink-0 border-r border-[var(--text-primary)]/5 overflow-hidden group">
           <Image
             src="/studio/studio-1.jpg"
             alt="Enfoque"
@@ -116,39 +116,39 @@ export default function Estudio() {
             className="object-cover opacity-60"
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/60 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg-secondary)] via-[var(--bg-secondary)]/60 to-transparent" />
 
           <div className="max-w-[1800px] w-full mx-auto px-8 md:px-12 relative z-10 text-center md:text-left">
-            <span className="panel-anim inline-block px-3 py-1.5 lg:px-4 lg:py-2 mb-4 lg:mb-6 rounded-full text-[10px] lg:text-xs uppercase tracking-widest border border-white/30 bg-white/10 text-white backdrop-blur-md">
+            <span className="panel-anim inline-block px-3 py-1.5 lg:px-4 lg:py-2 mb-4 lg:mb-6 rounded-full text-[10px] lg:text-xs uppercase tracking-widest border border-[var(--text-primary)]/30 bg-[var(--text-primary)]/10 text-[var(--text-primary)] backdrop-blur-md">
               Enfoque
             </span>
-            <h3 className="panel-anim font-serif text-3xl md:text-7xl mb-4 lg:mb-6 text-white leading-tight">
-              Extensión, <br className="md:hidden" /> <span className="text-white/50 italic">no anexo.</span>
+            <h3 className="panel-anim font-serif text-3xl md:text-7xl mb-4 lg:mb-6 text-[var(--text-primary)] leading-tight">
+              Extensión, <br className="md:hidden" /> <span className="text-[var(--text-primary)]/50 italic">no anexo.</span>
             </h3>
-            <p className="panel-anim text-base md:text-2xl text-gray-300 max-w-sm md:max-w-2xl mx-auto md:mx-0 leading-relaxed text-balance">
+            <p className="panel-anim text-base md:text-2xl text-[var(--text-primary)]/70 max-w-sm md:max-w-2xl mx-auto md:mx-0 leading-relaxed text-balance">
               La terraza no es un satélite. Es la continuación lógica de tu sala, tu comedor y tu vida.
             </p>
           </div>
         </div>
 
         {/* --- PANEL 3: OBSESIÓN --- */}
-        <div className="horizontal-panel w-screen h-[100dvh] flex flex-col justify-center md:justify-end pb-0 md:pb-24 bg-[#050505] relative z-30 shrink-0 border-r border-white/5 overflow-hidden group">
+        <div className="horizontal-panel w-screen h-[100dvh] flex flex-col justify-center md:justify-end pb-0 md:pb-24 bg-[var(--bg-secondary)] relative z-30 shrink-0 border-r border-[var(--text-primary)]/5 overflow-hidden group">
           <Image
             src="/studio/studio-2.jpg"
             alt="Obsesión"
             fill
             className="object-cover opacity-60"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/60 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg-secondary)] via-[var(--bg-secondary)]/60 to-transparent" />
 
           <div className="max-w-[1800px] w-full mx-auto px-8 md:px-12 relative z-10 text-center md:text-left">
-            <span className="panel-anim inline-block px-3 py-1.5 lg:px-4 lg:py-2 mb-4 lg:mb-6 rounded-full text-[10px] lg:text-xs uppercase tracking-widest border border-white/30 bg-white/10 text-white backdrop-blur-md">
+            <span className="panel-anim inline-block px-3 py-1.5 lg:px-4 lg:py-2 mb-4 lg:mb-6 rounded-full text-[10px] lg:text-xs uppercase tracking-widest border border-[var(--text-primary)]/30 bg-[var(--text-primary)]/10 text-[var(--text-primary)] backdrop-blur-md">
               Obsesión
             </span>
-            <h3 className="panel-anim font-serif text-3xl md:text-7xl mb-4 lg:mb-6 text-white leading-tight">
-              El detalle <br className="md:hidden" /> <span className="text-white/50 italic">invisible.</span>
+            <h3 className="panel-anim font-serif text-3xl md:text-7xl mb-4 lg:mb-6 text-[var(--text-primary)] leading-tight">
+              El detalle <br className="md:hidden" /> <span className="text-[var(--text-primary)]/50 italic">invisible.</span>
             </h3>
-            <p className="panel-anim text-base md:text-2xl text-gray-300 max-w-sm md:max-w-2xl mx-auto md:mx-0 leading-relaxed text-balance">
+            <p className="panel-anim text-base md:text-2xl text-[var(--text-primary)]/70 max-w-sm md:max-w-2xl mx-auto md:mx-0 leading-relaxed text-balance">
               La temperatura de la luz, la textura del piso descalzo. Lo que no se ve, pero se siente.
             </p>
           </div>
