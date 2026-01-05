@@ -102,30 +102,30 @@ export default function OtrosProyectosPage() {
     }, []);
 
     return (
-        <div ref={container} className="bg-[#050505] text-white overflow-hidden">
+        <div ref={container} className="bg-[var(--bg-primary)] text-[var(--text-primary)] overflow-hidden">
 
             {/* --- HERO SECTION --- */}
-            <section ref={heroRef} className="relative h-screen w-full flex items-center justify-center overflow-hidden bg-[#050505]">
+            <section ref={heroRef} className="relative h-screen w-full flex items-center justify-center overflow-hidden bg-[var(--bg-primary)]">
                 <div className="absolute inset-0 z-0 opacity-20">
                     <div className="hero-floater absolute top-1/4 left-1/4 w-64 h-64 bg-terracota rounded-full blur-[100px]" />
                     <div className="hero-floater absolute bottom-1/4 right-1/4 w-96 h-96 bg-white rounded-full blur-[120px]" />
                 </div>
 
                 <div className="relative z-10 text-center px-6 mix-blend-difference">
-                    <p className="text-sm tracking-[0.5em] uppercase font-bold mb-8 text-white/60">
+                    <p className="text-sm tracking-[0.5em] uppercase font-bold mb-8 text-[var(--text-primary)]/60">
                         Versatilidad & Alcance
                     </p>
-                    <h1 className="font-serif text-[10vw] leading-none tracking-tighter text-white">
+                    <h1 className="font-serif text-[10vw] leading-none tracking-tighter text-[var(--text-primary)]">
                         OTROS <br /> SERVICIOS
                     </h1>
-                    <p className="text-xl md:text-2xl text-white/50 mt-8 max-w-2xl mx-auto font-light">
+                    <p className="text-xl md:text-2xl text-[var(--text-primary)]/50 mt-8 max-w-2xl mx-auto font-light">
                         Soluciones que complementan tu experiencia <br /> al aire libre.
                     </p>
                 </div>
             </section>
 
             {/* --- MASONRY SCROLL CONCEPT --- */}
-            <section ref={masonryRef} className="relative py-32 px-6 md:px-12 bg-[#0a0a0a] min-h-[150vh]">
+            <section ref={masonryRef} className="relative py-32 px-6 md:px-12 bg-[var(--bg-secondary)] min-h-[150vh]">
                 <div className="max-w-7xl mx-auto relative">
                     <div className="absolute top-0 left-0 z-10 mb-24">
                         <h2 className="font-serif text-4xl md:text-6xl leading-tight">
@@ -135,7 +135,7 @@ export default function OtrosProyectosPage() {
 
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-8 md:gap-16 pt-48">
                         {GALLERY_ITEMS.map((item, i) => (
-                            <div key={i} className={`relative aspect-[3/4] w-full rounded-lg overflow-hidden group border border-white/5 ${i % 2 === 0 ? 'mt-0' : 'mt-24'}`}>
+                            <div key={i} className={`relative aspect-3/4 w-full rounded-lg overflow-hidden group border border-[var(--text-primary)]/5 ${i % 2 === 0 ? 'mt-0' : 'mt-24'}`}>
                                 <video
                                     src={item.src}
                                     autoPlay
@@ -161,22 +161,22 @@ export default function OtrosProyectosPage() {
                         fill
                         className="object-cover opacity-30 blur-xl scale-110"
                     />
-                    <div className="absolute inset-0 bg-[#050505]/80" />
+                    <div className="absolute inset-0 bg-[var(--bg-primary)]/80" />
                 </div>
 
                 <div className="relative z-10 max-w-7xl w-full grid grid-cols-1 md:grid-cols-3 gap-8">
                     {PROCESS_STEPS.map((step, i) => (
-                        <div key={i} className="process-step group relative p-12 border border-white/5 bg-white/[0.02] backdrop-blur-sm hover:bg-white/[0.05] hover:border-terracota/30 transition-all duration-500 overflow-hidden">
+                        <div key={i} className="process-step group relative p-12 border border-[var(--text-primary)]/5 bg-[var(--text-primary)]/2 backdrop-blur-sm hover:bg-[var(--text-primary)]/5 hover:border-terracota/30 transition-all duration-500 overflow-hidden">
                             {/* Large Background Number */}
-                            <span className="absolute -right-4 -bottom-8 font-serif text-[12rem] leading-none text-white/[0.03] group-hover:text-terracota/[0.05] transition-colors duration-500 select-none pointer-events-none">
+                            <span className="absolute -right-4 -bottom-8 font-serif text-[12rem] leading-none text-[var(--text-primary)]/3 group-hover:text-terracota/5 transition-colors duration-500 select-none pointer-events-none">
                                 {i + 1}
                             </span>
 
                             <div className="relative z-10">
                                 <span className="text-terracota text-sm font-bold tracking-[0.2em] mb-6 block">FASE 0{i + 1}</span>
-                                <h3 className="text-3xl font-serif text-white mb-6 group-hover:translate-x-2 transition-transform duration-300">{step.title}</h3>
-                                <div className="w-12 h-px bg-white/20 mb-6 group-hover:w-24 group-hover:bg-terracota transition-all duration-500" />
-                                <p className="text-white/60 font-light leading-relaxed max-w-xs group-hover:text-white/80 transition-colors">
+                                <h3 className="text-3xl font-serif text-[var(--text-primary)] mb-6 group-hover:translate-x-2 transition-transform duration-300">{step.title}</h3>
+                                <div className="w-12 h-px bg-[var(--text-primary)]/20 mb-6 group-hover:w-24 group-hover:bg-terracota transition-all duration-500" />
+                                <p className="text-[var(--text-primary)]/60 font-light leading-relaxed max-w-xs group-hover:text-[var(--text-primary)]/80 transition-colors">
                                     {step.desc}
                                 </p>
                             </div>
@@ -186,12 +186,12 @@ export default function OtrosProyectosPage() {
             </section>
 
             {/* --- DETAILS LIST --- */}
-            <section className="py-32 px-6 md:px-24 bg-[#0a0a0a] border-t border-white/5">
+            <section className="py-32 px-6 md:px-24 bg-[var(--bg-primary)] border-t border-[var(--text-primary)]/5">
                 <div className="max-w-4xl mx-auto text-center">
-                    <p className="text-xs uppercase tracking-[0.3em] text-white/40 mb-12">Gama de Servicios</p>
+                    <p className="text-xs uppercase tracking-[0.3em] text-[var(--text-primary)]/40 mb-12">Gama de Servicios</p>
                     <div className="flex flex-wrap justify-center gap-4 md:gap-8">
                         {["Paisajismo", "Pintura", "Mobiliario Custom", "Iluminación Escénica", "Mantenimiento", "Consultoría"].map((tag, i) => (
-                            <span key={i} className="px-6 py-3 rounded-full border border-white/10 text-lg hover:bg-terracota hover:text-white hover:border-terracota transition-all duration-300 cursor-default">
+                            <span key={i} className="px-6 py-3 rounded-full border border-[var(--text-primary)]/10 text-lg hover:bg-terracota hover:text-white hover:border-terracota transition-all duration-300 cursor-default">
                                 {tag}
                             </span>
                         ))}

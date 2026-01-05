@@ -116,7 +116,7 @@ export default function ParrillaPage() {
     }, []);
 
     return (
-        <div ref={container} className="bg-[#0a0a0a] text-white overflow-hidden">
+        <div ref={container} className="bg-[var(--bg-primary)] text-[var(--text-primary)] overflow-hidden">
 
             {/* --- HERO SECTION --- */}
             <section ref={heroRef} className="relative h-screen w-full flex items-center justify-center overflow-hidden">
@@ -129,8 +129,8 @@ export default function ParrillaPage() {
                         playsInline
                         className="object-cover w-full h-full opacity-60"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-transparent to-[#0a0a0a]" />
-                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,#0a0a0a_100%)] opacity-80" />
+                    <div className="absolute inset-0 bg-linear-to-b from-black/80 via-transparent to-[var(--bg-primary)]" />
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,var(--bg-primary)_100%)] opacity-80" />
                 </div>
 
                 <div className="relative z-10 text-center px-6">
@@ -143,7 +143,7 @@ export default function ParrillaPage() {
                 </div>
 
                 <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 opacity-50 animate-pulse">
-                    <span className="text-[10px] uppercase tracking-widest">Descubre</span>
+                    <span className="text-[10px] uppercase tracking-widest text-white">Descubre</span>
                     <div className="w-px h-12 bg-white" />
                 </div>
             </section>
@@ -166,7 +166,7 @@ export default function ParrillaPage() {
                             <div className="feature-text opacity-0 translate-y-10">
                                 <span className="text-terracota text-xs uppercase tracking-[0.3em] mb-4 block">0{i + 1}</span>
                                 <h2 className="font-serif text-4xl md:text-5xl mb-6">{feature.title}</h2>
-                                <p className="text-white/60 text-lg md:text-xl leading-relaxed max-w-md">
+                                <p className="text-[var(--text-primary)]/60 text-lg md:text-xl leading-relaxed max-w-md">
                                     {feature.desc}
                                 </p>
                             </div>
@@ -176,27 +176,27 @@ export default function ParrillaPage() {
             </div>
 
             {/* --- EQUIPMENT SLIDER --- */}
-            <section ref={equipmentRef} className="relative h-screen bg-[#050505] flex flex-col justify-center overflow-hidden">
+            <section ref={equipmentRef} className="relative h-screen bg-[var(--bg-secondary)] flex flex-col justify-center overflow-hidden">
                 <div className="absolute top-12 left-12 z-20">
-                    <span className="text-xs uppercase tracking-[0.3em] text-white/40 border-b border-white/10 pb-2">Equipamiento Premium</span>
+                    <span className="text-xs uppercase tracking-[0.3em] text-[var(--text-primary)]/40 border-b border-[var(--text-primary)]/10 pb-2">Equipamiento Premium</span>
                 </div>
 
                 <div className="equipment-track flex gap-12 px-[10vw] items-center">
-                    <div className="flex-shrink-0 w-[80vw] md:w-[25vw] pr-12">
+                    <div className="shrink-0 w-[80vw] md:w-[25vw] pr-12">
                         <h3 className="font-serif text-4xl md:text-6xl leading-tight">
                             El Corazón <br /> de tu <span className="text-terracota italic">Terraza</span>
                         </h3>
                     </div>
                     {EQUIPMENT.map((item, i) => (
-                        <div key={i} className="flex-shrink-0 w-[70vw] md:w-[30vw] aspect-[4/5] relative group overflow-hidden border border-white/10 bg-[#0a0a0a]">
+                        <div key={i} className="shrink-0 w-[70vw] md:w-[30vw] aspect-4/5 relative group overflow-hidden border border-[var(--text-primary)]/10 bg-[var(--bg-primary)]">
                             <Image
                                 src={item.img}
                                 alt={item.name}
                                 fill
                                 className="object-cover opacity-60 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700"
                             />
-                            <div className="absolute bottom-0 left-0 w-full p-8 bg-gradient-to-t from-black to-transparent">
-                                <p className="font-serif text-2xl">{item.name}</p>
+                            <div className="absolute bottom-0 left-0 w-full p-8 bg-linear-to-t from-black to-transparent">
+                                <p className="font-serif text-2xl text-white">{item.name}</p>
                             </div>
                         </div>
                     ))}
@@ -204,16 +204,16 @@ export default function ParrillaPage() {
             </section>
 
             {/* --- DETAILS GRID --- */}
-            <section className="py-32 px-6 md:px-24 bg-[#0a0a0a]">
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-white/10 border border-white/10">
+            <section className="py-32 px-6 md:px-24 bg-[var(--bg-primary)]">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-[var(--text-primary)]/10 border border-[var(--text-primary)]/10">
                     {[
                         { label: "Espacio Mínimo", val: "6 m²" },
                         { label: "Materiales", val: "Granito / Acero 304" },
                         { label: "Tiempo de Entrega", val: "Menor" },
                         { label: "Equipamiento", val: "A Consultar" },
                     ].map((item, i) => (
-                        <div key={i} className="bg-[#0a0a0a] p-12 hover:bg-[#050505] transition-colors group">
-                            <span className="block text-xs uppercase tracking-widest text-white/40 mb-4 group-hover:text-terracota transition-colors">{item.label}</span>
+                        <div key={i} className="bg-[var(--bg-primary)] p-12 hover:bg-[var(--bg-secondary)] transition-colors group">
+                            <span className="block text-xs uppercase tracking-widest text-[var(--text-primary)]/40 mb-4 group-hover:text-terracota transition-colors">{item.label}</span>
                             <p className="text-2xl font-serif">{item.val}</p>
                         </div>
                     ))}
