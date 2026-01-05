@@ -108,13 +108,13 @@ export default function Footer() {
           {/* Links Columns */}
           {FOOTER_LINKS.map((section, idx) => (
             <div key={section.title} className="md:col-span-2 footer-reveal">
-              <h4 className="text-xs font-bold uppercase tracking-widest text-[var(--text-primary)]/40 mb-8 transition-colors duration-500">{section.title}</h4>
+              <h4 className="text-[0.6rem] font-bold uppercase tracking-widest text-terracota mb-6 transition-colors duration-500">{section.title}</h4>
               <ul className="space-y-4">
                 {section.links.map((link) => (
                   <li key={link.label}>
                     <Link
                       href={link.href}
-                      className="text-sm text-[var(--text-primary)]/70 hover:text-terracota transition-colors duration-300 block"
+                      className="text-[0.7rem] font-bold uppercase tracking-[0.25em] text-[var(--text-primary)] hover:text-terracota transition-colors duration-300 block"
                     >
                       {link.label}
                     </Link>
@@ -126,24 +126,24 @@ export default function Footer() {
 
           {/* Contact Column */}
           <div className="md:col-span-2 footer-reveal">
-            <h4 className="text-xs font-bold uppercase tracking-widest text-[var(--text-primary)]/40 mb-8 transition-colors duration-500">Contacto</h4>
-            <ul className="space-y-4">
-              <li className="text-sm text-[var(--text-primary)]/70 transition-colors duration-500">
-                <span className="block text-[var(--text-primary)]/30 text-xs mb-1 transition-colors duration-500">Teléfono</span>
+            <h4 className="text-[0.6rem] font-bold uppercase tracking-widest text-terracota mb-6 transition-colors duration-500">Contacto</h4>
+            <ul className="space-y-6">
+              <li className="transition-colors duration-500">
+                <span className="block text-[0.6rem] uppercase tracking-widest text-[var(--text-primary)]/60 mb-2 transition-colors duration-500">Teléfono</span>
                 <a
                   href="https://wa.me/51936230958"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-terracota transition-colors duration-300"
+                  className="text-[0.7rem] font-bold uppercase tracking-[0.25em] text-[var(--text-primary)] hover:text-terracota transition-colors duration-300 block"
                 >
                   +51 936 230 958
                 </a>
               </li>
-              <li className="text-sm text-[var(--text-primary)]/70 transition-colors duration-500">
-                <span className="block text-[var(--text-primary)]/30 text-xs mb-1 transition-colors duration-500">Email</span>
+              <li className="transition-colors duration-500">
+                <span className="block text-[0.6rem] uppercase tracking-widest text-[var(--text-primary)]/60 mb-2 transition-colors duration-500">Email</span>
                 <a
                   href="mailto:contacto@comfortstudioperu.com"
-                  className="hover:text-terracota transition-colors duration-300"
+                  className="text-[0.7rem] font-bold uppercase tracking-[0.25em] text-[var(--text-primary)] hover:text-terracota transition-colors duration-300 block text-balance break-all"
                 >
                   contacto@comfortstudioperu.com
                 </a>
