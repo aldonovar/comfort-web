@@ -255,7 +255,7 @@ export default function Navbar() {
               <div key={item.id} className="relative group" onMouseEnter={() => handleMouseEnter(item.id)}>
                 <Link
                   href={item.href}
-                  className={`text-[0.7rem] font-bold uppercase tracking-[0.25em] py-4 block transition-colors duration-500 ${activeMega === item.id || scrolled ? "text-[var(--text-primary)]" : "text-white/80 hover:text-white"}`}
+                  className={`text-[0.7rem] font-bold uppercase tracking-[0.25em] py-4 block transition-colors duration-500 ${activeMega || scrolled ? "text-[var(--text-primary)]" : "text-white/80 hover:text-white"}`}
                 >
                   {item.label}
                   <span className={`absolute bottom-2 left-0 w-full h-px bg-terracota transition-transform duration-500 origin-left cubic-bezier(0.4, 0, 0.2, 1) ${activeMega === item.id ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"}`} />
