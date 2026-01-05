@@ -25,6 +25,7 @@ const GALLERY_ITEMS = [
     { src: "/projects/el-polo/gallery-6.mp4", alt: "Recorrido Estación", aspect: "aspect-video", type: "video" },
     { src: "/projects/el-polo/gallery-7.jpg", alt: "Ambiente General", aspect: "aspect-3/4", type: "image" },
     { src: "/projects/el-polo/gallery-8.jpg", alt: "Detalle Techo", aspect: "aspect-video", type: "image" },
+    { src: "", alt: "Quote", aspect: "aspect-square", type: "text", content: "Espacios diseñados para perdurar en la memoria." },
 ];
 
 export default function ElPoloPage() {
@@ -144,12 +145,18 @@ export default function ElPoloPage() {
 
                     <div className="columns-1 md:columns-2 lg:columns-3 gap-6 space-y-6">
                         {GALLERY_ITEMS.map((item, index) => (
-                            <div key={index} className={`gallery-item break-inside-avoid relative ${item.aspect} overflow-hidden rounded-sm group bg-neutral-900`}>
+                            <div key={index} className={`gallery-item break-inside-avoid relative ${item.aspect} overflow-hidden rounded-sm group bg-neutral-900 group`}>
                                 {item.type === "video" ? (
                                     <SeamlessVideo
                                         src={item.src}
                                         className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500"
                                     />
+                                ) : item.type === "text" ? (
+                                    <div className="absolute inset-0 flex items-center justify-center p-8 bg-[#111] text-center border border-white/5">
+                                        <p className="font-serif text-2xl md:text-3xl text-white/80 italic leading-relaxed">
+                                            &ldquo;{item.content}&rdquo;
+                                        </p>
+                                    </div>
                                 ) : (
                                     <Image
                                         src={item.src}
@@ -159,7 +166,7 @@ export default function ElPoloPage() {
                                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                                     />
                                 )}
-                                <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500 pointer-events-none" />
+                                {item.type !== "text" && <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500 pointer-events-none" />}
                             </div>
                         ))}
                     </div>
