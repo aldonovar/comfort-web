@@ -30,7 +30,7 @@ const EQUIPMENT = [
     { name: "Kamado Joe", img: "/services/parrilla/equipment-1.jpg" },
     { name: "Parrilla Inox", img: "/services/parrilla/equipment-2.jpg" },
     { name: "Horno Leña", img: "/services/parrilla/equipment-3.jpg" },
-    { name: "Frigobar", img: "/services/parrilla/equipment-4.jpg" },
+    { name: "Frigobar", img: "/services/parrilla/equipment-4.png" },
 ];
 
 export default function ParrillaPage() {
