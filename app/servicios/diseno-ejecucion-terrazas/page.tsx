@@ -10,16 +10,22 @@ gsap.registerPlugin(ScrollTrigger);
 
 const CONCEPT_IMAGES = [
     {
-        src: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=1920&auto=format&fit=crop",
-        alt: "Proceso de diseño de terrazas personalizado: desde renderizado 3D fotorrealista hasta la selección de materiales premium como piedra natural y maderas tropicales."
+        src: "/services/terrazas/concept-1.jpg",
+        alt: "Diseño de terraza santuario para desconectar",
+        title: "El verdadero lujo es el tiempo",
+        text: "Vivimos corriendo. Tu terraza no debería ser solo metros cuadrados extra, sino tu santuario personal para pausar el reloj. Un espacio diseñado deliberadamente para desconectar del caos urbano y reconectar contigo mismo."
     },
     {
-        src: "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?q=80&w=1920&auto=format&fit=crop",
-        alt: "Construcción de terrazas con acabados de alta gama: integración de jardineras de concreto, pisos de porcelanato y carpintería de precisión."
+        src: "/services/terrazas/concept-2.jpg",
+        alt: "Habitar el exterior con confort",
+        title: "Habitar el exterior",
+        text: "Diseñamos espacios que te invitan a quedarte. No es un lugar de paso o de 'verano'; es donde el café de la mañana sabe mejor y donde los atardeceres se vuelven rituales diarios de descompresión."
     },
     {
-        src: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=1920&auto=format&fit=crop",
-        alt: "Creación de ambientes exteriores acogedores y sofisticados ('outdoor living') diseñados para el entretenimiento y el relax."
+        src: "/services/terrazas/concept-3.jpg",
+        alt: "Escenario de memorias sociales",
+        title: "Escenario de memorias",
+        text: "El lugar donde las conversaciones se alargan y las celebraciones cobran vida. Creamos el telón de fondo perfecto para los momentos que realmente importan, priorizando la comodidad y la calidez en cada detalle."
     }
 ];
 
@@ -74,7 +80,10 @@ export default function TerrazasPage() {
                     ease: "power3.out"
                 }, "-=1");
 
-            // 2. Sticky Concept Section (Side-by-Side)
+            // 2. Dynamic Philosophy Section with Text switching
+            const texts = gsap.utils.toArray(".concept-text-item");
+            const images = gsap.utils.toArray(".concept-image");
+
             ScrollTrigger.create({
                 trigger: conceptRef.current,
                 start: "top top",
@@ -82,24 +91,45 @@ export default function TerrazasPage() {
                 pin: ".concept-text-col",
             });
 
-            // Image fade transition in concept section
-            const conceptImages = gsap.utils.toArray(".concept-image");
-            conceptImages.forEach((img: any, i) => {
-                if (i === 0) return;
-                gsap.fromTo(img,
-                    { opacity: 0 },
-                    {
-                        opacity: 1,
-                        scrollTrigger: {
-                            trigger: img,
-                            start: "top center",
-                            end: "center center",
-                            scrub: true,
-                            toggleActions: "play reverse play reverse"
+            images.forEach((img: any, i) => {
+                // Image opacity transition (keeping existing logic for images)
+                if (i > 0) {
+                    gsap.fromTo(img,
+                        { opacity: 0 },
+                        {
+                            opacity: 1,
+                            scrollTrigger: {
+                                trigger: img,
+                                start: "top center",
+                                end: "center center",
+                                scrub: true,
+                            }
                         }
-                    }
-                );
+                    );
+                }
+
+                // Text crossfade logic linked to image visibility
+                ScrollTrigger.create({
+                    trigger: img,
+                    start: "top center",
+                    end: "bottom center",
+                    onEnter: () => setActiveText(i),
+                    onEnterBack: () => setActiveText(i),
+                });
             });
+
+            function setActiveText(index: number) {
+                texts.forEach((text: any, i) => {
+                    if (i === index) {
+                        gsap.to(text, { opacity: 1, y: 0, duration: 0.5, overwrite: true });
+                    } else {
+                        gsap.to(text, { opacity: 0, y: 20, duration: 0.5, overwrite: true });
+                    }
+                });
+            }
+
+            // Initialize first text
+            setActiveText(0);
 
             // 3. Parallax Grid
             const col1 = galleryRef.current?.querySelector(".gallery-col-1");
@@ -156,7 +186,7 @@ export default function TerrazasPage() {
             <section ref={heroRef} className="relative h-screen w-full px-6 md:px-12 pt-32 pb-12 flex flex-col justify-between">
                 <div className="absolute inset-0 z-0">
                     <Image
-                        src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=1920&auto=format&fit=crop"
+                        src="/services/terrazas/hero-main.jpg"
                         alt="Diseño de terrazas de lujo en azoteas (rooftops) con pérgolas y paisajismo"
                         fill
                         className="object-cover opacity-30 grayscale-30"
@@ -192,24 +222,20 @@ export default function TerrazasPage() {
 
             {/* --- STICKY SIDE-BY-SIDE CONCEPT --- */}
             <section ref={conceptRef} className="relative flex flex-col md:flex-row bg-[var(--bg-secondary)]">
-                {/* Left: Sticky Text */}
-                <div className="concept-text-col w-full md:w-1/2 h-screen sticky top-0 flex items-center px-6 md:px-24 z-10">
-                    <div className="max-w-xl">
-                        <span className="text-terracota text-xs uppercase tracking-[0.3em] mb-6 block">Filosofía</span>
-                        <h2 className="font-serif text-4xl md:text-6xl mb-8 leading-tight">
-                            Más que un espacio, <br /> <span className="text-[var(--text-primary)]/40 italic">un estilo de vida.</span>
-                        </h2>
-                        <p className="text-[var(--text-primary)]/60 text-lg leading-relaxed mb-12">
-                            No solo diseñamos terrazas; creamos extensiones de tu hogar que invitan a la calma y la celebración. Integramos materiales nobles, vegetación y luz para construir atmósferas únicas.
-                        </p>
-                        <ul className="space-y-4 border-t border-[var(--text-primary)]/10 pt-8">
-                            {["Diseño 3D Fotorrealista", "Selección de Materiales", "Paisajismo Integrado"].map((item, i) => (
-                                <li key={i} className="flex items-center gap-4 text-sm uppercase tracking-widest text-[var(--text-primary)]/80">
-                                    <span className="w-1.5 h-1.5 bg-terracota rounded-full" />
-                                    {item}
-                                </li>
-                            ))}
-                        </ul>
+                {/* Left: Sticky Text Container */}
+                <div className="concept-text-col w-full md:w-1/2 h-screen sticky top-0 flex items-center px-6 md:px-24 z-10 overflow-hidden">
+                    <div className="relative w-full h-full flex items-center">
+                        {CONCEPT_IMAGES.map((item, i) => (
+                            <div key={i} className="concept-text-item absolute top-1/2 -translate-y-1/2 left-0 w-full opacity-0 translate-y-8">
+                                <span className="text-terracota text-xs uppercase tracking-[0.3em] mb-6 block">Filosofía {i + 1}</span>
+                                <h2 className="font-serif text-4xl md:text-6xl mb-8 leading-tight">
+                                    {item.title}
+                                </h2>
+                                <p className="text-[var(--text-primary)]/70 text-lg md:text-xl leading-relaxed max-w-lg">
+                                    {item.text}
+                                </p>
+                            </div>
+                        ))}
                     </div>
                 </div>
 
