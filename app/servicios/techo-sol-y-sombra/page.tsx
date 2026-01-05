@@ -42,17 +42,20 @@ const HERO_SCENES = [
     {
         id: "day",
         label: "Proyecto: Casa de Playa - Asia",
-        img: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=1920&auto=format&fit=crop"
+        img: "/services/techo/hero-1.jpg",
+        description: "Perspectiva cenital de terraza moderna bajo sol intenso. El techo sol y sombra proyecta un patrón geométrico de sombras nítidas sobre el suelo de travertino, demostrando la eficacia del filtrado de luz sin sacrificar la luminosidad natural. Integración orgánica con el cielo azul y vegetación perimetral."
     },
     {
         id: "sunset",
         label: "Proyecto: Penthouse - Miraflores",
-        img: "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?q=80&w=1920&auto=format&fit=crop"
+        img: "/services/techo/hero-2.jpg",
+        description: "Atmósfera de hora dorada capturada en terraza penthouse. La luz rasante del atardecer incendia los tonos rojizos de la madera Huayruro, creando un contraste dramático con los tonos fríos del horizonte urbano. El policarbonato difumina el sol poniente convirtiéndolo en un resplandor ámbar envolvente."
     },
     {
         id: "night",
         label: "Proyecto: Terraza - San Isidro",
-        img: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=1920&auto=format&fit=crop"
+        img: "/services/techo/hero-3.jpg",
+        description: "Composición nocturna de alta gama ('Blue Hour'). La estructura se transforma en una escultura lumínica mediante iluminación LED integrada en las vigas. El espacio irradia calidez y sofisticación frente a la oscuridad exterior, destacando el diseño de iluminación escénica y el mobiliario de autor."
     }
 ];
 
@@ -174,7 +177,7 @@ export default function TechoSolSombraPage() {
                         <div key={scene.id} className={`hero-layer-${i} absolute inset-0 transition-opacity duration-0`}>
                             <Image
                                 src={scene.img}
-                                alt={scene.label}
+                                alt={scene.description}
                                 fill
                                 className="object-cover"
                                 priority={i === 0}
