@@ -82,15 +82,16 @@ export default function ElPoloPage() {
     return (
         <main ref={containerRef} className="bg-[var(--bg-primary)] min-h-screen">
 
-            {/* --- HERO --- */}
+            {/* --- HERO (VIDEO) --- */}
             <section className="project-hero relative h-[85vh] overflow-hidden">
                 <div className="absolute inset-0">
-                    <Image
-                        src="/projects/el-polo/hero.jpg"
-                        alt="Terraza El Polo Hero"
-                        fill
-                        className="project-hero-bg object-cover"
-                        priority
+                    <video
+                        autoPlay
+                        muted
+                        loop
+                        src="/projects/el-polo/reel.mp4"
+                        className="project-hero-bg w-full h-full object-cover"
+                        playsInline
                     />
                     <div className="absolute inset-0 bg-black/30" />
                     <div className="absolute inset-0 bg-linear-to-t from-black/90 via-transparent to-transparent" />
@@ -122,20 +123,17 @@ export default function ElPoloPage() {
                 </div>
             </section>
 
-            {/* --- VIDEO REEL --- */}
+            {/* --- HERO IMAGE (SECONDARY) --- */}
             <section className="video-section py-12 px-0 md:px-12">
                 <div className="video-reel w-full h-[60vh] md:h-[80vh] relative overflow-hidden rounded-sm bg-black">
-                    <video
-                        ref={videoRef}
-                        className="w-full h-full object-cover opacity-90"
-                        autoPlay
-                        muted
-                        loop
-                        src="/projects/el-polo/reel.mp4"
-                        playsInline
+                    <Image
+                        src="/projects/el-polo/hero.jpg"
+                        alt="Terraza El Polo Detalle"
+                        fill
+                        className="object-cover"
                     />
                     <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                        <span className="text-white/50 tracking-widest text-sm uppercase">Experiencia Inmersiva</span>
+                        <span className="text-white/50 tracking-widest text-sm uppercase">Detalle Arquitectónico</span>
                     </div>
                 </div>
             </section>
