@@ -9,16 +9,45 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 const CONCEPT_IMAGES = [
-    "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=1920&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?q=80&w=1920&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=1920&auto=format&fit=crop"
+    {
+        src: "/services/terrazas/concept-1.jpg",
+        alt: "Proceso de diseño de terrazas personalizado: desde renderizado 3D fotorrealista hasta la selección de materiales premium como piedra natural y maderas tropicales."
+    },
+    {
+        src: "/services/terrazas/concept-2.jpg",
+        alt: "Construcción de terrazas con acabados de alta gama: integración de jardineras de concreto, pisos de porcelanato y carpintería de precisión."
+    },
+    {
+        src: "/services/terrazas/concept-3.jpg",
+        alt: "Creación de ambientes exteriores acogedores y sofisticados ('outdoor living') diseñados para el entretenimiento y el relax."
+    }
 ];
 
 const GALLERY_IMAGES = [
-    "https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?q=80&w=800&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=800&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1510627489930-0c1b0bfb6785?q=80&w=800&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1611269154421-4e27233ac5c7?q=80&w=800&auto=format&fit=crop"
+    {
+        src: "/services/terrazas/gallery-1.jpg",
+        alt: "Paisajismo para terrazas: jardines verticales y selección botánica para privacidad.",
+        title: "Paisajismo Integrado",
+        desc: "Vegetación que respira."
+    },
+    {
+        src: "/services/terrazas/gallery-2.jpg",
+        alt: "Iluminación escénica para terrazas y rooftops con sistemas LED de bajo consumo.",
+        title: "Iluminación Escénica",
+        desc: "Atmósferas nocturnas."
+    },
+    {
+        src: "/services/terrazas/gallery-3.jpg",
+        alt: "Mobiliario a medida para exteriores: bancas empotradas y tejidos resistentes.",
+        title: "Mobiliario Custom",
+        desc: "Diseño a medida."
+    },
+    {
+        src: "/services/terrazas/gallery-4.jpg",
+        alt: "Estructuras de techos sol y sombra modernos para control solar en terrazas.",
+        title: "Coberturas",
+        desc: "Sombra y protección."
+    }
 ];
 
 export default function TerrazasPage() {
@@ -127,8 +156,8 @@ export default function TerrazasPage() {
             <section ref={heroRef} className="relative h-screen w-full px-6 md:px-12 pt-32 pb-12 flex flex-col justify-between">
                 <div className="absolute inset-0 z-0">
                     <Image
-                        src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=1920&auto=format&fit=crop"
-                        alt="Diseño de Terrazas"
+                        src="/services/terrazas/hero-main.jpg"
+                        alt="Diseño de terrazas de lujo en azoteas (rooftops) con pérgolas y paisajismo"
                         fill
                         className="object-cover opacity-30 grayscale-30"
                         priority
@@ -186,11 +215,11 @@ export default function TerrazasPage() {
 
                 {/* Right: Scrolling Images */}
                 <div className="w-full md:w-1/2 relative z-0">
-                    {CONCEPT_IMAGES.map((src, i) => (
+                    {CONCEPT_IMAGES.map((item, i) => (
                         <div key={i} className="concept-image h-screen w-full relative sticky top-0 border-l border-[var(--text-primary)]/5">
                             <Image
-                                src={src}
-                                alt={`Concepto ${i + 1}`}
+                                src={item.src}
+                                alt={item.alt}
                                 fill
                                 className="object-cover grayscale hover:grayscale-0 transition-all duration-700"
                             />
@@ -205,19 +234,23 @@ export default function TerrazasPage() {
                 <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-24">
                     {/* Column 1 - Moves Up */}
                     <div className="gallery-col-1 flex flex-col gap-12 md:gap-24 pt-24">
-                        {GALLERY_IMAGES.slice(0, 2).map((src, i) => (
-                            <div key={i} className="relative aspect-[3/4] w-full overflow-hidden rounded-sm">
+                        {GALLERY_IMAGES.slice(0, 2).map((item, i) => (
+                            <div key={i} className="relative aspect-[3/4] w-full overflow-hidden rounded-sm group">
                                 <Image
-                                    src={src}
-                                    alt={`Gallery ${i}`}
+                                    src={item.src}
+                                    alt={item.alt}
                                     fill
                                     className="object-cover hover:scale-105 transition-transform duration-700"
                                 />
+                                <div className="absolute bottom-0 left-0 w-full p-8 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                                    <h4 className="text-white font-serif text-2xl">{item.title}</h4>
+                                    <p className="text-white/60 text-sm">{item.desc}</p>
+                                </div>
                             </div>
                         ))}
                         <div className="p-8 border border-[var(--text-primary)]/10 bg-[var(--bg-secondary)]">
                             <h3 className="font-serif text-3xl mb-4">Detalles que importan</h3>
-                            <p className="text-[var(--text-primary)]/50">Cada textura, cada sombra y cada planta es seleccionada con propósito.</p>
+                            <p className="text-[var(--text-primary)]/50">Cada textura, cada sombra y cada planta es seleccionada con propósito para tu terraza.</p>
                         </div>
                     </div>
 
@@ -225,16 +258,20 @@ export default function TerrazasPage() {
                     <div className="gallery-col-2 flex flex-col gap-12 md:gap-24">
                         <div className="p-8 border border-[var(--text-primary)]/10 bg-[var(--bg-secondary)] text-right">
                             <h3 className="font-serif text-3xl mb-4">Ejecución Impecable</h3>
-                            <p className="text-[var(--text-primary)]/50">Supervisión constante para asegurar que el diseño se haga realidad.</p>
+                            <p className="text-[var(--text-primary)]/50">Supervisión constante para asegurar que el diseño de tu oasis se haga realidad.</p>
                         </div>
-                        {GALLERY_IMAGES.slice(2, 4).map((src, i) => (
-                            <div key={i} className="relative aspect-[3/4] w-full overflow-hidden rounded-sm">
+                        {GALLERY_IMAGES.slice(2, 4).map((item, i) => (
+                            <div key={i} className="relative aspect-[3/4] w-full overflow-hidden rounded-sm group">
                                 <Image
-                                    src={src}
-                                    alt={`Gallery ${i + 2}`}
+                                    src={item.src}
+                                    alt={item.alt}
                                     fill
                                     className="object-cover hover:scale-105 transition-transform duration-700"
                                 />
+                                <div className="absolute bottom-0 left-0 w-full p-8 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                                    <h4 className="text-white font-serif text-2xl">{item.title}</h4>
+                                    <p className="text-white/60 text-sm">{item.desc}</p>
+                                </div>
                             </div>
                         ))}
                     </div>
