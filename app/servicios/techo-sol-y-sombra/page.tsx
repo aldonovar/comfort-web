@@ -12,29 +12,29 @@ const MATERIALS = [
     {
         id: "wood",
         title: "Madera Huayruro",
-        subtitle: "Densidad & Resistencia",
-        desc: "Seleccionada por su densidad superior y resistencia natural a la intemperie. Cada viga es tratada para perdurar décadas.",
-        specs: ["Densidad: 900 kg/m³", "Origen: Selva Peruana", "Garantía: 20 Años"],
-        img: "https://images.unsplash.com/photo-1610312278520-bcc19387bcba?q=80&w=1920&auto=format&fit=crop",
-        color: "text-amber-500"
+        subtitle: "Solidez & Carácter",
+        desc: "Seleccionada por su alta densidad y grano compacto. Una madera tropical que aporta calidez estética y una resistencia estructural superior para exteriores.",
+        specs: ["Alta Densidad", "Origen: Selva Peruana", "Resistencia Natural"],
+        img: "/services/techo/component-1.jpg",
+        color: "text-amber-600"
     },
     {
-        id: "varnish",
-        title: "Barniz Marino UV",
-        subtitle: "Escudo Invisible",
-        desc: "Tecnología de protección avanzada que bloquea el 99% de radiación UV, manteniendo el color vivo y la madera nutrida.",
-        specs: ["Filtro UV: 99%", "Acabado: Satinado/Mate", "Capas: Triple Aplicación"],
-        img: "https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=1920&auto=format&fit=crop",
-        color: "text-blue-400"
+        id: "metal",
+        title: "Estructura Metálica",
+        subtitle: "Acero & Aluminio",
+        desc: "Soportes de acero y tensores de aluminio diseñados para la máxima estabilidad. Elementos de anclaje que fusionan ingeniería y diseño.",
+        specs: ["Soportes de Acero", "Tensores de Aluminio", "Anclaje de Precisión"],
+        img: "/services/techo/component-2.jpg",
+        color: "text-blue-300"
     },
     {
         id: "poly",
-        title: "Policarbonato Alveolar",
-        subtitle: "Luz Sin Calor",
-        desc: "Filtrado inteligente de luz. Permite el paso de la claridad mientras bloquea el calor radiante, creando un ambiente fresco.",
-        specs: ["Transmisión Luz: 85%", "Reducción Calor: 40%", "Espesor: 8mm - 10mm"],
-        img: "https://images.unsplash.com/photo-1510627489930-0c1b0bfb6785?q=80&w=1920&auto=format&fit=crop",
-        color: "text-cyan-300"
+        title: "Policarbonato",
+        subtitle: "Cobertura Alveolar",
+        desc: "Planchas de recubrimiento con tecnología alveolar. Filtran la luz de manera eficiente y protegen contra la intemperie sin oscurecer el espacio.",
+        specs: ["Protección UV", "Transmisión de Luz", "Resistencia al Impacto"],
+        img: "/services/techo/component-3.jpg",
+        color: "text-cyan-200"
     }
 ];
 
