@@ -58,7 +58,6 @@ export default function ProcesoPage() {
     }, []);
 
     return (
-    return (
         <main ref={containerRef} className="relative bg-[var(--bg-primary)] min-h-screen text-[var(--text-primary)] pt-48 pb-24 overflow-hidden">
 
             {/* Background Ambience */}

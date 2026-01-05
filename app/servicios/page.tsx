@@ -107,7 +107,6 @@ export default function ServicesFluidPage() {
   }, []);
 
   return (
-    return (
     <main ref={containerRef} className="bg-[var(--bg-primary)] min-h-screen">
 
       {/* Header Section */}
