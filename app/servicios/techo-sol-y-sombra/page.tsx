@@ -290,17 +290,17 @@ export default function TechoSolSombraPage() {
 
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-4 h-[80vh]">
                         <div className="md:col-span-2 md:row-span-2 relative group overflow-hidden">
-                            <Image src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=1200&auto=format&fit=crop" alt="Gallery 1" fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
+                            <Image src="/services/techo/inspiration-1.jpg" alt="Gallery 1" fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
                             <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors" />
                         </div>
                         <div className="relative group overflow-hidden">
-                            <Image src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?q=80&w=800&auto=format&fit=crop" alt="Gallery 2" fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
+                            <Image src="/services/techo/inspiration-2.jpg" alt="Gallery 2" fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
                         </div>
                         <div className="relative group overflow-hidden">
-                            <Image src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=800&auto=format&fit=crop" alt="Gallery 3" fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
+                            <Image src="/services/techo/inspiration-3.jpg" alt="Gallery 3" fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
                         </div>
                         <div className="md:col-span-2 relative group overflow-hidden">
-                            <Image src="https://images.unsplash.com/photo-1611269154421-4e27233ac5c7?q=80&w=1200&auto=format&fit=crop" alt="Gallery 4" fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
+                            <Image src="/services/techo/inspiration-4.jpg" alt="Gallery 4" fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
                         </div>
                     </div>
                 </div>
