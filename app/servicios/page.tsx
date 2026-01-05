@@ -107,7 +107,8 @@ export default function ServicesFluidPage() {
   }, []);
 
   return (
-    <main ref={containerRef} className="bg-black">
+    return (
+    <main ref={containerRef} className="bg-[var(--bg-primary)] min-h-screen">
 
       {/* Header Section */}
       <section className="h-[50vh] flex items-center justify-center relative overflow-hidden">
@@ -115,15 +116,15 @@ export default function ServicesFluidPage() {
           <span className="block text-terracota text-xs tracking-[0.5em] uppercase font-bold mb-4">
             Nuestra Esencia
           </span>
-          <h1 className="font-serif text-5xl md:text-7xl text-white mb-6">
+          <h1 className="font-serif text-5xl md:text-7xl text-[var(--text-primary)] mb-6">
             Servicios
           </h1>
-          <p className="text-white/60 max-w-md mx-auto font-light">
+          <p className="text-[var(--text-primary)]/60 max-w-md mx-auto font-light">
             Explora nuestras especialidades. Cada proyecto es una obra maestra de diseño y funcionalidad.
           </p>
         </div>
         {/* Abstract Background */}
-        <div className="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_center,var(--tw-gradient-stops))] from-terracota/30 via-black to-black" />
+        <div className="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_center,var(--tw-gradient-stops))] from-terracota/30 via-[var(--bg-primary)] to-[var(--bg-primary)]" />
       </section>
 
       {/* Services Stack */}
@@ -131,7 +132,7 @@ export default function ServicesFluidPage() {
         {SERVICES.map((service, i) => (
           <section
             key={service.id}
-            className="service-section sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center border-t border-white/10 bg-black"
+            className="service-section sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center border-t border-[var(--text-primary)]/10 bg-[var(--bg-primary)]"
             style={{ zIndex: i + 1 }}
           >
 
@@ -141,7 +142,7 @@ export default function ServicesFluidPage() {
               <img
                 src={service.image}
                 alt={service.title}
-                className="absolute inset-0 w-full h-full object-cover opacity-40"
+                className="absolute inset-0 w-full h-full object-cover opacity-40 dark:opacity-40 opacity-20"
               />
               <video
                 src={service.video}
@@ -150,9 +151,9 @@ export default function ServicesFluidPage() {
                 loop
                 playsInline
                 poster={service.image}
-                className="absolute inset-0 w-full h-full object-cover opacity-40 mix-blend-overlay"
+                className="absolute inset-0 w-full h-full object-cover opacity-40 mix-blend-overlay dark:opacity-40 dark:mix-blend-overlay opacity-20 mix-blend-multiply"
               />
-              <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/20 to-black/80" />
+              <div className="absolute inset-0 bg-linear-to-b from-[var(--bg-primary)]/90 via-[var(--bg-primary)]/20 to-[var(--bg-primary)]/90" />
             </div>
 
             {/* Content */}
@@ -163,16 +164,16 @@ export default function ServicesFluidPage() {
                 <span className="inline-block text-terracota text-xs font-bold tracking-[0.3em] uppercase mb-4 border-b border-terracota/30 pb-2">
                   {service.id} — {service.subtitle}
                 </span>
-                <h2 className="font-serif text-5xl md:text-7xl text-white mb-8 leading-tight">
+                <h2 className="font-serif text-5xl md:text-7xl text-[var(--text-primary)] mb-8 leading-tight">
                   {service.title}
                 </h2>
-                <p className="text-white/70 text-lg font-light leading-relaxed mb-10 max-w-lg mx-auto md:mx-0">
+                <p className="text-[var(--text-primary)]/70 text-lg font-light leading-relaxed mb-10 max-w-lg mx-auto md:mx-0">
                   {service.desc}
                 </p>
 
                 <div className="flex flex-wrap gap-4 justify-center md:justify-start mb-10">
                   {service.stats.map((stat, s) => (
-                    <span key={s} className="px-4 py-2 rounded-full border border-white/10 bg-white/5 text-xs text-white/60 uppercase tracking-wider">
+                    <span key={s} className="px-4 py-2 rounded-full border border-[var(--text-primary)]/10 bg-[var(--bg-primary)]/50 text-xs text-[var(--text-primary)]/60 uppercase tracking-wider backdrop-blur-sm">
                       {stat}
                     </span>
                   ))}
@@ -180,7 +181,7 @@ export default function ServicesFluidPage() {
 
                 <Link
                   href={`/servicios/${service.slug}`}
-                  className="group inline-flex items-center gap-3 text-white font-medium hover:text-terracota transition-colors duration-300"
+                  className="group inline-flex items-center gap-3 text-[var(--text-primary)] font-medium hover:text-terracota transition-colors duration-300"
                 >
                   <span className="uppercase tracking-widest text-sm">Ver Proyecto</span>
                   <span className="transform group-hover:translate-x-2 transition-transform duration-300">→</span>
@@ -198,8 +199,35 @@ export default function ServicesFluidPage() {
         ))}
       </div>
 
-      {/* Spacer for footer reveal */}
-      <div className="h-[50vh] bg-black" />
+      {/* CTA Section (Replacing Spacer) */}
+      <section className="relative py-32 px-6 flex flex-col items-center justify-center bg-[var(--bg-secondary)] text-[var(--text-primary)] text-center overflow-hidden">
+        <div className="absolute inset-0 opacity-10 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] mix-blend-overlay" />
+
+        <div className="relative z-10 max-w-4xl mx-auto">
+          <p className="text-terracota text-sm tracking-[0.3em] uppercase font-bold mb-8 animate-pulse">
+            ¿Listo para empezar?
+          </p>
+          <h2 className="font-serif text-5xl md:text-7xl mb-12 leading-tight">
+            Tu espacio exterior <br />
+            <span className="text-[var(--text-primary)]/50 italic">merece ser vivido.</span>
+          </h2>
+
+          <div className="flex flex-col md:flex-row gap-6 justify-center items-center">
+            <Link
+              href="/cotiza"
+              className="px-10 py-5 bg-[var(--text-primary)] text-[var(--bg-primary)] rounded-full text-sm uppercase tracking-widest font-bold hover:scale-105 hover:bg-terracota hover:text-white transition-all duration-300 shadow-xl"
+            >
+              Iniciar Proyecto
+            </Link>
+            <Link
+              href="/contacto"
+              className="px-10 py-5 border border-[var(--text-primary)]/20 rounded-full text-sm uppercase tracking-widest font-bold hover:bg-[var(--text-primary)]/5 transition-all duration-300"
+            >
+              Contactar Estudio
+            </Link>
+          </div>
+        </div>
+      </section>
 
     </main>
   );

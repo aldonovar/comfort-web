@@ -384,7 +384,7 @@ ${notes || "Sin detalles adicionales."}`;
                   <span className="block text-terracota text-[8px] md:text-[9px] tracking-[0.3em] uppercase font-bold mb-1 md:mb-2">
                     Concierge
                   </span>
-                  <h2 className="font-serif text-xl md:text-3xl leading-tight text-madera dark:text-crema">
+                  <h2 className="font-serif text-xl md:text-3xl leading-tight text-[var(--text-primary)] font-medium">
                     Diseñemos tu <br />
                     <span className="text-terracota italic">próximo escenario.</span>
                   </h2>

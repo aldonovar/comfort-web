@@ -53,7 +53,7 @@ export default function Footer() {
   }, []);
 
   return (
-    <footer ref={footerRef} className="relative z-50 bg-[#121212] text-white pt-16 pb-12 md:pt-32 md:pb-24 border-t border-white/5 overflow-hidden">
+    <footer ref={footerRef} className="relative z-50 bg-[#121212] dark:bg-[#121212] bg-[var(--bg-secondary)] text-[var(--text-primary)] pt-16 pb-12 md:pt-32 md:pb-24 border-t border-[var(--text-primary)]/5 overflow-hidden transition-colors duration-500">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div>
 
@@ -64,14 +64,20 @@ export default function Footer() {
           {/* Brand Column */}
           <div className="md:col-span-4 space-y-8 footer-reveal">
             <Link href="/" className="flex items-center gap-4 mb-6 group">
+              {/* Logo Switcher */}
+              <img
+                src="/comfort-logo-dark.png"
+                alt="Comfort Studio"
+                className="h-16 w-auto object-contain opacity-90 group-hover:opacity-100 transition-opacity duration-300 dark:hidden"
+              />
               <img
                 src="/comfort-logo-light.png"
                 alt="Comfort Studio"
-                className="h-16 w-auto object-contain opacity-90 group-hover:opacity-100 transition-opacity duration-300"
+                className="h-16 w-auto object-contain opacity-90 group-hover:opacity-100 transition-opacity duration-300 hidden dark:block"
               />
-              <span className="font-serif text-xl tracking-tight text-white group-hover:text-terracota transition-colors duration-300">COMFORT STUDIO</span>
+              <span className="font-serif text-xl tracking-tight text-[var(--text-primary)] group-hover:text-terracota transition-colors duration-300">COMFORT STUDIO</span>
             </Link>
-            <p className="text-white/50 max-w-sm font-light leading-relaxed transition-colors duration-500 text-balance">
+            <p className="text-[var(--text-primary)]/50 max-w-sm font-light leading-relaxed transition-colors duration-500 text-balance">
               Transformamos espacios exteriores en experiencias de vida.
               Diseño arquitectónico y ejecución integral en Lima.
             </p>
@@ -89,7 +95,7 @@ export default function Footer() {
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-11 h-11 flex items-center justify-center rounded-full border border-white/10 text-white/60 hover:text-white hover:border-white hover:bg-white/5 transition-all duration-300"
+                  className="w-11 h-11 flex items-center justify-center rounded-full border border-[var(--text-primary)]/10 text-[var(--text-primary)]/60 hover:text-[var(--text-primary)] hover:border-[var(--text-primary)] hover:bg-[var(--text-primary)]/5 transition-all duration-300"
                 >
                   <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path d={social.d} />
@@ -102,13 +108,13 @@ export default function Footer() {
           {/* Links Columns */}
           {FOOTER_LINKS.map((section, idx) => (
             <div key={section.title} className="md:col-span-2 footer-reveal">
-              <h4 className="text-xs font-bold uppercase tracking-widest text-white/40 mb-8 transition-colors duration-500">{section.title}</h4>
+              <h4 className="text-xs font-bold uppercase tracking-widest text-[var(--text-primary)]/40 mb-8 transition-colors duration-500">{section.title}</h4>
               <ul className="space-y-4">
                 {section.links.map((link) => (
                   <li key={link.label}>
                     <Link
                       href={link.href}
-                      className="text-sm text-white/70 hover:text-terracota transition-colors duration-300 block"
+                      className="text-sm text-[var(--text-primary)]/70 hover:text-terracota transition-colors duration-300 block"
                     >
                       {link.label}
                     </Link>
@@ -120,10 +126,10 @@ export default function Footer() {
 
           {/* Contact Column */}
           <div className="md:col-span-2 footer-reveal">
-            <h4 className="text-xs font-bold uppercase tracking-widest text-white/40 mb-8 transition-colors duration-500">Contacto</h4>
+            <h4 className="text-xs font-bold uppercase tracking-widest text-[var(--text-primary)]/40 mb-8 transition-colors duration-500">Contacto</h4>
             <ul className="space-y-4">
-              <li className="text-sm text-white/70 transition-colors duration-500">
-                <span className="block text-white/30 text-xs mb-1 transition-colors duration-500">Teléfono</span>
+              <li className="text-sm text-[var(--text-primary)]/70 transition-colors duration-500">
+                <span className="block text-[var(--text-primary)]/30 text-xs mb-1 transition-colors duration-500">Teléfono</span>
                 <a
                   href="https://wa.me/51936230958"
                   target="_blank"
@@ -133,8 +139,8 @@ export default function Footer() {
                   +51 936 230 958
                 </a>
               </li>
-              <li className="text-sm text-white/70 transition-colors duration-500">
-                <span className="block text-white/30 text-xs mb-1 transition-colors duration-500">Email</span>
+              <li className="text-sm text-[var(--text-primary)]/70 transition-colors duration-500">
+                <span className="block text-[var(--text-primary)]/30 text-xs mb-1 transition-colors duration-500">Email</span>
                 <a
                   href="mailto:contacto@comfortstudioperu.com"
                   className="hover:text-terracota transition-colors duration-300"
@@ -148,19 +154,19 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-center md:justify-between items-center gap-6 text-xs text-white/30 footer-reveal pb-12 md:pb-0 transition-colors duration-500">
+        <div className="pt-8 border-t border-[var(--text-primary)]/5 flex flex-col md:flex-row justify-center md:justify-between items-center gap-6 text-xs text-[var(--text-primary)]/30 footer-reveal pb-12 md:pb-0 transition-colors duration-500">
           <div className="flex flex-col md:flex-row items-center gap-4 md:gap-8">
             <p>© {new Date().getFullYear()} Comfort Studio.</p>
-            <div className="hidden md:block w-px h-3 bg-white/20 transition-colors duration-500"></div>
+            <div className="hidden md:block w-px h-3 bg-[var(--text-primary)]/20 transition-colors duration-500"></div>
             <div className="flex gap-6 flex-wrap justify-center">
-              <Link href="/privacidad" className="hover:text-white transition-colors">Política de Privacidad</Link>
-              <Link href="/terminos" className="hover:text-white transition-colors">Términos y Condiciones</Link>
+              <Link href="/privacidad" className="hover:text-[var(--text-primary)] transition-colors">Política de Privacidad</Link>
+              <Link href="/terminos" className="hover:text-[var(--text-primary)] transition-colors">Términos y Condiciones</Link>
             </div>
           </div>
 
           <div className="flex items-center gap-1 uppercase tracking-wider text-[10px]">
             <span>EXPERIENCIA DIGITAL DESARROLLADA POR</span>
-            <a href="https://allyxorb.com" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors font-bold text-white/50 ml-1">
+            <a href="https://allyxorb.com" target="_blank" rel="noopener noreferrer" className="hover:text-[var(--text-primary)] transition-colors font-bold text-[var(--text-primary)]/50 ml-1">
               ALLYX
             </a>
           </div>
