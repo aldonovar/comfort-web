@@ -190,7 +190,7 @@ export default function TechoSolSombraPage() {
 
                 {/* Hero Content (Pinned) */}
                 <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-6">
-                    <p className="text-sm uppercase tracking-[0.5em] mb-6 font-medium drop-shadow-md text-terracota">Experiencia Comfort</p>
+                    <p className="text-sm uppercase tracking-[0.5em] mb-6 font-bold drop-shadow-lg text-white">Experiencia Comfort</p>
                     <h1 className="font-serif text-[12vw] leading-[0.8] drop-shadow-2xl mb-12 text-white">
                         TECHO SOL <br /> <span className="italic text-white/90">& SOMBRA</span>
                     </h1>
