@@ -231,7 +231,7 @@ export default function TechoSolSombraPage() {
                                 <span className={`inline-block px-4 py-2 rounded-full border border-white/20 bg-white/10 backdrop-blur-md text-xs uppercase tracking-widest mb-6 ${mat.color}`}>
                                     Componente 0{i + 1}
                                 </span>
-                                <h2 className="text-6xl md:text-8xl font-serif mb-6 leading-none text-white">
+                                <h2 className="text-5xl md:text-7xl font-serif mb-6 leading-none text-white break-words">
                                     {mat.title.split(" ")[0]} <br />
                                     <span className="italic text-white/50">{mat.title.split(" ").slice(1).join(" ")}</span>
                                 </h2>
