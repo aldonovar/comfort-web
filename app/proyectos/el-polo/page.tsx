@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import SeamlessVideo from "@/components/ui/SeamlessVideo";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -16,19 +17,18 @@ const NEXT_PROJECT = {
 };
 
 const GALLERY_ITEMS = [
-    { src: "/projects/el-polo/gallery-1.jpg", alt: "Vista General Parrilla", aspect: "aspect-video" },
-    { src: "/projects/el-polo/gallery-2.jpg", alt: "Detalle Materiales", aspect: "aspect-3/4" },
-    { src: "/projects/el-polo/gallery-3.jpg", alt: "Iluminación Nocturna", aspect: "aspect-square" },
-    { src: "/projects/el-polo/gallery-4.jpg", alt: "Zona de Estar", aspect: "aspect-4/5" },
-    { src: "/projects/el-polo/gallery-5.jpg", alt: "Detalle Granito", aspect: "aspect-square" },
-    { src: "/projects/el-polo/gallery-6.jpg", alt: "Perspectiva Lateral", aspect: "aspect-video" },
-    { src: "/projects/el-polo/gallery-7.jpg", alt: "Ambiente General", aspect: "aspect-3/4" },
-    { src: "/projects/el-polo/gallery-8.jpg", alt: "Detalle Techo", aspect: "aspect-video" },
+    { src: "/projects/el-polo/gallery-1.jpg", alt: "Vista General Parrilla", aspect: "aspect-video", type: "image" },
+    { src: "/projects/el-polo/gallery-2.jpg", alt: "Detalle Materiales", aspect: "aspect-3/4", type: "image" },
+    { src: "/projects/el-polo/gallery-3.jpg", alt: "Iluminación Nocturna", aspect: "aspect-square", type: "image" },
+    { src: "/projects/el-polo/gallery-4.jpg", alt: "Zona de Estar", aspect: "aspect-4/5", type: "image" },
+    { src: "/projects/el-polo/gallery-5.jpg", alt: "Detalle Granito", aspect: "aspect-square", type: "image" },
+    { src: "/projects/el-polo/gallery-6.mp4", alt: "Recorrido Estación", aspect: "aspect-video", type: "video" },
+    { src: "/projects/el-polo/gallery-7.jpg", alt: "Ambiente General", aspect: "aspect-3/4", type: "image" },
+    { src: "/projects/el-polo/gallery-8.jpg", alt: "Detalle Techo", aspect: "aspect-video", type: "image" },
 ];
 
 export default function ElPoloPage() {
     const containerRef = useRef<HTMLDivElement>(null);
-    const videoRef = useRef<HTMLVideoElement>(null);
 
     useEffect(() => {
         const ctx = gsap.context(() => {
@@ -85,13 +85,9 @@ export default function ElPoloPage() {
             {/* --- HERO (VIDEO) --- */}
             <section className="project-hero relative h-[85vh] overflow-hidden">
                 <div className="absolute inset-0">
-                    <video
-                        autoPlay
-                        muted
-                        loop
+                    <SeamlessVideo
                         src="/projects/el-polo/reel.mp4"
                         className="project-hero-bg w-full h-full object-cover"
-                        playsInline
                     />
                     <div className="absolute inset-0 bg-black/30" />
                     <div className="absolute inset-0 bg-linear-to-t from-black/90 via-transparent to-transparent" />
@@ -149,14 +145,21 @@ export default function ElPoloPage() {
                     <div className="columns-1 md:columns-2 lg:columns-3 gap-6 space-y-6">
                         {GALLERY_ITEMS.map((item, index) => (
                             <div key={index} className={`gallery-item break-inside-avoid relative ${item.aspect} overflow-hidden rounded-sm group bg-neutral-900`}>
-                                <Image
-                                    src={item.src}
-                                    alt={item.alt}
-                                    fill
-                                    className="object-cover transition-transform duration-1000 group-hover:scale-105 opacity-80 group-hover:opacity-100"
-                                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                                />
-                                <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500" />
+                                {item.type === "video" ? (
+                                    <SeamlessVideo
+                                        src={item.src}
+                                        className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500"
+                                    />
+                                ) : (
+                                    <Image
+                                        src={item.src}
+                                        alt={item.alt}
+                                        fill
+                                        className="object-cover transition-transform duration-1000 group-hover:scale-105 opacity-80 group-hover:opacity-100"
+                                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                    />
+                                )}
+                                <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500 pointer-events-none" />
                             </div>
                         ))}
                     </div>
