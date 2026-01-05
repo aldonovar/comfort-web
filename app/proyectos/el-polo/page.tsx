@@ -86,7 +86,7 @@ export default function ElPoloPage() {
             <section className="project-hero relative h-[85vh] overflow-hidden">
                 <div className="absolute inset-0">
                     <Image
-                        src="/projects/project-1.jpg" // Fallback to main project image until hero.jpg is uploaded
+                        src="/projects/el-polo/hero.jpg"
                         alt="Terraza El Polo Hero"
                         fill
                         className="project-hero-bg object-cover"
