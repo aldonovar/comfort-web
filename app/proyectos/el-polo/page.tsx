@@ -85,7 +85,7 @@ export default function ElPoloPage() {
                 </div>
             </section>
 
-            {/* --- INFO BAR --- */}
+            {/* --- INFO BAR (Hidden until data is confirmed) ---
             <div className="border-b border-[var(--text-primary)]/10">
                 <div className="max-w-[1800px] mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 px-6 md:px-24 py-12">
                     {[
@@ -101,6 +101,7 @@ export default function ElPoloPage() {
                     ))}
                 </div>
             </div>
+            --- */}
 
             {/* --- NARRATIVE --- */}
             <section className="content-section py-24 md:py-32 px-6 md:px-24">
