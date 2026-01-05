@@ -247,7 +247,7 @@ export default function TerrazasPage() {
                                 src={item.src}
                                 alt={item.alt}
                                 fill
-                                className="object-cover grayscale hover:grayscale-0 transition-all duration-700"
+                                className="object-cover transition-all duration-700"
                             />
                             <div className="absolute inset-0 bg-black/20" />
                         </div>
