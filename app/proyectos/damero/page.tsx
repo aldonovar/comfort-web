@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import gsap from "gsap";
@@ -8,15 +8,78 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
+// Looping back to the first major project or archive
 const NEXT_PROJECT = {
-    label: "Siguiente Proyecto",
+    label: "Volver al Inicio",
     title: "Terraza El Polo",
-    href: "/proyectos/el-polo", // Loop back to start
-    image: "/projects/project-1.jpg"
+    href: "/proyectos/el-polo",
+    image: "/projects/el-polo/hero.jpg"
 };
+
+// 11 Assets discovered: 8 Videos, 3 Images (gallery-2.jpg, gallery-9.jpg, gallery-11.JPG)
+// Creative "Scatter" Layout Logic:
+// We mix spans and offsets to create a "Damero" (Checkerboard/Mosaic) feel.
+const GALLERY_ITEMS = [
+    // Row 1: Heavy entry
+    { src: "/projects/damero/gallery-1.mp4", alt: "Intro Motion", aspect: "aspect-[4/3]", span: "md:col-span-2 md:row-span-2", type: "video" },
+    { src: "/projects/damero/gallery-2.jpg", alt: "Detalle Materialidad", aspect: "aspect-[3/4]", span: "md:col-span-1 md:row-span-1", type: "image", offset: "md:translate-y-12" },
+
+    // Row 2: Rhythm change
+    { src: "quote", type: "text", content: "La geometría de la sombra es tan importante como la estructura que la proyecta.", aspect: "aspect-square", span: "md:col-span-1 md:row-span-1" },
+    { src: "/projects/damero/gallery-3.mp4", alt: "Juego de Luces", aspect: "aspect-square", span: "md:col-span-1 md:row-span-1", type: "video" },
+    { src: "/projects/damero/gallery-4.mp4", alt: "Perspectiva Sombra", aspect: "aspect-[3/4]", span: "md:col-span-1 md:row-span-2", type: "video", offset: "md:-translate-y-12" },
+
+    // Row 3: Panoramic break
+    { src: "/projects/damero/gallery-5.mp4", alt: "Vista Amplia", aspect: "aspect-video", span: "md:col-span-2 md:row-span-1", type: "video" },
+    { src: "/projects/damero/gallery-6.mp4", alt: "Detalle Cenital", aspect: "aspect-[9/16]", span: "md:col-span-1 md:row-span-2", type: "video", offset: "md:translate-y-8" },
+
+    // Row 4: Dense cluster
+    { src: "/projects/damero/gallery-7.mp4", alt: "Ambiente General", aspect: "aspect-square", span: "md:col-span-1 md:row-span-1", type: "video" },
+    { src: "/projects/damero/gallery-8.mp4", alt: "Close Up", aspect: "aspect-square", span: "md:col-span-1 md:row-span-1", type: "video" },
+
+    // Row 5: Finale
+    { src: "/projects/damero/gallery-9.jpg", alt: "Composición Final", aspect: "aspect-[4/5]", span: "md:col-span-1 md:row-span-2", type: "image", offset: "md:-translate-y-16" },
+    { src: "/projects/damero/gallery-10.mp4", alt: "Recorrido", aspect: "aspect-video", span: "md:col-span-2 md:row-span-1", type: "video" },
+    { src: "/projects/damero/gallery-11.JPG", alt: "Detalle Estructural", aspect: "aspect-square", span: "md:col-span-1 md:row-span-1", type: "image" },
+];
+
+function InteractiveVideo({ src, aspect, isPlaying, onToggle }: { src: string, aspect: string, isPlaying: boolean, onToggle: () => void }) {
+    const videoRef = useRef<HTMLVideoElement>(null);
+
+    useEffect(() => {
+        if (videoRef.current) {
+            if (isPlaying) {
+                videoRef.current.play().catch(e => console.error("Play failed", e));
+            } else {
+                videoRef.current.pause();
+            }
+        }
+    }, [isPlaying]);
+
+    return (
+        <div className="relative w-full h-full cursor-pointer group" onClick={onToggle}>
+            <video
+                ref={videoRef}
+                src={src}
+                className="w-full h-full object-cover"
+                playsInline
+                loop
+                muted
+            />
+            <div className={`absolute inset-0 flex items-center justify-center bg-black/20 transition-all duration-300 ${isPlaying ? "opacity-0 pointer-events-none" : "opacity-100"}`}>
+                <div className="w-16 h-16 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/20 transition-transform group-hover:scale-110">
+                    <svg className="w-6 h-6 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M8 5v14l11-7z" />
+                    </svg>
+                </div>
+            </div>
+        </div>
+    );
+}
 
 export default function DameroPage() {
     const containerRef = useRef<HTMLDivElement>(null);
+    const [playingIndex, setPlayingIndex] = useState<number | null>(null);
 
     useEffect(() => {
         const ctx = gsap.context(() => {
@@ -43,118 +106,123 @@ export default function DameroPage() {
             });
 
             ScrollTrigger.batch(".gallery-item", {
-                onEnter: batch => gsap.to(batch, { opacity: 1, y: 0, stagger: 0.15, overwrite: true }),
-                start: "top 85%"
+                onEnter: batch => gsap.to(batch, { opacity: 1, y: 0, stagger: 0.1, overwrite: true }),
+                start: "top 90%"
             });
 
         }, containerRef);
+
         return () => ctx.revert();
     }, []);
 
+    const handleVideoClick = (index: number) => {
+        setPlayingIndex(prev => prev === index ? null : index);
+    };
+
     return (
         <main ref={containerRef} className="bg-[var(--bg-primary)] min-h-screen">
-
-            {/* --- HERO --- */}
+            {/* HERO */}
             <section className="project-hero relative h-[85vh] overflow-hidden">
                 <div className="absolute inset-0">
                     <Image
-                        src="/projects/project-4.jpg"
+                        src="/projects/damero/hero.jpg"
                         alt="Damero Sol y Sombra Hero"
                         fill
                         className="project-hero-bg object-cover"
                         priority
                     />
-                    <div className="absolute inset-0 bg-black/30" />
+                    <div className="absolute inset-0 bg-black/40" />
                     <div className="absolute inset-0 bg-linear-to-t from-black/90 via-transparent to-transparent" />
                 </div>
-
                 <div className="absolute bottom-0 left-0 w-full p-6 md:p-24 flex flex-col items-start justify-end z-10">
                     <span className="text-white/90 text-xs md:text-sm tracking-[0.4em] uppercase font-bold mb-6 block animate-fade-in drop-shadow-md">
-                        Arquitectura · Patrones
+                        Exterior · Architecture
                     </span>
                     <h1 className="font-serif text-6xl md:text-9xl text-[var(--text-primary)] mix-blend-difference text-white mb-2 animate-fade-in delay-100">
-                        Damero Sol & Sombra
+                        Damero Blanco
                     </h1>
                     <p className="text-white/80 text-xl font-light tracking-wide animate-fade-in delay-200">
-                        La Molina, Lima
+                        Asia, Lima
                     </p>
                 </div>
             </section>
 
-            {/* --- INFO BAR (Hidden until data is confirmed) ---
-            <div className="border-b border-[var(--text-primary)]/10">
-                <div className="max-w-[1800px] mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 px-6 md:px-24 py-12">
-                    {[
-                        { label: "Cliente", val: "Corporativo" },
-                        { label: "Superficie", val: "120 m²" },
-                        { label: "Año", val: "2024" },
-                        { label: "Servicio", val: "Consultoría & Ejecución" },
-                    ].map((item, i) => (
-                        <div key={i}>
-                            <span className="block text-xs uppercase text-terracota tracking-widest mb-2">{item.label}</span>
-                            <span className="block text-lg font-serif text-[var(--text-primary)]">{item.val}</span>
-                        </div>
-                    ))}
-                </div>
-            </div>
-            --- */}
-
-            {/* --- NARRATIVE --- */}
+            {/* NARRATIVE */}
             <section className="content-section py-24 md:py-32 px-6 md:px-24">
                 <div className="max-w-4xl mx-auto space-y-12 text-center md:text-left">
                     <h2 className="reveal-text font-serif text-4xl md:text-6xl text-[var(--text-primary)] leading-tight">
-                        Geometría que danza con el sol. <br /> Ritmo, sombra y frescura.
+                        Orden, Luz y Geometría.
                     </h2>
                     <div className="reveal-text w-12 h-1 bg-terracota mx-auto md:mx-0" />
                     <p className="reveal-text text-lg md:text-xl text-[var(--text-primary)]/70 leading-relaxed font-light">
-                        En La Molina, el sol puede ser implacable. Nuestra respuesta fue arquitectónica: una estructura de 'sol y sombra' con un patrón de damero (ajedrezado) que filtra la luz de manera rítmica.
-                    </p>
-                    <p className="reveal-text text-lg md:text-xl text-[var(--text-primary)]/70 leading-relaxed font-light">
-                        El blanco puro de las vigas contrasta con el cielo azul, creando un lienzo en constante cambio según la hora del día. Más que una cobertura, es una escultura habitable que reduce la temperatura térmica sin perder la conexión con el entorno.
+                        Una intervención que reinterpreta el clásico sol y sombra mediante una trama tipo damero. La estructura blanca se funde con el cielo costero, creando un juego de sombras cambiante que marca el paso del tiempo sobre la terraza.
                     </p>
                 </div>
             </section>
 
-            {/* --- GALLERY --- */}
-            <section className="py-12 px-6 md:px-12">
-                <div className="max-w-[1800px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="gallery-item opacity-0 translate-y-12">
-                        <div className="relative aspect-video overflow-hidden rounded-sm group">
-                            <Image src="https://images.unsplash.com/photo-1598371307616-24ca1a50d268?q=80&w=1200" alt="Vista General" fill className="object-cover transition-transform duration-1000 group-hover:scale-105" />
-                        </div>
+            {/* SCATTER GALLERY */}
+            <section className="py-24 px-4 md:px-12 bg-[#050505] overflow-hidden">
+                <div className="max-w-[1400px] mx-auto">
+                    <div className="mb-24 text-center">
+                        <span className="text-terracota text-xs tracking-widest uppercase block mb-4">Composición</span>
+                        <h3 className="font-serif text-3xl md:text-5xl text-[var(--text-primary)]">Trama y Materia</h3>
                     </div>
-                    <div className="gallery-item opacity-0 translate-y-12 md:mt-24">
-                        <div className="relative aspect-3/4 overflow-hidden rounded-sm group">
-                            <Image src="https://images.unsplash.com/photo-1592505676307-e4392f58e658?q=80&w=1200" alt="Detalle Geométrico" fill className="object-cover transition-transform duration-1000 group-hover:scale-105" />
-                        </div>
-                    </div>
-                    <div className="gallery-item opacity-0 translate-y-12">
-                        <div className="relative aspect-square overflow-hidden rounded-sm group">
-                            <Image src="https://images.unsplash.com/photo-1599380695034-78db0e2718e8?q=80&w=1200" alt="Sombras" fill className="object-cover transition-transform duration-1000 group-hover:scale-105" />
-                        </div>
-                    </div>
-                    <div className="gallery-item opacity-0 translate-y-12 md:-mt-24">
-                        <div className="relative aspect-video overflow-hidden rounded-sm group">
-                            <Image src="https://images.unsplash.com/photo-1520697830682-bbb6e85e2b0b?q=80&w=1200" alt="Perspectiva" fill className="object-cover transition-transform duration-1000 group-hover:scale-105" />
-                        </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-x-12 md:gap-y-24 auto-rows-min">
+                        {GALLERY_ITEMS.map((item, index) => (
+                            <div
+                                key={index}
+                                className={`
+                                    gallery-item relative overflow-hidden rounded-sm group bg-neutral-900 shadow-2xl
+                                    ${item.span || ""}
+                                    ${item.aspect}
+                                    ${item.offset || ""}
+                                    transition-transform duration-700
+                                `}
+                            >
+                                {item.type === "text" ? (
+                                    <div className="absolute inset-0 flex items-center justify-center p-8 bg-neutral-800 text-center h-full border border-white/5">
+                                        <p className="font-serif text-xl text-white/90 italic leading-relaxed">
+                                            &ldquo;{item.content}&rdquo;
+                                        </p>
+                                    </div>
+                                ) : item.type === "video" ? (
+                                    <InteractiveVideo
+                                        src={item.src}
+                                        aspect={item.aspect}
+                                        isPlaying={playingIndex === index}
+                                        onToggle={() => handleVideoClick(index)}
+                                    />
+                                ) : (
+                                    <div className="relative w-full h-full">
+                                        <Image
+                                            src={item.src}
+                                            alt={item.alt || "Detalle"}
+                                            fill
+                                            className="object-cover transition-transform duration-1000 group-hover:scale-105"
+                                            sizes="(max-width: 768px) 100vw, 33vw"
+                                        />
+                                        <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-500" />
+                                    </div>
+                                )}
+                            </div>
+                        ))}
                     </div>
                 </div>
             </section>
 
-            {/* --- NEXT PROJECT --- */}
-            <section className="h-[60vh] md:h-[80vh] bg-black relative group overflow-hidden">
+            {/* NEXT PROJECT */}
+            <section className="h-[50vh] md:h-[70vh] bg-black relative group overflow-hidden">
                 <Link href={NEXT_PROJECT.href} className="absolute inset-0 flex items-center justify-center z-20">
                     <div className="text-center">
                         <span className="block text-white/50 text-xs tracking-widest uppercase mb-4 group-hover:text-terracota transition-colors">{NEXT_PROJECT.label}</span>
-                        <h2 className="font-serif text-5xl md:text-8xl text-white group-hover:scale-105 transition-transform duration-700">{NEXT_PROJECT.title}</h2>
+                        <h2 className="font-serif text-5xl md:text-7xl text-white group-hover:scale-105 transition-transform duration-700">{NEXT_PROJECT.title}</h2>
                     </div>
                 </Link>
                 <div className="absolute inset-0 opacity-40 group-hover:opacity-60 transition-opacity duration-700 scale-105 group-hover:scale-100">
                     <Image src={NEXT_PROJECT.image} alt="Next Project" fill className="object-cover" />
                 </div>
-                <div className="absolute inset-0 bg-black/20" />
             </section>
-
         </main>
     );
 }

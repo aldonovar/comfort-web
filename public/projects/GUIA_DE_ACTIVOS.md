@@ -58,7 +58,14 @@ Si deseas reemplazar la imagen Hero por un video en loop.
 **Ubicación**: `/public/projects/luminaria-calida/`
 1. **Hero**: `hero.jpg` (1920x1080px).
 2. **Galería**: 12 imágenes nombradas `gallery-1.jpg` a `gallery-12.jpg`.
-   - **Nota**: Este diseño prioriza **fotos verticales** (tipo celular).
+### Damero Sol y Sombra
+**Ubicación**: `/public/projects/damero/`
+1. **Hero**: `hero.jpg` (1920x1080px).
+2. **Galería**: 11 Archivos.
+   - `gallery-1.mp4`, `gallery-3.mp4` a `gallery-8.mp4`, `gallery-10.mp4`
+   - `gallery-2.jpg`, `gallery-9.jpg`, `gallery-11.JPG`
+   - **Nota**: El diseño es "Scatter/Creative", soporta formatos variados.
+
 
 
 
