@@ -4,7 +4,8 @@ import { useRef, useEffect, useState } from "react";
 import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { SeamlessVideo } from "./SeamlessVideo";
+import SeamlessVideo from "./SeamlessVideo";
+
 
 gsap.registerPlugin(ScrollTrigger);
 
