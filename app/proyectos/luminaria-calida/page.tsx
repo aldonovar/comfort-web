@@ -16,19 +16,19 @@ const NEXT_PROJECT = {
 };
 
 const GALLERY_ITEMS = [
-    { src: "/projects/luminaria-calida/gallery-1.jpg", alt: "Detalle Vertical", aspect: "aspect-[9/16]", span: "md:row-span-2" },
-    { src: "/projects/luminaria-calida/gallery-2.jpg", alt: "Ambiente General", aspect: "aspect-[3/4]", span: "md:row-span-1" },
-    { src: "/projects/luminaria-calida/gallery-3.jpg", alt: "Iluminación Cenital", aspect: "aspect-[3/4]", span: "md:row-span-1" },
-    { src: "/projects/luminaria-calida/gallery-4.jpg", alt: "Perspectiva Alta", aspect: "aspect-[9/16]", span: "md:row-span-2" },
-    { src: "/projects/luminaria-calida/gallery-5.jpg", alt: "Detalle Material", aspect: "aspect-square", span: "md:row-span-1" },
+    { src: "/projects/luminaria-calida/gallery-1.MP4", alt: "Recorrido Vertical", aspect: "aspect-[9/16]", span: "md:row-span-2", type: "video" },
+    { src: "/projects/luminaria-calida/gallery-2.MP4", alt: "Detalle Iluminación 1", aspect: "aspect-[9/16]", span: "md:row-span-2", type: "video" },
+    { src: "/projects/luminaria-calida/gallery-11.JPEG", alt: "Foto Detalle Estructura", aspect: "aspect-[3/4]", span: "md:row-span-1", type: "image" },
+    { src: "/projects/luminaria-calida/gallery-3.MP4", alt: "Ambiente Nocturno", aspect: "aspect-[9/16]", span: "md:row-span-2", type: "video" },
+    { src: "/projects/luminaria-calida/gallery-4.MP4", alt: "Perspectiva Luz", aspect: "aspect-[9/16]", span: "md:row-span-2", type: "video" },
     { src: "quote", type: "text", content: "La calidez de la luz transforma la madera en un elemento vivo.", aspect: "aspect-square", span: "md:row-span-1" },
-    { src: "/projects/luminaria-calida/gallery-6.jpg", alt: "Vista Nocturna", aspect: "aspect-[3/4]", span: "md:row-span-1" },
-    { src: "/projects/luminaria-calida/gallery-7.jpg", alt: "Detalle Constructivo", aspect: "aspect-[9/16]", span: "md:row-span-2" },
-    { src: "/projects/luminaria-calida/gallery-8.jpg", alt: "Ambiente Deck", aspect: "aspect-[3/4]", span: "md:row-span-1" },
-    { src: "/projects/luminaria-calida/gallery-9.jpg", alt: "Iluminación Focal", aspect: "aspect-[3/4]", span: "md:row-span-1" },
-    { src: "/projects/luminaria-calida/gallery-10.jpg", alt: "Vista General", aspect: "aspect-video", span: "md:col-span-2" }, // Landscape break
-    { src: "/projects/luminaria-calida/gallery-11.jpg", alt: "Detalle Sutil", aspect: "aspect-[3/4]", span: "md:row-span-1" },
-    { src: "/projects/luminaria-calida/gallery-12.jpg", alt: "Cierre Visual", aspect: "aspect-[9/16]", span: "md:row-span-2" },
+    { src: "/projects/luminaria-calida/gallery-5.MP4", alt: "Juego de Sombras", aspect: "aspect-[9/16]", span: "md:row-span-2", type: "video" },
+    { src: "/projects/luminaria-calida/gallery-6.MP4", alt: "Vista General Video", aspect: "aspect-[9/16]", span: "md:row-span-2", type: "video" },
+    { src: "/projects/luminaria-calida/gallery-7.MP4", alt: "Detalle Constructivo Video", aspect: "aspect-[9/16]", span: "md:row-span-2", type: "video" },
+    { src: "/projects/luminaria-calida/gallery-8.MP4", alt: "Ambiente Deck Video", aspect: "aspect-[9/16]", span: "md:row-span-2", type: "video" },
+    { src: "/projects/luminaria-calida/gallery-10.MP4", alt: "Iluminación Focal Video", aspect: "aspect-[9/16]", span: "md:row-span-2", type: "video" },
+    { src: "/projects/luminaria-calida/gallery-9.MP4", alt: "Vista General 2", aspect: "aspect-[9/16]", span: "md:row-span-2", type: "video" },
+    { src: "/projects/luminaria-calida/gallery-12.MP4", alt: "Cierre Visual Video", aspect: "aspect-[9/16]", span: "md:row-span-2", type: "video" },
 ];
 
 export default function LuminariaCalidaPage() {
