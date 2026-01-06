@@ -6,6 +6,8 @@ import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import SeamlessVideo from "@/components/ui/SeamlessVideo";
+import { DynamicGalleryItem } from "@/components/ui/DynamicGalleryItem";
+
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -115,9 +117,7 @@ export default function TechoLedPage() {
                         <h3 className="font-serif text-3xl md:text-5xl text-[var(--text-primary)]">Galería Selecta</h3>
                     </div>
 
-                    import {DynamicGalleryItem} from "@/components/ui/DynamicGalleryItem";
 
-                    // ... (in component)
                     <div className="columns-1 md:columns-2 gap-6 space-y-6">
                         {GALLERY_ITEMS.map((item, index) => (
                             <DynamicGalleryItem
