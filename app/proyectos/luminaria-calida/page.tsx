@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import gsap from "gsap";
@@ -12,9 +12,10 @@ const NEXT_PROJECT = {
     label: "Siguiente Proyecto",
     title: "Damero Sol & Sombra",
     href: "/proyectos/damero",
-    image: "/projects/project-4.jpg" // Placeholder until specific project-4 is set
+    image: "/projects/project-4.jpg"
 };
 
+// Exact filenames from directory check
 const GALLERY_ITEMS = [
     { src: "/projects/luminaria-calida/gallery-1.MP4", alt: "Recorrido Vertical", aspect: "aspect-[9/16]", span: "md:row-span-2", type: "video" },
     { src: "/projects/luminaria-calida/gallery-2.MP4", alt: "Detalle Iluminación 1", aspect: "aspect-[9/16]", span: "md:row-span-2", type: "video" },
@@ -31,8 +32,49 @@ const GALLERY_ITEMS = [
     { src: "/projects/luminaria-calida/gallery-12.MP4", alt: "Cierre Visual Video", aspect: "aspect-[9/16]", span: "md:row-span-2", type: "video" },
 ];
 
+function InteractiveVideo({ src, aspect, isPlaying, onToggle }: { src: string, aspect: string, isPlaying: boolean, onToggle: () => void }) {
+    const videoRef = useRef<HTMLVideoElement>(null);
+
+    useEffect(() => {
+        if (videoRef.current) {
+            if (isPlaying) {
+                videoRef.current.play().catch(e => console.error("Play failed", e));
+            } else {
+                videoRef.current.pause();
+            }
+        }
+    }, [isPlaying]);
+
+    return (
+        <div className="relative w-full h-full cursor-pointer group" onClick={onToggle}>
+            <video
+                ref={videoRef}
+                src={src}
+                className="w-full h-full object-cover"
+                playsInline
+                loop
+                muted // Muted by default to ensure playability and non-intrusive. Can remove if sound is desired.
+            />
+            {/* Play Button Overlay - Visible when paused */}
+            <div className={`absolute inset-0 flex items-center justify-center bg-black/20 transition-all duration-300 ${isPlaying ? "opacity-0 pointer-events-none" : "opacity-100"}`}>
+                <div className="w-16 h-16 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/20 transition-transform group-hover:scale-110">
+                    <svg className="w-6 h-6 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M8 5v14l11-7z" />
+                    </svg>
+                </div>
+            </div>
+
+            {/* Playing Indicator - Optional */}
+            {isPlaying && (
+                <div className="absolute top-4 right-4 w-3 h-3 bg-red-500 rounded-full animate-pulse" />
+            )}
+        </div>
+    );
+}
+
 export default function LuminariaCalidaPage() {
     const containerRef = useRef<HTMLDivElement>(null);
+    const [playingIndex, setPlayingIndex] = useState<number | null>(null);
 
     useEffect(() => {
         const ctx = gsap.context(() => {
@@ -70,6 +112,10 @@ export default function LuminariaCalidaPage() {
 
         return () => ctx.revert();
     }, []);
+
+    const handleVideoClick = (index: number) => {
+        setPlayingIndex(prev => prev === index ? null : index);
+    };
 
     return (
         <main ref={containerRef} className="bg-[var(--bg-primary)] min-h-screen">
@@ -135,6 +181,13 @@ export default function LuminariaCalidaPage() {
                                             &ldquo;{item.content}&rdquo;
                                         </p>
                                     </div>
+                                ) : item.type === "video" ? (
+                                    <InteractiveVideo
+                                        src={item.src}
+                                        aspect={item.aspect}
+                                        isPlaying={playingIndex === index}
+                                        onToggle={() => handleVideoClick(index)}
+                                    />
                                 ) : (
                                     <>
                                         <Image
