@@ -19,6 +19,7 @@ interface DynamicGalleryItemProps {
     offset?: string; // Tailwind translate class
     className?: string; // Extra container classes
     priority?: boolean;
+    variant?: "standard" | "editorial" | "scatter" | "minimal";
 }
 
 export function DynamicGalleryItem({
@@ -44,36 +45,104 @@ export function DynamicGalleryItem({
             const media = mediaRef.current;
             if (!container || !media) return;
 
-            // 1. Reveal Animation (Scale Up + Fade)
-            gsap.fromTo(container,
-                { opacity: 0, y: 50, scale: 0.95 },
-                {
-                    opacity: 1,
-                    y: 0,
-                    scale: 1,
-                    duration: 1.2,
-                    ease: "power3.out",
-                    scrollTrigger: {
-                        trigger: container,
-                        start: "top 95%", // Start slightly earlier
-                        toggleActions: "play none none reverse"
-                    }
-                }
-            );
+            // Animation Logic based on Variant
+            switch (variant) {
+                case "scatter":
+                    // Slide up with stagger feel (approximated by generic duration)
+                    gsap.fromTo(container,
+                        { opacity: 0, y: 100 },
+                        {
+                            opacity: 1,
+                            y: 0,
+                            duration: 1.2,
+                            ease: "power3.out",
+                            scrollTrigger: {
+                                trigger: container,
+                                start: "top 90%",
+                            }
+                        }
+                    );
+                    break;
 
-            // 2. Internal Parallax (Image moves inside mask)
-            // Only valid if type is image/video (not text)
-            if (type !== "text") {
+                case "editorial":
+                    // Slower fade, strong parallax on media
+                    gsap.fromTo(container,
+                        { opacity: 0 },
+                        {
+                            opacity: 1,
+                            duration: 1.5,
+                            ease: "power2.inOut",
+                            scrollTrigger: {
+                                trigger: container,
+                                start: "top 85%",
+                            }
+                        }
+                    );
+
+                    if (media && type !== "text") {
+                        gsap.fromTo(media,
+                            { yPercent: -15, scale: 1.1 }, // Slight scale for coverage
+                            {
+                                yPercent: 15,
+                                ease: "none",
+                                scrollTrigger: {
+                                    trigger: container,
+                                    start: "top bottom",
+                                    end: "bottom top",
+                                    scrub: true
+                                }
+                            }
+                        );
+                    }
+                    return; // Return early as we handled media parallax here
+
+                case "minimal":
+                    // Just simple fade
+                    gsap.fromTo(container,
+                        { opacity: 0 },
+                        {
+                            opacity: 1,
+                            duration: 0.8,
+                            ease: "power1.out",
+                            scrollTrigger: {
+                                trigger: container,
+                                start: "top 90%",
+                            }
+                        }
+                    );
+                    break;
+
+                case "standard":
+                default:
+                    // Clean fade with slight slide
+                    gsap.fromTo(container,
+                        { opacity: 0, y: 30 },
+                        {
+                            opacity: 1,
+                            y: 0,
+                            duration: 1.0,
+                            ease: "power2.out",
+                            scrollTrigger: {
+                                trigger: container,
+                                start: "top 90%",
+                            }
+                        }
+                    );
+                    break;
+            }
+
+            // Default Parallax for non-editorial (less aggressive)
+            if (media && type !== "text" && variant !== "minimal") {
                 gsap.fromTo(media,
-                    { scale: 1.2, yPercent: -10 },
+                    { scale: 1.1, yPercent: -5 },
                     {
-                        yPercent: 10,
+                        yPercent: 5,
                         ease: "none",
                         scrollTrigger: {
                             trigger: container,
                             start: "top bottom",
                             end: "bottom top",
-                            scrub: 1
+                            scrub: true
                         }
                     }
                 );

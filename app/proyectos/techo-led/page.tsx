@@ -128,6 +128,7 @@ export default function TechoLedPage() {
                                 content={item.content}
                                 aspect={item.aspect}
                                 className="break-inside-avoid w-full mb-6"
+                                variant="standard"
                             />
                         ))}
                     </div>

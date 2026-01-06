@@ -138,6 +138,7 @@ export default function DameroPage() {
                                 aspect={item.aspect}
                                 span={item.span}
                                 offset={item.offset}
+                                variant="scatter"
                             />
                         ))}
                     </div>

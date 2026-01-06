@@ -130,6 +130,7 @@ export default function LuminariaCalidaPage() {
                                 content={item.content}
                                 aspect={item.aspect}
                                 span={item.span}
+                                variant="editorial"
                             />
                         ))}
                     </div>
