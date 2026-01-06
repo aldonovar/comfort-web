@@ -115,28 +115,23 @@ export default function TechoLedPage() {
                         <h3 className="font-serif text-3xl md:text-5xl text-[var(--text-primary)]">Galería Selecta</h3>
                     </div>
 
+                    import {DynamicGalleryItem} from "@/components/ui/DynamicGalleryItem";
+
+                    // ... (in component)
                     <div className="columns-1 md:columns-2 gap-6 space-y-6">
                         {GALLERY_ITEMS.map((item, index) => (
-                            <div key={index} className={`gallery-item break-inside-avoid relative ${item.aspect} overflow-hidden rounded-sm group bg-neutral-900 group`}>
-                                {item.type === "text" ? (
-                                    <div className="absolute inset-0 flex items-center justify-center p-8 bg-[#111] text-center border border-white/5">
-                                        <p className="font-serif text-2xl md:text-3xl text-white/80 italic leading-relaxed">
-                                            &ldquo;{item.content}&rdquo;
-                                        </p>
-                                    </div>
-                                ) : (
-                                    <Image
-                                        src={item.src}
-                                        alt={item.alt}
-                                        fill
-                                        className="object-cover transition-transform duration-1000 group-hover:scale-105 opacity-80 group-hover:opacity-100"
-                                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                                    />
-                                )}
-                                {item.type !== "text" && <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500 pointer-events-none" />}
-                            </div>
+                            <DynamicGalleryItem
+                                key={index}
+                                src={item.src}
+                                type={item.type as any}
+                                alt={item.alt}
+                                content={item.content}
+                                aspect={item.aspect}
+                                className="break-inside-avoid w-full mb-6"
+                            />
                         ))}
                     </div>
+
                 </div>
             </section>
 

@@ -32,49 +32,10 @@ const GALLERY_ITEMS = [
     { src: "/projects/luminaria-calida/gallery-12.MP4", alt: "Cierre Visual Video", aspect: "aspect-[9/16]", span: "md:row-span-2", type: "video" },
 ];
 
-function InteractiveVideo({ src, aspect, isPlaying, onToggle }: { src: string, aspect: string, isPlaying: boolean, onToggle: () => void }) {
-    const videoRef = useRef<HTMLVideoElement>(null);
-
-    useEffect(() => {
-        if (videoRef.current) {
-            if (isPlaying) {
-                videoRef.current.play().catch(e => console.error("Play failed", e));
-            } else {
-                videoRef.current.pause();
-            }
-        }
-    }, [isPlaying]);
-
-    return (
-        <div className="relative w-full h-full cursor-pointer group" onClick={onToggle}>
-            <video
-                ref={videoRef}
-                src={src}
-                className="w-full h-full object-cover"
-                playsInline
-                loop
-                muted // Muted by default to ensure playability and non-intrusive. Can remove if sound is desired.
-            />
-            {/* Play Button Overlay - Visible when paused */}
-            <div className={`absolute inset-0 flex items-center justify-center bg-black/20 transition-all duration-300 ${isPlaying ? "opacity-0 pointer-events-none" : "opacity-100"}`}>
-                <div className="w-16 h-16 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/20 transition-transform group-hover:scale-110">
-                    <svg className="w-6 h-6 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M8 5v14l11-7z" />
-                    </svg>
-                </div>
-            </div>
-
-            {/* Playing Indicator - Optional */}
-            {isPlaying && (
-                <div className="absolute top-4 right-4 w-3 h-3 bg-red-500 rounded-full animate-pulse" />
-            )}
-        </div>
-    );
-}
+import { DynamicGalleryItem } from "@/components/ui/DynamicGalleryItem";
 
 export default function LuminariaCalidaPage() {
     const containerRef = useRef<HTMLDivElement>(null);
-    const [playingIndex, setPlayingIndex] = useState<number | null>(null);
 
     useEffect(() => {
         const ctx = gsap.context(() => {
@@ -101,21 +62,12 @@ export default function LuminariaCalidaPage() {
                     start: "top 80%"
                 }
             });
-
-            // Gallery Stagger
-            ScrollTrigger.batch(".gallery-item", {
-                onEnter: batch => gsap.to(batch, { opacity: 1, y: 0, stagger: 0.1, overwrite: true }),
-                start: "top 90%"
-            });
+            // Note: Batch reveal logic is now internal to DynamicGalleryItem for better per-item control.
 
         }, containerRef);
 
         return () => ctx.revert();
     }, []);
-
-    const handleVideoClick = (index: number) => {
-        setPlayingIndex(prev => prev === index ? null : index);
-    };
 
     return (
         <main ref={containerRef} className="bg-[var(--bg-primary)] min-h-screen">
@@ -160,7 +112,7 @@ export default function LuminariaCalidaPage() {
                 </div>
             </section>
 
-            {/* --- CREATIVE GALLERY (Bento/Masonry) --- */}
+            {/* CREATIVE GALLERY (Vertical Focus) */}
             <section className="py-24 px-4 md:px-12 bg-[#080808]">
                 <div className="max-w-[1600px] mx-auto">
                     <div className="mb-20 text-center">
@@ -168,39 +120,17 @@ export default function LuminariaCalidaPage() {
                         <h3 className="font-serif text-3xl md:text-5xl text-[var(--text-primary)]">Galería de Detalles</h3>
                     </div>
 
-                    {/* Grid Layout that respects verticality */}
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 auto-rows-[300px] md:auto-rows-[400px]">
                         {GALLERY_ITEMS.map((item, index) => (
-                            <div
+                            <DynamicGalleryItem
                                 key={index}
-                                className={`gallery-item relative overflow-hidden rounded-sm group bg-neutral-900 ${item.span || ""}`}
-                            >
-                                {item.type === "text" ? (
-                                    <div className="absolute inset-0 flex items-center justify-center p-8 bg-[#111] text-center border border-white/5 h-full">
-                                        <p className="font-serif text-xl md:text-2xl text-white/80 italic leading-relaxed">
-                                            &ldquo;{item.content}&rdquo;
-                                        </p>
-                                    </div>
-                                ) : item.type === "video" ? (
-                                    <InteractiveVideo
-                                        src={item.src}
-                                        aspect={item.aspect}
-                                        isPlaying={playingIndex === index}
-                                        onToggle={() => handleVideoClick(index)}
-                                    />
-                                ) : (
-                                    <>
-                                        <Image
-                                            src={item.src}
-                                            alt={item.alt || "Project Image"}
-                                            fill
-                                            className="object-cover transition-transform duration-1000 group-hover:scale-105 opacity-80 group-hover:opacity-100"
-                                            sizes="(max-width: 768px) 100vw, 33vw"
-                                        />
-                                        <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500 pointer-events-none" />
-                                    </>
-                                )}
-                            </div>
+                                src={item.src}
+                                type={item.type as any}
+                                alt={item.alt}
+                                content={item.content}
+                                aspect={item.aspect}
+                                span={item.span}
+                            />
                         ))}
                     </div>
                 </div>

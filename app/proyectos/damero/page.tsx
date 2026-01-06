@@ -43,43 +43,10 @@ const GALLERY_ITEMS = [
     { src: "/projects/damero/gallery-11.JPG", alt: "Detalle Estructural", aspect: "aspect-square", span: "md:col-span-1 md:row-span-1", type: "image" },
 ];
 
-function InteractiveVideo({ src, aspect, isPlaying, onToggle }: { src: string, aspect: string, isPlaying: boolean, onToggle: () => void }) {
-    const videoRef = useRef<HTMLVideoElement>(null);
-
-    useEffect(() => {
-        if (videoRef.current) {
-            if (isPlaying) {
-                videoRef.current.play().catch(e => console.error("Play failed", e));
-            } else {
-                videoRef.current.pause();
-            }
-        }
-    }, [isPlaying]);
-
-    return (
-        <div className="relative w-full h-full cursor-pointer group" onClick={onToggle}>
-            <video
-                ref={videoRef}
-                src={src}
-                className="w-full h-full object-cover"
-                playsInline
-                loop
-                muted
-            />
-            <div className={`absolute inset-0 flex items-center justify-center bg-black/20 transition-all duration-300 ${isPlaying ? "opacity-0 pointer-events-none" : "opacity-100"}`}>
-                <div className="w-16 h-16 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/20 transition-transform group-hover:scale-110">
-                    <svg className="w-6 h-6 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M8 5v14l11-7z" />
-                    </svg>
-                </div>
-            </div>
-        </div>
-    );
-}
+import { DynamicGalleryItem } from "@/components/ui/DynamicGalleryItem";
 
 export default function DameroPage() {
     const containerRef = useRef<HTMLDivElement>(null);
-    const [playingIndex, setPlayingIndex] = useState<number | null>(null);
 
     useEffect(() => {
         const ctx = gsap.context(() => {
@@ -104,20 +71,12 @@ export default function DameroPage() {
                     start: "top 80%"
                 }
             });
-
-            ScrollTrigger.batch(".gallery-item", {
-                onEnter: batch => gsap.to(batch, { opacity: 1, y: 0, stagger: 0.1, overwrite: true }),
-                start: "top 90%"
-            });
+            // Note: Batch reveal logic is now internal to DynamicGalleryItem for better per-item control.
 
         }, containerRef);
 
         return () => ctx.revert();
     }, []);
-
-    const handleVideoClick = (index: number) => {
-        setPlayingIndex(prev => prev === index ? null : index);
-    };
 
     return (
         <main ref={containerRef} className="bg-[var(--bg-primary)] min-h-screen">
@@ -170,42 +129,16 @@ export default function DameroPage() {
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-x-12 md:gap-y-24 auto-rows-min">
                         {GALLERY_ITEMS.map((item, index) => (
-                            <div
+                            <DynamicGalleryItem
                                 key={index}
-                                className={`
-                                    gallery-item relative overflow-hidden rounded-sm group bg-neutral-900 shadow-2xl
-                                    ${item.span || ""}
-                                    ${item.aspect}
-                                    ${item.offset || ""}
-                                    transition-transform duration-700
-                                `}
-                            >
-                                {item.type === "text" ? (
-                                    <div className="absolute inset-0 flex items-center justify-center p-8 bg-neutral-800 text-center h-full border border-white/5">
-                                        <p className="font-serif text-xl text-white/90 italic leading-relaxed">
-                                            &ldquo;{item.content}&rdquo;
-                                        </p>
-                                    </div>
-                                ) : item.type === "video" ? (
-                                    <InteractiveVideo
-                                        src={item.src}
-                                        aspect={item.aspect}
-                                        isPlaying={playingIndex === index}
-                                        onToggle={() => handleVideoClick(index)}
-                                    />
-                                ) : (
-                                    <div className="relative w-full h-full">
-                                        <Image
-                                            src={item.src}
-                                            alt={item.alt || "Detalle"}
-                                            fill
-                                            className="object-cover transition-transform duration-1000 group-hover:scale-105"
-                                            sizes="(max-width: 768px) 100vw, 33vw"
-                                        />
-                                        <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-500" />
-                                    </div>
-                                )}
-                            </div>
+                                src={item.src}
+                                type={item.type as any}
+                                alt={item.alt}
+                                content={item.content}
+                                aspect={item.aspect}
+                                span={item.span}
+                                offset={item.offset}
+                            />
                         ))}
                     </div>
                 </div>
