@@ -31,7 +31,8 @@ export function DynamicGalleryItem({
     span = "",
     offset = "",
     className = "",
-    priority = false
+    priority = false,
+    variant = "standard"
 }: DynamicGalleryItemProps) {
     const containerRef = useRef<HTMLDivElement>(null);
     const mediaRef = useRef<HTMLDivElement>(null);
