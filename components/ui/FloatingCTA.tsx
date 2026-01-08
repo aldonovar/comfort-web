@@ -3,7 +3,7 @@
 export default function FloatingCTA() {
   return (
     <a
-      href="https://wa.me/51936230958"
+      href="https://wa.me/51936230958?text=Hola%20Comfort%20Studio,%20me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%20sobre%20sus%20servicios."
       target="_blank"
       rel="noreferrer"
       className="fixed bottom-6 right-5 z-40 inline-flex items-center justify-center rounded-full bg-[#25D366] text-white p-4 shadow-lg hover:bg-[#128C7E] transition-all duration-300 hover:scale-110"
