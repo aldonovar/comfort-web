@@ -6,6 +6,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { View } from "@react-three/drei";
 import dynamic from "next/dynamic";
+import Button from "../ui/Button";
 
 const ProjectDistortion = dynamic(() => import("../canvas/ProjectDistortion"), { ssr: false });
 
@@ -196,10 +197,9 @@ export default function Proyectos() {
                       {project.description}
                     </p>
 
-                    <button className="group/btn inline-flex items-center gap-3 px-6 py-3 md:px-8 md:py-4 rounded-full bg-white text-black hover:bg-terracota hover:text-white transition-all duration-300 pointer-events-auto">
-                      <span className="uppercase tracking-widest text-xs font-bold">Ver Proyecto</span>
-                      <span className="transform group-hover/btn:translate-x-1 transition-transform">→</span>
-                    </button>
+                    <Button className="pointer-events-auto" variant="secondary">
+                      Ver Proyecto
+                    </Button>
                   </div>
 
                 </div>

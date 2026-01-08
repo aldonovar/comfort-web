@@ -5,6 +5,7 @@ import { useSearchParams } from "next/navigation";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
+import Button from "../ui/Button";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -482,21 +483,14 @@ ${notes || "Sin detalles adicionales."}`;
                   </div>
                 </div>
 
-                <button
+                <Button
                   type="submit"
                   disabled={!isFormReady || isSubmitting}
-                  className={`
-                    group w-full py-3 md:py-3.5 rounded-lg md:rounded-xl transition-all duration-500 flex items-center justify-center gap-3 mt-2
-                    ${isFormReady && !isSubmitting
-                      ? 'bg-terracota text-white shadow-lg shadow-terracota/20 hover:shadow-terracota/40 hover:scale-[1.01] cursor-pointer'
-                      : 'bg-madera/5 dark:bg-crema/5 text-madera/20 dark:text-crema/20 cursor-not-allowed border border-madera/5 dark:border-crema/5'}
-                  `}
+                  className="w-full mt-2"
+                  variant="primary"
                 >
-                  <span className="uppercase tracking-widest text-xs font-bold">
-                    {isSubmitting ? "Procesando..." : "Solicitar Cotización"}
-                  </span>
-                  {!isSubmitting && <span className="transform group-hover:translate-x-1 transition-transform">→</span>}
-                </button>
+                  {isSubmitting ? "Procesando..." : "Solicitar Cotización"}
+                </Button>
               </form>
             </div>
           </div>

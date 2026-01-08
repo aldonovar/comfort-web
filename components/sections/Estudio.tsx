@@ -5,6 +5,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
 import Link from "next/link";
+import Button from "../ui/Button";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -170,12 +171,9 @@ export default function Estudio() {
                 Coordinamos permisos, proveedores y tiempos. Tú disfrutas, nosotros resolvemos.
               </p>
 
-              <Link href="/estudio" className="panel-anim group relative inline-flex px-8 py-4 bg-white text-terracota rounded-full overflow-hidden transition-all duration-300 hover:shadow-xl hover:scale-105 active:scale-95">
-                <span className="relative z-10 flex items-center gap-3 text-xs font-bold uppercase tracking-widest">
-                  Ver Estudio
-                  <span className="transform group-hover:translate-x-1 transition-transform">→</span>
-                </span>
-              </Link>
+              <Button href="/estudio" variant="secondary" className="panel-anim">
+                Ver Estudio
+              </Button>
             </div>
 
             <div className="panel-anim grid grid-cols-2 gap-y-8 gap-x-4 md:gap-16 border-t md:border-t-0 border-white/20 pt-8 md:pt-0">
