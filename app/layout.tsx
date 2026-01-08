@@ -1,6 +1,19 @@
 import "./globals.css";
 import ClientLayout from "../components/layout/ClientLayout";
 import { Metadata } from "next";
+import { Inter, Playfair_Display } from "next/font/google";
+
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+  display: "swap",
+});
+
+const playfair = Playfair_Display({
+  subsets: ["latin"],
+  variable: "--font-playfair",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "Comfort Studio | Arquitectura de Terrazas",
@@ -12,12 +25,11 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="es" suppressHydrationWarning>
+    <html lang="es" suppressHydrationWarning className={`${inter.variable} ${playfair.variable}`}>
       <head>
-        {/* Fonts */}
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+        {/* Fonts are now handled by next/font */}
       </head>
-      <body className="antialiased selection:bg-terracota selection:text-white">
+      <body className="antialiased selection:bg-terracota selection:text-white font-sans">
         <ClientLayout>
           {children}
         </ClientLayout>

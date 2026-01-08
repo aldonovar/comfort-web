@@ -20,6 +20,7 @@ export default function Scene({ style, ...props }: SceneProps) {
                 zIndex: 0, // Behind content by default, or adjust as needed
                 ...style,
             }}
+            dpr={[1, 1.5]} // Optimize for mobile: clamp pixel ratio to 1.5
             eventSource={typeof document !== "undefined" ? document.body : undefined}
             eventPrefix="client"
             {...props}

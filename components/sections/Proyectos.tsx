@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useLayoutEffect } from "react";
 import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -59,7 +59,7 @@ export default function Proyectos() {
   const [hoveredProject, setHoveredProject] = useState<string | null>(null);
   const [isMobile, setIsMobile] = useState(false);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     // Mobile Detection
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768);
@@ -157,7 +157,7 @@ export default function Proyectos() {
                 <img
                   src={project.image}
                   alt={project.title}
-                  className="absolute inset-0 w-full h-full object-cover z-0"
+                  className="project-image-mobile absolute inset-0 w-full h-full object-cover z-0"
                 />
 
                 {/* Gradient Overlay - Needs to be on top of canvas */}

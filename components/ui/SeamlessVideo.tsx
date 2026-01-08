@@ -11,7 +11,7 @@ interface SeamlessVideoProps {
 
 export default function SeamlessVideo({ src, className, poster }: SeamlessVideoProps) {
     const videoRef = useRef<HTMLVideoElement>(null);
-    const [isFading, setIsFading] = useState(false);
+    const isFadingRef = useRef(false); // Use ref to avoid re-renders and dependency changes
 
     useEffect(() => {
         const video = videoRef.current;
@@ -25,8 +25,8 @@ export default function SeamlessVideo({ src, className, poster }: SeamlessVideoP
             // Start fading out before the end
             const timeLeft = video.duration - video.currentTime;
 
-            if (timeLeft <= fadeDuration && !isFading) {
-                setIsFading(true);
+            if (timeLeft <= fadeDuration && !isFadingRef.current) {
+                isFadingRef.current = true;
                 gsap.to(video, { opacity: 0, duration: fadeDuration, ease: "power1.inOut" });
             }
         };
@@ -36,7 +36,7 @@ export default function SeamlessVideo({ src, className, poster }: SeamlessVideoP
             video.currentTime = 0;
             video.play().then(() => {
                 gsap.to(video, { opacity: 1, duration: 1.0, ease: "power1.inOut" });
-                setIsFading(false);
+                isFadingRef.current = false;
             });
         };
 
@@ -52,7 +52,7 @@ export default function SeamlessVideo({ src, className, poster }: SeamlessVideoP
             video.removeEventListener("timeupdate", checkTime);
             video.removeEventListener("ended", handleEnded);
         };
-    }, [isFading]);
+    }, []);
 
     return (
         <video

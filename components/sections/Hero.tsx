@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useLayoutEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Link from "next/link";
+import Image from "next/image";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -60,53 +61,55 @@ export default function Hero() {
     return () => clearInterval(interval);
   }, []);
 
-  useEffect(() => {
-    // Entrance Animation (Simplified for Headline)
-    const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+  useLayoutEffect(() => {
+    const ctx = gsap.context(() => {
+      // Entrance Animation (Simplified for Headline)
+      const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
 
-    // Headline: Simple fade in, no stagger/movement
-    tl.fromTo(textRef.current,
-      { opacity: 0, y: 20 },
-      { opacity: 1, y: 0, duration: 1.5 }
-    );
-
-    // Stats Card: Slide in from right
-    if (cardRef.current) {
-      tl.fromTo(cardRef.current,
-        { x: 100, opacity: 0 },
-        { x: 0, opacity: 1, duration: 1.2, delay: 0.5 },
-        "-=1.0"
+      // Headline: Simple fade in, no stagger/movement
+      tl.fromTo(textRef.current,
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 1.5 }
       );
-    }
 
-    // Parallax Effect for Background
-    if (bgRef.current) {
-      gsap.to(bgRef.current, {
-        yPercent: 30,
-        ease: "none",
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: "top top",
-          end: "bottom top",
-          scrub: true
-        }
-      });
-    }
+      // Stats Card: Slide in from right
+      if (cardRef.current) {
+        tl.fromTo(cardRef.current,
+          { x: 100, opacity: 0 },
+          { x: 0, opacity: 1, duration: 1.2, delay: 0.5 },
+          "-=1.0"
+        );
+      }
 
-    // Rotate Stamp
-    if (stampRef.current) {
-      gsap.to(stampRef.current, {
-        rotation: 360,
-        duration: 20,
-        repeat: -1,
-        ease: "linear"
-      });
-    }
+      // Parallax Effect for Background
+      if (bgRef.current) {
+        gsap.to(bgRef.current, {
+          yPercent: 30,
+          ease: "none",
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: "top top",
+            end: "bottom top",
+            scrub: true
+          }
+        });
+      }
 
+      // Rotate Stamp
+      if (stampRef.current) {
+        gsap.to(stampRef.current, {
+          rotation: 360,
+          duration: 20,
+          repeat: -1,
+          ease: "linear"
+        });
+      }
+    }, containerRef); // Scope to container
+
+    return () => ctx.revert(); // Cleanup GSAP
   }, []);
 
   // Performance Optimized Tilt Logic (Vanilla JS + rAF)
-  // This avoids React State and guarantees 60fps performance without input delay
   useEffect(() => {
     if (!containerRef.current || !cardRef.current) return;
 
@@ -121,39 +124,36 @@ export default function Hero() {
     const onResize = () => {
       bounds = container.getBoundingClientRect();
     };
-    window.addEventListener('resize', onResize);
+    // Use passive listener for better scroll performance
+    window.addEventListener('resize', onResize, { passive: true });
 
     const onMouseMove = (e: MouseEvent) => {
       mouseX = e.clientX - bounds.left;
       mouseY = e.clientY - bounds.top;
 
-      // Request update
       if (!rafId) {
         rafId = requestAnimationFrame(updateCard);
       }
     };
 
     const updateCard = () => {
-      // Calculate tilt logic relative to the container center
       const centerX = bounds.width / 2;
       const centerY = bounds.height / 2;
 
       // Invert X/Y for natural feel
-      const rotateX = ((mouseY - centerY) / centerY) * -5; // Max 5deg tilt
+      const rotateX = ((mouseY - centerY) / centerY) * -5;
       const rotateY = ((mouseX - centerX) / centerX) * 5;
 
-      // Apply transform directly to DOM element
       card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-
-      rafId = 0; // Reset
+      rafId = 0;
     };
 
     const onMouseLeave = () => {
       card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg)`;
     };
 
-    container.addEventListener('mousemove', onMouseMove);
-    container.addEventListener('mouseleave', onMouseLeave);
+    container.addEventListener('mousemove', onMouseMove, { passive: true });
+    container.addEventListener('mouseleave', onMouseLeave, { passive: true });
 
     return () => {
       window.removeEventListener('resize', onResize);
@@ -174,9 +174,18 @@ export default function Hero() {
         {HERO_IMAGES.map((img, index) => (
           <div
             key={img}
-            className={`absolute inset-0 bg-cover bg-center transition-opacity duration-1000 ease-in-out ${index === currentImageIndex ? 'opacity-100' : 'opacity-0'}`}
-            style={{ backgroundImage: `url('${img}')` }}
-          />
+            className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${index === currentImageIndex ? 'opacity-100' : 'opacity-0'}`}
+          >
+            <Image
+              src={img}
+              alt="Comfort Studio Hero Background"
+              fill
+              priority={index === 0} // Prioritize first image for LCP
+              className="object-cover object-center md:object-center"
+              quality={90}
+              placeholder="empty" // Could add blur data props if generated
+            />
+          </div>
         ))}
 
         {/* Global Overlay for Contrast */}
@@ -185,8 +194,9 @@ export default function Hero() {
         {/* Navbar Gradient (Top) */}
         <div className="absolute inset-x-0 top-0 h-40 bg-linear-to-b from-black/80 to-transparent z-10 pointer-events-none" />
 
-        {/* Text Gradient (Left) - Stronger for White Text */}
-        <div className="absolute inset-y-0 left-0 w-full md:w-3/4 bg-linear-to-r from-black/90 via-black/50 to-transparent z-10 pointer-events-none" />
+        {/* Text Gradient (Mobile: Top-Down, Desktop: Left-Right) */}
+        <div className="absolute inset-0 bg-linear-to-b from-black/80 via-black/40 to-transparent md:hidden z-10 pointer-events-none" />
+        <div className="hidden md:block absolute inset-y-0 left-0 w-3/4 bg-linear-to-r from-black/90 via-black/50 to-transparent z-10 pointer-events-none" />
       </div>
 
       {/* Content Grid */}
@@ -196,7 +206,7 @@ export default function Hero() {
         <div ref={textRef} className="md:col-span-7 flex flex-col justify-center space-y-8">
           <div className="w-20 h-px bg-terracota mb-4" />
 
-          <h1 className="font-serif text-5xl md:text-8xl leading-[1.1] md:leading-[0.9] tracking-tight text-white mb-6 md:mb-0">
+          <h1 className="font-serif text-4xl md:text-8xl leading-[1.1] md:leading-[0.9] tracking-tight text-white mb-6 md:mb-0">
             Terrazas que se <br />
             <span className="italic text-terracota">sienten hogar</span> <br />
             desde el inicio.

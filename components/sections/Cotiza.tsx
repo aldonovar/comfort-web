@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState, useRef } from "react";
+import { useEffect, useMemo, useState, useRef, useLayoutEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -98,27 +98,27 @@ const CustomSelect = ({
 
   return (
     <div className={`group relative ${isOpen ? 'z-60' : 'z-20'}`} ref={containerRef}>
-      <label className="block text-[9px] uppercase tracking-widest text-madera dark:text-crema mb-1 group-focus-within:text-terracota transition-colors font-bold pl-1">
+      <label className="block text-[9px] uppercase tracking-widest text-madera dark:text-white mb-1 group-focus-within:text-terracota transition-colors font-bold pl-1">
         {label}
       </label>
 
       <div
         onClick={() => setIsOpen(!isOpen)}
         className={`
-          w-full bg-madera/5 dark:bg-crema/5 hover:bg-madera/10 dark:hover:bg-crema/10 rounded-lg px-3 py-2 text-xs md:text-sm cursor-pointer flex justify-between items-center transition-all duration-300 border border-madera/10 dark:border-crema/10 backdrop-blur-sm
+          w-full bg-madera/5 dark:bg-white/10 hover:bg-madera/10 dark:hover:bg-white/15 rounded-lg px-3 py-2 text-xs md:text-sm cursor-pointer flex justify-between items-center transition-all duration-300 border border-madera/10 dark:border-white/10 backdrop-blur-sm
           ${isOpen ? 'ring-1 ring-terracota border-terracota/50' : ''}
         `}
       >
-        <span className={`truncate mr-2 ${value ? "text-madera dark:text-crema font-medium" : "text-madera/60 dark:text-crema/60"}`}>
+        <span className={`truncate mr-2 ${value ? "text-madera dark:text-white font-medium" : "text-madera/60 dark:text-white/60"}`}>
           {displayValue || placeholder}
         </span>
-        <span className={`text-[9px] text-madera/60 dark:text-crema/60 transform transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}>
+        <span className={`text-[9px] text-madera/60 dark:text-white/60 transform transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}>
           ▼
         </span>
       </div>
 
       <div className={`
-        absolute left-0 right-0 top-full mt-1 bg-white dark:bg-zinc-900 border border-madera/10 dark:border-crema/10 rounded-lg overflow-hidden shadow-xl origin-top transition-all duration-300 max-h-52 overflow-y-auto z-70
+        absolute left-0 right-0 top-full mt-1 bg-white dark:bg-zinc-900 border border-madera/10 dark:border-white/10 rounded-lg overflow-hidden shadow-xl origin-top transition-all duration-300 max-h-52 overflow-y-auto z-70
         ${isOpen ? 'opacity-100 scale-y-100 translate-y-0 pointer-events-auto' : 'opacity-0 scale-y-95 -translate-y-2 pointer-events-none'}
       `}>
         {options.map((opt) => {
@@ -132,10 +132,10 @@ const CustomSelect = ({
                 setIsOpen(false);
               }}
               className={`
-                px-3 py-2 text-xs md:text-sm cursor-pointer transition-colors border-b border-madera/5 dark:border-madera/5 last:border-0
+                px-3 py-2 text-xs md:text-sm cursor-pointer transition-colors border-b border-madera/5 dark:border-white/5 last:border-0
                 ${value === optValue
                   ? 'bg-terracota text-white'
-                  : 'text-madera hover:bg-madera/5 dark:hover:bg-crema/5 hover:text-madera dark:text-crema dark:hover:text-crema'}
+                  : 'text-madera hover:bg-madera/5 dark:hover:bg-white/5 hover:text-madera dark:text-white dark:hover:text-white'}
               `}
             >
               {optLabel}
@@ -163,15 +163,15 @@ const CustomInput = ({
   optional?: boolean
 }) => (
   <div className="group">
-    <label className="block text-[9px] uppercase tracking-widest text-madera dark:text-crema mb-1 group-focus-within:text-terracota transition-colors font-bold pl-1">
-      {label} {optional && <span className="text-madera/40 dark:text-crema/40 normal-case tracking-normal ml-1 font-normal">(Opcional)</span>}
+    <label className="block text-[9px] uppercase tracking-widest text-madera dark:text-white mb-1 group-focus-within:text-terracota transition-colors font-bold pl-1">
+      {label} {optional && <span className="text-madera/40 dark:text-white/40 normal-case tracking-normal ml-1 font-normal">(Opcional)</span>}
     </label>
     <input
       type={type}
       value={value}
       onChange={(e) => onChange(e.target.value)}
       placeholder={placeholder}
-      className="w-full bg-madera/5 dark:bg-crema/5 hover:bg-madera/10 dark:hover:bg-crema/10 rounded-lg px-3 py-2 text-xs md:text-sm focus:outline-none focus:ring-1 focus:ring-terracota focus:border-terracota/50 transition-all duration-300 placeholder-madera/40 dark:placeholder-crema/40 text-madera dark:text-crema font-medium border border-madera/10 dark:border-crema/10 backdrop-blur-sm"
+      className="w-full bg-madera/5 dark:bg-white/10 hover:bg-madera/10 dark:hover:bg-white/15 rounded-lg px-3 py-2 text-xs md:text-sm focus:outline-none focus:ring-1 focus:ring-terracota focus:border-terracota/50 transition-all duration-300 placeholder-madera/40 dark:placeholder-white/40 text-madera dark:text-white font-medium border border-madera/10 dark:border-white/10 backdrop-blur-sm"
     />
   </div>
 );
@@ -229,7 +229,7 @@ export default function Cotiza({ isPage = false }: { isPage?: boolean }) {
   }, [projectType]);
 
   // Animation
-  useEffect(() => {
+  useLayoutEffect(() => {
     const ctx = gsap.context(() => {
       gsap.from(".quote-content", {
         y: 30,
