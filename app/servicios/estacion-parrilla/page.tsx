@@ -3,6 +3,7 @@
 import { useEffect, useLayoutEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import Button from "@/components/ui/Button";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -229,13 +230,15 @@ export default function ParrillaPage() {
                     <h2 className="font-serif text-5xl md:text-8xl mb-12 leading-tight">
                         Tu pasión merece <br /> el mejor escenario.
                     </h2>
-                    <Link
-                        href="/cotiza?tipo=Proyecto%20Estación%20de%20Parrilla"
-                        className="inline-flex items-center gap-4 px-12 py-6 bg-black text-white rounded-full text-lg uppercase tracking-widest hover:scale-105 transition-transform duration-300"
-                    >
-                        <span>Cotizar Estación</span>
-                        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
-                    </Link>
+                    <div className="flex justify-center">
+                        <Button
+                            href="/cotiza?tipo=Proyecto%20Estación%20de%20Parrilla"
+                            variant="secondary"
+                            className="px-12 py-6 text-lg"
+                        >
+                            Cotizar Estación
+                        </Button>
+                    </div>
                 </div>
             </section>
 
