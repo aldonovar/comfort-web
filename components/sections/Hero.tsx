@@ -222,7 +222,7 @@ export default function Hero() {
               Cotizar Proyecto
             </Button>
 
-            <Button href="https://wa.me/51936230958?text=Hola%20Comfort%20Studio,%20quisiera%20agendar%20una%20reunión." variant="outline" target="_blank">
+            <Button href="https://calendly.com/comfortstudioperu/30min" variant="outline" target="_blank">
               Agendar Reunión
             </Button>
           </div>
