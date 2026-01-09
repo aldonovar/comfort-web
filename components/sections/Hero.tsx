@@ -195,9 +195,8 @@ export default function Hero() {
         {/* Navbar Gradient (Top) */}
         <div className="absolute inset-x-0 top-0 h-40 bg-linear-to-b from-black/80 to-transparent z-10 pointer-events-none" />
 
-        {/* Text Gradient (Mobile: Top-Down, Desktop: Left-Right) */}
-        <div className="absolute inset-0 bg-linear-to-b from-black/80 via-black/40 to-transparent md:hidden z-10 pointer-events-none" />
-        <div className="hidden md:block absolute inset-y-0 left-0 w-3/4 bg-linear-to-r from-black/90 via-black/50 to-transparent z-10 pointer-events-none" />
+        {/* Global Dark Gradient */}
+        <div className="absolute inset-0 bg-linear-to-r from-black/90 via-black/50 to-transparent z-10 pointer-events-none" />
       </div>
 
       {/* Content Grid */}
@@ -223,7 +222,7 @@ export default function Hero() {
               Cotizar Proyecto
             </Button>
 
-            <Button href="/contacto" variant="outline">
+            <Button href="https://wa.me/51936230958?text=Hola%20Comfort%20Studio,%20quisiera%20agendar%20una%20reunión." variant="outline" target="_blank">
               Agendar Reunión
             </Button>
           </div>
